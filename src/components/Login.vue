@@ -11,6 +11,8 @@
       </ul>
     </div>
     <div class="card-body">
+      <img src="../assets/twitter.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
+
       <form id="login">
         <div class="form-group">
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -40,5 +42,9 @@ export default {
   border: none;
   border-radius: 0;
   border-bottom: solid #c0c0c0 thin;
+}
+
+#falkoLogoLogin {
+  width: 11em;
 }
 </style>
