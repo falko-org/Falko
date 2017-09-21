@@ -1,6 +1,6 @@
 <template>
-  <div class="card" id="bar">
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <div class="card" id="loginRegisterComponent">
+    <ul class="nav mb-3 justify-content-around" id="pills-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-expanded="true">Log In</a>
       </li>
@@ -32,5 +32,26 @@ export default {
 </script>
 
 <style>
+#loginRegisterComponent {
+  max-width: 20em;
+}
+
+.nav-link {
+  color: #8B9598;
+  padding-top: 1em;
+  padding-bottom: 0.4em;
+}
+
+.nav-link:hover {
+  color: #8B9598;
+  border-bottom: 0.25em solid #CAD5D9;
+  transition: border .3s ease;
+}
+
+.nav-link.active {
+  color: #5D6A6F;
+  border-bottom: 0.25em solid #86B1B1;
+}
+
 
 </style>

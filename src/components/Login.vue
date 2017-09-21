@@ -1,5 +1,5 @@
 <template>
-  <div class="card" id="login">
+  <div id="login">
     <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
 

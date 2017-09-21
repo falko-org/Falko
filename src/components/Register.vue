@@ -1,5 +1,5 @@
 <template>
-  <div class="card" id="register">
+  <div id="register">
     <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoRegister">
 
