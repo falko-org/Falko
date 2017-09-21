@@ -1,6 +1,6 @@
 <template>
   <div class="card" id="login">
-    <div class="card-body tab-pane fade show active" id="loginPanel" role="tabpanel" aria-labelledby="pills-home-tab">
+    <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
 
       <form id="loginForm">
