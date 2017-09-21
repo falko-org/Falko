@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
+import HomePage from '@/components/HomePage'
 
 Vue.use(Router)
 
@@ -31,6 +32,12 @@ export default new Router({
       path: '/loginregister',
       name: 'LoginRegister',
       component: LoginRegister
+    },
+
+    {
+      path: '/home',
+      name: 'HomePage',
+      component: HomePage
     }
   ]
 })
