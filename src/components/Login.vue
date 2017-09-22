@@ -38,6 +38,7 @@ export default {
   border: none;
   border-radius: 0;
   border-bottom: solid #c0c0c0 thin;
+  padding-left: 0;
 }
 
 #falkoLogoLogin {

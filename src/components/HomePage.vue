@@ -62,6 +62,10 @@
 
       </div>
     </div>
+    <div class="card-footer" id="footer">
+      <a>
+Copyright (c) 2017 Falko - UnB-FGA (GPP/MDS) Grupo 8 Segundo Semestre de 2017</a>
+    </div>
   </div>
 </template>
 
@@ -146,4 +150,15 @@ h1 {
 #sectionDark {
   background-color: #0C2C39;
 }
+
+#footer {
+  background-color: #01161E;
+  margin: 0;
+  max-height: 3em;
+  font-size: smaller;
+  color: #598392;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 </style>
