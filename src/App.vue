@@ -10,9 +10,18 @@
             <div class="form pesquisa my-2 my-lg-0">
               <input type="text" class="form-control" placeholder="Search">
             </div>
-      </nav>    
-    <router-view>
-    </router-view>
+      </nav>
+
+      <div class="row h-100 container.fluid">
+        <div class="col-md-2" id="sidebar">
+          <div class="Tags">
+            <img src="./assets/user.png" alt="avatar" width="80" height="80" id="userPic">
+
+          </div>
+        </div>
+        <div class="col-pt-2"></div>
+       <router-view></router-view>
+      </div>    
   </div>
 </template>
 
@@ -32,7 +41,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 100px;
+  
 }
 
 .topo{
@@ -52,5 +61,15 @@ export default {
   right: 30%;
   top : 4px;
 }
+#sidebar{
+  background-color: #E8E8E8;
+  top: 50px;
+  position: bottom;
+  
+    
+}
+#userPic{
+  padding: 10px;
 
+}
 </style>
