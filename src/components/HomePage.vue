@@ -1,29 +1,29 @@
 <template>
   <div>
-    <div  id="sectionBlue">
-      <div class="row justify-content-around center-block">
+    <div class="image-background">
+      <div id="sectionBlue">
+        <div class="row justify-content-around center-block no-margin">
+          <div class="col-md-4 align-self-center">
+            <h1>Start now!</h1>
+            <p class="white-description">
+              The Falko platform was designed with the focus on meeting the need for agile
+              project managers to track the productivity of teams and projects managed in a
+              more simplified way. The application aims to present the metrics established,
+              through the data collected in GitHub, as relevant information and compact
+              reports. Thus, it will centralize all the information necessary for the analysis
+              and decision making of the manager.
+            </p>
+          </div>
 
-        <div class="col-sm-5 align-self-center" id="loginComponent">
-          <h1>See beyond</h1>
-          <p class="white-description">
-            The Falko platform was designed with the focus on meeting the need for agile
-            project managers to track the productivity of teams and projects managed in a
-            more simplified way. The application aims to present the metrics established,
-            through the data collected in GitHub, as relevant information and compact
-            reports. Thus, it will centralize all the information necessary for the analysis
-            and decision making of the manager.
-          </p>
-        </div>
-
-        <div class="col-sm-4" id="loginComponent" align="center">
-          <h2>Start Now!</h2>
-          <login></login>
+          <div class="col-sm-4" id="loginComponent" align="center">
+            <login-register></login-register>
+          </div>
         </div>
       </div>
     </div>
 
       <div class="parallax">
-        <div class="row justify-content-around center-block" id="asdf">
+        <div class="row justify-content-around center-block no-margin" id="sectionParallax">
           <div class="col-sm-5 align-self-center" id="loginComponent">
             <h1>See beyond</h1>
             <p class="white-description">
@@ -36,19 +36,17 @@
             </p>
           </div>
 
-          <div class="col-sm-4" id="loginComponent" align="center">
-            <h1>Start Now!</h1>
-            <login></login>
+          <div class="col-sm-4 align-self-center" align="center">
+            <img src="../assets/logo.png" class="img-fluid" width="500em" alt="Falko" id="falkoLogo" />
           </div>
         </div>
       </div>
 
-    <div class="" id="sectionLight">
-      <div class="row justify-content-center">
+    <div class="" id="sectionDark">
+      <div class="row justify-content-center no-margin">
         <div class="col-sm-4" align="center" id="registerComponent">
-          <register></register>
+          <login-register></login-register>
         </div>
-
 
         <div class="col-sm-6 align-self-center">
           <h1>Another Lorem Ipsum</h1>
@@ -68,13 +66,11 @@
 </template>
 
 <script>
-import Login from './Login.vue'
-import Register from './Register.vue'
+import LoginRegister from './LoginRegister.vue'
 
 export default {
   components: {
-    'login': Login,
-    'register': Register
+    'login-register': LoginRegister
   },
 
   data () {
@@ -86,19 +82,16 @@ export default {
 </script>
 
 <style scoped>
-
 h1 {
   color: white;
   text-shadow: 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .parallax {
-    /* The image used */
-    background-image: url("../assets/fk.jpg");
-
-    /* Set a specific height */
+    background-image: url("../assets/computer.jpg");
     height: auto;
-    /* Create the parallax scrolling effect */
+
+    /* Parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -111,11 +104,12 @@ h1 {
   text-align: justify;
 }
 
-#asdf {
+.no-margin {
   margin: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(18, 69, 89, 0.7);
+}
+
+#falkoLogo {
+  margin: 5em 0;
 }
 
 #falkoDescription {
@@ -132,11 +126,24 @@ h1 {
   padding-bottom: 4em;
 }
 
-#sectionBlue {
-  background-color: #598392;
+#sectionParallax {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(18, 69, 89, 0.9);
 }
 
-#sectionLight {
-  background-color: #124559;
+#sectionBlue {
+  background-color: #598392;
+  background-color: rgba(89, 131, 146, 1);
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#sectionDark {
+  background-color: #0C2C39;
 }
 </style>

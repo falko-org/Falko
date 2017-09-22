@@ -1,6 +1,6 @@
 <template>
   <div class="card" id="loginRegisterComponent">
-    <ul class="nav mb-3 justify-content-around" id="pills-tab" role="tablist">
+    <ul class="nav justify-content-around" id="pills-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-expanded="true">Log In</a>
       </li>
@@ -32,6 +32,10 @@ export default {
 </script>
 
 <style>
+#pills-tab {
+  margin: 0;
+}
+
 #loginRegisterComponent {
   max-width: 20em;
 }
