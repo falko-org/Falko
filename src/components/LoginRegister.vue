@@ -37,7 +37,7 @@ export default {
 }
 
 #loginRegisterComponent {
-  max-width: 20em;
+  max-width: 22em;
 }
 
 .nav-link {

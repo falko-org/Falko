@@ -11,7 +11,7 @@
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary" id="loginButton">Log In</button>
+          <button type="submit" class="btn btn-primary falko-button">Log In</button>
         </div>
       </form>
     </div>
@@ -44,7 +44,8 @@ export default {
   width: 11em;
   margin: 2.5em 0;
 }
-#loginButton {
+
+.falko-button {
   align-self: center;
   margin: 0.5em 0;
   border-radius: 2em;
@@ -53,5 +54,9 @@ export default {
   background-color: #86B1B1;
   border-width: 0;
   font-weight: bold;
+}
+
+.falko-button:hover {
+  background-color: #86B1ED;
 }
 </style>

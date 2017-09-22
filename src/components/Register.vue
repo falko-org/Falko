@@ -20,7 +20,7 @@
           <input type="text" class="form-control" id="exampleInputGit" aria-describedby="gitHelp" placeholder="GitHub">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary" id="registerButton">Register</button>
+          <button type="submit" class="btn btn-primary falko-button" id="">Register</button>
         </div>
       </form>
     </div>
