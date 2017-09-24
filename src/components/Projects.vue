@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="listprojects">
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6">
         <div  class="card">        
@@ -10,11 +10,19 @@
         </div>
       </div>
     </div>
+    <div class= "container" id = "addbutton" >
+      <AddProj></AddProj>
+    </div>
   </div>
+
 </template>
 
 <script>
+import AddProject from '@/components/AddProject'
 export default{
+  components: {
+    'AddProj' : AddProject
+  },
   name: 'projects',
   data(){
     return{
@@ -26,7 +34,14 @@ export default{
 </script>
 
 <style scoped>
+
 .top-buffer {
   margin-top:30px; 
 }
+#addp{
+  position: static;
+  top : 50px;
+}
+
+
 </style>

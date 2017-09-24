@@ -1,36 +1,24 @@
 <template>
   <div id="app">
-
-     <nav class="navbar topo static-top fixed-top navbar-expand-lg container.fluid">
-            <div class = "navbar-header">
-              <a class="navbar-brand" href="#">
-                <img src = "./assets/Falko - Completo.png" width="70" height="50"/>
-              </a>
-            </div>
-            <div class="form pesquisa my-2 my-lg-0">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-      </nav>
-
-      <div class="row h-100 container.fluid">
-        <div class="col-md-2" id="sidebar">
-          <div class="Tags">
-            <img src="./assets/user.png" alt="avatar" width="80" height="80" id="userPic">
-
-          </div>
+  	<nav class="navbar topo static-top fixed-top navbar-expand-lg container.fluid">
+        <div class = "navbar-header">
+          <a class="navbar-brand" href="#">
+            <img src = "./assets/Falko - Completo.png" width="70" height="50"/>
+          </a>
         </div>
-        <div class="col-pt-2"></div>
-       <router-view></router-view>
-      </div>    
+        <div class="form pesquisa my-2 my-lg-0">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <addProj id= "add"></addProj>
+    </nav>
+  <router-view></router-view>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'app'
 }
-
 </script>
 
 <style>
@@ -41,7 +29,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  
+  margin-top: 100px;
 }
 
 .topo{
@@ -59,17 +47,11 @@ export default {
   position: fixed;
   left: 30%;
   right: 30%;
-  top : 4px;
+  top : 0.8em;
 }
-#sidebar{
-  background-color: #E8E8E8;
-  top: 50px;
-  position: bottom;
-  
-    
-}
-#userPic{
-  padding: 10px;
 
+#add{
+  position: fixed;
+  margin-top: 20em;
 }
 </style>
