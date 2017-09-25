@@ -5,22 +5,22 @@
 
       <form id="registerForm">
         <div class="form-group">
-          <input type="text" class="form-control" id="exampleInputText" aria-describedby="userHelp" placeholder="Username">
+          <input type="text" class="form-control" aria-describedby="userHelp" placeholder="Username" v-model="username">
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" v-model="email">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" v-model="password">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password">
+          <input type="password" class="form-control" placeholder="Confirm Password" v-model="password_confirmation">
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" id="exampleInputGit" aria-describedby="gitHelp" placeholder="GitHub">
+          <input type="text" class="form-control" aria-describedby="gitHelp" placeholder="GitHub" v-model="github">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary falko-button" id="">Register</button>
+          <button type="submit" class="btn btn-primary falko-button" id="" v-on:click="register">Register</button>
         </div>
       </form>
     </div>
@@ -28,13 +28,30 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
       email: '',
-      password: '',
       username: '',
+      password: '',
+      password_confirmation: '',
       github: ''
+    }
+  },
+
+  methods: {
+    register () {
+      axios.post('http://localhost:3000/users', {
+        user: {
+          email: this.email,
+          name: this.username,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+          github: this.github
+        }
+      })
     }
   }
 }
