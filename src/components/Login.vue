@@ -31,13 +31,12 @@ export default {
 
   methods: {
     login () {
-      console.log("método");
       axios.post('http://localhost:3000/authenticate', {
         email: this.email,
         password: this.password
       })
-      .then(function (response) {
-        console.log(response);
+      .then((response) => {
+        this.$router.push({ name: 'Projects' })
       })
       .catch (e => {
         this.errors.push(e)
