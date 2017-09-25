@@ -5,13 +5,13 @@
 
       <form id="loginForm">
         <div class="form-group">
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" v-model="email">
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" v-model="password">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary falko-button">Log In</button>
+          <button type="submit" class="btn btn-primary falko-button" v-on:click="login">Log In</button>
         </div>
       </form>
     </div>
@@ -19,11 +19,29 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
       email: '',
       password: ''
+    }
+  },
+
+  methods: {
+    login () {
+      console.log("método");
+      axios.post('http://localhost:3000/authenticate', {
+        email: this.email,
+        password: this.password
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch (e => {
+        this.errors.push(e)
+      });
     }
   }
 }
