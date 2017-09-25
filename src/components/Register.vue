@@ -52,6 +52,12 @@ export default {
           github: this.github
         }
       })
+      .then((response) => {
+        this.$router.push({ name: 'Projects' })
+      })
+      .catch (e => {
+        this.errors.push(e)
+      });
     }
   }
 }
