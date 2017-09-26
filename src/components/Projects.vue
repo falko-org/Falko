@@ -2,12 +2,14 @@
   <div class="container" id="listprojects">
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6">
-        <div  class="card">        
-          <div class="card-body">
-            <div class="card-title">{{project.name}}</div>
-            <div class="card-text">{{project.description}}</div>
+        <router-link v-bind:to="'/inproject/'+project.id">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title">{{project.name}}</div>
+              <div class="card-text">{{project.description}}</div>
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
     <div class= "container" >
