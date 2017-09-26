@@ -18,17 +18,46 @@
 </template>
 
 <script>
-import AddProject from '@/components/AddProject'
+import { EventBus } from '../event-bus.js';
+import AddProject from '@/components/AddProject';
+import axios from 'axios';
+
 export default{
   components: {
     'AddProj' : AddProject
   },
   name: 'projects',
-  data(){
+  data() {
     return{
-      projects: [{name: "projeto1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lorem eros. Praesent gravida augue sit amet sem semper faucibus. Nulla convallis nunc odio, eu dapibus dui semper vel. Donec mi mi, rutrum sed venenatis id, auctor vitae nisi. Praesent bibendum eros vel orci lacinia ullamcorper."},{name: "projeto2", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac lorem eros. Praesent gravida augue sit amet sem semper faucibus. Nulla convallis nunc odio, eu dapibus dui semper vel. Donec mi mi, rutrum sed venenatis id, auctor vitae nisi. Praesent bibendum eros vel orci lacinia ullamcorper."},{name: "projeto3", description: "dipiscing elit. Maecenas ac lorem eros. Praesent gravida augue sit amet sem semper faucibus. Nulla convallis nunc odio, eu dapibus dui semper vel. Donec mi mi, rutrum sed venenatis id, auctor vitae nisi. Praesent bibendum eros vel orci lacinia ullamcorper."}, {name: "projeto4", description: "dipiscing elit. Maecenas ac lorem eros. Praesent gravida augue sit amet sem semper faucibus. Nulla convallis nunc odio, eu dapibus dui semper vel. Donec mi mi, rutrum sed venenatis id, auctor vitae nisi. Praesent bibendum eros vel orci lacinia ullamcorper."}, {name: "projeto5", description: "dipiscing elit. Maecenas ac lorem eros. Praesent gravida augue sit amet sem semper faucibus. Nulla convallis nunc odio, eu dapibus dui semper vel. Donec mi mi, rutrum sed venenatis id, auctor vitae nisi. Praesent bibendum eros vel orci lacinia ullamcorper."}]
+      projects: []
     }
+  },
+  methods: {
+    getProjects() {
+      axios.get("http://localhost:3000/projects")
+      .then(response => {
+        this.projects = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+    }
+  },
+  mounted() {
+    EventBus.$on('added-project', function (id) {
+      axios.get("http://localhost:3000/projects")
+      .then(response => {
+        console.log(response.data);
+        this.projects = response.data;
+      })
+      .catch(e => {
+        this.errors.push(e);
+      });
+    });
+    
+    this.getProjects();
   }
+
 }
 
 </script>

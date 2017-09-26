@@ -14,13 +14,13 @@
 			          <h4 class="modal-title">Adicionar projeto</h4>
 			        </div>
 			        <div class="modal-body">
-			              <p><label class="name"> Nome </label></p>
-			              <p><input type = "text"></input><br></p>
+			              <p><label > Nome </label></p>
+			              <p><input type = "text" v-model="name"></input><br></p>
 			              <p><label> Descrição </label></p>
-			              <input type = "text"></input><br>
+			              <input type = "text" v-model="description"></input><br>
 			        </div>
 			        <div class="modal-footer">
-			          <button type="button" class="btn btn-primary">Salvar</button>
+			          <button type="button" class="btn btn-primary" v-on:click="addProject" data-dismiss="modal">Salvar</button>
 		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Fechar</button>	
 			        </div>
 				</div>
@@ -29,15 +29,32 @@
     </div>
 </template>
 
-<script>	
+<script>
+import { EventBus } from '../event-bus.js';
+import axios from 'axios';
 export default {
   name: 'addProj',
   data () {
     return {      
-      nameproject: '',
+      name: '',
       description : ''
     }
+  },
+  methods: {
+  	addProject() {
+	    axios.post(`http://localhost:3000/projects`, {
+	    	name: this.name,
+	    	description: this.description
+	    })
+	    .then(response => {
+	    	EventBus.$emit('added-project', 1)
+	    })
+	    .catch(e => {
+	      this.errors.push(e)
+	    });
+	}
   }
+
 }
 </script>
 
