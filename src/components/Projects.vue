@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div class= "container" id = "addbutton" >
+    <div class= "container" >
       <AddProj></AddProj>
     </div>
   </div>
@@ -37,10 +37,6 @@ export default{
 
 .top-buffer {
   margin-top:30px; 
-}
-#addp{
-  position: static;
-  top : 50px;
 }
 
 

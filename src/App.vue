@@ -9,9 +9,8 @@
         <div class="form pesquisa my-2 my-lg-0">
           <input type="text" class="form-control" placeholder="Search">
         </div>
-        <addProj id= "add"></addProj>
     </nav>
-  <router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -48,10 +47,5 @@ export default {
   left: 30%;
   right: 30%;
   top : 0.8em;
-}
-
-#add{
-  position: fixed;
-  margin-top: 20em;
 }
 </style>
