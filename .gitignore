@@ -10,6 +10,11 @@
 #Ignore databases
 *.sql
 
+#Custom
+node_modules
+*.pid
+
+
 #Ignore vim temporary files
 *.sw*
 
