@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+**/*{.,-}min.js
+=======
+build/*.js
+config/*.js
+>>>>>>> b8a3a21... Temp
