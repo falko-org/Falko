@@ -44,17 +44,17 @@ export default{
     }
   },
   mounted() {
+    var _this = this
     EventBus.$on('added-project', function (id) {
       axios.get("http://localhost:3000/projects")
       .then(response => {
-        console.log(response.data);
-        this.projects = response.data;
+        _this.projects = response.data;
       })
       .catch(e => {
         this.errors.push(e);
       });
     });
-    
+
     this.getProjects();
   }
 
