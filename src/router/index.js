@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Projects from '@/components/Projects'
 import AddProject from '@/components/AddProject'
+import InProject from '@/components/InProject'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/addproject',
       name: 'AddProject',
       component: AddProject
+    },
+    {
+      path: '/inproject',
+      name: 'InProjects',
+      component: InProjects
     },
   ]
 })
