@@ -10,7 +10,7 @@
           <input type="text" class="form-control" placeholder="Search">
         </div>
     </nav>
-    <router-view></router-view>
+    <div class="container"><router-view></router-view></div>
   </div>
 </template>
 

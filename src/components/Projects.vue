@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="listprojects">
+  <div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6">
         <router-link v-bind:to="'/inproject/'+project.id">
@@ -11,10 +11,9 @@
           </div>
         </router-link>
       </div>
-    </div>
-    <div class= "container" >
       <AddProj></AddProj>
     </div>
+    
   </div>
 
 </template>
