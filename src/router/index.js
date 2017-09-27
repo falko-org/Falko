@@ -4,6 +4,7 @@ import Projects from '@/components/Projects'
 import AddProject from '@/components/AddProject'
 import InProject from '@/components/InProject'
 import DeleteProject from '@/components/DeleteProject'
+import EditProject from '@/components/EditProject'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/deleteproject',
       name: 'DeleteProject',
       component: DeleteProject
+    },
+    {
+      path: '/editproject/:id',
+      name: 'EditProjects',
+      component: EditProject
     },
   ]
 })

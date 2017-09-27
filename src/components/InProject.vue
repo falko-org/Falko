@@ -19,10 +19,12 @@
 <script>
 import axios from 'axios';
 import DeleteProject from '@/components/DeleteProject'
+import EditProject from '@/components/EditProject'
 export default{
 	name:'InProject',
 	components: {
-    'DelProject' : DeleteProject
+    'DelProject' : DeleteProject,
+    'editProject' : EditProject
   },
 	data(){
 		return{
