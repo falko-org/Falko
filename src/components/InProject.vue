@@ -9,6 +9,7 @@
 					</div>
 				</div>
 				<DelProject></DelProject>
+				<EditProject></EditProject>
 			</div>
 		</div>
 		
@@ -17,6 +18,7 @@
 </template>
 
 <script>
+import { EventBus } from '../event-bus.js';
 import axios from 'axios';
 import DeleteProject from '@/components/DeleteProject'
 import EditProject from '@/components/EditProject'
@@ -24,7 +26,7 @@ export default{
 	name:'InProject',
 	components: {
     'DelProject' : DeleteProject,
-    'editProject' : EditProject
+    'EditProject' : EditProject
   },
 	data(){
 		return{
@@ -43,7 +45,20 @@ export default{
 		}
 	},
 	mounted(){
+		var _this = this
+	    EventBus.$on('edited-project', function (id) {
+	      axios.get("http://localhost:3000/projects/" + id)
+			.then(response =>{
+				console.log("escutooou" + id)
+				_this.project = response.data
+			})
+			.catch(e =>{
+				this.errors.push(e)
+			});
+	    });
+		
 		this.getProject();
+		
 	}
 }
 </script>

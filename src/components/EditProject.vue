@@ -1,10 +1,10 @@
 <template>
 	<div class = "editproject">		
-		<button type="button" class="btn btn-info btn-md " id="editbutton" data-toggle="modal" data-target="#myModal">
+		<button type="button" class="btn btn-info btn-md " id="editbutton" data-toggle="modal" data-target="#editModal">
 			Editar
 		</button>
 		
-		<div class="modal fade" id ="myModal" role="dialog">
+		<div class="modal fade" id ="editModal" role="dialog">
 			<div class="modal-dialog">	
 		    	<div class="modal-content">
 			        <div class="modal-header">
@@ -20,7 +20,7 @@
 			              <input type = "text" v-model="description"></input><br>
 			        </div>
 			        <div class="modal-footer">
-			          <button type="button" class="btn btn-primary" v-on:click="EditProject" data-dismiss="modal">Salvar</button>
+			          <button type="button" class="btn btn-primary" v-on:click="editProject" data-dismiss="modal">Salvar</button>
 		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Fechar</button>	
 			        </div>
 				</div>
@@ -30,23 +30,24 @@
 </template>
 
 <script>
+	import { EventBus } from '../event-bus.js';
 	import axios from 'axios'
 	export default{
 		name: 'editProj',
 		data(){
 			return {
-			project: {}
+				name: "",
+				description: ""
 			}	
 		},
 		methods: {
 			editProject(){
-				axios.get("http://localhost:3000/projects/"+this.$route.params.id, {
+				axios.put("http://localhost:3000/projects/"+this.$route.params.id, {
 					name: this.name,
 					description: this.description
 				})
 				.then(response=>{
-					this.project = response.data
-					this.$router.push({ path : '/inproject/'+this.$route.params.id});
+					EventBus.$emit('edited-project', this.$route.params.id)
 				})
 				.catch(e=>{
 					this.errors.push(e)
