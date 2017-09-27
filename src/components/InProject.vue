@@ -2,8 +2,8 @@
 	<div>
 		<div class="row inproject">
 			<div class="col-md-10">
-				<div class="card">
-					<div class="card-body">
+				<div class="card aproject">
+					<div class="card-body ">
 						<div class="card-title">{{project.name}}</div>
 						<div class="card-text">{{project.description}}</div>
 					</div>
@@ -48,5 +48,11 @@ export default{
 
 	
 <style scoped>
+
+.aproject{
+	position: relative;
+	left: 5em;
+	text-align: center;
+}
 
 </style>

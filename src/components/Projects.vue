@@ -1,19 +1,21 @@
 <template>
   <div>
-    <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6">
-        <router-link v-bind:to="'/inproject/'+project.id">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-title">{{project.name}}</div>
-              <div class="card-text">{{project.description}}</div>
+    <div v-if="projects.length>=1">
+      <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
+        <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6">
+          <router-link v-bind:to="'/inproject/'+project.id">
+            <div class="card">
+              <div class="card-body project">
+                <div class="card-title">{{project.name}}</div>
+                <div class="card-text">{{project.description}}</div>
+              </div>
             </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
+        <AddProj></AddProj>
       </div>
-      <AddProj></AddProj>
     </div>
-    
+    <div <div v-else><AddProj></AddProj></div>
   </div>
 
 </template>
@@ -68,6 +70,4 @@ export default{
 .top-buffer {
   margin-top:30px; 
 }
-
-
 </style>

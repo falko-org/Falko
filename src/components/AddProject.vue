@@ -68,6 +68,7 @@ export default {
   top: 12%;
   width: 7em;
   right: 5px;
+  left: 77em;
   resize: both;
 }
 

@@ -4,33 +4,32 @@
 			Deletar
 		</button>	
 		<div class="modal fade" id ="myModal" role="dialog">
-				<div class="modal-dialog">	
+			<div class="modal-dialog">	
 		    	<div class="modal-content">
 			        <div class="modal-header">
 			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
 			              <span aria-hidden="true">&times;</span>
 			            </button>
-			          <h4 class="modal-title">Apagar Projeto</h4>
+			            <h4 class="modal-title">Apagar Projeto</h4>
 			        </div>
 			        <div class="modal-body">
 			              <p><label > Você tem certeza que deseja fazer isso?</label></p>
 			        </div>
 			        <div class="modal-footer">
-			          <button type="button" class="btn btn-primary" data-dismiss="modal">Sim</button>
+            			<button v-on:click="delproje" type="button" class="btn btn-primary" data-dismiss="modal" >Sim</button>            			
 		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>	
 			        </div>
-					</div>
 				</div>
 			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-
 import axios from 'axios';
 
 export default {	
-	name: 'DeleteProject',
+	name: 'delproject',
   data () {
     return {      
       
@@ -41,6 +40,8 @@ export default {
   		axios.delete("http://localhost:3000/projects/"+this.$route.params.id)
 			.then(response =>{
 				this.project = response.data
+				this.$router.push({ path : '/'});
+
 			})
 			.catch(e =>{
 				this.errors.push(e)
@@ -51,11 +52,12 @@ export default {
 </script>
 
 <style scoped>
-#deletebtn{
+
+#deletebutton {
   position: fixed;
-  top: 12%;
+  top: 40%;
   width: 7em;
-  right: 5px;
+  left: 38em;
   resize: both;
 }
 </style>

@@ -3,11 +3,13 @@
   	<nav class="navbar topo static-top fixed-top navbar-expand-lg container.fluid">
         <div class = "navbar-header">
           <a class="navbar-brand" href="#">
-            <img src = "./assets/Falko - Completo.png" width="70" height="50"/>
+            <img src = "./assets/Falko - Final .png" width="50" height="40"/>
+            <img src = "./assets/Falko - Texto.png" width="50" height="40"/>
           </a>
         </div>
-        <div class="form pesquisa my-2 my-lg-0">
+        <div class="form-inline pesquisa my-2 my-lg-0">
           <input type="text" class="form-control" placeholder="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">OK</button>
         </div>
     </nav>
     <div class="container"><router-view></router-view></div>
@@ -38,14 +40,15 @@ export default {
 }
 
 .navbar-brand{
-  padding-left: 2%;
+  left: 30em;
+  margin-left: 0.5em;
   height: 100%;
 }
 
 .pesquisa{
   position: fixed;
-  left: 30%;
-  right: 30%;
-  top : 0.8em;
+  left: 40%;
+  right: 20%;
+  top : 0.45em;
 }
 </style>
