@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
 </template>
@@ -13,11 +12,20 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+.falko-button {
+  align-self: center;
+  margin: 0.5em 0;
+  border-radius: 2em;
+  padding: 0.5em 2em;
+  cursor: pointer;
+  background-color: #86B1B1;
+  border-width: 0;
+  font-weight: bold;
+}
+
+.falko-button:hover {
+  background-color: #86B1ED;
 }
 </style>
