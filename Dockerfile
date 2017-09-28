@@ -1,20 +1,23 @@
-FROM node:slim
+FROM node:7.10.0
 
 MAINTAINER alaxallves@gmail.com
 
-RUN apt-get update
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && apt-get install -y nodejs && npm install --save-dev babel-preset-env 
+ADD package.json /tmp/package.json
 
-RUN npm install --quiet --global vue-cli
+RUN cd /tmp && yarn install
 
-RUN mkdir /Falko-2017.2-FrontEnd
+RUN mkdir -p /usr/src/app && cp -a /tmp/node_modules /usr/src/app
 
-COPY . /Falko-2017.2-FrontEnd
+WORKDIR /usr/src/app
 
-WORKDIR $PWD/Falko-2017.2-FrontEnd
+ADD . /usr/src/app
 
-ADD package.json /Falko-2017.2-FrontEnd/package.json
-ADD node_modules/ /Falko-2017.2-FrontEnd/node_modules/ 
+RUN npm run build
+RUN rm -rf ./build
+RUN rm -rf ./test
+RUN rm -rf ./src
 
+ENV PORT=80
 
-ADD . $PWD/
+EXPOSE 80
+CMD [ "npm", "start" ]
