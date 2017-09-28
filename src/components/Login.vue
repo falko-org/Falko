@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {HTTP} from '../http-common';
 
 export default {
   data () {
@@ -31,7 +31,7 @@ export default {
 
   methods: {
     login () {
-      axios.post('http://localhost:3000/authenticate', {
+      HTTP.post('authenticate', {
         email: this.email,
         password: this.password
       })
