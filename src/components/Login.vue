@@ -3,7 +3,7 @@
     <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
 
-      <form id="loginForm">
+      <form id="loginForm"  @submit.prevent="login()">
         <div class="form-group">
           <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" v-model="email">
         </div>
@@ -11,7 +11,7 @@
           <input type="password" class="form-control" placeholder="Password" v-model="password">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary falko-button" v-on:click="login">Log In</button>
+          <button type="submit" class="btn btn-primary falko-button" >Log In</button>
         </div>
       </form>
     </div>

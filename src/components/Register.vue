@@ -3,7 +3,7 @@
     <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoRegister">
 
-      <form id="registerForm">
+      <form id="registerForm" @submit.prevent="register()">
         <div class="form-group">
           <input type="text" class="form-control" aria-describedby="userHelp" placeholder="Username" v-model="username">
         </div>
@@ -20,7 +20,7 @@
           <input type="text" class="form-control" aria-describedby="gitHelp" placeholder="GitHub" v-model="github">
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary falko-button" id="" v-on:click="register">Register</button>
+          <button type="submit" class="btn btn-primary falko-button" id="">Register</button>
         </div>
       </form>
     </div>

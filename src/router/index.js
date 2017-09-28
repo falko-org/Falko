@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import Projects from '@/components/Projects'
+import AddProject from '@/components/AddProject'
+import InProject from '@/components/InProject'
+import DeleteProject from '@/components/DeleteProject'
+import EditProject from '@/components/EditProject'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
@@ -11,11 +15,30 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Hello',
-      component: Hello
+      path: '/projects',
+      name: 'Projects',
+      component: Projects
     },
-
+    {
+      path: '/addproject',
+      name: 'AddProject',
+      component: AddProject
+    },
+    {
+      path: '/inproject/:id',
+      name: 'InProjects',
+      component: InProject
+    },
+    {
+      path: '/deleteproject',
+      name: 'DeleteProject',
+      component: DeleteProject
+    },
+    {
+      path: '/editproject/:id',
+      name: 'EditProjects',
+      component: EditProject
+    },
     {
       path: '/login',
       name: 'Login',
@@ -35,7 +58,7 @@ export default new Router({
     },
 
     {
-      path: '/home',
+      path: '/',
       name: 'HomePage',
       component: HomePage
     }
