@@ -39,9 +39,7 @@ export default {
   	delproje(){
   		axios.delete("http://localhost:3000/projects/"+this.$route.params.id)
 			.then(response =>{
-				this.project = response.data
-				this.$router.push({ path : '/'});
-
+				this.$router.push({ path : '/projects'});
 			})
 			.catch(e =>{
 				this.errors.push(e)

@@ -12,7 +12,7 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">OK</button>
         </div>
     </nav>
-    <div class="container"><router-view></router-view></div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -50,5 +50,20 @@ export default {
   left: 40%;
   right: 20%;
   top : 0.45em;
+}
+
+.falko-button {
+  align-self: center;
+  margin: 0.5em 0;
+  border-radius: 2em;
+  padding: 0.5em 2em;
+  cursor: pointer;
+  background-color: #86B1B1;
+  border-width: 0;
+  font-weight: bold;
+}
+
+.falko-button:hover {
+  background-color: #86B1ED;
 }
 </style>

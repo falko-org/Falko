@@ -47,6 +47,8 @@ export default {
 	    	description: this.description
 	    })
 	    .then(response => {
+	    	this.name = "";
+	    	this.description = "";
 	    	EventBus.$emit('added-project', 1)
 	    })
 	    .catch(e => {
@@ -62,14 +64,6 @@ export default {
 .modal-body{
   position: relative;
   top: 5px;
-}
-#addbutton{
-  position: fixed;
-  top: 12%;
-  width: 7em;
-  right: 5px;
-  left: 77em;
-  resize: both;
 }
 
 </style>
