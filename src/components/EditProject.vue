@@ -1,7 +1,7 @@
 <template>
 	<div class = "editproject">		
-		<button type="button" class="btn btn-info btn-md " id="editbutton" data-toggle="modal" data-target="#editModal">
-			Editar
+		<button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal">
+			Edit
 		</button>
 		
 		<div class="modal fade" id ="editModal" role="dialog">
@@ -11,17 +11,17 @@
 			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
 			              <span aria-hidden="true">&times;</span>
 			            </button>
-			          <h4 class="modal-title">Editar projeto</h4>
+			          <h4 class="modal-title">Edit Project</h4>
 			        </div>
 			        <div class="modal-body">
-			              <p><label > Nome </label></p>
-			              <p><input type = "text" v-model="name"></input><br></p>
-			              <p><label> Descrição </label></p>
-			              <input type = "text" v-model="description"></input><br>
+								<p><label > Name </label></p>
+								<p><input type = "text" v-model="name"></input><br></p>
+								<p><label> Description </label></p>
+								<input type = "text" v-model="description"></input><br>
 			        </div>
 			        <div class="modal-footer">
-			          <button type="button" class="btn btn-primary" v-on:click="editProject" data-dismiss="modal">Salvar</button>
-		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Fechar</button>	
+			          <button type="button" class="btn btn-primary" v-on:click="editProject" data-dismiss="modal">Save</button>
+		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>	
 			        </div>
 				</div>
 			</div>
@@ -58,10 +58,4 @@
 </script>
 	
 <style scoped>
-	#editbutton{
-		position: fixed;
-		top: 40%;
-		resize: both;
-
-	}
 </style>
