@@ -31,7 +31,7 @@
 
 <script>
 	import { EventBus } from '../event-bus.js';
-	import axios from 'axios'
+	import {HTTP} from '../http-common.js';
 	export default{
 		name: 'editProj',
 		data(){
@@ -42,7 +42,7 @@
 		},
 		methods: {
 			editProject(){
-				axios.put("http://localhost:3000/projects/"+this.$route.params.id, {
+				HTTP.put("projects/"+this.$route.params.id, {
 					name: this.name,
 					description: this.description
 				})

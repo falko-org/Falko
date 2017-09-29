@@ -31,7 +31,8 @@
 
 <script>
 import { EventBus } from '../event-bus.js';
-import axios from 'axios';
+import {HTTP} from '../http-common.js';
+
 export default {
   name: 'addProj',
   data () {
@@ -42,7 +43,7 @@ export default {
   },
   methods: {
   	addProject() {
-	    axios.post(`http://localhost:3000/projects`, {
+	    HTTP.post(`projects`, {
 	    	name: this.name,
 	    	description: this.description
 	    })

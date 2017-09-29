@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {HTTP} from '../http-common.js';
 
 export default {
   data () {
@@ -43,7 +43,7 @@ export default {
 
   methods: {
     register () {
-      axios.post('http://localhost:3000/users', {
+      HTTP.post('users', {
         user: {
           email: this.email,
           name: this.username,
