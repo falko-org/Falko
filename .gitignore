@@ -13,7 +13,6 @@
 #Custom
 node_modules
 *.pid
-package-lock.json
 
 #Ignore vim temporary files
 *.sw*
