@@ -1,0 +1,22 @@
+version: '2'
+services:
+  
+  falko-front:
+    container_name: falko-front
+    image: alaxalves/front:1.3
+    command: /bin/bash -lc "apt-get install bzip2 && npm install && npm run dev"
+    volumes:
+      - .:/Falko-2017.2-FrontEnd
+    external_links:
+      - falko20172backend_default
+    ports:
+      - 8080:8080
+    networks:
+      - default
+      - falko20172backend_default
+
+networks:
+  falko20172backend_default: 
+    external: true
+     
+    

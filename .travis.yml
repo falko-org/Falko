@@ -1,0 +1,39 @@
+sudo: required
+
+group: deprecated-2017Q3
+
+language: node_js
+
+node_js:
+  - "4"
+
+env:
+    global:
+      - CC_TEST_REPORTER_ID=f9a7cc51d41f847d9b5c91f469606222755355ec9ea001c6bd7a16d20f45941f
+
+install:
+  - npm install -g npm@'>=3.0.0'
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+
+addons:
+    code_climate:
+            repo_token: f9a7cc51d41f847d9b5c91f469606222755355ec9ea001c6bd7a16d20f45941f
+
+notifications:
+    slack: gppmds8-github:sJE6QlBfPGMkfUf48wuTsKa7
+
+script:
+  - docker pull alaxalves/front:1.3
+  - docker create --name travis -v `pwd`:/Falko-2017.2-BackEnd alaxalves/front:1.3
+  - sudo docker start travis
+  - docker logs -f travis
+  - test `docker ps -a --filter exited=1 | wc -l` == "1"
+
+
+after_success:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
