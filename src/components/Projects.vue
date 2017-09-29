@@ -26,7 +26,7 @@
 <script>
 import { EventBus } from '../event-bus.js';
 import AddProject from '@/components/AddProject';
-import axios from 'axios';
+import {HTTP} from '../http-common.js';
 
 export default{
   components: {
@@ -40,7 +40,7 @@ export default{
   },
   methods: {
     getProjects() {
-      axios.get("http://localhost:3000/projects")
+      HTTP.get("projects")
       .then(response => {
         this.projects = response.data;
       })
@@ -52,7 +52,7 @@ export default{
   mounted() {
     var _this = this
     EventBus.$on('added-project', function (id) {
-      axios.get("http://localhost:3000/projects")
+      HTTP.get("projects")
       .then(response => {
         _this.projects = response.data;
       })

@@ -23,7 +23,7 @@
 
 <script>
 import { EventBus } from '../event-bus.js';
-import axios from 'axios';
+import {HTTP} from '../http-common.js';
 import DeleteProject from '@/components/DeleteProject'
 import EditProject from '@/components/EditProject'
 export default{
@@ -39,7 +39,7 @@ export default{
 	},
 	methods: {
 		getProject(){
-			axios.get("http://localhost:3000/projects/" + this.$route.params.id)
+			HTTP.get("projects/" + this.$route.params.id)
 			.then(response =>{
 				this.project = response.data
 			})
@@ -51,7 +51,7 @@ export default{
 	mounted(){
 		var _this = this
 	    EventBus.$on('edited-project', function (id) {
-	      axios.get("http://localhost:3000/projects/" + id)
+	      HTTP.get("projects/" + id)
 			.then(response =>{
 				console.log("escutooou" + id)
 				_this.project = response.data

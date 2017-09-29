@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import {HTTP} from '../http-common.js';
 
 export default {	
 	name: 'delproject',
@@ -39,7 +39,7 @@ export default {
   },
   methods:{
   	delproje(){
-  		axios.delete("http://localhost:3000/projects/"+this.$route.params.id)
+  		HTTP.delete("projects/"+this.$route.params.id)
 			.then(response =>{
 				this.$router.push({ path : '/projects'});
 			})
