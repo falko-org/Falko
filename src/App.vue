@@ -1,24 +1,19 @@
 <template>
-  <div id="app">
-  	<nav class="navbar topo static-top fixed-top navbar-expand-lg container.fluid">
-        <div class = "navbar-header">
-          <a class="navbar-brand" href="#">
-            <img src = "./assets/Falko - Final .png" width="50" height="40"/>
-            <img src = "./assets/Falko - Texto.png" width="50" height="40"/>
-          </a>
-        </div>
-        <div class="form-inline pesquisa my-2 my-lg-0">
-          <input type="text" class="form-control" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">OK</button>
-        </div>
-    </nav>
+  <div>
+    <navbar></navbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/Navbar.vue'
+
 export default {
-  name: 'app'
+  name: 'app',
+
+   components: {
+    navbar: Navbar
+  },
 }
 </script>
 
@@ -33,23 +28,8 @@ export default {
   margin-top: 100px;
 }
 
-.topo{
-  padding: 0.2%;
-  width: 100%;
-  background-color: #E8E8E8;
-}
-
 .navbar-brand{
-  left: 30em;
-  margin-left: 0.5em;
-  height: 100%;
-}
-
-.pesquisa{
-  position: fixed;
-  left: 40%;
-  right: 20%;
-  top : 0.45em;
+  margin-left: 1em;
 }
 
 .falko-button {
