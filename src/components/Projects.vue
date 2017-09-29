@@ -1,12 +1,14 @@
 <template>
   <div>   
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6">
-        <router-link v-bind:to="'/inproject/'+project.id">
+      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
+        <router-link v-bind:to="'/inproject/'+project.id" class="asdf">
           <div class="card">
             <div class="card-body project">
-              <div class="card-title">{{project.name}}</div>
-              <div class="card-text">{{project.description}}</div>
+              <h4 class="card-title">
+                  {{project.name}}
+              </h4>
+              <p class="card-text text-muted">{{project.description}}</p>
             </div>
           </div>
         </router-link>
@@ -70,5 +72,14 @@ export default{
 
 .top-buffer {
   margin-top:30px; 
+}
+
+a:link {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+a:hover {
+  font-weight: bold;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="addproj">		
 		<div class="text-center">
-			<button type="button" class="btn btn-info btn-md falko-button " id="addbutton" data-toggle="modal" data-target="#myModal">
+			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#myModal">
 				Add a Project
 			</button>
 		</div>
@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style scoped>
+#addButton {
+	margin-top: 2em;
+}
+
 .modal-body{
   position: relative;
   top: 5px;
