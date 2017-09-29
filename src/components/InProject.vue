@@ -4,17 +4,21 @@
 			<div class="col-md-10">
 				<div class="card aproject">
 					<div class="card-body ">
-						<div class="card-title">{{project.name}}</div>
-						<div class="card-text">{{project.description}}</div>
+						<h4 class="card-title">{{project.name}}</h4>
+						<p class="card-text text-muted">{{project.description}}</p>
 					</div>
 				</div>
-				<DelProject></DelProject>
-				<EditProject></EditProject>
 			</div>
 		</div>
-		
+        <div class="row justify-content-center" id="buttons">
+					<div class="col-md-2">
+          	<EditProject></EditProject>
+					</div>
+					<div class="col-md-2">
+				  	<DelProject></DelProject>
+					</div>
+        </div>
 	</div>
-
 </template>
 
 <script>
@@ -65,11 +69,13 @@ export default{
 
 	
 <style scoped>
+#buttons {
+	margin-top: 1em;
+}
 
 .aproject{
 	position: relative;
 	left: 5em;
 	text-align: center;
 }
-
 </style>

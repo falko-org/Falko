@@ -1,23 +1,25 @@
 <template>
-	<div class = "delproject">		
-		<button type="button" class="btn btn-info btn-md " id="deletebutton" data-toggle="modal" data-target="#myModal">
-			Deletar
+	<div class="delproject">		
+		<button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#myModal">
+			Delete
 		</button>	
 		<div class="modal fade" id ="myModal" role="dialog">
 			<div class="modal-dialog">	
 		    	<div class="modal-content">
 			        <div class="modal-header">
+									<div>
+			            	<h4 class="modal-title">Delete Project?</h4>
+									</div>
 			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
 			              <span aria-hidden="true">&times;</span>
 			            </button>
-			            <h4 class="modal-title">Apagar Projeto</h4>
 			        </div>
 			        <div class="modal-body">
-			              <p><label > Você tem certeza que deseja fazer isso?</label></p>
+			          <p><label> Are you sure?</label></p>
 			        </div>
 			        <div class="modal-footer">
-            			<button v-on:click="delproje" type="button" class="btn btn-primary" data-dismiss="modal" >Sim</button>            			
-		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>	
+            			<button v-on:click="delproje" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>            			
+		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>	
 			        </div>
 				</div>
 			</div>
@@ -51,11 +53,4 @@ export default {
 
 <style scoped>
 
-#deletebutton {
-  position: fixed;
-  top: 40%;
-  width: 7em;
-  left: 38em;
-  resize: both;
-}
 </style>

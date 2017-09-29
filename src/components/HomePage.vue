@@ -5,13 +5,10 @@
         <div class="row justify-content-around center-block no-margin">
           <div class="col-md-4 align-self-center">
             <h1>Start now!</h1>
-            <p class="white-description">
-              The Falko platform was designed with the focus on meeting the need for agile
-              project managers to track the productivity of teams and projects managed in a
-              more simplified way. The application aims to present the metrics established,
-              through the data collected in GitHub, as relevant information and compact
-              reports. Thus, it will centralize all the information necessary for the analysis
-              and decision making of the manager.
+            <p class="white-description">              
+              Falko was designed to fit the agile project managers needs. By 
+              giving the necessary tools to improve the <i>vision</i> and control 
+              about your teams, Falko helps you make the best choices.
             </p>
           </div>
 
@@ -25,14 +22,11 @@
       <div class="parallax">
         <div class="row justify-content-around center-block no-margin" id="sectionParallax">
           <div class="col-sm-5 align-self-center" id="loginComponent">
-            <h1>See beyond</h1>
+            <h1>Free Software</h1>
             <p class="white-description">
-              The Falko platform was designed with the focus on meeting the need for agile
-              project managers to track the productivity of teams and projects managed in a
-              more simplified way. The application aims to present the metrics established,
-              through the data collected in GitHub, as relevant information and compact
-              reports. Thus, it will centralize all the information necessary for the analysis
-              and decision making of the manager.
+              Falko is under the MIT license. What does that means? You can use it, 
+              download the source code, improve and do your own based custom software, 
+              and more! Feel free to contribute too!
             </p>
           </div>
 
@@ -43,28 +37,25 @@
       </div>
 
     <div class="" id="sectionDark">
-      <div class="row justify-content-center no-margin">
-        <div class="col-sm-4" align="center" id="registerComponent">
-          <login-register></login-register>
+      <div class="row justify-content-around no-margin">
+        <div class="col-sm-5 align-self-center" align="center">
+          <img src="../assets/github.png" class="img-fluid" width="400em" alt="Falko" id="falkoLogo" />
         </div>
 
         <div class="col-sm-6 align-self-center">
-          <h1>Another Lorem Ipsum</h1>
-          <p class="white-description">
-            The Falko platform was designed with the focus on meeting the need for agile
-            project managers to track the productivity of teams and projects managed in a
-            more simplified way. The application aims to present the metrics established,
-            through the data collected in GitHub, as relevant information and compact
-            reports. Thus, it will centralize all the information necessary for the analysis
-            and decision making of the manager.
-          </p>
+          <h1>See beyond</h1>
+            <p class="white-description">
+              All data comes from Github's API. Track your repositories, commits,
+              issues, branches with graphs and visual data.
+            </p>
         </div>
 
       </div>
     </div>
     <div class="card-footer" id="footer">
       <a>
-Copyright (c) 2017 Falko - UnB-FGA (GPP/MDS) Grupo 8 Segundo Semestre de 2017</a>
+        Copyright (c) 2017 Falko - UnB-FGA (GPP/MDS) Grupo 8 Segundo Semestre de 2017
+      </a>
     </div>
   </div>
 </template>
@@ -154,8 +145,7 @@ h1 {
 #footer {
   background-color: #01161E;
   margin: 0;
-  max-height: 3em;
-  font-size: smaller;
+  padding: 1.5em 0;
   color: #598392;
   font-size: 0.9rem;
   text-align: center;
