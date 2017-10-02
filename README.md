@@ -11,7 +11,7 @@
     <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki"><strong>Visite nossa Wiki &raquo;</strong></a>
     <br>
     <br>
-    <a href="falko.solutions">Acesse o Falko</a>
+    <a href="http://falko.solutions">Acesse o Falko</a>
     &middot;
     <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd">Repositório de BackEnd</a>
     &middot;
