@@ -17,3 +17,8 @@ node_modules
 #Ignore vim temporary files
 *.sw*
 
+#Ignore Coverage Dir
+/coverage
+
+#Ignore Sublime temporary files
+.DS_Store
