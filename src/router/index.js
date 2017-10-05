@@ -9,6 +9,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
+import NoProjects from '@/components/NoProjects'
 
 Vue.use(Router)
 

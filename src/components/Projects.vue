@@ -1,5 +1,8 @@
 <template>
-  <div>   
+  <div>
+    <div v-if="isProjectsEmpty()">
+      <no-projects></no-projects>
+    </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
         <router-link v-bind:to="'/inproject/'+project.id" class="asdf">
@@ -14,10 +17,8 @@
         </router-link>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <AddProj></AddProj>
-      </div>
+    <div class="col">
+      <AddProj></AddProj>
     </div>
   </div>
 
@@ -27,10 +28,12 @@
 import { EventBus } from '../event-bus.js';
 import AddProject from '@/components/AddProject';
 import {HTTP} from '../http-common.js';
+import NoProjects from '@/components/NoProjects'
 
 export default{
   components: {
-    'AddProj' : AddProject
+    'AddProj' : AddProject,
+    'no-projects': NoProjects
   },
   name: 'projects',
   data() {
@@ -47,6 +50,10 @@ export default{
       .catch(e => {
         this.errors.push(e);
       });
+    },
+
+    isProjectsEmpty() {
+      return this.projects.length == 0
     }
   },
   mounted() {
