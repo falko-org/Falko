@@ -26,7 +26,6 @@ import DeleteProject from '@/components/DeleteProject';
 import EditProject from '@/components/EditProject';
 import { EventBus } from '../event-bus.js';
 import {HTTP} from '../http-common.js';
-import EditProject from '@/components/EditProject'
 
 export default{
   name: 'InProject',
