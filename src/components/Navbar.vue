@@ -4,11 +4,18 @@
         <img src="logo.png" width="50"/>
         <img src="../assets/falko-text.png" height="50"/>
       </a>
+    <a>
+      <searchbar></searchbar>
+    </a>
   </nav>
 </template>
 
 <script>
-export default {  
+import SearchBar from '@/components/SearchBar'
+export default {
+  components: {
+    'searchbar': SearchBar
+  }
 }
 </script>
 
