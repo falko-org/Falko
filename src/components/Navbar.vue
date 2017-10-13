@@ -4,9 +4,9 @@
         <img src="logo.png" width="50"/>
         <img src="../assets/falko-text.png" height="50"/>
       </a>
-    <a>
-      <searchbar></searchbar>
-    </a>
+      <div class="container">
+            <searchbar></searchbar>
+      </div>
   </nav>
 </template>
 

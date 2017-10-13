@@ -4,7 +4,7 @@
       <no-projects></no-projects>
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
+      <div v-for="project in filteredProjects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
         <router-link v-bind:to="'/inproject/'+project.id" class="asdf">
           <div class="card">
             <div class="card-body project">
@@ -28,17 +28,20 @@
 import { EventBus } from '../event-bus.js';
 import AddProject from '@/components/AddProject';
 import {HTTP} from '../http-common.js';
-import NoProjects from '@/components/NoProjects'
+import NoProjects from '@/components/NoProjects';
+import SearchBar from '@/components/SearchBar';
 
 export default{
   components: {
     'AddProj' : AddProject,
-    'no-projects': NoProjects
+    'no-projects': NoProjects,
+    'searchbar': SearchBar
   },
   name: 'projects',
   data() {
     return{
-      projects: []
+      projects: [],
+      search: ''
     }
   },
   methods: {
@@ -69,6 +72,13 @@ export default{
     });
 
     this.getProjects();
+  },
+  computed: {
+    filteredProjects: function(){
+      return this.projects.filter((project) => {
+        return project.name.match(this.search);
+      });
+    }
   }
 
 }
@@ -78,7 +88,7 @@ export default{
 <style scoped>
 
 .top-buffer {
-  margin-top:30px; 
+  margin-top:30px;
 }
 
 a:link {
