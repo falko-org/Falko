@@ -5,8 +5,8 @@
               <form action="" class="search-form">
                   <div class="form-group has-feedback">
               		<label for="search" class="sr-only">Search</label>
-              		<input type="text" class="form-control" name="search" id="search" placeholder="search">
-                		<i class="fa fa-search form-control-feedback"></i>
+              		  <input type="text" class="form-control" name="search" id="search" placeholder="Search..." v-model="search">
+                		  <i class="fa fa-search form-control-feedback"></i>
               	</div>
               </form>
           </div>
@@ -17,27 +17,36 @@
 
 <script>
 
+export default {
+  data() {
+    return {
+      search: ''
+    }
+  }
+}
+
 </script>
 
 
 <style>
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+
 
 .search-form .form-group {
   float: right;
   transition: all 0.35s, border-radius 0s;
-  width: 6em;
+  width: 6.5em;
   height: 2em;
   background-color: #fff;
   border-radius: 1.563em;
   border: 0.063em solid #ccc;
 }
+
 .search-form .form-group input.form-control {
-  padding-right: 1.250em;
+  /*padding-right: 1.250em;*/
   border: 0 none;
   background: transparent;
-  box-shadow: none;
-  display:block;
+  /*box-shadow: none;*/
+  /*display: block;*/
 }
 
 .search-form .form-group:hover,
@@ -46,6 +55,7 @@
   border-radius: 1.563em;
   max-width: 20em;
 }
+
 .search-form .form-group i.form-control-feedback {
   position: absolute;
   top: -0.0625em;
@@ -61,6 +71,4 @@
   left: initial;
   font-size: 1em;
 }
-
-
 </style>
