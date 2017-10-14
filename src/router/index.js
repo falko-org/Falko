@@ -10,6 +10,7 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
+import GitHubCallBack from '@/components/GitHubCallBack'
 
 Vue.use(Router)
 
@@ -56,6 +57,12 @@ export default new Router({
       path: '/loginregister',
       name: 'LoginRegister',
       component: LoginRegister
+    },
+
+    {
+      path: '/githubcallback',
+      name: 'GitHubCallBack',
+      component: GitHubCallBack
     },
 
     {
