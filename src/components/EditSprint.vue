@@ -1,0 +1,70 @@
+<template>
+	<div class = "editsprint">
+		<button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editSprintModal">
+			Edit
+		</button>
+
+		<div class="modal fade" id ="editSprintModal" role="dialog">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+			        <div class="modal-header">
+			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+			              <span aria-hidden="true">&times;</span>
+			            </button>
+			          <h4 class="modal-title">Edit Sprint</h4>
+			        </div>
+			        <div class="modal-body">
+								<p><label > Name </label></p>
+								<p><input type = "text" v-model="name"></input><br></p>
+								<p><label> Description </label></p>
+								<input type = "text" v-model="description"></input><br>
+								<p><label> Start Date </label></p>
+								<input type = "text" v-model="startDate"></input><br>
+								<p><label> End Date </label></p>
+								<input type = "text" v-model="endDate"></input><br>
+			        </div>
+			        <div class="modal-footer">
+			          <button type="button" class="btn btn-primary" v-on:click="editSprint" data-dismiss="modal">Save</button>
+		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+			        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+	import { EventBus } from '../event-bus.js';
+	import {HTTP} from '../http-common.js';
+	export default{
+		name: 'editSprint',
+		data(){
+			return {
+				name: "",
+				description: "",
+				startDate: "",
+				endDate: ""
+			}
+		},
+		methods: {
+			editSprint(){
+				var headers = {'Authorization':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MDgwNjk5NDB9.z6-SzacTPbJNIbVtperIsNUvDlS5vJCl4pcIsRv4K4o'}
+				HTTP.put("projects/"+this.$route.params.id, {
+					name: this.name,
+					description: this.description
+					start_date: this.startDate
+					end_date: this.endDate
+				}, { headers: headers })
+				.then(response=>{
+					EventBus.$emit('edited-sprint', this.$route.params.id)
+				})
+				.catch(e=>{
+					this.errors.push(e)
+				});
+			}
+		}
+	}
+</script>
+
+<style scoped>
+</style>

@@ -10,6 +10,7 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
+import SprintIndex from '@/components/SprintIndex'
 
 Vue.use(Router)
 
@@ -62,6 +63,12 @@ export default new Router({
       path: '/',
       name: 'HomePage',
       component: HomePage
+    },
+
+    {
+      path: '/sprint',
+      name: 'SprintIndex',
+      component: SprintIndex
     }
   ]
 })
