@@ -42,7 +42,12 @@ export default{
   },
   methods: {
     getSprints() {
-      var headers = {'Authorization':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MDgwNjk5NDB9.z6-SzacTPbJNIbVtperIsNUvDlS5vJCl4pcIsRv4K4o'}
+
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
       HTTP.get("projects/1/sprints", { headers:headers })
       .then(response => {
         this.sprints = response.data;

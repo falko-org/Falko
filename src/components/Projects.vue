@@ -43,7 +43,16 @@ export default{
   },
   methods: {
     getProjects() {
-      HTTP.get("projects")
+
+      var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+
+      var user_id = localStorage.getItem('user_id');
+			var user_int = parseInt(user_id);
+
+      HTTP.get(`users/${user_int}/projects`, { headers: headers })
       .then(response => {
         this.projects = response.data;
       })
@@ -78,7 +87,7 @@ export default{
 <style scoped>
 
 .top-buffer {
-  margin-top:30px; 
+  margin-top:30px;
 }
 
 a:link {

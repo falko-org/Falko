@@ -1,11 +1,11 @@
 <template>
-	<div class = "editproject">		
+	<div class = "editproject">
 		<button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal">
 			Edit
 		</button>
-		
+
 		<div class="modal fade" id ="editModal" role="dialog">
-			<div class="modal-dialog">	
+			<div class="modal-dialog">
 		    	<div class="modal-content">
 			        <div class="modal-header">
 			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
@@ -21,11 +21,11 @@
 			        </div>
 			        <div class="modal-footer">
 			          <button type="button" class="btn btn-primary" v-on:click="editProject" data-dismiss="modal">Save</button>
-		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>	
+		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 			        </div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
 </template>
 
@@ -38,14 +38,20 @@
 			return {
 				name: "",
 				description: ""
-			}	
+			}
 		},
 		methods: {
 			editProject(){
+
+				var token = localStorage.getItem('token');
+				var tokenSimple = token.replace(/"/, "");
+				var tokenSimple2 = tokenSimple.replace(/"/, "");
+				var headers = { 'Authorization':tokenSimple2 };
+
 				HTTP.put("projects/"+this.$route.params.id, {
 					name: this.name,
 					description: this.description
-				})
+				}, { headers: headers })
 				.then(response=>{
 					EventBus.$emit('edited-project', this.$route.params.id)
 				})
@@ -56,6 +62,6 @@
 		}
 	}
 </script>
-	
+
 <style scoped>
 </style>

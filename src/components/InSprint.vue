@@ -40,7 +40,13 @@ export default{
   },
   methods: {
     getSprint() {
-      HTTP.get(`projects/1/sprints/${this.$route.params.id}`)
+
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
+      HTTP.get(`projects/1/sprints/${this.$route.params.id}`, {headers:headers})
         .then((response) => {
           this.project = response.data;
         })

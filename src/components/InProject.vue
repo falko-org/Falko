@@ -1,4 +1,4 @@
-<template>  
+<template>
   <div>
     <div class="row inproject">
       <div class="col-md-10">
@@ -40,7 +40,11 @@ export default{
   },
   methods: {
     getProject() {
-      HTTP.get(`projects/${this.$route.params.id}`)
+      var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+      HTTP.get(`projects/${this.$route.params.id}`, {headers:headers})
         .then((response) => {
           this.project = response.data;
         })
@@ -65,7 +69,7 @@ export default{
 };
 </script>
 
-  
+
 <style scoped>
 #buttons {
   margin-top: 1em;

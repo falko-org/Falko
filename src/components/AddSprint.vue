@@ -51,8 +51,13 @@ export default {
   },
   methods: {
   	addSprint() {
-			var headers = {'Authorization':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MDgwNjk5NDB9.z6-SzacTPbJNIbVtperIsNUvDlS5vJCl4pcIsRv4K4o'}
-	    HTTP.post(`projects/1/sprints`, { sprint: {
+
+			var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
+			HTTP.post(`projects/1/sprints`, { sprint: {
 					name: this.name,
 					description: this.description,
 					start_date: this.startDate,
@@ -70,6 +75,9 @@ export default {
 	    .catch(e => {
 	      this.errors.push(e)
 	    });
+
+			localStorage.removeItem('token');
+
 	}
   }
 

@@ -39,8 +39,13 @@ export default {
   },
   methods:{
   	delproje(){
-			var headers = {'Authorization':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MDgwNjk5NDB9.z6-SzacTPbJNIbVtperIsNUvDlS5vJCl4pcIsRv4K4o'}
-  		HTTP.delete("projects/1/sprints"+this.$route.params.id, { headers: headers })
+
+			var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
+			HTTP.delete("projects/1/sprints"+this.$route.params.id, { headers: headers })
 			.then(response =>{
 				this.$router.push({ path : '/projects/1/sprints'});
 			})
