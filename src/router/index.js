@@ -10,8 +10,9 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
+import ReleasePreview from '@/components/ReleasesComponents/ReleasePreview'
 
-Vue.use(Router)
+Vue.use(Router) 
 
 export default new Router({
   routes: [
@@ -62,6 +63,11 @@ export default new Router({
       path: '/',
       name: 'HomePage',
       component: HomePage
+    },
+    {
+      path: '/release',
+      name: 'release',
+      component: ReleasePreview
     }
   ]
 })

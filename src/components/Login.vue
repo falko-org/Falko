@@ -1,5 +1,6 @@
 <template>
   <div id="login">
+    <h1>{{asdf}}</h1>
     <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
 
@@ -25,7 +26,8 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      asdf: 'asd'
     }
   },
 
