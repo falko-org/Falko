@@ -17,6 +17,13 @@
           <div class="col-md-2">
             <DelProject></DelProject>
           </div>
+          <div class="col-md-2">
+          <router-link to="/sprint">
+            <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
+            Sprints
+            </button>
+          </router-link>
+    </div>
         </div>
   </div>
 </template>
