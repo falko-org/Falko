@@ -65,7 +65,7 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/releases',
+      path: '/inproject/:id/releases',
       name: 'Releases',
       component: Releases
     }
