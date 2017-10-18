@@ -11,6 +11,7 @@ import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
 import ReleasePreview from '@/components/ReleasesComponents/ReleasePreview'
+import Releases from '@/components/ReleasesComponents/Releases'
 
 Vue.use(Router) 
 
@@ -68,6 +69,11 @@ export default new Router({
       path: '/release',
       name: 'release',
       component: ReleasePreview
+    },
+    {
+      path: '/releases',
+      name: 'Releases',
+      component: Releases
     }
   ]
 })

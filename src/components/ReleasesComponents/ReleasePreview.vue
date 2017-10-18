@@ -3,12 +3,13 @@
     <div class="card-header" id="releaseHeader">
       <div class="row align-itens-around" id="releaseTitle">
         <div class="col">
-          <h4 class="no-margin">{{releaseName}}</h4>
+          <h4 class="no-margin float-left">{{releaseName}}</h4>
         </div>
         <div class="col">
-          <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/>
+          <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
           <h5 class="no-margin float-right">
             {{releaseInitalDate}}
+            -
             {{releaseFinalDate}}
           </h5>
         </div>
@@ -16,10 +17,14 @@
     </div>
     <div class="card-body">
       <div class="row align-itens-arround">
-        <div class="col-5">
+        <div class="col-5 align-content-center">
           <p class="card-text">
-            <div class="number-circle"><div id="amountSprintsFont">{{releaseAmountOfSprints}}</div></div>
-            <h5 style="text-align:center"><br>Sprints</h5>
+            <div class="number-circle">
+              <div id="amountSprintsFont">
+                {{releaseAmountOfSprints}}
+              </div>
+            </div>
+            <h5><br>Sprints</h5>
           </p>
         </div>
         <div class="col">
@@ -91,8 +96,6 @@ export default {
   box-sizing: content-box;
   top: 50%;
   left: 50%;
-  margin-left: 40px;
-  margin-top: -20px;
 }
 
 
