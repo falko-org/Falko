@@ -5,7 +5,7 @@
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(sprints.length / 2)">
       <div v-for="sprint in sprints.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
-        <router-link v-bind:to="'/insprint/'+sprint.id" class="asdf">
+        <router-link v-bind:to="'/insprint/'+sprint.id">
           <div class="card">
             <div class="card-body sprint">
               <h4 class="card-title">
@@ -28,6 +28,7 @@ import { EventBus } from '../event-bus.js';
 import AddSprint from '@/components/AddSprint';
 import {HTTP} from '../http-common.js';
 import NoSprints from '@/components/NoSprints'
+import EditProject from '@/components/EditProject'
 
 export default{
   components: {
@@ -48,13 +49,14 @@ export default{
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
 
-      HTTP.get("projects/1/sprints", { headers:headers })
-      .then(response => {
-        this.sprints = response.data;
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
+
+        HTTP.get(`projects/${this.$route.params.id}/sprints`, {headers:headers})
+          .then((response) => {
+            this.sprints = response.data;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
     },
 
     isSprintsEmpty() {
@@ -63,15 +65,16 @@ export default{
   },
   mounted() {
     var _this = this
-    EventBus.$on('added-sprint', function (id) {
+    // EventBus.$on('added-sprint', function (id) {
       HTTP.get("sprints")
       .then(response => {
         _this.sprints = response.data;
+        this.$router.push({ path : 'SprintIndex'});
       })
       .catch(e => {
         this.errors.push(e);
       });
-    });
+    // });
 
     this.getSprints();
   }
