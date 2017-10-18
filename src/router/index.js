@@ -11,6 +11,9 @@ import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
 import SprintIndex from '@/components/SprintIndex'
+import InSprint from '@/components/InSprint'
+import EditSprint from '@/components/EditSprint'
+import DeleteSprint from '@/components/DeleteSprint'
 
 Vue.use(Router)
 
@@ -58,17 +61,30 @@ export default new Router({
       name: 'LoginRegister',
       component: LoginRegister
     },
-
     {
       path: '/',
       name: 'HomePage',
       component: HomePage
     },
-
     {
-      path: '/sprint',
+      path: '/inproject/:id/sprint',
       name: 'SprintIndex',
       component: SprintIndex
+    },
+    {
+      path: '/insprint/:id',
+      name: 'InSprint',
+      component: InSprint
+    },
+    {
+      path: '/deletesprint',
+      name: 'DeleteSprint',
+      component: DeleteSprint
+    },
+    {
+      path: '/editsprint',
+      name: 'EditSprint',
+      component: EditSprint
     }
   ]
 })
