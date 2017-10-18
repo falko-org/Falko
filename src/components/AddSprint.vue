@@ -1,5 +1,5 @@
 <template>
-	<div class="addsprint">
+	<div class="addsprintBody">
 		<div class="text-center">
 			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
 				Add a Sprint
@@ -38,9 +38,10 @@
 <script>
 import { EventBus } from '../event-bus.js';
 import {HTTP} from '../http-common.js';
+import AddProject from '@/components/AddProject';
 
 export default {
-  name: 'addSprint',
+  name: 'addSprintBody',
   data () {
     return {
       name: '',
@@ -57,28 +58,26 @@ export default {
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
 
-			HTTP.post(`projects/1/sprints`, { sprint: {
-					name: this.name,
-					description: this.description,
-					start_date: this.startDate,
-					end_date: this.endDate
-				}
-	    }, { headers: headers })
-	    .then(response => {
-	    	this.name = "";
-	    	this.description = "";
-				this.startDate = "";
-				this.endDate = "";
-				this.id = "";
-	    	EventBus.$emit('added-sprint', 1)
-	    })
-	    .catch(e => {
-	      this.errors.push(e)
-	    });
 
-			localStorage.removeItem('token');
-
-	}
+				HTTP.post(`projects/${this.$route.params.id}/sprints`, { sprint: {
+				    name: this.name,
+				    description: this.description,
+				    start_date: this.startDate,
+				    end_date: this.endDate
+				  }
+				  }, { headers: headers })
+				    .then(response => {
+				      this.name = "";
+				      this.description = "";
+				      this.startDate = "";
+				      this.endDate = "";
+				      this.id = "";
+				      EventBus.$emit('added-sprint', 1)
+				  })
+				    .catch(e => {
+				      this.errors.push(e)
+				  });
+		}
   }
 
 }

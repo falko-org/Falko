@@ -6,13 +6,15 @@
           <div class="card-body ">
             <h4 class="card-title">{{sprint.name}}</h4>
             <p class="card-text text-muted">{{sprint.description}}</p>
+            <p class="card-text text-muted">{{sprint.start_date}}</p>
+            <p class="card-text text-muted">{{sprint.end_date}}</p>
           </div>
         </div>
       </div>
     </div>
         <div class="row justify-content-center" id="buttons">
           <div class="col-md-2">
-            <EditProject></EditProject>
+            <EditSprint></EditSprint>
           </div>
           <div class="col-md-2">
             <DeleleteSprint></DeleleteSprint>
@@ -23,7 +25,7 @@
 
 <script>
 import DeleteSprint from '@/components/DeleteSprint';
-import EditProject from '@/components/EditProject';
+import EditSprint from '@/components/EditSprint';
 import { EventBus } from '../event-bus.js';
 import {HTTP} from '../http-common.js';
 
@@ -31,7 +33,7 @@ export default{
   name: 'InSprint',
   components: {
     DeleleteSprint: DeleteSprint,
-    EditProject,
+    EditSprint,
   },
   data() {
     return {
@@ -46,9 +48,9 @@ export default{
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
 
-      HTTP.get(`projects/1/sprints/${this.$route.params.id}`, {headers:headers})
+      HTTP.get(`sprints/${this.$route.params.id}`, {headers:headers})
         .then((response) => {
-          this.project = response.data;
+          this.sprint = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -57,15 +59,22 @@ export default{
   },
   mounted() {
     const myThis = this;
+
+    var token = localStorage.getItem('token');
+    var tokenSimple = token.replace(/"/, "");
+    var tokenSimple2 = tokenSimple.replace(/"/, "");
+    var headers = { 'Authorization':tokenSimple2 };
+
+
     EventBus.$on('edited-sprint', (id) => {
-      HTTP.get(`sprints/${id}`)
+      HTTP.get(`sprints/${this.$route.params.id}`, {headers:headers})
         .then((response) => {
           myThis.project = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
-    });
+     });
     this.getSprint();
   },
 };
