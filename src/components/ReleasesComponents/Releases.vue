@@ -48,12 +48,9 @@
 </template>
 
 <script>
-import ReleasePreview from '@/components/ReleasesComponents/ReleasePreview'
 
 export default {
-  components: {
-    'release-preview': ReleasePreview
-  },
+  components: {},
 
   data () {
     return {
