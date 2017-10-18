@@ -73,6 +73,9 @@ export default{
     });
     this.getProject();
   },
+  updated(){
+    this.getProject();
+  }
 };
 </script>
 

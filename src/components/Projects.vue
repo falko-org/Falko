@@ -67,16 +67,20 @@ export default{
   },
   mounted() {
     var _this = this
+    this.getProjects();    
     EventBus.$on('added-project', function (id) {
       HTTP.get("projects")
       .then(response => {
         _this.projects = response.data;
+        this.$router.push({ path : 'Projects'});
       })
       .catch(e => {
         this.errors.push(e);
       });
     });
 
+  },
+  updated(){
     this.getProjects();
   }
 
