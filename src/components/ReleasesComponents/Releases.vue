@@ -1,5 +1,11 @@
 <template>
-  <div class="">
+  <div>
+    <div class="row">
+      <div class="col">
+        <add-release></add-release>
+      </div>
+    </div>
+    
     <div class="row justify-content-around" v-for="i in Math.ceil(releases.length / 2)">
       <div v-for="release in releases.slice((i-1) * 2,i*2)" class="col-5">
         <div align="center">
@@ -45,7 +51,6 @@
         </div>
       </div>
     </div>
-    <add-release></add-release>
   </div>
 </template>
 

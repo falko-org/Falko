@@ -18,17 +18,8 @@
           </p>
         </ul>
       </div>
-      <div class="col-md-3" align="center">
-        <button type="button" class="btn btn-info btn-md falko-button" 
-         id="addButton" data-toggle="modal" data-target="#addReleaseModal">
-          Edit
-        </button>
-        <button type="button" class="btn btn-info btn-md falko-button 
-         falko-button-danger small-float-right" id="addButton" 
-        data-toggle="modal" data-target="#addReleaseModal"
-        >
-          Delete
-        </button>
+      <div class="col-md-3">
+        <edit-release></edit-release>   
       </div>
     </div>
   </div>
@@ -36,8 +27,13 @@
 
 <script>
 import { HTTP } from '../../http-common.js';
+import EditRelease from '@/components/ReleasesComponents/EditRelease';
 
 export default {
+  components: {
+    'edit-release': EditRelease
+  },
+
   data () {
     return {
       release: {}
