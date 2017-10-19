@@ -4,7 +4,7 @@
       <div v-for="release in releases.slice((i-1) * 2,i*2)" class="col-5">
         <div align="center">
           <div class="card" id="releaseCard">
-            <router-link v-bind:to="'/inproject/'+release.project_id+'/releases/'+release.id">
+            <router-link v-bind:to="'/releases/'+release.id">
               <div class="card-header" id="releaseHeader">
                 <div class="row align-itens-around" id="releaseTitle">
                   <div class="col">

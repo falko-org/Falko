@@ -11,6 +11,7 @@ import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
 import Releases from '@/components/ReleasesComponents/Releases'
+import Release from '@/components/ReleasesComponents/Release'
 
 Vue.use(Router)
 
@@ -68,6 +69,12 @@ export default new Router({
       path: '/inproject/:id/releases',
       name: 'Releases',
       component: Releases
+    },
+    {
+      path: '/releases/:id',
+      name: 'Release',
+      component: Release
     }
+    
   ]
 })
