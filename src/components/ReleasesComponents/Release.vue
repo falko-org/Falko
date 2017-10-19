@@ -19,7 +19,14 @@
         </ul>
       </div>
       <div class="col-md-3">
-        <edit-release></edit-release>   
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <edit-release></edit-release>   
+          </li>
+          <li class="list-inline-item">
+            <delete-release></delete-release>   
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -28,10 +35,12 @@
 <script>
 import { HTTP } from '../../http-common.js';
 import EditRelease from '@/components/ReleasesComponents/EditRelease';
+import DeleteRelease from '@/components/ReleasesComponents/DeleteRelease';
 
 export default {
   components: {
-    'edit-release': EditRelease
+    'edit-release': EditRelease,
+    'delete-release': DeleteRelease
   },
 
   data () {
