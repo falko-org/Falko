@@ -45,14 +45,18 @@
         </div>
       </div>
     </div>
+    <add-release></add-release>
   </div>
 </template>
 
 <script>
 import { HTTP } from '../../http-common.js';
+import AddRelease from '@/components/ReleasesComponents/AddRelease';
 
 export default {
-  components: {},
+  components: {
+    'add-release': AddRelease
+  },
 
   data () {
     return {
@@ -67,7 +71,7 @@ export default {
       var tokenSimple = token.replace(/"/, "");
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var header = { 'Authorization': tokenSimple2 };
-      console.log(token)
+
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers: header })
         .then((response) => {
           this.releases = response.data;
