@@ -44,7 +44,7 @@ export default {
 }
 
 .falko-button:hover {
-  background-color: #86B1ED;
+  background-color: #6E9191;
 }
 
 .falko-button-danger {
