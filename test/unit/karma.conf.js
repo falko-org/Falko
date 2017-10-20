@@ -7,13 +7,29 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'sinon-chai'],
+    reporters: ['spec', 'coverage'],
     files: ['./index.js'],
     // we will pass the entry file to webpack for bundling.
     preprocessors: {
       './index.js': ['webpack', 'sourcemap']
     },
+    plugins: [
+      // Launchers
+      'karma-phantomjs-launcher',
 
+      // Test Libraries
+      'karma-mocha',
+      'karma-sinon-chai',
+
+      // Preprocessors
+      'karma-webpack',
+      'karma-sourcemap-loader',
+
+      // Reporters
+      'karma-spec-reporter',
+      'karma-coverage'
+    ],
     // optionally, configure the reporter
     coverageReporter: {
       dir: './coverage',
@@ -25,7 +41,6 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['coverage'],
     // web server port
     port: 9876,
     // enable / disable colors in the output (reporters and logs)
