@@ -1,6 +1,6 @@
 <template>
   <div align="center" id="noSprint">
-    <img src="../assets/bw-logo.png" class="img-fluid" width="200em" alt="Falko" id="falkoLogo"/>
+    <img src="../../assets/bw-logo.png" class="img-fluid" width="200em" alt="Falko" id="falkoLogo"/>
     <div id="noSprintsMessage">
       <h3>No Sprints Added</h3>
       <p class="text-muted">Click on "Add a Sprint" to Get Started</p>

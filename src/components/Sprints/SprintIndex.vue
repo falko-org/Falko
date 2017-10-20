@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
-import AddSprint from '@/components/AddSprint';
-import {HTTP} from '../http-common.js';
-import NoSprints from '@/components/NoSprints'
+import { EventBus } from '../../event-bus.js';
+import AddSprint from '@/components/Sprints/AddSprint';
+import {HTTP} from '../../http-common.js';
+import NoSprints from '@/components/Sprints/NoSprints'
 import EditProject from '@/components/EditProject'
 
 export default{

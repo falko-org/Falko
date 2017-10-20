@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
-import {HTTP} from '../http-common.js';
+import { EventBus } from '../../event-bus.js';
+import {HTTP} from '../../http-common.js';
 import AddProject from '@/components/AddProject';
 
 export default {

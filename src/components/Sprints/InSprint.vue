@@ -24,10 +24,10 @@
 </template>
 
 <script>
-import DeleteSprint from '@/components/DeleteSprint';
-import EditSprint from '@/components/EditSprint';
-import { EventBus } from '../event-bus.js';
-import {HTTP} from '../http-common.js';
+import DeleteSprint from '@/components/Sprints/DeleteSprint';
+import EditSprint from '@/components/Sprints/EditSprint';
+import { EventBus } from '../../event-bus.js';
+import {HTTP} from '../../http-common.js';
 
 export default{
   name: 'InSprint',

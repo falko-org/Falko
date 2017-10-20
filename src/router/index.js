@@ -10,10 +10,10 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
-import SprintIndex from '@/components/SprintIndex'
-import InSprint from '@/components/InSprint'
-import EditSprint from '@/components/EditSprint'
-import DeleteSprint from '@/components/DeleteSprint'
+import SprintIndex from '@/components/Sprints/SprintIndex'
+import InSprint from '@/components/Sprints/InSprint'
+import EditSprint from '@/components/Sprints/EditSprint'
+import DeleteSprint from '@/components/Sprints/DeleteSprint'
 
 Vue.use(Router)
 
