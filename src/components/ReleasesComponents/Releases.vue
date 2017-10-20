@@ -145,7 +145,8 @@ div a {
   color: inherit;
 }
 
-div a:hover {
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+#releaseCard:hover {
+  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
+  border-color: #7799A5;
 }
 </style>
