@@ -12,6 +12,7 @@ import HomePage from '@/components/HomePage'
 import NoProjects from '@/components/NoProjects'
 import UserProfile from '@/components/UserProfile'
 import EditUserProfile from '@/components/EditUserProfile'
+import DeleteUserProfile from '@/components/DeleteUserProfile'
 
 Vue.use(Router)
 
@@ -59,7 +60,7 @@ export default new Router({
       name: 'LoginRegister',
       component: LoginRegister
     },
-    
+
     {
       path: '/user',
       name: 'UserProfile',
@@ -70,6 +71,12 @@ export default new Router({
       path: '/edituser',
       name: 'EditUserProfile',
       component: EditUserProfile
+    },
+
+    {
+      path: '/deleteuser',
+      name: 'DeleteUserProfile',
+      component: DeleteUserProfile
     },
 
     {
