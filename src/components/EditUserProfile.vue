@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="edit-user-profile">
 		<button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal">
 			Edit
 		</button>
@@ -32,9 +32,11 @@
 </template>
 
 <script>
-	import {HTTP} from '../http-common.js';
+	import { HTTP } from '../http-common';
+	import { EventBus } from '../event-bus.js';
 
 	export default {
+		name: "edit-user-profile",
 		data() {
 			return {
 				name: "",
@@ -52,6 +54,9 @@
 
 	      var user_id = localStorage.getItem('user_id');
 
+	      console.log(user_id);
+	      console.log(token);
+
 				HTTP.put("users/"+user_id, {
 					user: {
 							name: this.name,
@@ -60,7 +65,7 @@
 					}
 				}, { headers: headers })
 				.then((response) => {
-
+					EventBus.$emit('edited-user-profile', 1)
 				})
 				.catch((e) => {
 					this.errors.push(e);

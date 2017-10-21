@@ -28,39 +28,42 @@
 </template>
 
 <script>
-import {HTTP} from '../http-common.js';
+import { HTTP } from '../http-common';
 
 export default {
-  data () {
+  data() {
     return {
       email: '',
       username: '',
       password: '',
       password_confirmation: '',
-      github: ''
-    }
+      github: '',
+    };
   },
 
   methods: {
-    register () {
+    register() {
       HTTP.post('users', {
         user: {
           email: this.email,
           name: this.username,
           password: this.password,
           password_confirmation: this.password_confirmation,
-          github: this.github
-        }
+          github: this.github,
+        },
       })
-      .then((response) => {
-        this.$router.push({ name: 'Projects' })
-      })
-      .catch (e => {
-        this.errors.push(e)
-      });
-    }
-  }
-}
+        .then((response) => {
+          this.$router.push({ name: 'Projects' });
+          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
+          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+          console.log(response.data);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+  },
+};
 </script>
 
 <style>

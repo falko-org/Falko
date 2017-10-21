@@ -28,25 +28,26 @@
 </template>
 
 <script>
-  import {HTTP} from '../http-common.js';
+  import { HTTP } from '../http-common';
 
   export default {
-    methods:{
-      deleteUser(){
-        var raw_token = localStorage.getItem('token');
-				var token = raw_token.replace(/"/, "").replace(/"/, "");
+    methods: {
+      deleteUser() {
+        const rawToken = localStorage.getItem('token');
+        const token = rawToken.replace(/"/, '').replace(/"/, '');
 
-				var headers = { 'Authorization':token };
+        const headers = { Authorization: token };
 
-	      var user_id = localStorage.getItem('user_id');
-
-        HTTP.delete("users/"+user_id, { headers: headers })
-        .then((response) => {
-          this.$router.push({ path : '/' })
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        })
+        const user_id = localStorage.getItem('user_id');
+        console.log(user_id);
+        HTTP.delete(`users/${user_id}`, { headers })
+          .then((response) => {
+            this.$router.push({ path: '/' });
+            localStorage.clear();
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          })
       }
     }
 }
