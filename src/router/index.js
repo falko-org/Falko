@@ -14,6 +14,7 @@ import SprintIndex from '@/components/Sprints/SprintIndex'
 import InSprint from '@/components/Sprints/InSprint'
 import EditSprint from '@/components/Sprints/EditSprint'
 import DeleteSprint from '@/components/Sprints/DeleteSprint'
+import GitHubCallBack from '@/components/GitHubCallBack'
 
 Vue.use(Router)
 
@@ -61,6 +62,12 @@ export default new Router({
       name: 'LoginRegister',
       component: LoginRegister
     },
+    {
+      path: '/githubcallback',
+      name: 'GitHubCallBack',
+      component: GitHubCallBack
+    },
+
     {
       path: '/',
       name: 'HomePage',
