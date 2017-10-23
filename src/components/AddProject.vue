@@ -74,9 +74,6 @@ export default {
 </script>
 
 <style scoped>
-#addButton {
-	margin-top: 2em;
-}
 
 .modal-body{
   position: relative;
