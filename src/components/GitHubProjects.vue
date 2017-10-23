@@ -1,11 +1,11 @@
 <template>
 	<div class="addgithubrepo">
 		<div class="text-center">
-			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#myModal">
+			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#githubModal">
 				Import GitHub repository
 			</button>
 		</div>
-		<div class="modal fade" id ="myModal" role="dialog">
+		<div class="modal fade" id ="githubModal" role="dialog">
 			<div class="modal-dialog">
 		    	<div class="modal-content">
 					<div class="modal-header">
