@@ -15,6 +15,8 @@ import InSprint from '@/components/Sprints/InSprint'
 import EditSprint from '@/components/Sprints/EditSprint'
 import DeleteSprint from '@/components/Sprints/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
+import Releases from '@/components/ReleasesComponents/Releases'
+import Release from '@/components/ReleasesComponents/Release'
 
 Vue.use(Router)
 
@@ -92,6 +94,16 @@ export default new Router({
       path: '/editsprint',
       name: 'EditSprint',
       component: EditSprint
+    },
+    {
+      path: '/inproject/:id/releases',
+      name: 'Releases',
+      component: Releases
+    },
+    {
+      path: '/releases/:id',
+      name: 'Release',
+      component: Release
     }
   ]
 })
