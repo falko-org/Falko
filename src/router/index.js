@@ -17,52 +17,73 @@ import DeleteSprint from '@/components/Sprints/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
 import Releases from '@/components/ReleasesComponents/Releases'
 import Release from '@/components/ReleasesComponents/Release'
+import UserProfile from '@/components/UserProfile';
+import EditUserProfile from '@/components/EditUserProfile';
+import DeleteUserProfile from '@/components/DeleteUserProfile';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/projects',
       name: 'Projects',
-      component: Projects
+      component: Projects,
     },
     {
       path: '/addproject',
       name: 'AddProject',
-      component: AddProject
+      component: AddProject,
     },
     {
       path: '/inproject/:id',
       name: 'InProjects',
-      component: InProject
+      component: InProject,
     },
     {
       path: '/deleteproject',
       name: 'DeleteProject',
-      component: DeleteProject
+      component: DeleteProject,
     },
     {
       path: '/editproject/:id',
       name: 'EditProjects',
-      component: EditProject
+      component: EditProject,
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
     },
 
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
     },
 
     {
       path: '/loginregister',
       name: 'LoginRegister',
-      component: LoginRegister
+      component: LoginRegister,
+    },
+
+    {
+      path: '/user',
+      name: 'UserProfile',
+      component: UserProfile,
+    },
+
+    {
+      path: '/edituser',
+      name: 'EditUserProfile',
+      component: EditUserProfile,
+    },
+
+    {
+      path: '/deleteuser',
+      name: 'DeleteUserProfile',
+      component: DeleteUserProfile,
     },
     {
       path: '/githubcallback',
