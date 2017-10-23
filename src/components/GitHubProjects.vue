@@ -14,42 +14,42 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 					</div>
-					<div class="modal-body">						
+					<div class="modal-body">
 						<div v-if="userRepos.length != 0">
 							<h4 data-toggle="collapse" href="#userReposCollapse" aria-expanded="false" aria-controls="userReposCollapse" >User Repos</h4>
 							<div class="collapse" id="userReposCollapse">
 								<ul class="list-group">
 									<li class="list-group-item" v-for="userRepo in userRepos" >
-										 {{userRepo}} 
+										 {{userRepo}}
 										 <toggle-button v-model="myDataVariable"
-													    :value="false" 
-													    color="#AEC3B0" 
+													    :value="false"
+													    color="#AEC3B0"
 													    :labels="true" />
 									</li>
 								</ul>
-							</div>			
+							</div>
 						</div>
 						<div v-if="orgsRepos.length != 0">
 							<div v-for="orgs in orgsRepos">
-								<h4 
-									data-toggle="collapse" 
-									v-bind:href="'#'+orgs.name" 
-									aria-expanded="false" 
+								<h4
+									data-toggle="collapse"
+									v-bind:href="'#'+orgs.name"
+									aria-expanded="false"
 									v-bind:aria-controls="orgs.name" >
 									{{orgs.name}}
 								</h4>
 								<div class="collapse" v-bind:id="orgs.name">
 									<ul class="list-group">
 										<li class="list-group-item" v-for="repo in orgs.repos" >
-											 {{repo}} 
+											 {{repo}}
 											 <toggle-button v-model="myDataVariable"
-														    :value="false" 
-														    color="#AEC3B0" 
+														    :value="false"
+														    color="#AEC3B0"
 														    :labels="true" />
 										</li>
 									</ul>
 								</div>
-							</div>									
+							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -68,25 +68,19 @@
 	export default{
 		data() {
 			return {
-				userRepos: ["/fulano/projeto1",
-							"/fulano2/projeto2", 
-							"/fulano3/projeto3"
-				],
-				orgsRepos: [{name: "ORG1", 
-							repos: ["/fulano/projeto1",
-									"/fulano2/projeto2", 
-									"/fulano3/projeto3"]},
-									 
-							{name: "ORG2", 
-						     repos: ["/fulano/projeto1",
-									"/fulano2/projeto2", 
-										"/fulano3/projeto3"]}]
-
+				userRepos: [],
+				orgsRepos: []
 			}
 		},
 		methods: {
 			getRepos() {
-				HTTP.get("/repos")
+
+	      var token = localStorage.getItem('token');
+				var tokenSimple = token.replace(/"/, "");
+				var tokenSimple2 = tokenSimple.replace(/"/, "");
+				var headers = { 'Authorization':tokenSimple2 };
+
+				HTTP.get("repos", { headers: headers })
 				.then(response => {
 					this.userRepos = response.data.user;
 					this.orgsRepos = response.data.orgs;
@@ -98,7 +92,7 @@
 		},
 		mounted () {
 			this.getRepos();
-		}	
+		}
 	}
 </script>
 
