@@ -3,43 +3,58 @@
     <div class="card-body">
       <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
 
-      <form id="loginForm"  @submit.prevent="login()">
+      <form id="loginForm"  @submit.prevent="login()" name="wrong-credentials">
         <div class="form-group">
-          <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" v-model="email">
+          <input  type="email"
+                  class="form-control" 
+                  placeholder="Email" 
+                  name="email"
+                  v-model="email"
+                  v-validate="'email'" >
+          <p class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</p>
         </div>
+
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" v-model="password">
+          <input  type="password" 
+                  class="form-control" 
+                  placeholder="Password"
+                  name="password"
+                  v-model="password"
+                  v-validate="'required|min:6'">
+          <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
         </div>
+
         <div class="text-center">
           <button type="submit" class="btn btn-primary falko-button" >Log In</button>
         </div>
+        <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import {HTTP} from '../http-common.js';
 
 export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
     }
   },
 
   methods: {
     login () {
-      HTTP.post('authenticate', {
-        email: this.email,
-        password: this.password
-      })
+      let _this = this;
+      this.$store.dispatch('login', { email: this.email, password: this.password })
       .then((response) => {
-        this.$router.push({ name: 'Projects' })
+        console.log("Entrou no then do componente: " + response)
+        this.$router.push({ name: 'Projects' });
       })
-      .catch (e => {
-        this.errors.push(e)
+      .catch(function(err) {
+        // For example you may want to add an error related to authentication:
+        _this.errors.add('wrong-credentials', 'Wrong Credentials');
+        console.log(err.response.data); // It goes here!
       });
     }
   }
