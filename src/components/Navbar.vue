@@ -9,7 +9,7 @@
         <button class="falko-button btn btn-primary" v-if="this.$route.path != '/'">User Profile</button>
       </router-link>
       <router-link to="/projects">
-        <button class="falko-button btn btn-primary" v-if="this.$route.path != '/'">Criar Projeto</button>
+        <button class="falko-button btn btn-primary" v-if="this.$route.path != '/'">Create Project</button>
       </router-link>
         <button v-on:click="logout()" class="btn btn-primary falko-button" v-if="this.$route.path != '/'">Log Out</button>
       </div>
