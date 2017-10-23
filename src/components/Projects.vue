@@ -88,7 +88,7 @@ export default{
 
   },
   updated(){
-    this.getProjects();
+    //this.getProjects();
   }
 
 }

@@ -14,7 +14,7 @@
 export default {
   methods: {
     link() {
-      window.location.replace("https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b");
+      window.location.replace("https://github.com/login/oauth/authorize?scope=repo%20read:org%20user&client_id=cbd5f91719282354f09b");
     }
   }
 }

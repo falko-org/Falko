@@ -75,7 +75,7 @@
 		methods: {
 			getRepos() {
 
-	      var token = localStorage.getItem('token');
+	      		var token = localStorage.getItem('token');
 				var tokenSimple = token.replace(/"/, "");
 				var tokenSimple2 = tokenSimple.replace(/"/, "");
 				var headers = { 'Authorization':tokenSimple2 };
