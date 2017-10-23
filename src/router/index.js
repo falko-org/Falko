@@ -74,7 +74,7 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/inproject/:id/sprint',
+      path: '/inproject/:id/sprints',
       name: 'SprintIndex',
       component: SprintIndex
     },
