@@ -18,7 +18,7 @@
             <DelProject></DelProject>
           </div>
           <div class="col-md-2">
-          <router-link v-bind:to="'/inproject/'+project.id+'/sprint'">
+          <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
             <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
             Sprints
             </button>

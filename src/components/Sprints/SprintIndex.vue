@@ -49,36 +49,27 @@ export default{
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
 
-
-        HTTP.get(`projects/${this.$route.params.id}/sprints`, {headers:headers})
-          .then((response) => {
-            this.sprints = response.data;
-          })
-          .catch((e) => {
-            this.errors.push(e);
-          });
+      HTTP.get(`projects/${this.$route.params.id}/sprints`, {headers:headers})
+        .then((response) => {
+          this.sprints = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     isSprintsEmpty() {
       return this.sprints.length == 0
     }
   },
-  mounted() {
-    var _this = this
-    // EventBus.$on('added-sprint', function (id) {
-      HTTP.get("sprints")
-      .then(response => {
-        _this.sprints = response.data;
-        this.$router.push({ path : 'SprintIndex'});
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
-    // });
 
+  mounted() {
+    this.getSprints();
+  },
+
+  updated() {
     this.getSprints();
   }
-
 }
 </script>
 
