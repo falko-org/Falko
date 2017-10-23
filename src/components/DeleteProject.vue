@@ -1,10 +1,10 @@
 <template>
-	<div class="delproject">		
+	<div class="delproject">
 		<button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#myModal">
 			Delete
-		</button>	
+		</button>
 		<div class="modal fade" id ="myModal" role="dialog">
-			<div class="modal-dialog">	
+			<div class="modal-dialog">
 		    	<div class="modal-content">
 			        <div class="modal-header">
 									<div>
@@ -18,8 +18,8 @@
 			          <p><label> Are you sure?</label></p>
 			        </div>
 			        <div class="modal-footer">
-            			<button v-on:click="delproje" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>            			
-		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>	
+            			<button v-on:click="delproje" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
+		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 			        </div>
 				</div>
 			</div>
@@ -30,16 +30,22 @@
 <script>
 import {HTTP} from '../http-common.js';
 
-export default {	
+export default {
 	name: 'delproject',
   data () {
-    return {      
-      
+    return {
+
     }
   },
   methods:{
   	delproje(){
-  		HTTP.delete("projects/"+this.$route.params.id)
+
+			var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+
+			HTTP.delete("projects/"+this.$route.params.id, { headers: headers })
 			.then(response =>{
 				this.$router.push({ path : '/projects'});
 			})

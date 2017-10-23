@@ -1,4 +1,4 @@
-<template>  
+<template>
   <div>
     <div class="row inproject">
       <div class="col-md-10">
@@ -17,6 +17,13 @@
           <div class="col-md-2">
             <DelProject></DelProject>
           </div>
+          <div class="col-md-2">
+          <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
+            <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
+            Sprints
+            </button>
+          </router-link>
+    </div>
         </div>
   </div>
 </template>
@@ -40,7 +47,11 @@ export default{
   },
   methods: {
     getProject() {
-      HTTP.get(`projects/${this.$route.params.id}`)
+      var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+      HTTP.get(`projects/${this.$route.params.id}`, {headers:headers})
         .then((response) => {
           this.project = response.data;
         })
@@ -62,10 +73,13 @@ export default{
     });
     this.getProject();
   },
+  updated(){
+    this.getProject();
+  }
 };
 </script>
 
-  
+
 <style scoped>
 #buttons {
   margin-top: 1em;
