@@ -37,6 +37,8 @@ export default {
       })
       .then((response) => {
         this.$router.push({ name: 'Projects' })
+        localStorage.setItem('token', JSON.stringify(response.data.auth_token));
+        localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
       })
       .catch (e => {
         this.errors.push(e)

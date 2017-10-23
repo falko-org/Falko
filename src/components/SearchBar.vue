@@ -1,16 +1,13 @@
 <template>
   <div class="container" v-if="this.$route.path != '/'">
-      <div class="row">
-          <div class="col-md-4 col-md-offset-3">
-              <form action="" class="search-form">
-                  <div class="form-group has-feedback">
-                  <label for="search" class="sr-only">Search</label>
-                    <input type="text" class="form-control" name="search" id="search" placeholder="Search..." v-model="search">
-                      <i class="fa fa-search form-control-feedback"></i>
-                </div>
-              </form>
-          </div>
+    <form action="" class="search-form">
+        <div class="form-group has-feedback">
+        <label for="search" class="sr-only">Search</label>
+          <i class="fa fa-search form-control-feedback"></i>
+          <input type="text" class="form-control" name="search" id="search" placeholder="Search..." v-model="search">
+          </input>
       </div>
+    </form>
   </div>
 </template>
 
@@ -32,21 +29,17 @@ export default {
 
 
 .search-form .form-group {
-  float: right;
   transition: all 0.35s, border-radius 0s;
   width: 6.5em;
-  height: 2em;
   background-color: #fff;
   border-radius: 1.563em;
   border: 0.063em solid #ccc;
+  margin-bottom: 0;
 }
 
 .search-form .form-group input.form-control {
-  /*padding-right: 1.250em;*/
   border: 0 none;
   background: transparent;
-  /*box-shadow: none;*/
-  /*display: block;*/
 }
 
 .search-form .form-group:hover,

@@ -4,8 +4,8 @@
       <no-projects></no-projects>
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in filteredProjects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
-        <router-link v-bind:to="'/inproject/'+project.id" class="asdf">
+      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
+        <router-link v-bind:to="'/inproject/'+project.id">
           <div class="card">
             <div class="card-body project">
               <h4 class="card-title">
@@ -46,7 +46,16 @@ export default{
   },
   methods: {
     getProjects() {
-      HTTP.get("projects")
+
+      var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+
+      var user_id = localStorage.getItem('user_id');
+			var user_int = parseInt(user_id);
+
+      HTTP.get(`users/${user_int}/projects`, { headers: headers })
       .then(response => {
         this.projects = response.data;
       })
@@ -60,17 +69,20 @@ export default{
     }
   },
   mounted() {
-    var _this = this
-    EventBus.$on('added-project', function (id) {
-      HTTP.get("projects")
-      .then(response => {
-        _this.projects = response.data;
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
-    });
-
+    this.getProjects();
+    // EventBus.$on('added-project', function (id) {
+    //   HTTP.get("projects")
+    //   .then(response => {
+    //     _this.projects = response.data;
+    //     this.$router.push({ path : 'Projects'});
+    //   })
+    //   .catch(e => {
+    //     this.errors.push(e);
+    //   });
+    // });
+     
+  },
+  updated(){
     this.getProjects();
   },
   computed: {
