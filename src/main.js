@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import ToggleButton from 'vue-js-toggle-button'
 
+Vue.use(ToggleButton)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

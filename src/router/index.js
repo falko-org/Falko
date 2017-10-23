@@ -15,6 +15,7 @@ import InSprint from '@/components/Sprints/InSprint'
 import EditSprint from '@/components/Sprints/EditSprint'
 import DeleteSprint from '@/components/Sprints/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
+import GitHubProjects from '@/components/GitHubProjects'
 
 Vue.use(Router)
 
@@ -87,6 +88,11 @@ export default new Router({
       path: '/deletesprint',
       name: 'DeleteSprint',
       component: DeleteSprint
+    },
+    {
+      path: '/githubprojects',
+      name: 'GitHubProjects',
+      component: GitHubProjects
     },
     {
       path: '/editsprint',
