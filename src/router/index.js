@@ -105,6 +105,5 @@ export default new Router({
       name: 'Release',
       component: Release
     }
-    
   ]
 })
