@@ -26,6 +26,9 @@
 			<div class="col-md-2">
 		    <delete-user-profile></delete-user-profile>
 		  </div>
+			<div class="col-md-2">
+				<button class="falko-button btn btn-primary" v-on:click="link()">Link to Github</button>
+			</div>
 	  </div>
 	</div>
 </template>
@@ -72,6 +75,9 @@
 				.catch((e) => {
 					this.errors.push(e);
 				})
+			},
+			link() {
+				window.location.replace("https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b");
 			}
 		},
 		mounted() {
