@@ -62,10 +62,14 @@ export default{
       return this.sprints.length == 0
     }
   },
+
   mounted() {
     this.getSprints();
-  }
+  },
 
+  updated() {
+    this.getSprints();
+  }
 }
 </script>
 
