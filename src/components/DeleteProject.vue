@@ -38,8 +38,13 @@ export default {
     }
   },
   methods:{
+
   	deleteProject(){
-  		HTTP.delete("projects/"+this.$route.params.id)
+			var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+  		HTTP.delete("projects/"+this.$route.params.id, { headers: headers })
 			.then(response =>{
 				this.$router.push({ path : '/projects'});
 			})

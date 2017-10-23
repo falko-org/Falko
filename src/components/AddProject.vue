@@ -1,5 +1,5 @@
 <template>
-	<div class="addproj">		
+	<div class="addproj">
 		<div class="text-center">
 			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#myModal">
 				Add a Project
@@ -7,7 +7,7 @@
 		</div>
 
 		<div class="modal fade" id ="myModal" role="dialog">
-			<div class="modal-dialog">	
+			<div class="modal-dialog">
 		    	<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Add a Project</h4>
@@ -23,11 +23,11 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" v-on:click="addProject" data-dismiss="modal">Save</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>	
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 						</div>
 				</div>
 			</div>
-		</div>																	
+		</div>
 	</div>
 </template>
 
@@ -38,17 +38,27 @@ import {HTTP} from '../http-common.js';
 export default {
   name: 'addProj',
   data () {
-    return {      
+    return {
       name: '',
       description : ''
     }
   },
   methods: {
   	addProject() {
-	    HTTP.post(`projects`, {
+
+			var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+
+			var user_id = localStorage.getItem('user_id');
+			var user_int = parseInt(user_id);
+
+
+	    HTTP.post(`users/${user_int}/projects`,{
 	    	name: this.name,
 	    	description: this.description
-	    })
+	    }, { headers: headers })
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";

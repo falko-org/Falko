@@ -1,15 +1,22 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Projects from '@/components/Projects';
-import AddProject from '@/components/AddProject';
-import InProject from '@/components/InProject';
-import DeleteProject from '@/components/DeleteProject';
-import EditProject from '@/components/EditProject';
-import Login from '@/components/Login';
-import Register from '@/components/Register';
-import LoginRegister from '@/components/LoginRegister';
-import HomePage from '@/components/HomePage';
-import NoProjects from '@/components/NoProjects';
+import Vue from 'vue'
+import Router from 'vue-router'
+import Projects from '@/components/Projects'
+import AddProject from '@/components/AddProject'
+import InProject from '@/components/InProject'
+import DeleteProject from '@/components/DeleteProject'
+import EditProject from '@/components/EditProject'
+import Login from '@/components/Login'
+import Register from '@/components/Register'
+import LoginRegister from '@/components/LoginRegister'
+import HomePage from '@/components/HomePage'
+import NoProjects from '@/components/NoProjects'
+import SprintIndex from '@/components/Sprints/SprintIndex'
+import InSprint from '@/components/Sprints/InSprint'
+import EditSprint from '@/components/Sprints/EditSprint'
+import DeleteSprint from '@/components/Sprints/DeleteSprint'
+import GitHubCallBack from '@/components/GitHubCallBack'
+import Releases from '@/components/ReleasesComponents/Releases'
+import Release from '@/components/ReleasesComponents/Release'
 import UserProfile from '@/components/UserProfile';
 import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';
@@ -78,11 +85,46 @@ export default new Router({
       name: 'DeleteUserProfile',
       component: DeleteUserProfile,
     },
+    {
+      path: '/githubcallback',
+      name: 'GitHubCallBack',
+      component: GitHubCallBack
+    },
 
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage,
+      component: HomePage
     },
-  ],
-});
+    {
+      path: '/inproject/:id/sprints',
+      name: 'SprintIndex',
+      component: SprintIndex
+    },
+    {
+      path: '/insprint/:id',
+      name: 'InSprint',
+      component: InSprint
+    },
+    {
+      path: '/deletesprint',
+      name: 'DeleteSprint',
+      component: DeleteSprint
+    },
+    {
+      path: '/editsprint',
+      name: 'EditSprint',
+      component: EditSprint
+    },
+    {
+      path: '/inproject/:id/releases',
+      name: 'Releases',
+      component: Releases
+    },
+    {
+      path: '/releases/:id',
+      name: 'Release',
+      component: Release
+    }
+  ]
+})
