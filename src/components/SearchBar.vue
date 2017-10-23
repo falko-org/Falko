@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="this.$route.path != '/'">
       <div class="row">
           <div class="col-md-4 col-md-offset-3">
               <form action="" class="search-form">
                   <div class="form-group has-feedback">
-              		<label for="search" class="sr-only">Search</label>
-              		  <input type="text" class="form-control" name="search" id="search" placeholder="Search..." v-model="search">
-                		  <i class="fa fa-search form-control-feedback"></i>
-              	</div>
+                  <label for="search" class="sr-only">Search</label>
+                    <input type="text" class="form-control" name="search" id="search" placeholder="Search..." v-model="search">
+                      <i class="fa fa-search form-control-feedback"></i>
+                </div>
               </form>
           </div>
       </div>
