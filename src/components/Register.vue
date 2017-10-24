@@ -42,6 +42,21 @@ export default {
   },
 
   methods: {
+    login() {
+      HTTP.post('authenticate', {
+        email: this.email,
+        password: this.password,
+      })
+        .then((response) => {
+          this.$router.push({ name: 'Projects' });
+          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
+          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
     register() {
       HTTP.post('users', {
         user: {
@@ -52,11 +67,8 @@ export default {
           github: this.github,
         },
       })
-        .then((response) => {
-          this.$router.push({ name: 'Projects' });
-          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
-          console.log(response.data);
+        .then(() => {
+          this.login();
         })
         .catch((e) => {
           this.errors.push(e);
