@@ -20,7 +20,6 @@ import Release from '@/components/ReleasesComponents/Release'
 import UserProfile from '@/components/UserProfile';
 import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';
-import SearchBar from  '@/components/SearchBar'
 
 Vue.use(Router);
 
