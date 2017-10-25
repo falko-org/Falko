@@ -146,14 +146,11 @@ export default router;
 router.beforeEach((to, from, next) => {
   if (to.path === '/' || to.path === '/notFound') {
     next();
-  }
-  else if (!to.matched.length){
+  } else if (!to.matched.length) {
     next('/notFound');
-  }
-  else if (localStorage.getItem('token') === null) {
+  } else if (localStorage.getItem('token') === null) {
     next('/');
-  }
-  else {
+  } else {
     next();
   }
 })

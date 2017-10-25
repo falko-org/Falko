@@ -36,7 +36,7 @@ export default {
         this.$router.push('/');
     },
     goToHome(){
-        if (localStorage.getItem('token') != "null") {
+        if (localStorage.getItem('token') != null) {
           this.$router.push('/projects');
         } else {
           this.$router.push('/');
