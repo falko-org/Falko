@@ -76,4 +76,8 @@ input:focus {
 .small-float-left {
   margin-right: 1em;
 }
+
+.no-margin {
+  margin: 0;
+}
 </style>

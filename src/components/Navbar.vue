@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar sticky-top navbar-light bg-light row justify-content-around">
+  <nav class="navbar sticky-top navbar-light bg-light row justify-content-around no-margin">
     <!-- <div class="row justify-content-around"> -->
       <div class="col">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand falko-brand" v-on:click="isLogged()">
           <img src="logo.png" width="50"/>
           <img src="../assets/falko-text.png" height="50"/>
         </a>
@@ -35,10 +35,22 @@ export default {
     logout(){
         localStorage.setItem('token', JSON.stringify(null));
         this.$router.push('/');
+    },
+    isLogged(){
+        if (localStorage.getItem('token') != "null") {
+          this.$router.push('/projects');
+        } else {
+          this.$router.push('/');
+        }
     }
   }
 }
 </script>
 
 <style scoped>
+
+.falko-brand:hover {
+  cursor: pointer;
+}
+
 </style>

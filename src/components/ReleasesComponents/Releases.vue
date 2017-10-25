@@ -120,10 +120,6 @@ export default {
   font-size:1.4em;
 }
 
-.no-margin {
-  margin: 0;
-}
-
 .number-circle {
   font: 32px Arial, sans-serif;
 
