@@ -34,7 +34,7 @@ import SearchBar from '@/components/SearchBar';
 export default{
   components: {
     'AddProj' : AddProject,
-    'no-content': NoContent
+    'no-content': NoContent,
     'searchbar': SearchBar
   },
   name: 'projects',
