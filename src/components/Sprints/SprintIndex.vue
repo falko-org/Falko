@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isSprintsEmpty()">
-      <no-sprint></no-sprint>
+      <no-content parent = "Sprint"></no-content>
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(sprints.length / 2)">
       <div v-for="sprint in sprints.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
@@ -29,11 +29,12 @@ import AddSprint from '@/components/Sprints/AddSprint';
 import {HTTP} from '../../http-common.js';
 import NoSprints from '@/components/Sprints/NoSprints'
 import EditProject from '@/components/EditProject'
+import NoContent from '@/components/NoContent'
 
 export default{
   components: {
     'AddSprint' : AddSprint,
-    'no-sprint': NoSprints
+    'no-content': NoContent,
   },
   name: 'sprints',
   data() {

@@ -9,7 +9,7 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
-import NoProjects from '@/components/NoProjects'
+import NoContent from '@/components/NoContent'
 import SprintIndex from '@/components/Sprints/SprintIndex'
 import InSprint from '@/components/Sprints/InSprint'
 import EditSprint from '@/components/Sprints/EditSprint'
@@ -125,6 +125,11 @@ export default new Router({
       path: '/releases/:id',
       name: 'Release',
       component: Release
+    },
+    {
+      path: '/nocontent',
+      name: 'NoContent',
+      component: NoContent
     }
   ]
 })
