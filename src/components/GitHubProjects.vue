@@ -21,7 +21,7 @@
 								<ul class="list-group">
 									<li class="list-group-item" v-for="userRepo in userRepos" >
 										 {{userRepo}}
-										 <toggle-button v-model="myDataVariable"
+										 <toggle-button v-on:change="toggleButtonChanged(userRepo, $event)"
 													    :value="false"
 													    color="#AEC3B0"
 													    :labels="true" />
@@ -42,7 +42,7 @@
 									<ul class="list-group">
 										<li class="list-group-item" v-for="repo in orgs.repos" >
 											 {{repo}}
-											 <toggle-button v-model="myDataVariable"
+											 <toggle-button v-on:change="toggleButtonChanged(repo, $event)"
 														    :value="false"
 														    color="#AEC3B0"
 														    :labels="true" />
@@ -53,7 +53,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProject" data-dismiss="modal">Import</button>
+						<button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
 						<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 					</div>
 				</div>
@@ -69,13 +69,14 @@
 		data() {
 			return {
 				userRepos: [],
-				orgsRepos: []
+				orgsRepos: [],
+				selectedRepos: []
 			}
 		},
 		methods: {
 			getRepos() {
 
-	      		var token = localStorage.getItem('token');
+	      var token = localStorage.getItem('token');
 				var tokenSimple = token.replace(/"/, "");
 				var tokenSimple2 = tokenSimple.replace(/"/, "");
 				var headers = { 'Authorization':tokenSimple2 };
@@ -88,12 +89,60 @@
 				.catch((e) => {
 					this.errors.push(e);
 				});
+			},
+
+			toggleButtonChanged(name, event) {
+				console.log(name);
+				console.log(event.value);
+				if(event.value === true){
+					this.selectedRepos.push(name);
+				}
+				else{
+					this.selectedRepos = this.selectedRepos.filter(item => item !== name)
+				}
+				console.log(this.selectedRepos);
+			},
+			importGithubProjects() {
+				doRequisitions(this.selectedRepos, this.selectedRepos.length)
+				.then(() => console.log("deu bom"))
+				.catch((e) => console.log(e));
+
 			}
 		},
 		mounted () {
 			this.getRepos();
 		}
 	}
+
+	function doRequisitions(repos, length) {
+
+		return new Promise(
+			(resolve, reject) => {
+				var token = localStorage.getItem('token');
+				var user_id = localStorage.getItem('user_id');
+				var user_int = parseInt(user_id);
+				var tokenSimple = token.replace(/"/, "");
+				var tokenSimple2 = tokenSimple.replace(/"/, "");
+				var headers = { 'Authorization':tokenSimple2 };
+				var count = 0;
+
+				for(var repo of repos) {
+					HTTP.post(`users/${user_int}/projects`, {
+						name: repo,
+						check_project: true
+					}, {headers: headers})
+					.then((response) => {
+						count++;
+						if (count === length) {
+							resolve(response);
+						}
+					})
+					.catch((e) => reject(e));
+				}
+			}
+		)
+	}
+
 </script>
 
 <style scoped>
