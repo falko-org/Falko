@@ -12,11 +12,11 @@
           <searchbar></searchbar>
         </div>
       </div>
-      <div class="col" align="end" >
+      <div class="col" align="end" v-if="this.$route.path != '/'">
         <router-link to="/user">
           <button class="falko-button btn btn-primary small-float-left">User Profile</button>
         </router-link>
-          <button v-on:click="logout()" class="btn btn-primary falko-button falko-button-danger" v-if="this.$route.path != '/'">Log Out</button>
+          <button v-on:click="logout()" class="btn btn-primary falko-button falko-button-danger">Log Out</button>
         </div>
       </div>
     </div>
