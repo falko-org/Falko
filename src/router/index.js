@@ -20,10 +20,12 @@ import Release from '@/components/ReleasesComponents/Release'
 import UserProfile from '@/components/UserProfile';
 import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';
+import NotFound from '@/components/NotFound';
 
 Vue.use(Router);
 
 const router = new Router({
+
   routes: [
     {
       path: '/projects',
@@ -130,6 +132,11 @@ const router = new Router({
       path: '/nocontent',
       name: 'NoContent',
       component: NoContent
+    },
+    {
+      path: '/notFound',
+      name: 'NotFound',
+      component: NotFound
     }
   ]
 })
@@ -137,10 +144,12 @@ const router = new Router({
 export default router;
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/') {
+  if (to.path === '/' || to.path === '/notFound') {
     next();
+  } else if (!to.matched.length) {
+    next('/notFound');
   } else if (localStorage.getItem('token') === null) {
-    next(false);
+    next('/');
   } else {
     next();
   }
