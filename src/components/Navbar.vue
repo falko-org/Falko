@@ -1,6 +1,5 @@
 <template>
   <nav class="navbar sticky-top navbar-light bg-light row justify-content-around no-margin">
-    <!-- <div class="row justify-content-around"> -->
       <div class="col">
         <a class="navbar-brand falko-brand" v-on:click="isLogged()">
           <img src="logo.png" width="50"/>
