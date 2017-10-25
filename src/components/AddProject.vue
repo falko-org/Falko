@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
 import {HTTP} from '../http-common.js';
 
 export default {
@@ -62,7 +61,7 @@ export default {
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";
-	    	EventBus.$emit('added-project', 1)
+	    	this.$emit('added');
 	    })
 	    .catch(e => {
 	      this.errors.push(e)

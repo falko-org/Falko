@@ -19,10 +19,10 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-3">
-          <add-project></add-project>
+          <add-project v-on:added="refreshProjects"></add-project>
         </div>
         <div class="col-md-3">
-          <github-projects></github-projects>
+          <github-projects v-on:added="refreshProjects"></github-projects>
         </div>
     </div>
   </div>
@@ -50,7 +50,6 @@ export default{
   },
   methods: {
     getProjects() {
-
       var token = localStorage.getItem('token');
 			var tokenSimple = token.replace(/"/, "");
 			var tokenSimple2 = tokenSimple.replace(/"/, "");
@@ -67,30 +66,16 @@ export default{
         this.errors.push(e);
       });
     },
-
+    refreshProjects() {
+      this.getProjects();
+    },
     isProjectsEmpty() {
       return this.projects.length == 0
     }
   },
   mounted() {
-    var _this = this
     this.getProjects();
-    EventBus.$on('added-project', function (id) {
-      HTTP.get("projects")
-      .then(response => {
-        _this.projects = response.data;
-        this.$router.push({ path : 'Projects'});
-      })
-      .catch(e => {
-        this.errors.push(e);
-      });
-    });
-
-  },
-  updated(){
-    //this.getProjects();
   }
-
 }
 
 </script>

@@ -75,8 +75,7 @@
 		},
 		methods: {
 			getRepos() {
-
-	      var token = localStorage.getItem('token');
+	      		var token = localStorage.getItem('token');
 				var tokenSimple = token.replace(/"/, "");
 				var tokenSimple2 = tokenSimple.replace(/"/, "");
 				var headers = { 'Authorization':tokenSimple2 };
@@ -90,7 +89,6 @@
 					this.errors.push(e);
 				});
 			},
-
 			toggleButtonChanged(name, event) {
 				console.log(name);
 				console.log(event.value);
@@ -104,7 +102,7 @@
 			},
 			importGithubProjects() {
 				doRequisitions(this.selectedRepos, this.selectedRepos.length)
-				.then(() => console.log("deu bom"))
+				.then((response) => this.$emit('added'))
 				.catch((e) => console.log(e));
 
 			}
