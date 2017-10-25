@@ -72,4 +72,12 @@ input:focus {
 .falko-button-danger:hover {
   background-color: #660000;
 }
+
+.small-float-left {
+  margin-right: 1em;
+}
+
+.no-margin {
+  margin: 0;
+}
 </style>
