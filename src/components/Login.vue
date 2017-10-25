@@ -36,9 +36,9 @@ export default {
         password: this.password
       })
       .then((response) => {
-        this.$router.push({ name: 'Projects' })
         localStorage.setItem('token', JSON.stringify(response.data.auth_token));
         localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+        this.$router.push({ name: 'Projects' });
       })
       .catch (e => {
         this.errors.push(e)

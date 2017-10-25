@@ -23,7 +23,7 @@ import DeleteUserProfile from '@/components/DeleteUserProfile';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/projects',
@@ -132,4 +132,16 @@ export default new Router({
       component: NoContent
     }
   ]
+})
+
+export default router;
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/') {
+    next();
+  } else if (localStorage.getItem('token') === null) {
+    next(false);
+  } else {
+    next();
+  }
 })
