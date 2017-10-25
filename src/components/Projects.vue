@@ -28,17 +28,20 @@
 import { EventBus } from '../event-bus.js';
 import AddProject from '@/components/AddProject';
 import {HTTP} from '../http-common.js';
-import NoProjects from '@/components/NoProjects'
+import NoProjects from '@/components/NoProjects';
+import SearchBar from '@/components/SearchBar';
 
 export default{
   components: {
     'AddProj' : AddProject,
-    'no-projects': NoProjects
+    'no-projects': NoProjects,
+    'searchbar': SearchBar
   },
   name: 'projects',
   data() {
     return{
-      projects: []
+      projects: [],
+      search: ''
     }
   },
   methods: {
@@ -81,6 +84,13 @@ export default{
   },
   updated(){
     this.getProjects();
+  },
+  computed: {
+    filteredProjects: function(){
+      return this.projects.filter((project) => {
+        return project.name.match(this.search);
+      });
+    }
   }
 
 }

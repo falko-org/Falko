@@ -99,10 +99,6 @@ h1 {
   text-align: justify;
 }
 
-.no-margin {
-  margin: 0;
-}
-
 #falkoLogo {
   margin: 5em 0;
 }
