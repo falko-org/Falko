@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="isReleasesEmpty()">
+      <no-content parent ="Release"></no-content>
+    </div>
     <div class="row">
       <div class="col">
         <add-release></add-release>
@@ -57,10 +60,12 @@
 <script>
 import { HTTP } from '../../http-common.js';
 import AddRelease from '@/components/ReleasesComponents/AddRelease';
+import NoContent from '@/components/NoContent'
 
 export default {
   components: {
-    'add-release': AddRelease
+    'add-release': AddRelease,
+    'no-content': NoContent
   },
 
   data () {
@@ -84,6 +89,9 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+    isReleasesEmpty() {
+      return this.releases.length == 0
     }
   },
 

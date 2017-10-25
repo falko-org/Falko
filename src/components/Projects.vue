@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isProjectsEmpty()">
-      <no-projects></no-projects>
+      <no-content parent ="Project"></no-content>
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
@@ -28,13 +28,13 @@
 import { EventBus } from '../event-bus.js';
 import AddProject from '@/components/AddProject';
 import {HTTP} from '../http-common.js';
-import NoProjects from '@/components/NoProjects';
+import NoContent from '@/components/NoContent'
 import SearchBar from '@/components/SearchBar';
 
 export default{
   components: {
     'AddProj' : AddProject,
-    'no-projects': NoProjects,
+    'no-content': NoContent,
     'searchbar': SearchBar
   },
   name: 'projects',
@@ -80,7 +80,7 @@ export default{
     //     this.errors.push(e);
     //   });
     // });
-     
+
   },
   updated(){
     this.getProjects();
