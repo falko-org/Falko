@@ -32,7 +32,7 @@ export default {
 
   methods: {
     logout(){
-        localStorage.setItem('token', JSON.stringify(null));
+        localStorage.clear();
         this.$router.push('/');
     },
     goToHome(){
@@ -43,7 +43,7 @@ export default {
         }
     },
     isLogged(){
-      if (localStorage.getItem('token') != "null") {
+      if (localStorage.getItem('token') != null) {
         return true;
       } else {
         return false;
