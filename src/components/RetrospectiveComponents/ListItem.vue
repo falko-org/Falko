@@ -1,7 +1,7 @@
 <template>
   <div>
     <li class="row no-margin">
-      <div class="col-11">
+      <div class="col-11 text-justify">
         {{title}}
       </div>
       <div class="col-1 align-self-center">
@@ -18,10 +18,15 @@ export default {
 </script>
 
 <style scoped>
+h3 {
+  margin-bottom: 4em;
+}
+
 li {
   max-width: 40em;
   padding: 0.8em 0em;
   border-bottom: 1px solid #E0E8EB;
+  color: #677;
 }
 
 li div {
@@ -33,11 +38,11 @@ button {
   border: none;
   font-weight: bold;
   cursor: pointer;
-  color: #7799B9;
+  color: #5E8181;
   outline: none;
 }
 
 button:hover {
-  color: #0C2C39;
+  color: #2E5151;
 }
 </style>

@@ -67,7 +67,7 @@ export default {
 input {
   width: 40em;
   padding: 1em;
-  background-color: #7799B9;
+  background-color: #86B1B1;
   border: none;
   color: white;
 }
