@@ -15,8 +15,8 @@ import InSprint from '@/components/Sprints/InSprint'
 import EditSprint from '@/components/Sprints/EditSprint'
 import DeleteSprint from '@/components/Sprints/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
-import Releases from '@/components/ReleasesComponents/Releases'
-import Release from '@/components/ReleasesComponents/Release'
+import Releases from '@/components/ReleaseComponents/Releases'
+import Release from '@/components/ReleaseComponents/Release'
 import UserProfile from '@/components/UserProfile';
 import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';

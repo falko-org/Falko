@@ -34,8 +34,8 @@
 
 <script>
 import { HTTP } from '../../http-common.js';
-import EditRelease from '@/components/ReleasesComponents/EditRelease';
-import DeleteRelease from '@/components/ReleasesComponents/DeleteRelease';
+import EditRelease from '@/components/ReleaseComponents/EditRelease';
+import DeleteRelease from '@/components/ReleaseComponents/DeleteRelease';
 
 export default {
   components: {
