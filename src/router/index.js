@@ -21,7 +21,7 @@ import UserProfile from '@/components/UserProfile';
 import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
-import WentWell from '@/components/RetrospectiveComponents/WentWell';
+import List from '@/components/RetrospectiveComponents/List';
 
 Vue.use(Router);
 
@@ -140,9 +140,9 @@ const router = new Router({
       component: NotFound
     },
     {
-      path: '/wentWell',
-      name: 'WentWeel',
-      component: WentWell
+      path: '/list',
+      name: 'List',
+      component: List
     }
   ]
 })
