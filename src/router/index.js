@@ -140,7 +140,7 @@ const router = new Router({
       component: NotFound
     },
     {
-      path: '/retrospective',
+      path: '/insprint/:id/retrospective',
       name: 'Retrospective',
       component: Retrospective
     }

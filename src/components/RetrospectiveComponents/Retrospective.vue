@@ -16,7 +16,7 @@
                 v-model="sprintReport"
       />
       
-      <button class="btn btn-info btn-md falko-button">Done</button>
+      <button class="btn btn-info btn-md falko-button" v-on:click="addRetrospective">Done</button>
     </div>
   </div>
 </template>
@@ -31,7 +31,32 @@ export default {
 
   data () {
     return {
-      sprintReport: ''
+      sprintReport: '',
+      positivePoints: [],
+      negativePoints: [],
+      improvements: []
+    }
+  },
+
+  methods: {
+    addRetrospective () {
+			var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
+
+      HTTP.post(`sprints/${this.$route.params.id}/retrospectives`, {
+        sprint_report: this.sprintReport,
+        positive_points: this.positivePoints,
+        negative_points: this.negativePoints,
+        improvements: this.improvements
+      }, { headers:headers })
+      .then(response => {
+        //Ir para show de retrospectiva
+      })
+      .catch(e => {
+        this.errors.push(e)
+      });
     }
   }
 }
