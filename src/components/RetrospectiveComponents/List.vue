@@ -34,7 +34,7 @@ import ListItem from './ListItem';
 
 export default {
   props: ["parent"],
- 
+
   components: {
     'list-item': ListItem
   },
@@ -49,11 +49,15 @@ export default {
 
   methods: {
     addNewItem() {
-      this.item.push({
-        id: this.nextItemId++,
-        title: this.newItemText
-      })
-      this.newItemText = ''
+      if(this.newItemText != "") {
+        this.items.push({
+          id: this.nextItemId++,
+          title: this.newItemText
+        })
+        this.newItemText = ''
+      } else { 
+        // TODO: Fazer aparecer uma mensagem: "{{parent}} can not be blank!"
+      }
     }
   }
 }
