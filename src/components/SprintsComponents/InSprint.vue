@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import DeleteSprint from '@/components/Sprints/DeleteSprint';
-import EditSprint from '@/components/Sprints/EditSprint';
+import DeleteSprint from '@/components/SprintsComponents/DeleteSprint';
+import EditSprint from '@/components/SprintsComponents/EditSprint';
 import { EventBus } from '../../event-bus.js';
 import {HTTP} from '../../http-common.js';
 

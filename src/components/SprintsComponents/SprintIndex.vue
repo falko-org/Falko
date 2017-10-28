@@ -25,8 +25,8 @@
 
 <script>
 import { EventBus } from '../../event-bus.js';
-import AddSprint from '@/components/Sprints/AddSprint';
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common.js';
+import AddSprint from '@/components/SprintsComponents/AddSprint';
 import EditProject from '@/components/EditProject'
 import NoContent from '@/components/NoContent'
 
