@@ -48,11 +48,9 @@ export default {
       let _this = this;
       this.$store.dispatch('login', { email: this.email, password: this.password })
       .then((response) => {
-        console.log("Entrou no then do componente: " + response)
         this.$router.push({ name: 'Projects' });
       })
       .catch(function(err) {
-        // For example you may want to add an error related to authentication:
         _this.errors.add('wrong-credentials', 'Wrong Credentials');
         console.log(err.response.data); // It goes here!
       });

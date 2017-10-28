@@ -29,6 +29,17 @@ export default {
   margin-top: 100px;
 }
 
+input {
+  border: none;
+  border-radius: 0;
+  border-bottom: solid #c0c0c0 thin;
+  padding-left: 0;
+}
+
+input:focus {
+  outline: 0;
+}
+
 .navbar-brand{
   margin-left: 1em;
 }
@@ -45,7 +56,7 @@ export default {
 }
 
 .falko-button:hover {
-  background-color: #86B1ED;
+  background-color: #6E9191;
 }
 
 .falko-button-danger {
@@ -61,5 +72,13 @@ export default {
 
 .falko-button-danger:hover {
   background-color: #660000;
+}
+
+.small-float-left {
+  margin-right: 1em;
+}
+
+.no-margin {
+  margin: 0;
 }
 </style>
