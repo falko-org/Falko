@@ -90,56 +90,56 @@ const router = new Router({
     {
       path: '/githubcallback',
       name: 'GitHubCallBack',
-      component: GitHubCallBack
+      component: GitHubCallBack,
     },
 
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage
+      component: HomePage,
     },
     {
       path: '/inproject/:id/sprints',
       name: 'Sprints',
-      component: Sprints
+      component: Sprints,
     },
     {
       path: '/sprints/:id',
       name: 'Sprint',
-      component: Sprint
+      component: Sprint,
     },
     {
       path: '/deletesprint',
       name: 'DeleteSprint',
-      component: DeleteSprint
+      component: DeleteSprint,
     },
     {
       path: '/editsprint',
       name: 'EditSprint',
-      component: EditSprint
+      component: EditSprint,
     },
     {
       path: '/inproject/:id/releases',
       name: 'Releases',
-      component: Releases
+      component: Releases,
     },
     {
       path: '/releases/:id',
       name: 'Release',
-      component: Release
+      component: Release,
     },
     {
       path: '/nocontent',
       name: 'NoContent',
-      component: NoContent
+      component: NoContent,
     },
     {
       path: '/notFound',
       name: 'NotFound',
-      component: NotFound
-    }
-  ]
-})
+      component: NotFound,
+    },
+  ],
+});
 
 export default router;
 
@@ -153,4 +153,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
+});

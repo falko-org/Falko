@@ -11,7 +11,7 @@
 
     <div class="row top-buffer" v-for="i in Math.ceil(sprints.length / 2)">
       <div v-for="sprint in sprints.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
-        <router-link v-bind:to="'/insprint/'+sprint.id">
+        <router-link v-bind:to="'/sprints/'+sprint.id">
           <div class="card">
             <div class="card-body sprint">
               <h4 class="card-title"> {{sprint.name}} </h4>
