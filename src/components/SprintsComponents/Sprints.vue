@@ -3,53 +3,51 @@
     <div v-if="isSprintsEmpty()">
       <no-content parent = "Sprint"></no-content>
     </div>
+    <div class="row">
+      <div class="col">
+        <add-sprint></add-sprint>
+      </div>
+    </div>
+
     <div class="row top-buffer" v-for="i in Math.ceil(sprints.length / 2)">
       <div v-for="sprint in sprints.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
         <router-link v-bind:to="'/insprint/'+sprint.id">
           <div class="card">
             <div class="card-body sprint">
-              <h4 class="card-title">
-                  {{sprint.name}}
-              </h4>
-              <p class="card-text text-muted">{{sprint.description}}</p>
+              <h4 class="card-title"> {{sprint.name}} </h4>
+              <p class="card-text text-muted"> {{sprint.description}} </p>
             </div>
           </div>
         </router-link>
       </div>
     </div>
-    <div class="col">
-      <AddSprint></AddSprint>
-    </div>
   </div>
 </template>
 
 <script>
-import { EventBus } from '../../event-bus.js';
 import { HTTP } from '../../http-common.js';
 import AddSprint from '@/components/SprintsComponents/AddSprint';
-import EditProject from '@/components/EditProject'
-import NoContent from '@/components/NoContent'
+import NoContent from '@/components/NoContent';
 
 export default{
   components: {
-    'AddSprint' : AddSprint,
+    'add-sprint': AddSprint,
     'no-content': NoContent,
   },
   name: 'sprints',
   data() {
-    return{
-      sprints: []
-    }
+    return {
+      sprints: [],
+    };
   },
   methods: {
     getSprints() {
-
       var token = localStorage.getItem('token');
       var tokenSimple = token.replace(/"/, "");
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
 
-      HTTP.get(`projects/${this.$route.params.id}/sprints`, {headers:headers})
+      HTTP.get(`projects/${this.$route.params.id}/sprints`, { headers: headers })
         .then((response) => {
           this.sprints = response.data;
         })
@@ -59,8 +57,8 @@ export default{
     },
 
     isSprintsEmpty() {
-      return this.sprints.length == 0
-    }
+      return this.sprints.length === 0;
+    },
   },
 
   mounted() {
@@ -69,8 +67,8 @@ export default{
 
   updated() {
     this.getSprints();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

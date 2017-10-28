@@ -10,8 +10,8 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoContent from '@/components/NoContent'
-import SprintIndex from '@/components/SprintsComponents/SprintIndex'
-import InSprint from '@/components/SprintsComponents/InSprint'
+import Sprints from '@/components/SprintsComponents/Sprints'
+import Sprint from '@/components/SprintsComponents/Sprint'
 import EditSprint from '@/components/SprintsComponents/EditSprint'
 import DeleteSprint from '@/components/SprintsComponents/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
@@ -100,13 +100,13 @@ const router = new Router({
     },
     {
       path: '/inproject/:id/sprints',
-      name: 'SprintIndex',
-      component: SprintIndex
+      name: 'Sprints',
+      component: Sprints
     },
     {
-      path: '/insprint/:id',
-      name: 'InSprint',
-      component: InSprint
+      path: '/sprints/:id',
+      name: 'Sprint',
+      component: Sprint
     },
     {
       path: '/deletesprint',
