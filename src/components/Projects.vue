@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isProjectsEmpty()">
-      <no-projects></no-projects>
+      <no-content parent ="Project"></no-content>
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
@@ -30,22 +30,22 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
 import AddProject from '@/components/AddProject';
 import {HTTP} from '../http-common.js';
-import NoProjects from '@/components/NoProjects'
-import GitHubProjects from '@/components/GitHubProjects'
+import NoContent from '@/components/NoContent';
+import GitHubProjects from '@/components/GitHubProjects';
 
-export default{
+export default {
+
+  name: 'projects',
   components: {
     'add-project' : AddProject,
-    'no-projects': NoProjects,
+    'no-content': NoContent,
     'github-projects': GitHubProjects
   },
-  name: 'projects',
   data() {
     return{
-      projects: []
+      projects: [],
     }
   },
   methods: {
@@ -77,7 +77,6 @@ export default{
     this.getProjects();
   }
 }
-
 </script>
 
 <style scoped>

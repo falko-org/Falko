@@ -54,10 +54,11 @@ export default {
 			var user_int = parseInt(user_id);
 
 
-	    HTTP.post(`users/${user_int}/projects`,{
+	    HTTP.post(`users/${user_int}/projects`, {project: {
 	    	name: this.name,
-	    	description: this.description
-	    }, { headers: headers })
+	    	description: this.description,
+	    	check_project: false
+	    }}, { headers: headers })
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";

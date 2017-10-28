@@ -1,7 +1,7 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#githubModal">
+      <button type="button" class="btn btn-info btn-md falko-button" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
         Import GitHub repository
       </button>
     </div>
@@ -107,9 +107,6 @@
         .catch((e) => console.log(e.message));
 
       },
-    },
-    mounted () {
-      this.getRepos();
     }
   }
 

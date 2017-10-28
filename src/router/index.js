@@ -9,59 +9,84 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
-import NoProjects from '@/components/NoProjects'
+import NoContent from '@/components/NoContent'
 import SprintIndex from '@/components/Sprints/SprintIndex'
 import InSprint from '@/components/Sprints/InSprint'
 import EditSprint from '@/components/Sprints/EditSprint'
 import DeleteSprint from '@/components/Sprints/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
 import GitHubProjects from '@/components/GitHubProjects'
+import Releases from '@/components/ReleasesComponents/Releases'
+import Release from '@/components/ReleasesComponents/Release'
+import UserProfile from '@/components/UserProfile';
+import EditUserProfile from '@/components/EditUserProfile';
+import DeleteUserProfile from '@/components/DeleteUserProfile';
+import NotFound from '@/components/NotFound';
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const router = new Router({
+
   routes: [
     {
       path: '/projects',
       name: 'Projects',
-      component: Projects
+      component: Projects,
     },
     {
       path: '/addproject',
       name: 'AddProject',
-      component: AddProject
+      component: AddProject,
     },
     {
       path: '/inproject/:id',
       name: 'InProjects',
-      component: InProject
+      component: InProject,
     },
     {
       path: '/deleteproject',
       name: 'DeleteProject',
-      component: DeleteProject
+      component: DeleteProject,
     },
     {
       path: '/editproject/:id',
       name: 'EditProjects',
-      component: EditProject
+      component: EditProject,
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
     },
 
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
     },
 
     {
       path: '/loginregister',
       name: 'LoginRegister',
-      component: LoginRegister
+      component: LoginRegister,
+    },
+
+    {
+      path: '/user',
+      name: 'UserProfile',
+      component: UserProfile,
+    },
+
+    {
+      path: '/edituser',
+      name: 'EditUserProfile',
+      component: EditUserProfile,
+    },
+
+    {
+      path: '/deleteuser',
+      name: 'DeleteUserProfile',
+      component: DeleteUserProfile,
     },
     {
       path: '/githubcallback',
@@ -75,7 +100,7 @@ export default new Router({
       component: HomePage
     },
     {
-      path: '/inproject/:id/sprint',
+      path: '/inproject/:id/sprints',
       name: 'SprintIndex',
       component: SprintIndex
     },
@@ -98,6 +123,40 @@ export default new Router({
       path: '/editsprint',
       name: 'EditSprint',
       component: EditSprint
+    },
+    {
+      path: '/inproject/:id/releases',
+      name: 'Releases',
+      component: Releases
+    },
+    {
+      path: '/releases/:id',
+      name: 'Release',
+      component: Release
+    },
+    {
+      path: '/nocontent',
+      name: 'NoContent',
+      component: NoContent
+    },
+    {
+      path: '/notFound',
+      name: 'NotFound',
+      component: NotFound
     }
   ]
+})
+
+export default router;
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/' || to.path === '/notFound') {
+    next();
+  } else if (!to.matched.length) {
+    next('/notFound');
+  } else if (localStorage.getItem('token') === null) {
+    next('/');
+  } else {
+    next();
+  }
 })

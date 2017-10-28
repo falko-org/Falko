@@ -8,10 +8,11 @@ import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton)
 Vue.config.productionTip = false
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
-})
+  components: { App },
+});
