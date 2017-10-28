@@ -12,14 +12,14 @@ const auth = {
     }
   },
   mutations: {
-    [LOGIN] (state, token, userId) {
-      console.log(token);
-      localStorage.setItem('token', JSON.stringify(token));
-      state.token = token;
-      console.log(userId);
-      localStorage.setItem('user_id', JSON.stringify(userId));      
-      state.userId = userId;
+    [LOGIN] (state, res) {
+      console.log(res);
 
+      localStorage.setItem('token', JSON.stringify(res.token));
+      state.token = res.token;
+      localStorage.setItem('user_id', JSON.stringify(res.id));      
+      state.userId = res.id;
+    
       state.authenticated = true;
     },
     [LOGOUT] (state) {
@@ -39,8 +39,9 @@ const auth = {
         password: credentials.password
       })
       .then((response) => {
-        console.log("Entrou no then da store: " + response.code)
-        commit(LOGIN, { token: response.data.auth_token, userId: response.data.user.id });
+        console.log(response.data.user.id);
+        const res = { token: response.data.auth_token, id: response.data.user.id };
+        commit(LOGIN, res);
       });
     },
 

@@ -52,7 +52,7 @@ export default {
       })
       .catch(function(err) {
         _this.errors.add('wrong-credentials', 'Wrong Credentials');
-        console.log(err.response.data); // It goes here!
+        console.log(err); // It goes here!
       });
     }
   }

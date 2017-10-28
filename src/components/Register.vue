@@ -42,21 +42,17 @@ export default {
   },
 
   methods: {
-    login() {
-      HTTP.post('authenticate', {
-        email: this.email,
-        password: this.password,
+   login () {
+      let _this = this;
+      this.$store.dispatch('login', { email: this.email, password: this.password })
+      .then((response) => {
+        this.$router.push({ name: 'Projects' });
       })
-        .then((response) => {
-          this.$router.push({ name: 'Projects' });
-          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .catch(function(err) {
+        _this.errors.add('wrong-credentials', 'Wrong Credentials');
+        console.log(err.response.data); // It goes here!
+      });
     },
-
     register() {
       HTTP.post('users', {
         user: {
