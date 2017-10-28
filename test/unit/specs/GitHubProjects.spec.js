@@ -25,8 +25,8 @@ describe('On github project list repos', function() {
 	it('should have the correct user repos and org repos', function(done) {
 		var Constructor = Vue.extend(GitHubProjects);
 		localStorage.setItem('token', "1234567890");
-		var component = new Constructor().$mount();
-
+		var component = new Constructor();
+		component.getRepos();
 		process.nextTick(function() {
 			expect(component.userRepos).to.deep.equal(["userRepo1", "userRepo2"]);
 			expect(component.orgsRepos).to.deep.equal([{name: "Org1", repos: ["Org1Repo"]},
@@ -39,6 +39,7 @@ describe('On github project list repos', function() {
 		var Constructor = Vue.extend(GitHubProjects);
 		localStorage.setItem('token', "1234567890");
 		var component = new Constructor().$mount();
+		component.getRepos();
 
 		process.nextTick(function() {
 			expect(component.userRepos).to.deep.not.equal(["differentUserRepo1", 
@@ -54,6 +55,7 @@ describe('On github project list repos', function() {
 		var Constructor = Vue.extend(GitHubProjects);
 		localStorage.setItem('token', "1234567890");
 		var component = new Constructor().$mount();
+		component.getRepos();
 
 		process.nextTick(function() {
 			expect(component.userRepos).to.deep.equal(["userRepo1", 
@@ -68,6 +70,7 @@ describe('On github project list repos', function() {
 		var Constructor = Vue.extend(GitHubProjects);
 		localStorage.setItem('token', "1234567890");
 		var component = new Constructor().$mount();
+		component.getRepos();
 
 		process.nextTick(function() {
 			expect(component.userRepos).to.deep.not.equal(["differentUserRepo1", 
