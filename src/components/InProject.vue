@@ -12,7 +12,7 @@
     </div>
     <div class="row justify-content-center" id="buttons">
       <div class="col-md-2" align="center">
-        <EditProject></EditProject>
+        <EditProject v-on:edited-project="refreshProject($event)"></EditProject>
       </div>
       <div class="col-md-2" align="center">
         <DelProject></DelProject>
@@ -38,7 +38,6 @@
 <script>
 import DeleteProject from '@/components/DeleteProject';
 import EditProject from '@/components/EditProject';
-import { EventBus } from '../event-bus.js';
 import {HTTP} from '../http-common.js';
 
 export default{
@@ -66,21 +65,22 @@ export default{
         this.errors.push(e);
       });
     },
-  },
-  mounted() {
-    const myThis = this;
-    EventBus.$on('edited-project', (id) => {
-      HTTP.get(`projects/${id}`)
+    refreshProject(event) {
+      console.log(event);
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+      HTTP.get(`projects/${event}`, {headers:headers})
       .then((response) => {
-        myThis.project = response.data;
+        this.project = response.data;
       })
       .catch((e) => {
         this.errors.push(e);
       });
-    });
-    this.getProject();
+    }
   },
-  updated(){
+  mounted() {
     this.getProject();
   }
 };

@@ -17,10 +17,9 @@ export default {
     var code = window.location.search.split("=")[1];
     HTTP.post('request_github_token',{
       code: code,
-      id: "1"
+      id: localStorage.getItem('user_id')
     })
     .then((response) => {
-      console.log(response.data.access_token);
       this.token = response.data.access_token
     })
     .catch((e) => {

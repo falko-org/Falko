@@ -1,12 +1,12 @@
 <template>
 	<div class="addproj">
 		<div class="text-center">
-			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#myModal">
+			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addProjectModal">
 				Add a Project
 			</button>
 		</div>
 
-		<div class="modal fade" id ="myModal" role="dialog">
+		<div class="modal fade" id ="addProjectModal" role="dialog">
 			<div class="modal-dialog">
 		    	<div class="modal-content">
 						<div class="modal-header">
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import { EventBus } from '../event-bus.js';
 import {HTTP} from '../http-common.js';
 
 export default {
@@ -55,14 +54,15 @@ export default {
 			var user_int = parseInt(user_id);
 
 
-	    HTTP.post(`users/${user_int}/projects`,{
+	    HTTP.post(`users/${user_int}/projects`, {project: {
 	    	name: this.name,
-	    	description: this.description
-	    }, { headers: headers })
+	    	description: this.description,
+	    	check_project: false
+	    }}, { headers: headers })
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";
-	    	EventBus.$emit('added-project', 1)
+	    	this.$emit('added');
 	    })
 	    .catch(e => {
 	      this.errors.push(e)
@@ -74,9 +74,6 @@ export default {
 </script>
 
 <style scoped>
-#addButton {
-	margin-top: 2em;
-}
 
 .modal-body{
   position: relative;

@@ -20,6 +20,6 @@ describe('On github callback', function() {
    		expect(vm.token).to.equal('1234');
    		done();
     });
-   
+    HTTP.post.restore();
   })
 })

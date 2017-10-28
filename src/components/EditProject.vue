@@ -52,8 +52,8 @@
 					name: this.name,
 					description: this.description
 				}, { headers: headers })
-				.then(response=>{
-					EventBus.$emit('edited-project', this.$route.params.id)
+				.then((response)=>{
+					this.$emit('edited-project', this.$route.params.id)
 				})
 				.catch(e=>{
 					this.errors.push(e)
