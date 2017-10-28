@@ -101,11 +101,12 @@
         console.log(this.selectedRepos);
       },
       importGithubProjects() {
+        console.log("entrou");
         doRequisitions(this.selectedRepos, this.selectedRepos.length)
-        .then((response) => this.$emit('added'))
-        .catch((e) => console.log(e));
+        .then((response) => {this.$emit('added');})
+        .catch((e) => console.log(e.message));
 
-      }
+      },
     },
     mounted () {
       this.getRepos();
@@ -123,7 +124,6 @@
         var tokenSimple2 = tokenSimple.replace(/"/, "");
         var headers = { 'Authorization':tokenSimple2 };
         var count = 0;
-
         for (var repo of repos) {
           HTTP.post(`users/${user_int}/projects`, {
             name: repo,
