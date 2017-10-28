@@ -13,10 +13,13 @@
       </div>
     </div>
         <div class="row justify-content-center" id="buttons">
-          <div class="col-md-2">
+          <div class="col-md-2" align="center">
+            <add-retrospective></add-retrospective>
+          </div>
+          <div class="col-md-2" align="center">
             <EditSprint></EditSprint>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-2" align="center">
             <DeleleteSprint></DeleleteSprint>
           </div>
         </div>
@@ -26,15 +29,17 @@
 <script>
 import DeleteSprint from '@/components/Sprints/DeleteSprint';
 import EditSprint from '@/components/Sprints/EditSprint';
+import AddRetrospective from '@/components/RetrospectiveComponents/AddRetrospective';
 import { EventBus } from '../../event-bus.js';
 import {HTTP} from '../../http-common.js';
 
 export default{
   name: 'InSprint',
-  components: {
-    DeleleteSprint: DeleteSprint,
-    EditSprint,
-  },
+    components: {
+      DeleleteSprint: DeleteSprint,
+      EditSprint,
+    'add-retrospective': AddRetrospective
+    },
   data() {
     return {
       sprint: {},

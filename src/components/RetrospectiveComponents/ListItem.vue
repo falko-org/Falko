@@ -1,11 +1,13 @@
 <template>
   <div>
     <li class="row no-margin">
-      <div class="col-11 text-justify">
+      <div class="col-11 text-justify align-self-center">
         {{title}}
       </div>
       <div class="col-1 align-self-center">
-        <button v-on:click="$emit('remove')" class="float-right" >X</button>
+        <button v-on:click="$emit('remove')" class="float-right" >
+            <h4 class="no-margin">&times;</h4>
+        </button>
       </div>
     </li>
   </div>
@@ -23,7 +25,6 @@ h3 {
 }
 
 li {
-  max-width: 40em;
   padding: 0.8em 0em;
   border-bottom: 1px solid #E0E8EB;
   color: #677;

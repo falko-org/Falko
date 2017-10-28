@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 input {
-  width: 40em;
+  width: 100%;
   padding: 1em;
   background-color: #86B1B1;
   border: none;
