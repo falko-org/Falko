@@ -65,15 +65,15 @@ import LoginRegister from './Authentication/LoginRegister.vue'
 
 export default {
   components: {
-    'login-register': LoginRegister
+    'login-register': LoginRegister,
   },
 
-  data () {
+  data() {
     return {
 
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -140,7 +140,7 @@ h1 {
 
 #footer {
   background-color: #01161E;
-  margin: 0;
+  margin: -1.7% 0;
   padding: 1.5em 0;
   color: #598392;
   font-size: 0.9rem;
