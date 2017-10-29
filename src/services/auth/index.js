@@ -48,11 +48,6 @@ const auth = {
     logout({ commit }) {
       commit(LOGOUT);
     },
-  },
-  getters: {
-    isLoggedIn: state => state.authenticated,
-    getToken: state => state.token,
-    getUserId: state => state.userId
   }
 };
 
