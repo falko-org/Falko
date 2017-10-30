@@ -54,7 +54,9 @@ export default {
           id: this.nextItemId++,
           title: this.newItemText
         })
-        this.newItemText = ''
+      this.newItemText = ''
+      
+      this.$emit('listUpdated', this.items, this.parent)
       } else { 
         // TODO: Fazer aparecer uma mensagem: "{{parent}} can not be blank!"
       }

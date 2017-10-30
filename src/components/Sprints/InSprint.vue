@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row insprint">
+    <div class="row justify-content-around no-margin">
       <div class="col-md-10">
         <div class="card asprint">
           <div class="card-body ">
@@ -10,19 +10,20 @@
             <p class="card-text text-muted">{{sprint.end_date}}</p>
           </div>
         </div>
-      </div>
-    </div>
-        <div class="row justify-content-center" id="buttons">
-          <div class="col-md-2" align="center">
-            <add-retrospective></add-retrospective>
+        <div class="row justify-content-between no-margin" id="buttons">
+          <div class="col-md-3">
+            <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated"
+                               v-if="!isRetrospectiveCreated()"></add-retrospective>
           </div>
-          <div class="col-md-2" align="center">
+          <div class="col-md-3" align="center">
             <EditSprint></EditSprint>
           </div>
-          <div class="col-md-2" align="center">
+          <div class="col-md-3" align="end">
             <DeleleteSprint></DeleleteSprint>
           </div>
         </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -61,6 +62,16 @@ export default{
           this.errors.push(e);
         });
     },
+
+    setRetrospectiveAsCreated () {
+      localStorage.setItem('isRetrospectiveCreated', 'true');
+    },
+
+    isRetrospectiveCreated () {
+      var retrospective = localStorage.getItem('isRetrospectiveCreated');
+     
+      return localStorage.getItem('isRetrospectiveCreated') == 'true'
+    }
   },
   mounted() {
     const myThis = this;
@@ -92,8 +103,6 @@ export default{
 }
 
 .asprint{
-  position: relative;
-  left: 5em;
   text-align: center;
 }
 </style>

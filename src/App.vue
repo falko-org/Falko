@@ -7,7 +7,6 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import {HTTP} from './http-common.js';
 
 export default {
   name: 'app',
