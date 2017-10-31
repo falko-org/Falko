@@ -18,7 +18,17 @@
         <delete-project></delete-project>
       </div>
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/projects/'+project.id+'/releases'">
+        <Gpa v-bind:project-id="project.id" ></Gpa>
+      </div>
+      <div class="col-md-2" align="center">
+        <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
+          <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
+            Sprints
+          </button>
+        </router-link>
+      </div>
+      <div class="col-md-2" align="center">
+        <router-link v-bind:to="'/inproject/'+project.id+'/releases'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Releases
           </button>
@@ -32,12 +42,14 @@
 import DeleteProject from '@/components/Projects/DeleteProject';
 import EditProject from '@/components/Projects/EditProject';
 import { HTTP } from '../../http-common.js';
+import Gpa from '@/components/Gpa'
 
 export default{
   name: 'Project',
   components: {
-    'delete-project': DeleteProject,
-    'edit-project': EditProject,
+    DelProject: DeleteProject,
+    EditProject,
+    Gpa,
   },
   data() {
     return {

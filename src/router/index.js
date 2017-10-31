@@ -22,6 +22,7 @@ import UserProfile from '@/components/Users/UserProfile';
 import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
+import Gpa from '@/components/Gpa';
 
 Vue.use(Router);
 
@@ -144,7 +145,12 @@ const router = new Router({
       name: 'NotFound',
       component: NotFound,
     },
-  ],
+    {
+      path: '/gpa',
+      name: 'Gpa',
+      component: Gpa,
+    },
+  ]
 });
 
 export default router;
