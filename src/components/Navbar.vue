@@ -45,7 +45,8 @@ export default {
     isLogged(){
       if (localStorage.getItem('token') != null) {
         return true;
-      } else {
+      } 
+      else {
         return false;
       }
     }

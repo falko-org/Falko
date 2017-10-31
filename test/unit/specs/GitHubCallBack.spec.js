@@ -19,7 +19,10 @@ describe('On github callback', function() {
 
     process.nextTick(function() {
       expect(component.token).to.equal('1234');
+      HTTP.post.restore();
       done();
     });
   });
 });
+
+    

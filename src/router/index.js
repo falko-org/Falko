@@ -10,11 +10,12 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoContent from '@/components/NoContent'
-import SprintIndex from '@/components/Sprints/SprintIndex'
-import InSprint from '@/components/Sprints/InSprint'
-import EditSprint from '@/components/Sprints/EditSprint'
-import DeleteSprint from '@/components/Sprints/DeleteSprint'
+import Sprints from '@/components/SprintsComponents/Sprints'
+import Sprint from '@/components/SprintsComponents/Sprint'
+import EditSprint from '@/components/SprintsComponents/EditSprint'
+import DeleteSprint from '@/components/SprintsComponents/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
+import GitHubProjects from '@/components/GitHubProjects'
 import Releases from '@/components/ReleasesComponents/Releases'
 import Release from '@/components/ReleasesComponents/Release'
 import UserProfile from '@/components/UserProfile';
@@ -90,56 +91,61 @@ const router = new Router({
     {
       path: '/githubcallback',
       name: 'GitHubCallBack',
-      component: GitHubCallBack
+      component: GitHubCallBack,
     },
 
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage
+      component: HomePage,
     },
     {
       path: '/inproject/:id/sprints',
-      name: 'SprintIndex',
-      component: SprintIndex
+      name: 'Sprints',
+      component: Sprints,
     },
     {
-      path: '/insprint/:id',
-      name: 'InSprint',
-      component: InSprint
+      path: '/sprints/:id',
+      name: 'Sprint',
+      component: Sprint,
     },
     {
       path: '/deletesprint',
       name: 'DeleteSprint',
-      component: DeleteSprint
+      component: DeleteSprint,
+    },
+    {
+      path: '/githubprojects',
+      name: 'GitHubProjects',
+      component: GitHubProjects
     },
     {
       path: '/editsprint',
       name: 'EditSprint',
-      component: EditSprint
+      component: EditSprint,
     },
     {
       path: '/inproject/:id/releases',
       name: 'Releases',
-      component: Releases
+      component: Releases,
     },
     {
       path: '/releases/:id',
       name: 'Release',
-      component: Release
+      component: Release,
     },
     {
       path: '/nocontent',
       name: 'NoContent',
-      component: NoContent
+      component: NoContent,
     },
     {
       path: '/notFound',
       name: 'NotFound',
-      component: NotFound
-    }
-  ]
-})
+      component: NotFound,
+    },
+  ],
+});
 
 export default router;
 
@@ -153,4 +159,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
+});
