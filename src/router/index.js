@@ -22,6 +22,7 @@ import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
 import AddRetrospective from '@/components/RetrospectiveComponents/AddRetrospective';
+import Retrospective from '@/components/RetrospectiveComponents/Retrospective'
 
 Vue.use(Router);
 
@@ -138,6 +139,11 @@ const router = new Router({
       path: '/notFound',
       name: 'NotFound',
       component: NotFound
+    },
+    {
+      path: '/Retrospective/:id',
+      name: 'Retrospective',
+      component: Retrospective
     }
   ]
 })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" 
+      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
               data-toggle="modal" data-target="#addRetrospectiveModal">
         Add Retrospective
       </button>
@@ -22,15 +22,15 @@
             <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
-            <textarea class="text-justify" 
-                      placeholder="Input your sprint report..." 
+            <textarea class="text-justify"
+                      placeholder="Input your sprint report..."
                       v-model="sprintReport"
             />
-          </div>   
-          <div class="modal-footer">  
+          </div>
+          <div class="modal-footer">
             <button class="btn btn-info btn-md falko-button" v-on:click="addRetrospective" data-dismiss="modal">Save</button>
             <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Cancel</button>
-          </div>   
+          </div>
         </div>
       </div>
     </div>
@@ -62,6 +62,7 @@ export default {
 			var tokenSimple = token.replace(/"/, "");
 			var tokenSimple2 = tokenSimple.replace(/"/, "");
 			var headers = { 'Authorization':tokenSimple2 };
+      console.log(this.$route.params.id);
 
       HTTP.post(`sprints/${this.$route.params.id}/retrospectives`, {
         sprint_report: this.sprintReport,
@@ -84,15 +85,15 @@ export default {
         for(var i = 0; i < items.length; i++) {
           this.positivePoints.push(items[i].title)
         }
-      } 
-      
+      }
+
       else if (parent == "NegativePoints") {
         this.negativePoints = []
         for(var i = 0; i < items.length; i++) {
           this.negativePoints.push(items[i].title)
         }
-      } 
-      
+      }
+
       else if (parent == "Improvements") {
         this.improvements = []
         for(var i = 0; i < items.length; i++) {

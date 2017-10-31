@@ -14,6 +14,12 @@
           <div class="col-md-3">
             <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated"
                                v-if="!isRetrospectiveCreated()"></add-retrospective>
+
+            <router-link v-bind:to="'/Retrospective/'+sprint.id" v-if="isRetrospectiveCreated()">
+              <button type="button" class="btn btn-info btn-md falko-button">
+                Retrospective
+              </button>
+            </router-link>
           </div>
           <div class="col-md-3" align="center">
             <EditSprint></EditSprint>
@@ -31,6 +37,7 @@
 import DeleteSprint from '@/components/Sprints/DeleteSprint';
 import EditSprint from '@/components/Sprints/EditSprint';
 import AddRetrospective from '@/components/RetrospectiveComponents/AddRetrospective';
+import Retrospective from '@/components/RetrospectiveComponents/Retrospective';
 import { EventBus } from '../../event-bus.js';
 import {HTTP} from '../../http-common.js';
 
@@ -69,7 +76,7 @@ export default{
 
     isRetrospectiveCreated () {
       var retrospective = localStorage.getItem('isRetrospectiveCreated');
-     
+
       return localStorage.getItem('isRetrospectiveCreated') == 'true'
     }
   },
