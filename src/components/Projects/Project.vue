@@ -18,7 +18,7 @@
         <delete-project></delete-project>
       </div>
       <div class="col-md-2" align="center">
-        <Gpa v-bind:project-id="project.id" ></Gpa>
+        <Gpa></Gpa>
       </div>
       <div class="col-md-2" align="center">
         <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
@@ -39,17 +39,17 @@
 </template>
 
 <script>
+import Gpa from '@/components/Gpa'
 import DeleteProject from '@/components/Projects/DeleteProject';
 import EditProject from '@/components/Projects/EditProject';
 import { HTTP } from '../../http-common.js';
-import Gpa from '@/components/Gpa'
 
 export default{
   name: 'Project',
   components: {
-    DelProject: DeleteProject,
-    EditProject,
-    Gpa,
+    'delete-project': DeleteProject,
+    'edit-project': EditProject,
+     Gpa,
   },
   data() {
     return {
