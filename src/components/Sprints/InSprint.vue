@@ -12,10 +12,10 @@
         </div>
         <div class="row justify-content-between no-margin" id="buttons">
           <div class="col-md-3">
-            <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated"
+            <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
                                v-if="!isRetrospectiveCreated()"></add-retrospective>
 
-            <router-link v-bind:to="'/Retrospective/'+sprint.id" v-if="isRetrospectiveCreated()">
+            <router-link v-else v-bind:to="'/retrospective/'+sprintRetrospective.id">
               <button type="button" class="btn btn-info btn-md falko-button">
                 Retrospective
               </button>
@@ -51,11 +51,11 @@ export default{
   data() {
     return {
       sprint: {},
+      sprintRetrospective: []
     };
   },
   methods: {
     getSprint() {
-
       var token = localStorage.getItem('token');
       var tokenSimple = token.replace(/"/, "");
       var tokenSimple2 = tokenSimple.replace(/"/, "");
@@ -70,8 +70,32 @@ export default{
         });
     },
 
+    getRetrospective() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
+      HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, {headers:headers})
+        .then((response) => {
+          
+          this.sprintRetrospective = response.data;
+
+          if (this.sprintRetrospective.length == 0) {
+            this.setRetrospectiveAsNotCreated();
+          }
+        })
+        .catch(e => {
+          this.errors.push(e);
+        });
+    },
+
     setRetrospectiveAsCreated () {
       localStorage.setItem('isRetrospectiveCreated', 'true');
+    },
+    
+    setRetrospectiveAsNotCreated () {
+      localStorage.setItem('isRetrospectiveCreated', 'false');
     },
 
     isRetrospectiveCreated () {
@@ -99,6 +123,8 @@ export default{
         });
      });
     this.getSprint();
+
+    this.getRetrospective();
   },
 };
 </script>

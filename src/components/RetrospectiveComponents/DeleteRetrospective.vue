@@ -1,8 +1,9 @@
 <template>
-	<div class="delretrospective">
+	<div>
 		<button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#delRetrospectiveModal">
 			Delete
 		</button>
+
 		<div class="modal fade" id ="delRetrospectiveModal" role="dialog">
 			<div class="modal-dialog">
 		    	<div class="modal-content">

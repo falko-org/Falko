@@ -3,8 +3,8 @@
     <div class="row justify-content-around no-margin">
       <div class="col-md-10">
         <div class="card">
-          <div class="card-head">
-            <h1 id="title" class="indent"> Sprint Retrospective </h1>
+          <div class="card-head text-center">
+            <h1 id="title" class=""> Sprint Retrospective </h1>
           </div>
           <div class="card-body ">
 
@@ -49,16 +49,9 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-between no-margin" id="buttons">
-          <div class="col-md-3">
-
-          </div>
-          <div class="col-md-3" align="center">
-            <EditRetrospective></EditRetrospective>
-          </div>
-          <div class="col-md-3" align="end">
-            <DeleteRetrospective></DeleteRetrospective>
-          </div>
+        <div class="row justify-content-around" id="buttons">
+          <edit-retrospective></edit-retrospective>
+          <delete-retrospective></delete-retrospective>
         </div>
       </div>
     </div>
@@ -75,8 +68,8 @@ import {HTTP} from '../../http-common.js';
 export default {
   name: 'Retrospective',
   components: {
-    'DeleteRetrospective': DeleteRetrospective,
-    'EditRetrospective': EditRetrospective,
+    'delete-retrospective': DeleteRetrospective,
+    'edit-retrospective': EditRetrospective,
     'list': List
   },
   data () {
@@ -114,10 +107,17 @@ export default {
 
 </script>
 
-<style scoped="">
+<style scoped>
 #buttons {
   margin-top: 1em;
 }
+
+h1 {
+  color: #688E9B;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
 p {
   color: #01161E;
   /*text-align: center;*/
@@ -132,21 +132,9 @@ div {
     text-justify: inter-word;
 }
 
-.indent {
-  text-indent: 20px;
-}
-
 .active {
   background-color: #86b1b1;
   text-align: center;
   border: 0;
 }
-
-#title {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
 </style>
