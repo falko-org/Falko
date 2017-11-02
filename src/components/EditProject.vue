@@ -41,8 +41,8 @@
 			}
 		},
 		methods: {
-			editProject(){
-
+			editProject() {
+				
 				var token = localStorage.getItem('token');
 				var tokenSimple = token.replace(/"/, "");
 				var tokenSimple2 = tokenSimple.replace(/"/, "");
@@ -58,7 +58,26 @@
 				.catch(e=>{
 					this.errors.push(e)
 				});
+			},
+			getProjectInformation() {
+
+				var token = localStorage.getItem('token');
+				var tokenSimple = token.replace(/"/, "");
+				var tokenSimple2 = tokenSimple.replace(/"/, "");
+				var headers = { 'Authorization':tokenSimple2 };
+
+				HTTP.get(`projects/${this.$route.params.id}`, { headers: headers })
+		      	.then((response)=>{
+		        	this.name = response.data.name;
+		        	this.description = response.data.description;
+		     	 })
+		      	.catch((e) => {
+		        	this.errors.push(e);
+		      	});
 			}
+		},
+		created() {
+			this.getProjectInformation();
 		}
 	}
 </script>
