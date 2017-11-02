@@ -59,7 +59,7 @@ export default {
       var headers = { 'Authorization':tokenSimple2 };
 
 
-				HTTP.post(`projects/${this.$route.params.id}/sprints`, { sprint: {
+				HTTP.post(`releases/${this.$route.params.id}/sprints`, { sprint: {
 				    name: this.name,
 				    description: this.description,
 				    start_date: this.startDate,

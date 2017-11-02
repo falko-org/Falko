@@ -47,7 +47,7 @@ export default{
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
 
-      HTTP.get(`projects/${this.$route.params.id}/sprints`, { headers: headers })
+      HTTP.get(`releases/${this.$route.params.id}/sprints`, { headers: headers })
         .then((response) => {
           this.sprints = response.data;
         })
