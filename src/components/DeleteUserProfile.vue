@@ -29,25 +29,27 @@
 
 <script>
   import { HTTP } from '../http-common';
+  import { mapState } from 'vuex';
 
   export default {
+    computed: {
+      ...mapState({
+        token: state => state.auth.token,
+        userId: state => state.auth.userId
+      })
+    },
     methods: {
       deleteUser() {
-        const rawToken = localStorage.getItem('token');
-        const token = rawToken.replace(/"/, '').replace(/"/, '');
+        var headers = { 'Authorization':this.token };
 
-        const headers = { Authorization: token };
-
-        const user_id = localStorage.getItem('user_id');
-        console.log(user_id);
         HTTP.delete(`users/${user_id}`, { headers })
-          .then((response) => {
-            this.$router.push({ path: '/' });
-            localStorage.clear();
-          })
-          .catch((e) => {
-            this.errors.push(e);
-          })
+      	.then((response) => {
+          this.$store.dispatch('logout', { email: this.email, password: this.password })
+          .then(() => this.$router.push({ path: '/' }));
+      	})
+      	.catch((e) => {
+          this.errors.push(e);
+      	})
       }
     }
 }

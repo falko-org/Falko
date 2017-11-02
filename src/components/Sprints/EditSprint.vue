@@ -36,9 +36,11 @@
 <script>
 	import { EventBus } from '../../event-bus.js';
 	import {HTTP} from '../../http-common.js';
+  import { mapState } from 'vuex';
+
 	export default{
 		name: 'editSprintBody',
-		data(){
+		data() {
 			return {
 				name: "",
 				description: "",
@@ -46,20 +48,21 @@
         endDate: ""
 			}
 		},
+    computed: {
+      ...mapState({
+        token: state => state.auth.token,
+      })
+    },
 		methods: {
 			editSprint(){
-
-				var token = localStorage.getItem('token');
-				var tokenSimple = token.replace(/"/, "");
-				var tokenSimple2 = tokenSimple.replace(/"/, "");
-				var headers = { 'Authorization':tokenSimple2 };
+        var headers = { 'Authorization':this.token };
 
 				HTTP.put("sprints/"+this.$route.params.id, {
 					name: this.name,
 					description: this.description,
           start_date: this.startDate,
           end_date: this.endDate
-				}, { headers: headers })
+				}, { headers })
 				.then(response=>{
 					EventBus.$emit('edited-sprint', this.$route.params.id)
 				})

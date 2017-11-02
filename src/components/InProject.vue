@@ -12,7 +12,7 @@
     </div>
     <div class="row justify-content-center" id="buttons">
       <div class="col-md-2" align="center">
-        <EditProject v-on:edited-project="refreshProject($event)"></EditProject>
+        <EditProject v-on:edited-project="getProject($event)"></EditProject>
       </div>
       <div class="col-md-2" align="center">
         <DelProject></DelProject>
@@ -39,8 +39,9 @@
 import DeleteProject from '@/components/DeleteProject';
 import EditProject from '@/components/EditProject';
 import {HTTP} from '../http-common.js';
+import { mapState } from 'vuex';
 
-export default{
+export default {
   name: 'InProject',
   components: {
     DelProject: DeleteProject,
@@ -51,13 +52,16 @@ export default{
       project: {},
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
-    getProject() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
-      HTTP.get(`projects/${this.$route.params.id}`, {headers:headers})
+    getProject(param) {
+      var headers = { 'Authorization':this.token };
+
+      HTTP.get(`projects/${param}`, { headers })
       .then((response) => {
         this.project = response.data;
       })
@@ -65,23 +69,9 @@ export default{
         this.errors.push(e);
       });
     },
-    refreshProject(event) {
-      console.log(event);
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
-      HTTP.get(`projects/${event}`, {headers:headers})
-      .then((response) => {
-        this.project = response.data;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
-    }
   },
   mounted() {
-    this.getProject();
+    this.getProject(this.$route.params.id);
   }
 };
 </script>

@@ -6,6 +6,7 @@
 
 <script>
 import {HTTP} from '../http-common.js';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -13,12 +14,20 @@ export default {
       token: ""
     }
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId
+    })
+  },
   mounted() {
     var code = window.location.search.split("=")[1];
+    var headers = { 'Authorization':this.token };
+
     HTTP.post('request_github_token',{
       code: code,
-      id: localStorage.getItem('user_id')
-    })
+      id: this.userId
+    }, { headers })
     .then((response) => {
       this.token = response.data.access_token
     })

@@ -34,6 +34,7 @@
 <script>
 	import { HTTP } from '../http-common';
 	import { EventBus } from '../event-bus.js';
+  import { mapState } from 'vuex';
 
 	export default {
 		name: "edit-user-profile",
@@ -45,25 +46,23 @@
 				//is_github_authenticated: false
 			}
 		},
+    computed: {
+      ...mapState({
+        token: state => state.auth.token,
+        userId: state => state.auth.userId
+      })
+    },
 		methods: {
 			editUser() {
-				var raw_token = localStorage.getItem('token');
-				var token = raw_token.replace(/"/, "").replace(/"/, "");
+        var headers = { 'Authorization':this.token };
 
-				var headers = { 'Authorization':token };
-
-	      var user_id = localStorage.getItem('user_id');
-
-	      console.log(user_id);
-	      console.log(token);
-
-				HTTP.put("users/"+user_id, {
+				HTTP.put("users/"+this.userId, {
 					user: {
 							name: this.name,
 							email: this.email,
 							github: this.github
 					}
-				}, { headers: headers })
+				}, { headers })
 				.then((response) => {
 					EventBus.$emit('edited-user-profile', 1)
 				})

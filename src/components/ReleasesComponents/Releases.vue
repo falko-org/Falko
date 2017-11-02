@@ -61,34 +61,35 @@
 import { HTTP } from '../../http-common.js';
 import AddRelease from '@/components/ReleasesComponents/AddRelease';
 import NoContent from '@/components/NoContent'
+import { mapState } from 'vuex';
 
 export default {
   components: {
     'add-release': AddRelease,
     'no-content': NoContent
   },
-
   data () {
     return {
       releases: []
 
     }
   },
-
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
     getReleases() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+      var headers = { 'Authorization':this.token };
 
-      HTTP.get(`projects/${this.$route.params.id}/releases`, { headers: header })
-        .then((response) => {
-          this.releases = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
+      .then((response) => {
+        this.releases = response.data;
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
     isReleasesEmpty() {
       return this.releases.length == 0

@@ -39,6 +39,7 @@
 import { EventBus } from '../../event-bus.js';
 import {HTTP} from '../../http-common.js';
 import AddProject from '@/components/AddProject';
+import { mapState } from 'vuex'
 
 export default {
   name: 'addSprintBody',
@@ -50,36 +51,35 @@ export default {
 			endDate : ''
     }
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
   	addSprint() {
+      var headers = { 'Authorization':this.token };
 
-			var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
-
-
-				HTTP.post(`projects/${this.$route.params.id}/sprints`, { sprint: {
-				    name: this.name,
-				    description: this.description,
-				    start_date: this.startDate,
-				    end_date: this.endDate
-				  }
-				  }, { headers: headers })
-				    .then(response => {
-				      this.name = "";
-				      this.description = "";
-				      this.startDate = "";
-				      this.endDate = "";
-				      this.id = "";
-				      EventBus.$emit('added-sprint', 1)
-				  })
-				    .catch(e => {
-				      this.errors.push(e)
-				  });
+      HTTP.post(`projects/${this.$route.params.id}/sprints`, { sprint: {
+        name: this.name,
+        description: this.description,
+        start_date: this.startDate,
+        end_date: this.endDate
+      }
+      }, { headers: headers })
+      .then(response => {
+        this.name = "";
+        this.description = "";
+        this.startDate = "";
+        this.endDate = "";
+        this.id = "";
+        EventBus.$emit('added-sprint', 1)
+      })
+      .catch(e => {
+        this.errors.push(e)
+      });
 		}
   }
-
 }
 </script>
 

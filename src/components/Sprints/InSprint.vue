@@ -28,6 +28,7 @@ import DeleteSprint from '@/components/Sprints/DeleteSprint';
 import EditSprint from '@/components/Sprints/EditSprint';
 import { EventBus } from '../../event-bus.js';
 import {HTTP} from '../../http-common.js';
+import { mapState } from 'vuex';
 
 export default{
   name: 'InSprint',
@@ -40,13 +41,14 @@ export default{
       sprint: {},
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
     getSprint() {
-
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      var headers = { 'Authorization':this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}`, {headers:headers})
         .then((response) => {

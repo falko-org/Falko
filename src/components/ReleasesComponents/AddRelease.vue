@@ -18,7 +18,8 @@
 						<div class=" row modal-body">
               <div class="col">
                 <p><label>Name</label></p>
-                <p><input type="text" v-model="name" id="releaseName"></input><br></p>
+                <p><input type="text" v-model="name" id="releaseName" 
+                          placeholder="Release Name"></input><br></p>
                 <p><label>Description</label></p>
                 <input type="text" v-model="description" placeholder="Release description..."></input><br>
               </div>
@@ -42,23 +43,26 @@
 <script>
 import { EventBus } from '../../event-bus.js';
 import {HTTP} from '../../http-common.js';
+import { mapState } from 'vuex';
 
 export default {
   data () {
     return {
-      name: 'New Release',
+      name: '',
       description : '',
       initialDate: '',
       finalDate: ''
     }
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
 
   	addRelease() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+      var headers = { 'Authorization':this.token };
 
       HTTP.post(`/projects/${this.$route.params.id}/releases`,  {
         release: {
@@ -67,11 +71,10 @@ export default {
           initial_date: this.initialDate,
           final_date: this.finalDate
         }
-	    }, { headers: header })
+	    }, { headers })
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";
-        console.log(this.initialDate);
         this.initialDate = "";
         this.finalDate = "";
 	    	EventBus.$emit('added-release', 1)
@@ -79,7 +82,7 @@ export default {
 	    .catch(e => {
 	      this.errors.push(e)
 	    });
-	}
+    }
   }
 
 }

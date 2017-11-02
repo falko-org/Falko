@@ -67,12 +67,6 @@ export default {
   components: {
     'login-register': LoginRegister
   },
-
-  data () {
-    return {
-
-    }
-  }
 }
 </script>
 

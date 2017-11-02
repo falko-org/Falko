@@ -13,8 +13,6 @@ const auth = {
   },
   mutations: {
     [LOGIN] (state, res) {
-      console.log(res);
-
       localStorage.setItem('token', JSON.stringify(res.token));
       state.token = res.token;
       localStorage.setItem('user_id', JSON.stringify(res.id));      
@@ -39,7 +37,6 @@ const auth = {
         password: credentials.password
       })
       .then((response) => {
-        console.log(response.data.user.id);
         const res = { token: response.data.auth_token, id: response.data.user.id };
         commit(LOGIN, res);
       });

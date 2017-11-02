@@ -32,6 +32,8 @@
 <script>
 	import { EventBus } from '../event-bus.js';
 	import {HTTP} from '../http-common.js';
+  import { mapState } from 'vuex';
+
 	export default{
 		name: 'editProj',
 		data(){
@@ -40,18 +42,19 @@
 				description: ""
 			}
 		},
+    computed: {
+      ...mapState({
+        token: state => state.auth.token,
+      })
+    },
 		methods: {
 			editProject(){
-
-				var token = localStorage.getItem('token');
-				var tokenSimple = token.replace(/"/, "");
-				var tokenSimple2 = tokenSimple.replace(/"/, "");
-				var headers = { 'Authorization':tokenSimple2 };
+        var headers = { 'Authorization':this.token };
 
 				HTTP.put("projects/"+this.$route.params.id, {
 					name: this.name,
 					description: this.description
-				}, { headers: headers })
+				}, { headers })
 				.then((response)=>{
 					this.$emit('edited-project', this.$route.params.id)
 				})

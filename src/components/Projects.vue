@@ -34,9 +34,7 @@ import AddProject from '@/components/AddProject';
 import {HTTP} from '../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHubProjects';
-import { createNamespacedHelpers } from 'vuex'
-
-const { mapState } = createNamespacedHelpers('auth')
+import { mapState } from 'vuex'
 
 export default {
 
@@ -51,22 +49,21 @@ export default {
       projects: [],
     }
   },
-  computed: mapState([
-      'token',
-      'userId'
-  ]),
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId
+    })
+  },
   methods: {
     getProjects() {
-      console.log(this.token);
-      console.log(this.userId);
-
 			var headers = { 'Authorization':this.token };
 
-      HTTP.get(`users/${this.userId}/projects`, { headers: headers })
-      .then(response => {
+      HTTP.get(`users/${this.userId}/projects`, { headers })
+      .then((response) => {
         this.projects = response.data;
       })
-      .catch(e => {
+      .catch((e) => {
         this.errors.push(e);
       });
     },

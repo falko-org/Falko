@@ -36,28 +36,28 @@
 import { HTTP } from '../../http-common.js';
 import EditRelease from '@/components/ReleasesComponents/EditRelease';
 import DeleteRelease from '@/components/ReleasesComponents/DeleteRelease';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     'edit-release': EditRelease,
     'delete-release': DeleteRelease
   },
-
   data () {
     return {
       release: {}
     }
   },
-
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
     getRelease() {
-    var token = localStorage.getItem('token');
-    var tokenSimple = token.replace(/"/, "");
-    var tokenSimple2 = tokenSimple.replace(/"/, "");
-    var headers = { 'Authorization': tokenSimple2 };
-    
-    // console.log(this.$route.params.id)
-    HTTP.get(`releases/${this.$route.params.id}`, { headers: headers })
+      var headers = { 'Authorization':this.token };
+
+      HTTP.get(`releases/${this.$route.params.id}`, { headers })
       .then((response) => {
         this.release = response.data;
       })

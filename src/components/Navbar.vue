@@ -23,27 +23,33 @@
 </template>
 
 <script>
-import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components/SearchBar';
+import { mapState } from 'vuex';
+
 export default {
 
   components: {
     'searchbar': SearchBar
   },
-
+  computed: {
+    ...mapState({
+      authenticated: state => state.auth.authenticated,
+    })
+  },
   methods: {
     logout(){
-        localStorage.clear();
-        this.$router.push('/');
+        this.$store.dispatch('logout', { email: this.email, password: this.password })
+        .then(() => this.$router.push({ path: '/' }));
     },
     goToHome(){
-        if (localStorage.getItem('token') != null) {
+        if (this.authenticated) {
           this.$router.push('/projects');
         } else {
           this.$router.push('/');
         }
     },
     isLogged(){
-      if (localStorage.getItem('token') != null) {
+      if (this.authenticated) {
         return true;
       } 
       else {

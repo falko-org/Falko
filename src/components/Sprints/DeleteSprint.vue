@@ -29,22 +29,18 @@
 
 <script>
 import {HTTP} from '../../http-common.js';
+import { mapState } from 'vuex'
 
 export default {
-	name: 'delsprint',
-  data () {
-    return {
-
-    }
+  name: 'delsprint',
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
   },
-  methods:{
-
+  methods: {
   	async delSprint(){
-
-			var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      var headers = { 'Authorization':this.token };
 
 			try {
 				let response = await HTTP.get("sprints/"+this.$route.params.id, { headers: headers });

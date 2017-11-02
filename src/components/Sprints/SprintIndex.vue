@@ -27,8 +27,9 @@
 import { EventBus } from '../../event-bus.js';
 import AddSprint from '@/components/Sprints/AddSprint';
 import {HTTP} from '../../http-common.js';
-import EditProject from '@/components/EditProject'
-import NoContent from '@/components/NoContent'
+import EditProject from '@/components/EditProject';
+import NoContent from '@/components/NoContent';
+import { mapState } from 'vuex';
 
 export default{
   components: {
@@ -41,15 +42,16 @@ export default{
       sprints: []
     }
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    })
+  },
   methods: {
     getSprints() {
+      var headers = { 'Authorization':this.token };
 
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
-
-      HTTP.get(`projects/${this.$route.params.id}/sprints`, {headers:headers})
+      HTTP.get(`projects/${this.$route.params.id}/sprints`, { headers })
         .then((response) => {
           this.sprints = response.data;
         })

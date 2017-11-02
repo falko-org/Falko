@@ -33,6 +33,7 @@
 
 <script>
 import {HTTP} from '../http-common.js';
+import { mapState } from 'vuex';
 
 export default {
   name: 'addProj',
@@ -42,29 +43,27 @@ export default {
       description : ''
     }
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId
+    })
+  },
   methods: {
   	addProject() {
+  		var headers = { 'Authorization':this.token };
 
-			var token = localStorage.getItem('token');
-			var tokenSimple = token.replace(/"/, "");
-			var tokenSimple2 = tokenSimple.replace(/"/, "");
-			var headers = { 'Authorization':tokenSimple2 };
-
-			var user_id = localStorage.getItem('user_id');
-			var user_int = parseInt(user_id);
-
-
-	    HTTP.post(`users/${user_int}/projects`, {project: {
+	    HTTP.post(`users/${this.userId}/projects`, {project: {
 	    	name: this.name,
 	    	description: this.description,
 	    	check_project: false
-	    }}, { headers: headers })
-	    .then(response => {
+	    }}, { headers })
+	    .then((response) => {
 	    	this.name = "";
 	    	this.description = "";
 	    	this.$emit('added');
 	    })
-	    .catch(e => {
+	    .catch((e) => {
 	      this.errors.push(e)
 	    });
 	}
