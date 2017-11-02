@@ -89,7 +89,6 @@ export default {
 
       HTTP.get(`retrospectives/${this.$route.params.id}`, { headers:headers })
         .then(response => {
-          console.log(response.data);
           this.sprintReport = response.data.sprint_report,
           this.positivePoints = response.data.positive_points,
           this.negativePoints = response.data.negative_points,

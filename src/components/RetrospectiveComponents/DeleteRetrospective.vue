@@ -50,7 +50,7 @@ export default {
 			try {
 				let response = await HTTP.get("/retrospectives/"+this.$route.params.id, { headers: headers });
 				let id = response.data.sprint_id;
-        console.log(id);
+				
 				await HTTP.delete("/retrospectives/"+this.$route.params.id, { headers: headers })
 				this.$router.push({ path : `/InSprint/${id}`});
 			} catch(err) {

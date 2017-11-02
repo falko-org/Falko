@@ -28,8 +28,15 @@
             />
           </div>
           <div class="modal-footer">
-            <button class="btn btn-info btn-md falko-button" v-on:click="addRetrospective" data-dismiss="modal">Save</button>
-            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-info btn-md falko-button" 
+                    v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective" 
+                    data-dismiss="modal"  
+            >
+              Save
+            </button>
+            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
@@ -52,7 +59,8 @@ export default {
       sprintReport: '',
       positivePoints: [],
       negativePoints: [],
-      improvements: []
+      improvements: [],
+      retrospectiveId: ''
     }
   },
 
@@ -62,7 +70,6 @@ export default {
 			var tokenSimple = token.replace(/"/, "");
 			var tokenSimple2 = tokenSimple.replace(/"/, "");
 			var headers = { 'Authorization':tokenSimple2 };
-      console.log(this.$route.params.id);
 
       HTTP.post(`sprints/${this.$route.params.id}/retrospectives`, {
         sprint_report: this.sprintReport,
@@ -71,8 +78,11 @@ export default {
         improvements: this.improvements
       }, { headers:headers })
       .then(response => {
+
         this.$emit('retrospectiveCreated')
-        //Ir para show de retrospectiva
+        this.retrospectiveId = response.data.id
+
+        this.$router.push({ path : `/retrospective/${this.retrospectiveId}`});
       })
       .catch(e => {
         this.errors.push(e)
@@ -100,6 +110,14 @@ export default {
           this.improvements.push(items[i].title)
         }
       }
+    }
+  },
+
+  computed: {
+    FieldsNotFilled() {
+      return this.positivePoints.length == 0 || 
+             this.negativePoints.length == 0 ||
+             this.improvements.length == 0
     }
   }
 }

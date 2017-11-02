@@ -54,6 +54,11 @@ input:focus {
   font-weight: bold;
 }
 
+.falko-button:disabled {
+  background-color: #86B1B1;
+  cursor:auto;
+}
+
 .falko-button-danger
 {
   background-color: #AA0000;
@@ -64,7 +69,7 @@ input:focus {
   background-color: #868e96;
 }
 
-.falko-button:hover {
+.falko-button:enabled:hover {
   background-color: #6E9191;
 }
 
