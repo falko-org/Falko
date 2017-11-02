@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Projects from '@/components/Projects'
 import AddProject from '@/components/AddProject'
-import InProject from '@/components/InProject'
+import Project from '@/components/Project'
 import DeleteProject from '@/components/DeleteProject'
 import EditProject from '@/components/EditProject'
 import Login from '@/components/Login'
@@ -39,9 +39,9 @@ const router = new Router({
       component: AddProject,
     },
     {
-      path: '/inproject/:id',
-      name: 'InProjects',
-      component: InProject,
+      path: '/project/:id',
+      name: 'Projects',
+      component: Project,
     },
     {
       path: '/deleteproject',
@@ -100,7 +100,7 @@ const router = new Router({
       component: HomePage,
     },
     {
-      path: '/inproject/:id/sprints',
+      path: '/project/:id/sprints',
       name: 'Sprints',
       component: Sprints,
     },
@@ -125,7 +125,7 @@ const router = new Router({
       component: EditSprint,
     },
     {
-      path: '/inproject/:id/releases',
+      path: '/project/:id/releases',
       name: 'Releases',
       component: Releases,
     },
