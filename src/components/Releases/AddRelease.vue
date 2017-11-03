@@ -49,7 +49,8 @@ export default {
       name: 'New Release',
       description : '',
       initialDate: '',
-      finalDate: ''
+      finalDate: '',
+			amount_of_sprints: 0
     }
   },
   methods: {
@@ -65,7 +66,8 @@ export default {
           name: this.name,
           description: this.description,
           initial_date: this.initialDate,
-          final_date: this.finalDate
+          final_date: this.finalDate,
+					amount_of_sprints: this.amount_of_sprints
         }
 	    }, { headers: header })
 	    .then(response => {
