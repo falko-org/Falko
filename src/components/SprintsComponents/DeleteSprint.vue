@@ -46,7 +46,7 @@ export default {
 				let response = await HTTP.get("sprints/"+this.$route.params.id, { headers: headers });
 				let id = response.data.project_id;
 				await HTTP.delete("sprints/"+this.$route.params.id, { headers: headers })
-				this.$router.push({ path : `/inproject/${id}/sprints`});
+				this.$router.push({ path : `/project/${id}/sprints`});
 			} catch(err) {
 				console.log(err)
 			}

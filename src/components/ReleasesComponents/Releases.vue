@@ -82,7 +82,7 @@ export default {
   methods: {
     getReleases() {
       var headers = { 'Authorization':this.token };
-
+      console.log(headers);
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
       .then((response) => {
         this.releases = response.data;

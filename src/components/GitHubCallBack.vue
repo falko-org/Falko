@@ -1,18 +1,19 @@
 <template>
-<div>
-<h1>{{token}}</h1>
-</div>
+  <div>
+    <h1> {{github_token}} </h1>
+  </div>
 </template>
 
 <script>
 import {HTTP} from '../http-common.js';
 import { mapState } from 'vuex';
 
+
 export default {
   data() {
     return {
-      token: ""
-    }
+      github_token: '',
+    };
   },
   computed: {
     ...mapState({
@@ -29,7 +30,7 @@ export default {
       id: this.userId
     }, { headers })
     .then((response) => {
-      this.token = response.data.access_token
+      this.github_token = response.data.access_token
     })
     .catch((e) => {
       this.errors.push(e);

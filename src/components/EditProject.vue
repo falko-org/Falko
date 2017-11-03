@@ -32,7 +32,7 @@
 <script>
 	import { EventBus } from '../event-bus.js';
 	import {HTTP} from '../http-common.js';
-  import { mapState } from 'vuex';
+  	import { mapState } from 'vuex';
 
 	export default{
 		name: 'editProj',
@@ -61,7 +61,22 @@
 				.catch(e=>{
 					this.errors.push(e)
 				});
+			},
+			getProjectInformation() {
+        var headers = { 'Authorization':this.token };
+
+				HTTP.get(`projects/${this.$route.params.id}`, { headers })
+      	.then((response)=>{
+        	this.name = response.data.name;
+        	this.description = response.data.description;
+     	 })
+      	.catch((e) => {
+        	this.errors.push(e);
+      	});
 			}
+		},
+		created() {
+			this.getProjectInformation();
 		}
 	}
 </script>

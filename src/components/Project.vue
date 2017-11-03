@@ -12,20 +12,20 @@
     </div>
     <div class="row justify-content-center" id="buttons">
       <div class="col-md-2" align="center">
-        <EditProject v-on:edited-project="getProject($event)"></EditProject>
+        <edit-project v-on:edited-project="getProject($event)"></edit-project>
       </div>
       <div class="col-md-2" align="center">
-        <DelProject></DelProject>
+        <delete-project></delete-project>
       </div>
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
+        <router-link v-bind:to="'/project/'+project.id+'/sprints'">
           <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
             Sprints
           </button>
         </router-link>
       </div>
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/inproject/'+project.id+'/releases'">
+        <router-link v-bind:to="'/project/'+project.id+'/releases'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Releases
           </button>
@@ -38,14 +38,14 @@
 <script>
 import DeleteProject from '@/components/DeleteProject';
 import EditProject from '@/components/EditProject';
-import {HTTP} from '../http-common.js';
+import { HTTP } from '../http-common.js';
 import { mapState } from 'vuex';
 
 export default {
-  name: 'InProject',
+  name: 'Project',
   components: {
-    DelProject: DeleteProject,
-    EditProject,
+    'delete-project': DeleteProject,
+    'edit-project': EditProject,
   },
   data() {
     return {

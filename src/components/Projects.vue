@@ -5,7 +5,7 @@
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
-        <router-link v-bind:to="'/inproject/'+project.id">
+        <router-link v-bind:to="'/project/'+project.id">
           <div class="card">
             <div class="card-body project">
               <h4 class="card-title">
@@ -31,7 +31,7 @@
 
 <script>
 import AddProject from '@/components/AddProject';
-import {HTTP} from '../http-common.js';
+import { HTTP } from '../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHubProjects';
 import { mapState } from 'vuex'
@@ -40,14 +40,14 @@ export default {
 
   name: 'projects',
   components: {
-    'add-project' : AddProject,
+    'add-project': AddProject,
     'no-content': NoContent,
-    'github-projects': GitHubProjects
+    'github-projects': GitHubProjects,
   },
   data() {
-    return{
+    return {
       projects: [],
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -73,13 +73,13 @@ export default {
     },
 
     isProjectsEmpty() {
-      return this.projects.length == 0
-    }
+      return this.projects.length === 0;
+    },
   },
   mounted() {
     this.getProjects();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Projects from '@/components/Projects'
 import AddProject from '@/components/AddProject'
-import InProject from '@/components/InProject'
+import Project from '@/components/Project'
 import DeleteProject from '@/components/DeleteProject'
 import EditProject from '@/components/EditProject'
 import Login from '@/components/Login'
@@ -10,10 +10,10 @@ import Register from '@/components/Register'
 import LoginRegister from '@/components/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoContent from '@/components/NoContent'
-import SprintIndex from '@/components/Sprints/SprintIndex'
-import InSprint from '@/components/Sprints/InSprint'
-import EditSprint from '@/components/Sprints/EditSprint'
-import DeleteSprint from '@/components/Sprints/DeleteSprint'
+import Sprints from '@/components/SprintsComponents/Sprints'
+import Sprint from '@/components/SprintsComponents/Sprint'
+import EditSprint from '@/components/SprintsComponents/EditSprint'
+import DeleteSprint from '@/components/SprintsComponents/DeleteSprint'
 import GitHubCallBack from '@/components/GitHubCallBack'
 import GitHubProjects from '@/components/GitHubProjects'
 import Releases from '@/components/ReleasesComponents/Releases'
@@ -39,9 +39,9 @@ const router = new Router({
       component: AddProject,
     },
     {
-      path: '/inproject/:id',
-      name: 'InProjects',
-      component: InProject,
+      path: '/project/:id',
+      name: 'Projects',
+      component: Project,
     },
     {
       path: '/deleteproject',
@@ -91,28 +91,28 @@ const router = new Router({
     {
       path: '/githubcallback',
       name: 'GitHubCallBack',
-      component: GitHubCallBack
+      component: GitHubCallBack,
     },
 
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage
+      component: HomePage,
     },
     {
-      path: '/inproject/:id/sprints',
-      name: 'SprintIndex',
-      component: SprintIndex
+      path: '/project/:id/sprints',
+      name: 'Sprints',
+      component: Sprints,
     },
     {
-      path: '/insprint/:id',
-      name: 'InSprint',
-      component: InSprint
+      path: '/sprints/:id',
+      name: 'Sprint',
+      component: Sprint,
     },
     {
       path: '/deletesprint',
       name: 'DeleteSprint',
-      component: DeleteSprint
+      component: DeleteSprint,
     },
     {
       path: '/githubprojects',
@@ -122,30 +122,30 @@ const router = new Router({
     {
       path: '/editsprint',
       name: 'EditSprint',
-      component: EditSprint
+      component: EditSprint,
     },
     {
-      path: '/inproject/:id/releases',
+      path: '/project/:id/releases',
       name: 'Releases',
-      component: Releases
+      component: Releases,
     },
     {
       path: '/releases/:id',
       name: 'Release',
-      component: Release
+      component: Release,
     },
     {
       path: '/nocontent',
       name: 'NoContent',
-      component: NoContent
+      component: NoContent,
     },
     {
       path: '/notFound',
       name: 'NotFound',
-      component: NotFound
-    }
-  ]
-})
+      component: NotFound,
+    },
+  ],
+});
 
 export default router;
 
@@ -159,4 +159,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
+});

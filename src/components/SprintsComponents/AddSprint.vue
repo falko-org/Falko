@@ -47,8 +47,8 @@ export default {
     return {
       name: '',
       description : '',
-			startDate : '',
-			endDate : ''
+      startDate : '',
+      endDate : ''
     }
   },
   computed: {
@@ -60,7 +60,7 @@ export default {
   	addSprint() {
       var headers = { 'Authorization':this.token };
 
-      HTTP.post(`projects/${this.$route.params.id}/sprints`, { sprint: {
+      HTTP.post(`releases/${this.$route.params.id}/sprints`, { sprint: {
         name: this.name,
         description: this.description,
         start_date: this.startDate,
@@ -78,7 +78,7 @@ export default {
       .catch(e => {
         this.errors.push(e)
       });
-		}
+	}
   }
 }
 </script>
