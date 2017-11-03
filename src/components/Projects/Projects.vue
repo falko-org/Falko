@@ -3,18 +3,38 @@
     <div v-if="isProjectsEmpty()">
       <no-content parent ="Project"></no-content>
     </div>
-    <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
-        <router-link v-bind:to="'/projects/'+project.id">
-          <div class="card">
-            <div class="card-body project">
-              <h4 class="card-title">
-                  {{project.name}}
-              </h4>
-              <p class="card-text text-muted">{{project.description}}</p>
-            </div>
+    <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)">
+      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
+        <div align="center">
+          <div class="card" id="projectCard">
+            <router-link v-bind:to="'/project/'+project.id">
+              <div class="card-header" id="projectHeader">
+                <div class="row align-itens-around" id="projectTitle">
+                  <div class="col">
+                    <h4 class="no-margin float-left"> {{project.name}}</h4>
+                  </div>
+                  <div class="col">
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row align-itens-arround">
+                  <div class="col-5 align-content-center">
+                    <p class="card-text">
+                      <Gpa></Gpa>
+                    </p>
+                  </div>
+                  <div class="col">
+                    <p class="card-text text-justify">
+                      {{project.description}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </router-link>
           </div>
-        </router-link>
+          <br>
+        </div>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -31,17 +51,17 @@
 
 <script>
 import AddProject from '@/components/Projects/AddProject';
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHub/GitHubProjects';
-
+import Gpa from '@/components/Gpa'
 export default {
-
   name: 'projects',
   components: {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
+    'Gpa': Gpa,
   },
   data() {
     return {
@@ -54,10 +74,8 @@ export default {
       var tokenSimple = token.replace(/"/, "");
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization':tokenSimple2 };
-
       var userId = localStorage.getItem('user_id');
       var userInt = parseInt(userId);
-
       HTTP.get(`users/${userInt}/projects`, { headers: headers })
         .then((response) => {
           this.projects = response.data;
@@ -80,17 +98,25 @@ export default {
 </script>
 
 <style scoped>
-
 .top-buffer {
   margin-top:30px;
 }
-
-a:link {
-  text-decoration: none !important;
+div a {
+  text-decoration: none;
   color: inherit;
 }
-
-a:hover {
-  font-weight: bold;
+#projectCard:hover {
+  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
+  border-color: #7799A5;
+}
+#projectCard {
+  width: 30em;
+}
+#projectHeader {
+  background-color: #7799A5;
+}
+#projectTitle {
+  margin: 0;
+  color: white;
 }
 </style>
