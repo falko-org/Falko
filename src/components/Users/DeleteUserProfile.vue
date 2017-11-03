@@ -18,8 +18,8 @@
 			          <p><label> Are you sure?</label></p>
 			        </div>
 			        <div class="modal-footer">
-            			<button v-on:click="deleteUser" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
-		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            			<button v-on:click="deleteUser" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
+		        	  <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
 			        </div>
 				</div>
 			</div>
