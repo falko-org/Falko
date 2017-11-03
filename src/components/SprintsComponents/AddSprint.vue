@@ -1,38 +1,38 @@
 <template>
-	<div class="addsprintBody">
-		<div class="text-center">
-			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
-				Add a Sprint
-			</button>
-		</div>
+  <div class="addsprintBody">
+    <div class="text-center">
+      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
+        Add a Sprint
+      </button>
+    </div>
 
-		<div class="modal fade" id ="addSprintModal" role="dialog">
-			<div class="modal-dialog">
-		    	<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Add a Sprint</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-									<span aria-hidden="true">&times;</span>
-								</button>
-						</div>
-						<div class="modal-body">
-							<p><label>Name</label></p>
-							<p><input type = "text" v-model="name"></input><br></p>
-							<p><label>Description</label></p>
-							<input type = "text" v-model="description"></input><br>
-							<p><label>Start Date</label></p>
-							<input type = "date" v-model="startDate"></input><br>
-							<p><label>End Date</label></p>
-							<input type = "date" v-model="endDate"></input><br>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-on:click="addSprint" data-dismiss="modal">Save</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-						</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id ="addSprintModal" role="dialog">
+      <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add a Sprint</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <p><label>Name</label></p>
+              <p><input type = "text" v-model="name"></input><br></p>
+              <p><label>Description</label></p>
+              <input type = "text" v-model="description"></input><br>
+              <p><label>Initial Date</label></p>
+              <input type = "date" v-model="initialDate"></input><br>
+              <p><label>Final Date</label></p>
+              <input type = "date" v-model="finalDate"></input><br>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" v-on:click="addSprint" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -43,13 +43,13 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'addSprintBody',
-  data () {
+  data() {
     return {
       name: '',
-      description : '',
-      startDate : '',
-      endDate : ''
-    }
+      description: '',
+      initialDate: '',
+      finalDate: '',
+    };
   },
   computed: {
     ...mapState({
@@ -60,32 +60,33 @@ export default {
   	addSprint() {
       var headers = { 'Authorization':this.token };
 
-      HTTP.post(`releases/${this.$route.params.id}/sprints`, { sprint: {
-        name: this.name,
-        description: this.description,
-        start_date: this.startDate,
-        end_date: this.endDate
-      }
+      HTTP.post(`releases/${this.$route.params.id}/sprints`, { 
+        sprint: {
+          name: this.name,
+          description: this.description,
+          initial_date: this.initialDate,
+          final_date: this.finalDate,
+          release_id: this.$route.params.id,
+        }
       }, { headers: headers })
       .then(response => {
-        this.name = "";
-        this.description = "";
-        this.startDate = "";
-        this.endDate = "";
-        this.id = "";
+        this.name = '';
+        this.description = '';
+        this.initialDate = '';
+        this.finalDate = '';
         EventBus.$emit('added-sprint', 1)
       })
       .catch(e => {
         this.errors.push(e)
       });
-	}
+    }
   }
 }
 </script>
 
 <style scoped>
 #addButton {
-	margin-top: 2em;
+  margin-top: 2em;
 }
 
 .modal-body{
@@ -94,10 +95,10 @@ export default {
 }
 
 p {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 label {
-	margin-bottom: 0em;
+  margin-bottom: 0em;
 }
 </style>
