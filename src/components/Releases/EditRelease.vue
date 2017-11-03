@@ -1,19 +1,19 @@
 <template>
-  <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editReleaseModal">
-      Edit
-    </button>
+	<div class = "editproject">
+		<button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editReleaseModal">
+			Edit
+		</button>
 
-    <div class="modal fade" id ="editReleaseModal" role="dialog">
-      <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Edit Release</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class=" row modal-body">
+		<div class="modal fade" id ="editReleaseModal" role="dialog">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Edit Release</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class=" row modal-body">
               <div class="col">
                 <p><label>Name</label></p>
                 <p><input type="text" v-model="name" id="releaseName"></input><br></p>
@@ -26,15 +26,15 @@
                 <p><label>Final Date</label></p>
                 <p><input type="date" v-model="finalDate"></input><br></p>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" v-on:click="editRelease()" data-dismiss="modal">Save</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-info btn-md falko-button" v-on:click="editRelease()" data-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>

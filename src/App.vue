@@ -43,7 +43,7 @@ input:focus {
   margin-left: 1em;
 }
 
-.falko-button {
+.falko-button, .falko-button-danger, .falko-button-grey {
   align-self: center;
   margin: 0.5em 0;
   border-radius: 2em;
@@ -54,23 +54,26 @@ input:focus {
   font-weight: bold;
 }
 
-.falko-button:hover {
-  background-color: #6E9191;
+.falko-button-danger
+{
+  background-color: #AA0000;
 }
 
-.falko-button-danger {
-  align-self: center;
-  margin: 0.5em 0;
-  border-radius: 2em;
-  padding: 0.5em 2em;
-  cursor: pointer;
-  background-color: #AA0000;
-  border-width: 0;
-  font-weight: bold;
+.falko-button-grey
+{
+  background-color: #868e96;
+}
+
+.falko-button:enabled:hover {
+  background-color: #6E9191;
 }
 
 .falko-button-danger:hover {
   background-color: #660000;
+}
+
+.falko-button-grey:hover {
+  background-color: #565e66;
 }
 
 .small-float-left {
@@ -78,6 +81,12 @@ input:focus {
 }
 
 .no-margin {
+  margin: 0;
+}
+
+.modal-title {
+  font-weight: bold;
+  color: #6E9191;
   margin: 0;
 }
 </style>
