@@ -37,7 +37,7 @@
 
 <script>
 import { EventBus } from '../../event-bus.js';
-import { HTTP } from '../../http-common.js';
+import {HTTP} from '../../http-common.js';
 
 export default {
   name: 'addSprintBody',

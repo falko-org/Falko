@@ -32,8 +32,8 @@
 </template>
 
 <script>
-	import { HTTP } from '../http-common';
-	import { EventBus } from '../event-bus.js';
+	import { HTTP } from '../../http-common';
+	import { EventBus } from '../../event-bus.js';
 
 	export default {
 		name: "edit-user-profile",

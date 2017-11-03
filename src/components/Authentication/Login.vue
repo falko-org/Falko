@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="card-body">
-      <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
+      <img src="../../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
 
       <form id="loginForm"  @submit.prevent="login()">
         <div class="form-group">
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import {HTTP} from '../http-common.js';
+import {HTTP} from '../../http-common.js';
 
 export default {
   data () {

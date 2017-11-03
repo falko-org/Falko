@@ -1,7 +1,7 @@
 <template>
   <div id="register">
     <div class="card-body">
-      <img src="../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoRegister">
+      <img src="../../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoRegister">
 
       <form id="registerForm" @submit.prevent="register()">
         <div class="form-group">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { HTTP } from '../http-common';
+import { HTTP } from '../../http-common';
 
 export default {
   data() {

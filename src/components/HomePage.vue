@@ -5,9 +5,9 @@
         <div class="row justify-content-around center-block no-margin">
           <div class="col-md-4 align-self-center">
             <h1>Start now!</h1>
-            <p class="white-description">              
-              Falko was designed to fit the agile project managers needs. By 
-              giving the necessary tools to improve the <i>vision</i> and control 
+            <p class="white-description">
+              Falko was designed to fit the agile project managers needs. By
+              giving the necessary tools to improve the <i>vision</i> and control
               about your teams, Falko helps you make the best choices.
             </p>
           </div>
@@ -24,8 +24,8 @@
           <div class="col-sm-5 align-self-center" id="loginComponent">
             <h1>Free Software</h1>
             <p class="white-description">
-              Falko is under the MIT license. What does that means? You can use it, 
-              download the source code, improve and do your own based custom software, 
+              Falko is under the MIT license. What does that means? You can use it,
+              download the source code, improve and do your own based custom software,
               and more! Feel free to contribute too!
             </p>
           </div>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import LoginRegister from './LoginRegister.vue'
+import LoginRegister from './Authentication/LoginRegister.vue'
 
 export default {
   components: {
