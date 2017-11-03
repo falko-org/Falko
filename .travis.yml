@@ -16,7 +16,7 @@ notifications:
     slack: gppmds8-github:sJE6QlBfPGMkfUf48wuTsKa7
 
 before_install:
-  - docker build -t alaxalves/front .
+  - docker build -t alaxalves/front -f Dockerfile.dev .
 
 before_script:
   - npm install coveralls
