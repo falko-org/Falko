@@ -13,18 +13,13 @@ const auth = {
   },
   mutations: {
     [LOGIN] (state, res) {
-      localStorage.setItem('token', JSON.stringify(res.token));
       state.token = res.token;
-      localStorage.setItem('user_id', JSON.stringify(res.id));      
       state.userId = res.id;
     
       state.authenticated = true;
     },
     [LOGOUT] (state) {
-      localStorage.removeItem('token');
       state.token = null;
-
-      localStorage.removeItem('user_id');
       state.userId = null;
 
       state.authenticated = false;
