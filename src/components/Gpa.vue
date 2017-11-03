@@ -30,19 +30,22 @@ export default {
   		}
   	},
 	methods: {
-	    getGpa() {
-	      var token = localStorage.getItem('token');
-	      var tokenSimple = token.replace(/"/, "");
-	      var tokenSimple2 = tokenSimple.replace(/"/, "");
-	      var header = { 'Authorization': tokenSimple2 };
+	    async getGpa() {
+			var token = localStorage.getItem('token');
+			var tokenSimple = token.replace(/"/, "");
+			var tokenSimple2 = tokenSimple.replace(/"/, "");
+			var headers = { 'Authorization':tokenSimple2 };
 
-	      HTTP.get(`projects/${this.projectId}/gpa`, { headers: header })
-	        .then((response) => {
-	          this.gpa = response.data;
-	        })
-	        .catch((e) => {
-	          this.errors.push(e);
-	        });
+			try {
+				let response = await HTTP.get(`projects/${ this.$route.params.id }`, { headers:headers });		
+				let id = response.data.id;
+				console.log(id);						
+				const result2 = await HTTP.get(`projects/${id}/gpa`, { headers: headers });		
+				console.log(result2);		
+				this.gpa = result2.data;				
+			} catch(err) {
+				console.log(err)
+			}
 	    }
 	},
 	mounted() {
