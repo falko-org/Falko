@@ -59,7 +59,7 @@
 
 <script>
 import { HTTP } from '../../http-common.js';
-import AddRelease from '@/components/ReleasesComponents/AddRelease';
+import AddRelease from '@/components/Releases/AddRelease';
 import NoContent from '@/components/NoContent'
 
 export default {

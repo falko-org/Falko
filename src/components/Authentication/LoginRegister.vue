@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Login from '@/components/Login'
-import Register from '@/components/Register'
+import Login from '@/components/Authentication/Login'
+import Register from '@/components/Authentication/Register'
 export default {
 
   components: {

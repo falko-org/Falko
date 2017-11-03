@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { HTTP } from '../http-common.js';
+import {HTTP} from '../../http-common.js';
 
 export default {
   data() {

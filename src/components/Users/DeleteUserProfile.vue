@@ -1,5 +1,5 @@
-<template>
-	<div class="delproject">
+<template >
+  <div class="delusers">
 		<button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#myModal">
 			Delete
 		</button>
@@ -8,7 +8,7 @@
 		    	<div class="modal-content">
 			        <div class="modal-header">
 									<div>
-			            	<h4 class="modal-title">Delete Project?</h4>
+			            	<h4 class="modal-title">Delete Profile?</h4>
 									</div>
 			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
 			              <span aria-hidden="true">&times;</span>
@@ -18,7 +18,7 @@
 			          <p><label> Are you sure?</label></p>
 			        </div>
 			        <div class="modal-footer">
-            			<button v-on:click="deleteProject" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
+            			<button v-on:click="deleteUser" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
 		        	  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 			        </div>
 				</div>
@@ -28,34 +28,30 @@
 </template>
 
 <script>
-import {HTTP} from '../http-common.js';
+  import { HTTP } from '../../http-common';
 
-export default {
-	name: 'delproject',
-  data () {
-    return {
+  export default {
+    methods: {
+      deleteUser() {
+        const rawToken = localStorage.getItem('token');
+        const token = rawToken.replace(/"/, '').replace(/"/, '');
 
+        const headers = { Authorization: token };
+
+        const user_id = localStorage.getItem('user_id');
+        console.log(user_id);
+        HTTP.delete(`users/${user_id}`, { headers })
+          .then((response) => {
+            this.$router.push({ path: '/' });
+            localStorage.clear();
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          })
+      }
     }
-  },
-  methods:{
-
-  	deleteProject(){
-			var token = localStorage.getItem('token');
-			var tokenSimple = token.replace(/"/, "");
-			var tokenSimple2 = tokenSimple.replace(/"/, "");
-			var headers = { 'Authorization':tokenSimple2 };
-  		HTTP.delete("projects/"+this.$route.params.id, { headers: headers })
-			.then(response =>{
-				this.$router.push({ path : '/projects'});
-			})
-			.catch(e =>{
-				this.errors.push(e)
-			});
-  	}
-  }
 }
 </script>
 
-<style scoped>
-
+<style >
 </style>

@@ -1,26 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Projects from '@/components/Projects'
-import AddProject from '@/components/AddProject'
-import Project from '@/components/Project'
-import DeleteProject from '@/components/DeleteProject'
-import EditProject from '@/components/EditProject'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
-import LoginRegister from '@/components/LoginRegister'
+import Projects from '@/components/Projects/Projects'
+import AddProject from '@/components/Projects/AddProject'
+import Project from '@/components/Projects/Project'
+import DeleteProject from '@/components/Projects/DeleteProject'
+import EditProject from '@/components/Projects/EditProject'
+import Login from '@/components/Authentication/Login'
+import Register from '@/components/Authentication/Register'
+import LoginRegister from '@/components/Authentication/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoContent from '@/components/NoContent'
-import Sprints from '@/components/SprintsComponents/Sprints'
-import Sprint from '@/components/SprintsComponents/Sprint'
-import EditSprint from '@/components/SprintsComponents/EditSprint'
-import DeleteSprint from '@/components/SprintsComponents/DeleteSprint'
-import GitHubCallBack from '@/components/GitHubCallBack'
-import GitHubProjects from '@/components/GitHubProjects'
-import Releases from '@/components/ReleasesComponents/Releases'
-import Release from '@/components/ReleasesComponents/Release'
-import UserProfile from '@/components/UserProfile';
-import EditUserProfile from '@/components/EditUserProfile';
-import DeleteUserProfile from '@/components/DeleteUserProfile';
+import Sprints from '@/components/Sprints/Sprints'
+import Sprint from '@/components/Sprints/Sprint'
+import EditSprint from '@/components/Sprints/EditSprint'
+import DeleteSprint from '@/components/Sprints/DeleteSprint'
+import GitHubCallBack from '@/components/GitHub/GitHubCallBack'
+import GitHubProjects from '@/components/GitHub/GitHubProjects'
+import Releases from '@/components/Releases/Releases'
+import Release from '@/components/Releases/Release'
+import UserProfile from '@/components/Users/UserProfile';
+import EditUserProfile from '@/components/Users/EditUserProfile';
+import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
 import Issues from '@/components/IssuesComponents/Issues';
 
@@ -40,7 +40,7 @@ const router = new Router({
       component: AddProject,
     },
     {
-      path: '/project/:id',
+      path: '/projects/:id',
       name: 'Project',
       component: Project,
     },
@@ -126,7 +126,7 @@ const router = new Router({
       component: EditSprint,
     },
     {
-      path: '/project/:id/releases',
+      path: '/projects/:id/releases',
       name: 'Releases',
       component: Releases,
     },

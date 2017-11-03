@@ -26,7 +26,7 @@
 
 <script>
 import { HTTP } from '../../http-common.js';
-import AddSprint from '@/components/SprintsComponents/AddSprint';
+import AddSprint from '@/components/Sprints/AddSprint';
 import NoContent from '@/components/NoContent';
 
 export default{
