@@ -40,7 +40,7 @@ const router = new Router({
     },
     {
       path: '/project/:id',
-      name: 'Projects',
+      name: 'Project',
       component: Project,
     },
     {
@@ -117,7 +117,7 @@ const router = new Router({
     {
       path: '/githubprojects',
       name: 'GitHubProjects',
-      component: GitHubProjects
+      component: GitHubProjects,
     },
     {
       path: '/editsprint',
