@@ -8,9 +8,9 @@
           </li>
           <li class="list-inline-item vertical-center small-float-right">
             <h5 class="float-left">
-              {{sprint.start_date}}
+              {{sprint.initial_date}}
               |
-              {{sprint.end_date}}
+              {{sprint.final_date}}
             </h5>
           </li>
           <p class="text-justify text-muted">

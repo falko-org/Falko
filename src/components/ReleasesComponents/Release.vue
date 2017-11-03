@@ -9,7 +9,7 @@
           <li class="list-inline-item vertical-center small-float-right">
             <h5 class="float-left">
               {{release.initial_date}}
-              | 
+              |
               {{release.final_date}}
             </h5>
           </li>
@@ -21,13 +21,20 @@
       <div class="col-md-3">
         <ul class="list-inline">
           <li class="list-inline-item">
-            <edit-release></edit-release>   
+            <edit-release></edit-release>
           </li>
           <li class="list-inline-item">
-            <delete-release></delete-release>   
+            <delete-release></delete-release>
           </li>
         </ul>
       </div>
+    </div>
+    <div class="col-md" align="center">
+      <router-link v-bind:to="'/releases/'+release.id+'/sprints'">
+        <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
+          Sprints
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -55,7 +62,7 @@ export default {
     var tokenSimple = token.replace(/"/, "");
     var tokenSimple2 = tokenSimple.replace(/"/, "");
     var headers = { 'Authorization': tokenSimple2 };
-    
+
     // console.log(this.$route.params.id)
     HTTP.get(`releases/${this.$route.params.id}`, { headers: headers })
       .then((response) => {

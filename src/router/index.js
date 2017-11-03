@@ -100,7 +100,7 @@ const router = new Router({
       component: HomePage,
     },
     {
-      path: '/project/:id/sprints',
+      path: '/releases/:id/sprints',
       name: 'Sprints',
       component: Sprints,
     },
