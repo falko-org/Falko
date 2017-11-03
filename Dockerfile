@@ -2,15 +2,27 @@ FROM node:slim
 
 MAINTAINER alaxallves@gmail.com
 
-RUN apt-get update
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && apt-get install -y nodejs tree libfontconfig bzip2 && npm install --quiet --global vue-cli
+# Forcing Docker builds not to use its cached dependencies
 
-RUN mkdir /Falko-2017.2-FrontEnd
+COPY package.json /tmp/package.json
+RUN apt-get update && apt-get install -y nodejs tree libfontconfig bzip2
+RUN cd /tmp && npm install
+RUN mkdir -p /usr/src/app && \
+    cp -a /tmp/node_modules /usr/src/app
 
-COPY . /Falko-2017.2-FrontEnd
+WORKDIR /usr/src/app
+COPY . /usr/src/app
 
-WORKDIR /Falko-2017.2-FrontEnd
+RUN npm run build
 
-ADD package.json /Falko-2017.2-FrontEnd/package.json
+# Removing unnecessary dependencies to deploy
 
-RUN npm install
+RUN rm -rf ./build
+RUN rm -rf ./test
+RUN rm -rf ./src
+RUN chmod +x start-prod.sh
+
+ENV PORT=80
+EXPOSE 80
+
+ENTRYPOINT ["./start-prod.sh"]
