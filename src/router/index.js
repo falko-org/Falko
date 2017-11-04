@@ -22,6 +22,7 @@ import UserProfile from '@/components/UserProfile';
 import EditUserProfile from '@/components/EditUserProfile';
 import DeleteUserProfile from '@/components/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
+import Issues from '@/components/IssuesComponents/Issues';
 
 Vue.use(Router);
 
@@ -143,6 +144,11 @@ const router = new Router({
       path: '/notFound',
       name: 'NotFound',
       component: NotFound,
+    },
+    {
+      path: '/project/:id/issues',
+      name: 'Issues',
+      component: Issues,
     },
   ],
 });
