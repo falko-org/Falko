@@ -34,10 +34,10 @@
 </template>
 
 <script>
-	import {HTTP} from '../http-common.js';
-	import { EventBus } from '../event-bus.js';
-	import EditUserProfile from '@/components/EditUserProfile'
-	import DeleteUserProfile from '@/components/DeleteUserProfile'
+	import {HTTP} from '../../http-common.js';
+	import { EventBus } from '../../event-bus.js';
+	import EditUserProfile from '@/components/Users/EditUserProfile'
+	import DeleteUserProfile from '@/components/Users/DeleteUserProfile'
 
 	export default {
 		name: "user_profile",

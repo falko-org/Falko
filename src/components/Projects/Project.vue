@@ -18,7 +18,7 @@
         <delete-project></delete-project>
       </div>
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/project/'+project.id+'/releases'">
+        <router-link v-bind:to="'/projects/'+project.id+'/releases'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Releases
           </button>
@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import DeleteProject from '@/components/DeleteProject';
-import EditProject from '@/components/EditProject';
-import { HTTP } from '../http-common.js';
+import DeleteProject from '@/components/Projects/DeleteProject';
+import EditProject from '@/components/Projects/EditProject';
+import { HTTP } from '../../http-common.js';
 
 export default{
   name: 'Project',

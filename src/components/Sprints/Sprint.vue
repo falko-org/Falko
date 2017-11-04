@@ -35,8 +35,8 @@
 <script>
 import { EventBus } from '../../event-bus.js';
 import { HTTP } from '../../http-common.js';
-import EditSprint from '@/components/SprintsComponents/EditSprint';
-import DeleteSprint from '@/components/SprintsComponents/DeleteSprint';
+import EditSprint from '@/components/Sprints/EditSprint';
+import DeleteSprint from '@/components/Sprints/DeleteSprint';
 
 export default{
   name: 'InSprint',

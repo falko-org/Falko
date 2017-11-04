@@ -5,7 +5,7 @@
     </div>
     <div class="row top-buffer" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-md-6 text-center">
-        <router-link v-bind:to="'/project/'+project.id">
+        <router-link v-bind:to="'/projects/'+project.id">
           <div class="card">
             <div class="card-body project">
               <h4 class="card-title">
@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import AddProject from '@/components/AddProject';
-import { HTTP } from '../http-common.js';
+import AddProject from '@/components/Projects/AddProject';
+import {HTTP} from '../../http-common.js';
 import NoContent from '@/components/NoContent';
-import GitHubProjects from '@/components/GitHubProjects';
+import GitHubProjects from '@/components/GitHub/GitHubProjects';
 
 export default {
 
