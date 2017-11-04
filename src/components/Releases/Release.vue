@@ -43,6 +43,7 @@
 import { HTTP } from '../../http-common.js';
 import EditRelease from '@/components/Releases/EditRelease';
 import DeleteRelease from '@/components/Releases/DeleteRelease';
+import dateConvert from '@/mixins/dateConvert';
 
 export default {
   components: {
@@ -56,6 +57,8 @@ export default {
     }
   },
 
+  mixins: [ dateConvert ],
+
   methods: {
     getRelease() {
     var token = localStorage.getItem('token');
@@ -67,11 +70,18 @@ export default {
     HTTP.get(`releases/${this.$route.params.id}`, { headers: headers })
       .then((response) => {
         this.release = response.data;
+
+        this.release.initial_date = this.dateConvert(this.release.initial_date);
+        this.release.final_date = this.dateConvert(this.release.final_date);
       })
       .catch((e) => {
         this.errors.push(e);
       });
-    }
+    },
+  },
+
+  ready() {
+    this.dateConvert();
   },
 
   mounted() {

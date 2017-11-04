@@ -22,9 +22,9 @@
                   <div class="col">
                     <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
                     <h6 class="no-margin float-right">
-                      {{release.initial_date}}
+                      {{dateConvert(release.initial_date)}}
                       -
-                      {{release.final_date}}
+                      {{dateConvert(release.final_date)}}
                     </h6>
                   </div>
                 </div>
@@ -61,11 +61,13 @@
 import { HTTP } from '../../http-common.js';
 import AddRelease from '@/components/Releases/AddRelease';
 import NoContent from '@/components/NoContent'
+import dateConvert from '@/mixins/dateConvert'
 
 export default {
+
   components: {
     'add-release': AddRelease,
-    'no-content': NoContent
+    'no-content': NoContent,
   },
 
   data () {
@@ -74,6 +76,8 @@ export default {
 
     }
   },
+
+  mixins: [ dateConvert ],
 
   methods: {
     getReleases() {
@@ -92,7 +96,12 @@ export default {
     },
     isReleasesEmpty() {
       return this.releases.length == 0
-    }
+    },
+
+  },
+
+  ready() {
+    this.dateConvert();
   },
 
   mounted() {
