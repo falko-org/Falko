@@ -13,18 +13,22 @@
                   </button>
                 <h4 class="modal-title">Edit Sprint</h4>
               </div>
-              <div class="modal-body">
-                <p><label > Name </label></p>
-                <p><input type = "text" v-model="name"></input><br></p>
-                <p><label> Description </label></p>
-                <input type = "text" v-model="description"></input><br>
-                <p><label>Inital Date</label></p>
-                <input type = "date" v-model="initialDate"></input><br>
-                <p><label>Final Date</label></p>
-                <input type = "date" v-model="finalDate"></input><br>
+              <div class="row modal-body">
+                <div class="col">
+                  <p><label > Name </label></p>
+                  <p><input type = "text" v-model="name"></input><br></p>
+                  <p><label> Description </label></p>
+                  <input type = "text" v-model="description"></input><br>
+                </div>
+                <div class="col">
+                  <p><label>Inital Date</label></p>
+                  <p></p><input type = "date" v-model="initialDate"></input><br></p>
+                  <p><label>Final Date</label></p>
+                  <p></p><input type = "date" v-model="finalDate"></input><br></p>
+                </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" v-on:click="editSprint" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-primary" v-on:click="editSprint()" data-dismiss="modal">Save</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
               </div>
         </div>
