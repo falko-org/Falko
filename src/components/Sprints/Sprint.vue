@@ -8,9 +8,9 @@
           </li>
           <li class="list-inline-item vertical-center small-float-right">
             <h5 class="float-left">
-              {{sprint.initial_date}}
+              {{dateConvert(sprint.initial_date)}}
               |
-              {{sprint.final_date}}
+              {{dateConvert(sprint.final_date)}}
             </h5>
           </li>
           <p class="text-justify text-muted">
@@ -35,8 +35,9 @@
 <script>
 import { EventBus } from '../../event-bus.js';
 import { HTTP } from '../../http-common.js';
-import EditSprint from '@/components/Sprints/EditSprint';
-import DeleteSprint from '@/components/Sprints/DeleteSprint';
+import EditSprint from '@/components/SprintsComponents/EditSprint';
+import DeleteSprint from '@/components/SprintsComponents/DeleteSprint';
+import dateConvert from '@/mixins/dateConvert'
 
 export default{
   name: 'InSprint',
@@ -49,6 +50,9 @@ export default{
       sprint: {},
     };
   },
+
+  mixins: [ dateConvert ],
+
   methods: {
     getSprint() {
       var token = localStorage.getItem('token');
@@ -65,6 +69,11 @@ export default{
         });
     },
   },
+
+  ready() {
+    this.dateConvert();
+  },
+
   mounted() {
     const myThis = this;
 
