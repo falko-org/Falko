@@ -40,9 +40,10 @@
 <script>
   import { EventBus } from '../../event-bus.js';
   import { HTTP } from '../../http-common.js';
+
   export default{
     name: 'editSprintBody',
-    data(){
+    data() {
       return {
         name: '',
         description: '',
@@ -50,6 +51,7 @@
         finalDate: '',
       };
     },
+
     methods: {
       editSprint() {
         var token = localStorage.getItem('token');
@@ -70,6 +72,27 @@
             this.errors.push(e);
           });
       },
+
+      getSprintInformation() {
+        var token = localStorage.getItem('token');
+        var tokenSimple = token.replace(/"/, "");
+        var tokenSimple2 = tokenSimple.replace(/"/, "");
+        var headers = { 'Authorization': tokenSimple2 };
+
+        HTTP.get(`sprints/${this.$route.params.id}`, { headers: headers })
+          .then((response) => {
+            this.name = response.data.name;
+            this.description = response.data.description;
+            this.initialDate = response.data.initial_date;
+            this.finalDate = response.data.final_date;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      },
+    },
+    created() {
+      this.getSprintInformation();
     },
   };
 </script>
