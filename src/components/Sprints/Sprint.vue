@@ -8,9 +8,9 @@
           </li>
           <li class="list-inline-item vertical-center small-float-right">
             <h5 class="float-left">
-              {{dateConvert(sprint.initial_date)}}
+              {{ sprint.initial_date }}
               |
-              {{dateConvert(sprint.final_date)}}
+              {{ sprint.final_date }}
             </h5>
           </li>
           <p class="text-justify text-muted">
@@ -40,7 +40,7 @@ import DeleteSprint from '@/components/SprintsComponents/DeleteSprint';
 import dateConvert from '@/mixins/dateConvert'
 
 export default{
-  name: 'InSprint',
+  name: 'Sprint',
   components: {
     'edit-sprint': EditSprint,
     'delete-sprint': DeleteSprint,
@@ -63,6 +63,8 @@ export default{
       HTTP.get(`sprints/${this.$route.params.id}`, { headers: headers })
         .then((response) => {
           this.sprint = response.data;
+          this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
+          this.sprint.final_date = this.dateConvert(this.sprint.final_date);
         })
         .catch((e) => {
           this.errors.push(e);
