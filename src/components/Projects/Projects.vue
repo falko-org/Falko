@@ -12,6 +12,9 @@
                   {{project.name}}
               </h4>
               <p class="card-text text-muted">{{project.description}}</p>
+              <div class="col-md-0" align="center">
+                <Gpa></Gpa>
+              </div>
             </div>
           </div>
         </router-link>
@@ -34,6 +37,7 @@ import AddProject from '@/components/Projects/AddProject';
 import {HTTP} from '../../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHub/GitHubProjects';
+import Gpa from '@/components/Gpa'
 
 export default {
 
@@ -42,6 +46,7 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
+     Gpa
   },
   data() {
     return {
