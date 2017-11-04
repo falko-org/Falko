@@ -8,10 +8,10 @@
 			<div class="modal-dialog">
 		    	<div class="modal-content">
 			        <div class="modal-header">
+								<h4 class="modal-title">Edit Project</h4>
 			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
 			              <span aria-hidden="true">&times;</span>
 			            </button>
-			          <h4 class="modal-title">Edit Project</h4>
 			        </div>
 			        <div class="modal-body">
 								<p><label > Name </label></p>
@@ -42,7 +42,7 @@
 		},
 		methods: {
 			editProject() {
-				
+
 				var token = localStorage.getItem('token');
 				var tokenSimple = token.replace(/"/, "");
 				var tokenSimple2 = tokenSimple.replace(/"/, "");
