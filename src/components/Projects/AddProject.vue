@@ -22,8 +22,8 @@
 							<input type = "text" v-model="description"></input><br>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-on:click="addProject" data-dismiss="modal">Save</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+							<button type="button" class="btn btn-info btn-md falko-button" v-on:click="addProject" data-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
 						</div>
 				</div>
 			</div>

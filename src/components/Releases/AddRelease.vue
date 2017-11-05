@@ -30,8 +30,8 @@
               </div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-on:click="addRelease()" data-dismiss="modal">Save</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+							<button type="button" class="btn btn-info btn-md falko-button" v-on:click="addRelease()" data-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
 						</div>
 				</div>
 			</div>
@@ -73,7 +73,6 @@ export default {
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";
-        console.log(this.initialDate);
         this.initialDate = "";
         this.finalDate = "";
 	    	EventBus.$emit('added-release', 1)

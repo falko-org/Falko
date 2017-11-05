@@ -4,31 +4,31 @@
       Edit
     </button>
 
-    <div class="modal fade" id ="editModal" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Edit User Profile</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-            <p><label > Name </label></p>
-            <p><input type = "text" v-model="name"></input><br></p>
-            <p><label> E-mail </label></p>
-            <p><input type = "text" v-model="email"></input><br></p>
-            <p><label> GitHub Account </label></p>
-            <p><input type = "text" v-model="github"></input><br></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" v-on:click="editUser" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+		<div class="modal fade" id ="editModal" role="dialog">
+			<div class="modal-dialog">
+		    	<div class="modal-content">
+			        <div class="modal-header">
+			          	<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+			            	<span aria-hidden="true">&times;</span>
+			            </button>
+			          	<h4 class="modal-title">Edit User Profile</h4>
+			        </div>
+			        <div class="modal-body">
+						<p><label > Name </label></p>
+						<p><input type = "text" v-model="name"></input><br></p>
+						<p><label> E-mail </label></p>
+						<p><input type = "text" v-model="email"></input><br></p>
+						<p><label> GitHub Account </label></p>
+						<p><input type = "text" v-model="github"></input><br></p>
+			        </div>
+			        <div class="modal-footer">
+			          	<button type="button" class="btn btn-info btn-md falko-button" v-on:click="editUser" data-dismiss="modal">Save</button>
+		        	  	<button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+			        </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -52,9 +52,6 @@
         var tokenSimple2 = tokenSimple.replace(/"/, "");
         var headers = { 'Authorization': tokenSimple2 };
         var userId = localStorage.getItem('user_id');
-
-        console.log(userId);
-        console.log(token);
 
         HTTP.put(`users/${userId}`, {
           user: {
