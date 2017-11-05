@@ -42,10 +42,10 @@
             <li>
               <router-link v-bind:to="'/projects/'+this.$route.params.id+'/releases'">
               <a data-toggle="popover5" data-trigger="hover" data-content="Releases" >
-                <span v-if="this.$route.path == '/project/'+this.$route.params.id ||
+                <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
                  this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
-                  '/releases/'+this.$route.params.id &&
-                   this.$route.path != '/projects'"
+                this.$route.path == '/releases/'+this.$route.params.id ||
+                this.$route.path == '/projects/'+this.$route.params.id+'/releases'"
                     class="sidebar-icon"><i class=" fa fa-cube"></i></span>
                 <span class="sidebar-title"></span>
               </a>
