@@ -73,7 +73,6 @@ export default {
 	    .then(response => {
 	    	this.name = "";
 	    	this.description = "";
-        console.log(this.initialDate);
         this.initialDate = "";
         this.finalDate = "";
 	    	EventBus.$emit('added-release', 1)

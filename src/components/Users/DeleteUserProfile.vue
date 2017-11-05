@@ -39,7 +39,6 @@
         const headers = { Authorization: token };
 
         const user_id = localStorage.getItem('user_id');
-        console.log(user_id);
         HTTP.delete(`users/${user_id}`, { headers })
           .then((response) => {
             this.$router.push({ path: '/' });

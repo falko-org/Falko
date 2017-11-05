@@ -53,9 +53,6 @@
         var headers = { 'Authorization': tokenSimple2 };
         var userId = localStorage.getItem('user_id');
 
-        console.log(userId);
-        console.log(token);
-
         HTTP.put(`users/${userId}`, {
           user: {
             name: this.name,
