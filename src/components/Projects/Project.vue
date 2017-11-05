@@ -59,7 +59,6 @@ export default{
         });
     },
     refreshProject(event) {
-      console.log(event);
       var token = localStorage.getItem('token');
       var tokenSimple = token.replace(/"/, "");
       var tokenSimple2 = tokenSimple.replace(/"/, "");

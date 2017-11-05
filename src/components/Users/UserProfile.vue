@@ -61,7 +61,6 @@
 				var headers = { 'Authorization':token };
 
 	      var user_id = localStorage.getItem('user_id');
-	      console.log(user_id);
 
 				HTTP.get("users/"+user_id, { headers: headers })
 				.then((response) => {
