@@ -83,7 +83,7 @@
 
         HTTP.get("repos", { headers: headers })
         .then(response => {
-          this.userRepos = response.data.user;
+          this.userRepos = response.data.user[1].repos;
           this.orgsRepos = response.data.orgs;
         })
         .catch((e) => {
