@@ -150,7 +150,7 @@ const router = new Router({
       name: 'Gpa',
       component: Gpa,
     },
-  ]
+  ],
 });
 
 export default router;
