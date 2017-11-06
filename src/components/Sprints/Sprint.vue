@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-around" id="sprintData">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <ul class="list-inline">
           <li class="list-inline-item vertical-center">
             <h1>{{sprint.name}}</h1>
@@ -18,8 +18,7 @@
           </p>
         </ul>
       </div>
-      <div class="col-md-3">
-        <ul class="list-inline">
+      <div class="col-md-5" align="end">
           <li class="list-inline-item">
             <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
                                v-if="!isRetrospectiveCreated()"></add-retrospective>
@@ -36,7 +35,6 @@
           <li class="list-inline-item">
             <delete-sprint></delete-sprint>
           </li>
-        </ul>
       </div>
     </div>
   </div>
