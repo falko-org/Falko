@@ -14,7 +14,7 @@
             </li>
             <li>
               <router-link to="/user">
-              <a data-toggle="popover2" data-trigger="hover" data-content="User Profile">
+              <a data-toggle="popover" data-trigger="hover" data-content="User Profile">
                 <span class="sidebar-icon"><i class=" fa fa-user-circle-o"></i></span>
                 <span class="sidebar-title"></span>
               </a>
@@ -22,7 +22,7 @@
             </li>
             <li>
               <router-link to="/projects">
-              <a data-toggle="popover3" data-trigger="hover" data-content="Projects">
+              <a data-toggle="popover" data-trigger="hover" data-content="Projects">
                 <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
                 <span class="sidebar-title"></span>
               </a>
@@ -30,7 +30,7 @@
             </li>
             <li>
               <router-link v-bind:to="'/releases/'+this.$route.params.id+'/sprints'">
-              <a data-toggle="popover4" data-trigger="hover" data-content="Sprints">
+              <a data-toggle="popover" data-trigger="hover" data-content="Sprints">
                 <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
                  this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
                   this.$route.path == '/sprints/'+this.$route.params.id"
@@ -41,7 +41,7 @@
             </li>
             <li>
               <router-link v-bind:to="'/projects/'+this.$route.params.id+'/releases'">
-              <a data-toggle="popover5" data-trigger="hover" data-content="Releases" >
+              <a data-toggle="popover" data-trigger="hover" data-content="Releases" >
                 <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
                  this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
                 this.$route.path == '/releases/'+this.$route.params.id ||
@@ -76,22 +76,6 @@ export default {
 }
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
-});
-
-$(document).ready(function() {
-    $('[data-toggle="popover2"]').popover();
-});
-
-$(document).ready(function() {
-    $('[data-toggle="popover3"]').popover();
-});
-
-$(document).ready(function() {
-    $('[data-toggle="popover4"]').popover();
-});
-
-$(document).ready(function() {
-    $('[data-toggle="popover5"]').popover();
 });
 
 </script>
