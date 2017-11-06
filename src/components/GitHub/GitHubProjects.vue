@@ -65,13 +65,13 @@
 
 <script>
   import { HTTP } from '../../http-common.js';
-
   export default{
     data() {
       return {
         userRepos: [],
         orgsRepos: [],
-        selectedRepos: []
+        selectedRepos: [],
+        user: ""
       }
     },
     methods: {
@@ -80,11 +80,11 @@
         var tokenSimple = token.replace(/"/, "");
         var tokenSimple2 = tokenSimple.replace(/"/, "");
         var headers = { 'Authorization':tokenSimple2 };
-
         HTTP.get("repos", { headers: headers })
         .then(response => {
           this.userRepos = response.data.user[1].repos;
           this.orgsRepos = response.data.orgs;
+          this.user = response.data.user[0].login;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -98,16 +98,13 @@
         }
       },
       importGithubProjects() {
-        doRequisitions(this.selectedRepos, this.selectedRepos.length)
+        doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
         .then((response) => {this.$emit('added');})
         .catch((e) => console.log(e.message));
-
       },
     }
   }
-
-  function doRequisitions(repos, length) {
-
+  function doRequisitions(repos, length, user) {
     return new Promise(
       (resolve, reject) => {
         var token = localStorage.getItem('token');
@@ -120,7 +117,8 @@
         for (var repo of repos) {
           HTTP.post(`users/${user_int}/projects`, {
             name: repo,
-            check_project: true
+            check_project: true,
+            github_slug: user + "/"+repo
           }, {headers: headers})
           .then((response) => {
             count++;
@@ -133,17 +131,13 @@
       }
     )
   }
-
 </script>
 
 <style scoped>
-
 .vue-js-switch {
   float: right;
 }
-
 .pointer-cursor {
   cursor: pointer;
 }
-
 </style>
