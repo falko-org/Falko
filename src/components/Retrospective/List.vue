@@ -3,17 +3,17 @@
     <div>
       <input v-if="parent == 'PositivePoints'"
         v-model="newItemText"
-        placeholder="Add positive points" 
+        placeholder="Add positive points"
         v-on:keyup.enter="addNewItem"
       />
       <input v-if="parent == 'NegativePoints'"
         v-model="newItemText"
-        placeholder="Add negative points" 
+        placeholder="Add negative points"
         v-on:keyup.enter="addNewItem"
       />
       <input v-if="parent == 'Improvements'"
         v-model="newItemText"
-        placeholder="Add improvements" 
+        placeholder="Add improvements"
         v-on:keyup.enter="addNewItem"
       />
     </div>
@@ -55,10 +55,10 @@ export default {
           title: this.newItemText
         })
       this.newItemText = ''
-      
+
       this.$emit('listUpdated', this.items, this.parent)
-      } else { 
-        // TODO: Fazer aparecer uma mensagem: "{{parent}} can not be blank!"
+      } else {
+        // Fazer aparecer uma mensagem: "{{parent}} can not be blank!"
       }
     }
   }
