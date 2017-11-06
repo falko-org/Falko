@@ -22,6 +22,7 @@ import UserProfile from '@/components/Users/UserProfile';
 import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
+import AddRevision from '@/components/Revision/AddRevision';
 
 Vue.use(Router);
 
@@ -143,6 +144,11 @@ const router = new Router({
       path: '/notFound',
       name: 'NotFound',
       component: NotFound,
+    },
+    {
+      path: '/revision',
+      name: 'AddRevision',
+      component: AddRevision,
     },
   ],
 });
