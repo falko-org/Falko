@@ -1,28 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Projects from '@/components/Projects'
-import AddProject from '@/components/AddProject'
-import InProject from '@/components/InProject'
-import DeleteProject from '@/components/DeleteProject'
-import EditProject from '@/components/EditProject'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
-import LoginRegister from '@/components/LoginRegister'
+import Projects from '@/components/Projects/Projects'
+import AddProject from '@/components/Projects/AddProject'
+import Project from '@/components/Projects/Project'
+import DeleteProject from '@/components/Projects/DeleteProject'
+import EditProject from '@/components/Projects/EditProject'
+import Login from '@/components/Authentication/Login'
+import Register from '@/components/Authentication/Register'
+import LoginRegister from '@/components/Authentication/LoginRegister'
 import HomePage from '@/components/HomePage'
 import NoContent from '@/components/NoContent'
-import SprintIndex from '@/components/Sprints/SprintIndex'
-import InSprint from '@/components/Sprints/InSprint'
+import Sprints from '@/components/Sprints/Sprints'
+import Sprint from '@/components/Sprints/Sprint'
 import EditSprint from '@/components/Sprints/EditSprint'
 import DeleteSprint from '@/components/Sprints/DeleteSprint'
-import GitHubCallBack from '@/components/GitHubCallBack'
-import Releases from '@/components/ReleaseComponents/Releases'
-import Release from '@/components/ReleaseComponents/Release'
-import UserProfile from '@/components/UserProfile';
-import EditUserProfile from '@/components/EditUserProfile';
-import DeleteUserProfile from '@/components/DeleteUserProfile';
+import GitHubCallBack from '@/components/GitHub/GitHubCallBack'
+import GitHubProjects from '@/components/GitHub/GitHubProjects'
+import Releases from '@/components/Releases/Releases'
+import Release from '@/components/Releases/Release'
+import UserProfile from '@/components/Users/UserProfile';
+import EditUserProfile from '@/components/Users/EditUserProfile';
+import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
-import AddRetrospective from '@/components/RetrospectiveComponents/AddRetrospective';
-import Retrospective from '@/components/RetrospectiveComponents/Retrospective'
+import AddRetrospective from '@/components/Retrospective/AddRetrospective';
+import Retrospective from '@/components/Retrospective/Retrospective'
 
 Vue.use(Router);
 
@@ -40,9 +41,9 @@ const router = new Router({
       component: AddProject,
     },
     {
-      path: '/inproject/:id',
-      name: 'InProjects',
-      component: InProject,
+      path: '/projects/:id',
+      name: 'Project',
+      component: Project,
     },
     {
       path: '/deleteproject',
@@ -92,48 +93,53 @@ const router = new Router({
     {
       path: '/githubcallback',
       name: 'GitHubCallBack',
-      component: GitHubCallBack
+      component: GitHubCallBack,
     },
 
     {
       path: '/',
       name: 'HomePage',
-      component: HomePage
+      component: HomePage,
     },
     {
-      path: '/inproject/:id/sprints',
-      name: 'SprintIndex',
-      component: SprintIndex
+      path: '/releases/:id/sprints',
+      name: 'Sprints',
+      component: Sprints,
     },
     {
-      path: '/insprint/:id',
-      name: 'InSprint',
-      component: InSprint
+      path: '/sprints/:id',
+      name: 'Sprint',
+      component: Sprint,
     },
     {
       path: '/deletesprint',
       name: 'DeleteSprint',
-      component: DeleteSprint
+      component: DeleteSprint,
+    },
+    {
+      path: '/githubprojects',
+      name: 'GitHubProjects',
+      component: GitHubProjects,
     },
     {
       path: '/editsprint',
       name: 'EditSprint',
-      component: EditSprint
+      component: EditSprint,
     },
     {
-      path: '/inproject/:id/releases',
+      path: '/projects/:id/releases',
       name: 'Releases',
-      component: Releases
+      component: Releases,
     },
     {
       path: '/releases/:id',
       name: 'Release',
-      component: Release
+      component: Release,
     },
     {
       path: '/nocontent',
       name: 'NoContent',
-      component: NoContent
+      component: NoContent,
     },
     {
       path: '/notFound',
@@ -141,7 +147,7 @@ const router = new Router({
       component: NotFound
     },
     {
-      path: '/Retrospective/:id',
+      path: '/retrospectives/:id',
       name: 'Retrospective',
       component: Retrospective
     }
@@ -160,4 +166,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
+});

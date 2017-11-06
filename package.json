@@ -6,11 +6,12 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "start": "node server.js",
+    "start": "node prod-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e"
+    "test": "npm run unit && npm run e2e",
+    "unitF": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -18,6 +19,7 @@
     "ejs": "^2.5.7",
     "github-api": "^3.0.0",
     "vue": "^2.4.2",
+    "vue-js-toggle-button": "^1.2.0",
     "vue-router": "^2.7.0"
   },
   "devDependencies": {

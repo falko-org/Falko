@@ -30,7 +30,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env,
-      'API_URL': JSON.stringify('http://95.85.8.80:8080/')
+      'API_URL': JSON.stringify('http://45.55.176.99:3000/')
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
