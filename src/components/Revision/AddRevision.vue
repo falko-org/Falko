@@ -19,8 +19,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <list parent="DoneReport" v-on:listUpdated="updateList"></list>
-            <list parent="UndoneReport" v-on:listUpdated="updateList"></list>
+            <listRevision parent="DoneReport" v-on:listUpdated="updateList"></listRevision>
+            <listRevision parent="UndoneReport" v-on:listUpdated="updateList"></listRevision>
           </div>
           <div class="modal-footer">
             <button class="btn btn-info btn-md falko-button"
@@ -40,12 +40,12 @@
 </template>
 
 <script>
-import List from '@/components/Revision/List'
+import ListRevision from '@/components/Revision/ListRevision'
 import {HTTP} from '../../http-common.js';
 
 export default {
   components: {
-    'list': List
+    'listRevision': ListRevision
   },
 
   data() {
@@ -58,10 +58,10 @@ export default {
 
   methods: {
     addRevision() {
-			var token = localStorage.getItem('token');
-			var tokenSimple = token.replace(/"/, "");
-			var tokenSimple2 = tokenSimple.replace(/"/, "");
-			var headers = { 'Authorization': tokenSimple2 };
+            var token = localStorage.getItem('token');
+            var tokenSimple = token.replace(/"/, "");
+            var tokenSimple2 = tokenSimple.replace(/"/, "");
+            var headers = { 'Authorization': tokenSimple2 };
 
       HTTP.post(`sprints/${this.$route.params.id}/revisions`, {
         done_report: this.doneReport,
