@@ -7,7 +7,7 @@
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
         <div align="center">
           <div class="card" id="projectCard">
-            <router-link v-bind:to="'/project/'+project.id">
+            <router-link v-bind:to="'/projects/'+project.id">
               <div class="card-header" id="projectHeader">
                 <div class="row align-itens-around" id="projectTitle">
                   <div class="col">
@@ -54,7 +54,8 @@ import AddProject from '@/components/Projects/AddProject';
 import { HTTP } from '../../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Gpa from '@/components/Gpa'
+import Gpa from '@/components/Gpa';
+
 export default {
   name: 'projects',
   components: {
