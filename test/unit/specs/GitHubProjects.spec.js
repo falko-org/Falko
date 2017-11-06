@@ -9,7 +9,7 @@ describe('On github project list repos', function() {
 	beforeEach(function() {
 		const response = new Promise((r) => r({
 			data: {
-				user: ["userRepo1", "userRepo2"],
+				user: [{login: "pedrokelvin"}, {repos: ["userRepo1", "userRepo2"]}],
 				orgs: [{name: "Org1", repos: ["Org1Repo"]},
 					   {name: "Org2", repos: ["Org2Repo"]}]
 			}
