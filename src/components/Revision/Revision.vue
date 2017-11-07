@@ -1,0 +1,125 @@
+<template>
+  <div>
+    <div class="row justify-content-around no-margin">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-head text-center">
+            <h1 id="title" class=""> Sprint Revision </h1>
+          </div>
+          <div class="card-body ">
+
+            <p>
+              <ul class="list-group">
+                <li class="list-group-item active">Sprint Report</li>
+                <li class="list-group-item mx-auto indent">
+                  {{ sprintReport }}
+                </li>
+              </ul>
+            </p>
+
+            <div class="container">
+              <div class="row">
+                <p class="col-md-4">
+                  <ul class="list-group ">
+                    <li class="list-group-item active">Done Reports</li>
+                    <li v-for="(done, index) in doneReport" class="list-group-item">
+                      <h6> • {{done}}</h6>
+                    </li>
+                  </ul>
+                </p>
+
+                <p class="col-md-4">
+                  <ul class="list-group">
+                    <li class="list-group-item active">Undone Reports</li>
+                    <li v-for="(undone, index) in undoneReport" class="list-group-item">
+                      <h6>• {{undone}}</h6>
+                    </li>
+                  </ul>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-around" id="buttons">
+          <edit-revision></edit-revision>
+          <delete-revision></delete-revision>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import ListRevision from '@/components/Revision/ListRevision'
+import DeleteRevision from '@/components/Revision/DeleteRevision'
+import EditRevision from '@/components/Revision/EditRevision'
+import {HTTP} from '../../http-common.js';
+
+export default {
+  name: 'Revision',
+  components: {
+    'delete-revision': DeleteRevision,
+    'edit-revision': EditRevision,
+    'list-revision': ListRevision
+  },
+  data() {
+    return {
+      undoneReport: [],
+      doneReport: [],
+    }
+  },
+  methods: {
+    getRevision() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
+      HTTP.get(`revisions/${this.$route.params.id}`, { headers: headers })
+        .then((response) => {
+          this.doneReport = response.data.done_report,
+          this.undoneReport = response.data.undone_report
+        })
+      .catch((e) => {
+        this.errors.push(e)
+      });
+    }
+  },
+  mounted() {
+    this.getRevision();
+  }
+}
+
+</script>
+
+<style scoped>
+#buttons {
+  margin-top: 1em;
+}
+
+h1 {
+  color: #688E9B;
+  font-weight: bold;
+  margin-top: 0.5em;
+}
+
+p {
+  color: #01161E;
+  /*text-align: center;*/
+}
+
+li {
+  border: 0;
+}
+
+div {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.active {
+  background-color: #86b1b1;
+  text-align: center;
+  border: 0;
+}
+</style>
