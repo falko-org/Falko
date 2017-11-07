@@ -1,4 +1,4 @@
-issue<template>
+<template>
   <div>
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
@@ -16,8 +16,6 @@ issue<template>
                 <div class="row align-itens-around" id="issueTitle">
                   <div class="col">
                     <h4 class="no-margin float-left">{{issue.name}}</h4>
-                    <h4 class="no-margin float-center">{{issue.number}}</h4>
-                    <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
                   </div>
                   <div class="col">
                     <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
@@ -25,6 +23,14 @@ issue<template>
                     </h6>
                   </div>
                 </div>
+                  <div class="row">
+                    <div class="col">
+                      <edit-issue></edit-issue>
+                    </div>
+                    <div class="col">
+                      <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
+                    </div>
+                  </div>
               </div>
             </router-link>
           </div>
@@ -37,12 +43,14 @@ issue<template>
 
 <script>
 import { HTTP } from '../../http-common.js'
-import AddIssue from '@/components/IssuesComponents/AddIssue'
+import AddIssue from '@/components/Issues/AddIssue'
+import EditIssue from '@/components/Issues/EditIssue'
 import NoContent from '@/components/NoContent'
 
 export default {
   components: {
     'add-issue': AddIssue,
+    'edit-issue': EditIssue,
     'no-content': NoContent
   },
 

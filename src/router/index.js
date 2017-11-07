@@ -22,7 +22,7 @@ import UserProfile from '@/components/Users/UserProfile';
 import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
-import Issues from '@/components/IssuesComponents/Issues';
+import Issues from '@/components/Issues/Issues';
 
 Vue.use(Router);
 
