@@ -17,7 +17,7 @@
         is="list-item-revision"
         v-for="(item, index) in items"
         v-bind:key="item.id" v-bind:title="item.title"
-        v-on:remove="items.splice(index, 1)"
+        v-on:remove="removeItem(index)"
       >
       </li>
     </ul>
@@ -55,7 +55,12 @@ export default {
       } else {
         // Fazer aparecer uma mensagem: "{{parent}} can not be blank!"
       }
-    }
+    },
+
+    removeItem(index) {
+      this.items.splice(index, 1)
+      this.$emit('listUpdated', this.items, this.parent)
+    },
   }
 }
 </script>
