@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ListItem from './ListItemRevision';
+import ListItemRevision from './ListItemRevision';
 
 export default {
   props: ["parent"],
