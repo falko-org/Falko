@@ -18,15 +18,15 @@
 						<div class=" row modal-body">
               <div class="col">
                 <p><label>Name</label></p>
-                <p><input type="text" v-model="name" id="issueName"></input><br></p>
+                <p><input type="text" v-model="name" id="issueName" placeholder="Issue Title"></input><br></p>
                 <p><label>Body</label></p>
                 <input type="text" v-model="body" placeholder="Issue Body..."></input><br>
               </div>
               <div class="col">
                 <p><label>Assignee</label></p>
-                <p><input type="date" v-model="assignee"></input><br></p>
+                <p><input type="text" v-model="assignee"></input><br></p>
                 <p><label>Label</label></p>
-                <p><input type="date" v-model="labels"></input><br></p>
+                <p><input type="text" v-model="labels"></input><br></p>
               </div>
 						</div>
 						<div class="modal-footer">
@@ -46,7 +46,7 @@ import {HTTP} from '../../http-common.js';
 export default {
   data () {
     return {
-      name: 'New Issue',
+      name: '',
       body : '',
       assignee: '',
       labels: ''

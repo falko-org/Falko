@@ -141,7 +141,7 @@ const router = new Router({
       component: NoContent,
     },
     {
-      path: '/notFound',
+      path: '*',
       name: 'NotFound',
       component: NotFound,
     },
@@ -158,8 +158,6 @@ export default router;
 router.beforeEach((to, from, next) => {
   if (to.path === '/' || to.path === '/notFound') {
     next();
-  } else if (!to.matched.length) {
-    next('/notFound');
   } else if (localStorage.getItem('token') === null) {
     next('/');
   } else {

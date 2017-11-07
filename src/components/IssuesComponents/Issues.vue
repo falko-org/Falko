@@ -7,20 +7,17 @@ issue<template>
       <div class="col">
         <add-issue></add-issue>
       </div>
-      <div class ="col">
-        <close-issue></close-issue>
-      </div>
     </div>
     <div class="row justify-content-around" v-for="i in Math.ceil(issues.length / 2)">
       <div v-for="issue in issues.slice((i-1) * 2,i*2)" class="col-5">
         <div align="center">
           <div class="card" id="issueCard">
-            <router-link v-bind:to="'/issues/'+issue.number">
               <div class="card-header" id="issueHeader">
                 <div class="row align-itens-around" id="issueTitle">
                   <div class="col">
                     <h4 class="no-margin float-left">{{issue.name}}</h4>
                     <h4 class="no-margin float-center">{{issue.number}}</h4>
+                    <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
                   </div>
                   <div class="col">
                     <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
@@ -39,16 +36,14 @@ issue<template>
 </template>
 
 <script>
-import { HTTP } from '../../http-common.js';
-import AddIssue from '@/components/IssuesComponents/AddIssue';
-import CloseIssue from '@/components/IssuesComponents/CloseIssue'
+import { HTTP } from '../../http-common.js'
+import AddIssue from '@/components/IssuesComponents/AddIssue'
 import NoContent from '@/components/NoContent'
 
 export default {
   components: {
     'add-issue': AddIssue,
-    'no-content': NoContent,
-    'close-issue': CloseIssue
+    'no-content': NoContent
   },
 
   data () {
@@ -74,6 +69,32 @@ export default {
     },
     isIssuesEmpty() {
       return this.issues.length == 0
+    },
+
+
+    closeIssue(number1){
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var header = { 'Authorization': tokenSimple2 };
+
+      console.log(header)
+      let config = {data : {issue: {number:number1}}, headers:header}
+
+      // var config2 = config.replace("/", "")
+      // var config3 = config2.replace("/", "")
+
+      console.log(config)
+      HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
+      .then(response =>{
+				this.$router.push({ path : `/project/${this.$route.params.id}/issues`});
+			})
+			.catch(e =>{
+				this.errors.push(e)
+			});
+  	},
+    reload() {
+      this.getIssues();
     }
   },
 
