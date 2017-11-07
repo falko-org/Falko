@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="card-body">
-      <img src="../../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
+      <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoLogin">
 
       <form id="loginForm"  @submit.prevent="login()">
         <div class="form-group">
