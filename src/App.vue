@@ -68,6 +68,11 @@ input:focus {
   background-color: #6E9191;
 }
 
+.falko-button:disabled {
+  background-color: #86B1B1;
+  cursor: inherit;
+}
+
 .falko-button-danger:hover {
   background-color: #660000;
 }
