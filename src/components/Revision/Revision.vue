@@ -8,18 +8,9 @@
           </div>
           <div class="card-body ">
 
-            <p>
-              <ul class="list-group">
-                <li class="list-group-item active">Sprint Report</li>
-                <li class="list-group-item mx-auto indent">
-                  {{ sprintReport }}
-                </li>
-              </ul>
-            </p>
-
             <div class="container">
               <div class="row">
-                <p class="col-md-4">
+                <p class="col-md-6">
                   <ul class="list-group ">
                     <li class="list-group-item active">Done Reports</li>
                     <li v-for="(done, index) in doneReport" class="list-group-item">
@@ -28,7 +19,7 @@
                   </ul>
                 </p>
 
-                <p class="col-md-4">
+                <p class="col-md-6">
                   <ul class="list-group">
                     <li class="list-group-item active">Undone Reports</li>
                     <li v-for="(undone, index) in undoneReport" class="list-group-item">

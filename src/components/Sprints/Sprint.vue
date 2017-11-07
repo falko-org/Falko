@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-around" id="sprintData">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <ul class="list-inline">
           <li class="list-inline-item vertical-center">
             <h1>{{sprint.name}}</h1>
@@ -19,22 +19,22 @@
         </ul>
       </div>
       <div class="col-md-5" align="end">
-        <li class="list-inline-item">
-          <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
-          v-if="!isRetrospectiveCreated()"></add-retrospective>
+          <li class="list-inline-item">
+            <add-revision v-on:revisionCreated="setRevisionAsCreated()"
+                               v-if="!isRevisionCreated()"></add-revision>
 
-          <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
-            <button type="button" class="btn btn-info btn-md falko-button">
-              Retrospective
-            </button>
-          </router-link>
-        </li>
-        <li class="list-inline-item">
-          <edit-sprint></edit-sprint>
-        </li>
-        <li class="list-inline-item">
-          <delete-sprint></delete-sprint>
-        </li>
+            <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
+              <button type="button" class="btn btn-info btn-md falko-button">
+                Revision
+              </button>
+            </router-link>
+          </li>
+          <li class="list-inline-item">
+            <edit-sprint></edit-sprint>
+          </li>
+          <li class="list-inline-item">
+            <delete-sprint></delete-sprint>
+          </li>
       </div>
     </div>
   </div>
@@ -45,32 +45,34 @@ import { EventBus } from '../../event-bus.js';
 import { HTTP } from '../../http-common.js';
 import EditSprint from '@/components/Sprints/EditSprint';
 import DeleteSprint from '@/components/Sprints/DeleteSprint';
-import dateConvert from '@/mixins/dateConvert';
-import AddRetrospective from '@/components/Retrospective/AddRetrospective';
-import Retrospective from '@/components/Retrospective/Retrospective';
+import dateConvert from '@/mixins/dateConvert'
+import AddRevision from '@/components/Revision/AddRevision';
+import Revision from '@/components/Revision/Revision';
 
 export default{
   name: 'Sprint',
   components: {
     'edit-sprint': EditSprint,
     'delete-sprint': DeleteSprint,
+    'add-revision': AddRevision,
   },
   data() {
     return {
       sprint: {},
+      sprintRevision: [],
     };
   },
 
-  mixins: [dateConvert],
+  mixins: [ dateConvert ],
 
   methods: {
     getSprint() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
 
-      HTTP.get(`sprints/${this.$route.params.id}`, { headers })
+      HTTP.get(`sprints/${this.$route.params.id}`, { headers: headers })
         .then((response) => {
           this.sprint = response.data;
           this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
@@ -81,20 +83,18 @@ export default{
         });
     },
 
-    getRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
-
-      HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
+    getRevision() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization': tokenSimple2 };
+        HTTP.get(`sprints/${this.$route.params.id}/revisions`, { headers: headers })
         .then((response) => {
-          this.sprintRetrospective = response.data;
-
-          if (this.sprintRetrospective.length === 0) {
-            this.setRetrospectiveAsNotCreated();
+          this.sprintRevision = response.data;
+          if (this.sprintRevision == null) {
+            this.setRevisionAsNotCreated();
           } else {
-            this.setRetrospectiveAsCreated();
+            this.setRevisionAsCreated();
           }
         })
         .catch((e) => {
@@ -102,19 +102,19 @@ export default{
         });
     },
 
-    setRetrospectiveAsCreated() {
-      localStorage.setItem('isRetrospectiveCreated', 'true');
+    setRevisionAsCreated() {
+      localStorage.setItem('isRevisionCreated', 'true');
     },
 
-    setRetrospectiveAsNotCreated() {
-      localStorage.setItem('isRetrospectiveCreated', 'false');
+    setRevisionAsNotCreated() {
+      localStorage.setItem('isRevisionCreated', 'false');
     },
 
-    isRetrospectiveCreated() {
-      const retrospective = localStorage.getItem('isRetrospectiveCreated');
+    isRevisionCreated() {
+      var revision = localStorage.getItem('isRevisionCreated');
 
-      return localStorage.getItem('isRetrospectiveCreated') === 'true';
-    },
+      return localStorage.getItem('isRevisionCreated') == 'true'
+    }
   },
 
   ready() {
@@ -124,14 +124,14 @@ export default{
   mounted() {
     const myThis = this;
 
-    const token = localStorage.getItem('token');
-    const tokenSimple = token.replace(/"/, '');
-    const tokenSimple2 = tokenSimple.replace(/"/, '');
-    const headers = { Authorization: tokenSimple2 };
+    var token = localStorage.getItem('token');
+    var tokenSimple = token.replace(/"/, "");
+    var tokenSimple2 = tokenSimple.replace(/"/, "");
+    var headers = { 'Authorization': tokenSimple2 };
 
 
     EventBus.$on('edited-sprint', () => {
-      HTTP.get(`sprints/${this.$route.params.id}`, { headers })
+      HTTP.get(`sprints/${this.$route.params.id}`, { headers: headers })
         .then((response) => {
           myThis.project = response.data;
         })
@@ -140,6 +140,7 @@ export default{
         });
     });
     this.getSprint();
+    this.getRevision();
   },
 };
 </script>
