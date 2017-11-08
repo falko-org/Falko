@@ -21,7 +21,7 @@
       <div class="col-md-3">
         <ul class="list-inline">
           <li class="list-inline-item">
-            <edit-release></edit-release>
+            <edit-release v-on:edited-release="refreshRelease()"></edit-release>
           </li>
           <li class="list-inline-item">
             <delete-release></delete-release>
@@ -48,35 +48,39 @@ import dateConvert from '@/mixins/dateConvert';
 export default {
   components: {
     'edit-release': EditRelease,
-    'delete-release': DeleteRelease
+    'delete-release': DeleteRelease,
   },
 
-  data () {
+  data() {
     return {
-      release: {}
-    }
+      release: {},
+    };
   },
 
-  mixins: [ dateConvert ],
+  mixins: [dateConvert],
 
   methods: {
     getRelease() {
-    var token = localStorage.getItem('token');
-    var tokenSimple = token.replace(/"/, "");
-    var tokenSimple2 = tokenSimple.replace(/"/, "");
-    var headers = { 'Authorization': tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
-    // console.log(this.$route.params.id)
-    HTTP.get(`releases/${this.$route.params.id}`, { headers: headers })
-      .then((response) => {
-        this.release = response.data;
+      // console.log(this.$route.params.id)
+      HTTP.get(`releases/${this.$route.params.id}`, { headers })
+        .then((response) => {
+          this.release = response.data;
 
-        this.release.initial_date = this.dateConvert(this.release.initial_date);
-        this.release.final_date = this.dateConvert(this.release.final_date);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+          this.release.initial_date = this.dateConvert(this.release.initial_date);
+          this.release.final_date = this.dateConvert(this.release.final_date);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    refreshRelease() {
+      this.getRelease();
     },
   },
 
@@ -85,9 +89,9 @@ export default {
   },
 
   mounted() {
-    this.getRelease()
-  }
-}
+    this.getRelease();
+  },
+};
 </script>
 
 <style scoped>
