@@ -57,7 +57,7 @@ export default {
 	    HTTP.post(`users/${user_int}/projects`, {project: {
 	    	name: this.name,
 	    	description: this.description,
-	    	check_project: false
+	    	is_project_from_github: false
 	    }}, { headers: headers })
 	    .then(response => {
 	    	this.name = "";
