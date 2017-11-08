@@ -4,20 +4,75 @@
         <div class="form-group has-feedback">
         <label for="search" class="sr-only">Search</label>
           <i class="fa fa-search form-control-feedback"></i>
-          <input type="text" class="form-control" name="search" id="search" placeholder="Search..." v-model="search">
+          <input type="text" class="form-control" name="search" id="search"
+                 placeholder="Search..." v-model="search" v-on:keyup.enter="goToProject">
           </input>
       </div>
+        <!-- <div v-for="project in filteredProjects">
+          <router-link v-bind:to="'/projects/' + project.id"> {{ project.name }}</router-link>
+        </div> -->
     </form>
   </div>
 </template>
 
 
 <script>
+import { HTTP } from '../http-common.js';
 
 export default {
   data() {
     return {
+      projects: [],
       search: ''
+    }
+  },
+  methods: {
+    getProjects() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization':tokenSimple2 };
+
+      var userId = localStorage.getItem('user_id');
+      var userInt = parseInt(userId);
+
+      HTTP.get(`users/${userInt}/projects`, { headers: headers })
+        .then((response) => {
+          this.projects = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    goToProject() {
+      var index=-1;
+      for(var i = 0, len = this.projects.length; i < len; i++) {
+        if (this.projects[i].name === this.search) {
+            index = this.projects[i].id;
+            this.search = "";
+            this.$router.push({ path : '/projects/' + index});
+            break
+        }
+      }
+      if(index == -1) {
+        this.$router.push({ path: '/NotFound/'});
+      }
+    },
+    refreshProjects() {
+      this.getProjects();
+    },
+    isProjectsEmpty() {
+      return this.projects.length === 0;
+    },
+  },
+  created() {
+    this.getProjects();
+  },
+  computed: {
+    filteredProjects: function() {
+      return this.projects.filter((project) => {
+        return project.name.match(this.search);
+      });
     }
   }
 }
