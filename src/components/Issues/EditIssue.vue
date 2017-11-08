@@ -17,7 +17,7 @@
               <p><label > Name </label></p>
               <p><input type = "text" v-model="name"></input><br></p>
               <p><label> Description </label></p>
-              <input type = "text" v-model="description"></input><br>
+              <input type = "text" v-model="body"></input><br>
               <p><label> Assignee </label></p>
               <input type = "text" v-model="assignee"></input><br>
               <p><label> Labels </label></p>
@@ -40,8 +40,20 @@
 <script>
 
 export default {
+  data () {
+    return {
+      name: issue_name,
+      body : issue_body,
+      assignee: issue_assignee,
+      labels: issue_labels
+    }
+  },
 
+  props: ["issue_name"],
   props: ["issue_number"],
+  props: ["issue_body"],
+  props: ["issue_assignee"],
+  props: ["issue_labels"],
 
   methods: {
     getIssueParams(){
