@@ -6,49 +6,49 @@
           <ul id="sidemenu" class="sidebar-nav">
             <li>
               <router-link to="#">
-              <a onclick="window.history.go(-1); return false;" data-toggle="popover" data-trigger="hover" data-content="Return">
-                <span class="sidebar-icon"><i class=" fa fa-arrow-left"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
+                <a onclick="window.history.go(-1); return false;" v-b-popover.hover="'UserPopover'" title="Return">
+                  <span class="sidebar-icon"><i class=" fa fa-arrow-left"></i></span>
+                  <span class="sidebar-title"></span>
+                </a>
               </router-link>
             </li>
             <li>
               <router-link to="/user">
-              <a data-toggle="popover" data-trigger="hover" data-content="User Profile">
-                <span class="sidebar-icon"><i class=" fa fa-user-circle-o"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
+                <a v-b-popover.hover="'UserPopover'" title="User Profile">
+                  <span class="sidebar-icon"><i class=" fa fa-user-circle-o"></i></span>
+                  <span class="sidebar-title"></span>
+                </a>
               </router-link>
             </li>
             <li>
               <router-link to="/projects">
-              <a data-toggle="popover" data-trigger="hover" data-content="Projects">
-                <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
+                <a v-b-popover.hover="'UserPopover'" title="Projects">
+                  <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
+                  <span class="sidebar-title"></span>
+                </a>
               </router-link>
             </li>
             <li>
               <router-link v-bind:to="'/releases/'+this.$route.params.id+'/sprints'">
-              <a data-toggle="popover" data-trigger="hover" data-content="Sprints">
-                <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
-                 this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
+                <a v-b-popover.hover="'UserPopover'" title="Sprints" id="popover">
+                  <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
+                  this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
                   this.$route.path == '/sprints/'+this.$route.params.id"
-                   class="sidebar-icon"><i class=" fa fa-repeat"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
+                  class="sidebar-icon"><i class=" fa fa-repeat"></i></span>
+                  <span class="sidebar-title"></span>
+                </a>
               </router-link>
             </li>
             <li>
               <router-link v-bind:to="'/projects/'+this.$route.params.id+'/releases'">
-              <a data-toggle="popover" data-trigger="hover" data-content="Releases" >
-                <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
-                 this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
-                this.$route.path == '/releases/'+this.$route.params.id ||
-                this.$route.path == '/projects/'+this.$route.params.id+'/releases'"
-                    class="sidebar-icon"><i class=" fa fa-cube"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
+                <a v-b-popover.hover="'UserPopover'" title="Releases" >
+                  <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
+                  this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
+                  this.$route.path == '/releases/'+this.$route.params.id ||
+                  this.$route.path == '/projects/'+this.$route.params.id+'/releases'"
+                  class="sidebar-icon"><i class=" fa fa-cube"></i></span>
+                  <span class="sidebar-title"></span>
+                </a>
               </router-link>
             </li>
           </ul>
@@ -74,34 +74,11 @@ export default {
     }
   }
 }
-$(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-});
 
 </script>
 
 <style>
 
-#wrapper {
-  padding-top: 0em;
-  padding-left: 0;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
-}
-
-@media (min-width: 992px) {
-  #wrapper {
-    padding-left: 1.5em;
-  }
-}
-
-@media (min-width: 992px) {
-  #wrapper #sidebar-wrapper {
-    width: 2.3em;
-  }
-}
 
 #sidebar-wrapper {
   z-index: 10;
@@ -112,10 +89,6 @@ $(document).ready(function() {
   margin-left: -14em;
   overflow-y: auto;
   background: #f8f8f8;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
 }
 
 .sidebar-icon {
@@ -137,40 +110,8 @@ $(document).ready(function() {
   line-height: 1.8em;
 }
 
-#sidebar-wrapper .sidebar-nav li a {
-  display: block;
-  text-decoration: none;
-  color: #428bca;
-}
-
-@media (max-width: 992px) {
-  #wrapper #sidebar-wrapper {
-    width: 2.3em;
-  }
-}
-
-.sidebar-nav li:first-child a {
-  /*background: #275568 !important;*/
-  color: #275568 !important;
-}
-
-.sidebar-nav li:nth-child(2) a {
-  /*background: #124559 !important;*/
-  color: #124559 !important;
-}
-
-.sidebar-nav li:nth-child(3) a {
-  /*background: #113F51 !important;*/
-  color: #113F51 !important;
-}
-.sidebar-nav li:nth-child(4) a {
-  /*background: #124559 !important;*/
-  color: #124559 !important;
-}
-
-.sidebar-nav li:nth-child(5) a {
-  /*background: #113F51 !important;*/
-  color: #113F51 !important;
+.sidebar-nav li a {
+  color: #113F51;
 }
 
 </style>
