@@ -16,9 +16,12 @@ RUN npm run build
 
 # Removing unnecessary dependencies to deploy
 
+RUN rm -rf ./build
 RUN rm -rf ./test
 RUN rm -rf ./src
+RUN chmod +x start-prod.sh
 
+ENV PORT=80
 EXPOSE 80
 
-ENTRYPOINT ["npm start"]
+ENTRYPOINT ["./start-homolog.sh"]
