@@ -83,7 +83,7 @@
 
         HTTP.get("repos", { headers: headers })
         .then(response => {
-          this.userRepos = response.data.user;
+          this.userRepos = response.data.user[1].repos;
           this.orgsRepos = response.data.orgs;
         })
         .catch((e) => {
@@ -91,17 +91,13 @@
         });
       },
       toggleButtonChanged(name, event) {
-        console.log(name);
-        console.log(event.value);
         if (event.value === true) {
           this.selectedRepos.push(name);
         } else {
           this.selectedRepos = this.selectedRepos.filter(item => item !== name);
         }
-        console.log(this.selectedRepos);
       },
       importGithubProjects() {
-        console.log("entrou");
         doRequisitions(this.selectedRepos, this.selectedRepos.length)
         .then((response) => {this.$emit('added');})
         .catch((e) => console.log(e.message));
@@ -124,7 +120,7 @@
         for (var repo of repos) {
           HTTP.post(`users/${user_int}/projects`, {
             name: repo,
-            check_project: true
+            is_project_from_github: true
           }, {headers: headers})
           .then((response) => {
             count++;
