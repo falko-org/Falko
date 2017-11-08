@@ -4,37 +4,37 @@
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
       data-toggle="modal" data-target="#editRetrospectiveModal">
       Edit Retrospective
-    </button>
-  </div>
+      </button>
+    </div>
 
-  <div class="row no-margin justify-content-center modal fade" id="editRetrospectiveModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">
-            Add Sprint Retrospective
-          </h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
-          <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
-          <list parent="Improvements" v-on:listUpdated="updateList"></list>
-          <textarea class="text-justify"
-          placeholder="Input your sprint report..."
-          v-model="sprintReport"
-          />
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-info btn-md falko-button" v-on:click="editRetrospective()" data-dismiss="modal">Save</button>
-          <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Cancel</button>
+    <div class="row no-margin justify-content-center modal fade" id="editRetrospectiveModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              Add Sprint Retrospective
+            </h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
+            <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
+            <list parent="Improvements" v-on:listUpdated="updateList"></list>
+            <textarea class="text-justify"
+            placeholder="Input your sprint report..."
+            v-model="sprintReport"
+            />
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-info btn-md falko-button" v-on:click="editRetrospective()" data-dismiss="modal">Save</button>
+            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -69,12 +69,12 @@ export default {
         negative_points: this.negativePoints,
         improvements: this.improvements,
       }, { headers })
-        .then(() => {
-          this.$emit('retrospectiveCreated');
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then(() => {
+        this.$emit('retrospectiveCreated');
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     updateList(items, parent) {

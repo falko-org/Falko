@@ -8,14 +8,15 @@
 
     <div class="modal fade" id ="addSprintModal" role="dialog">
       <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add a Sprint</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add a Sprint</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="row modal-body">
+            <div class="col">
               <p><label>Name</label></p>
               <p><input type = "text" v-model="name"></input><br></p>
               <p><label>Description</label></p>
@@ -29,6 +30,7 @@
               <button type="button" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
               <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -66,16 +68,16 @@ export default {
           release_id: this.$route.params.id,
         },
       }, { headers: headers })
-        .then((response) => {
-          this.name = '';
-          this.description = '';
-          this.initialDate = '';
-          this.finalDate = '';
-          EventBus.$emit('added-sprint', 1);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.name = '';
+        this.description = '';
+        this.initialDate = '';
+        this.finalDate = '';
+        EventBus.$emit('added-sprint', 1);
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
   },
 
