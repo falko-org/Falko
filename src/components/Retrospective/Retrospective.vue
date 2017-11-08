@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="row justify-content-around" id="buttons">
-          <edit-retrospective></edit-retrospective>
+          <edit-retrospective v-on:edited-retrospective="refreshRetrospective()"></edit-retrospective>
           <delete-retrospective></delete-retrospective>
         </div>
       </div>
@@ -97,6 +97,10 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    refreshRetrospective() {
+      this.getRetrospective();
     },
   },
   mounted() {

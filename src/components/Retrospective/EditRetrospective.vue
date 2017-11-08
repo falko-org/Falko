@@ -69,28 +69,28 @@ export default {
         negative_points: this.negativePoints,
         improvements: this.improvements,
       }, { headers })
-      .then(() => {
-        this.$emit('retrospectiveCreated');
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then(() => {
+          this.$emit('edited-retrospective');
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     updateList(items, parent) {
-      if (parent == 'PositivePoints') {
+      if (parent === 'PositivePoints') {
         this.positivePoints = [];
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
           this.positivePoints.push(items[i].title);
         }
-      } else if (parent == 'NegativePoints') {
+      } else if (parent === 'NegativePoints') {
         this.negativePoints = [];
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
           this.negativePoints.push(items[i].title);
         }
-      } else if (parent == 'Improvements') {
+      } else if (parent === 'Improvements') {
         this.improvements = [];
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
           this.improvements.push(items[i].title);
         }
       }
