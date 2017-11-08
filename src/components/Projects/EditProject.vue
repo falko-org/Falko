@@ -51,7 +51,7 @@ export default{
         description: this.description,
       }, { headers })
         .then(() => {
-          this.$emit('edited-project', this.$route.params.id);
+          this.$emit('edited-project');
         })
         .catch((e) => {
           this.errors.push(e);

@@ -12,7 +12,7 @@
     </div>
     <div class="row justify-content-center" id="buttons">
       <div class="col-md-2" align="center">
-        <edit-project v-on:edited-project="refreshProject($event)"></edit-project>
+        <edit-project v-on:edited-project="refreshProject()"></edit-project>
       </div>
       <div class="col-md-2" align="center">
         <delete-project></delete-project>
@@ -58,18 +58,9 @@ export default{
           this.errors.push(e);
         });
     },
-    refreshProject(event) {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
-      HTTP.get(`projects/${event}`, { headers })
-        .then((response) => {
-          this.project = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+
+    refreshProject() {
+      this.getProject();
     },
   },
   mounted() {
