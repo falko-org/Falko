@@ -3,8 +3,15 @@
     <div class="row justify-content-center">
       <div class="col-md-10">
         <div class="card">
-          <div class="card-body text-center">
-            <h4 class="card-title">{{project.name}}</h4>
+            <div class="card-body text-center">
+              <div class="row">
+                <div class="col-md-4">
+                  <Gpa></Gpa>
+                </div>
+                <div class="col-md-3">
+                  <h4 class="card-title">{{project.name}}</h4>
+                </div>
+              </div>
             <p class="card-text text-muted">{{project.description}}</p>
           </div>
         </div>
@@ -18,7 +25,6 @@
         <delete-project></delete-project>
       </div>
       <div class="col-md-2" align="center">
-        <Gpa></Gpa>
       </div>
       <div class="col-md-2" align="center">
         <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
@@ -95,5 +101,4 @@ export default{
 #buttons {
   margin-top: 1em;
 }
-
 </style>

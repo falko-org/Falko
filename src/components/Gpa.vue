@@ -1,11 +1,17 @@
 <template>
 	<div class="gpa">
-		<div class="card-body">
+		<!-- <div class="card-body"> -->
 		    <div class="row align-itens-arround">
 		      <div class="col-5 align-content-center">
 		        <p class="card-text">
 		          <div class="number-circle">
-		            <div id="GpaFont">
+		            <div class="GpaFont Vgreen" v-if="gpa > 3">
+		            	{{gpa}}
+		            </div>
+								<div class="GpaFont Vred" v-else-if="gpa < 2">
+		            	{{gpa}}
+		            </div>
+								<div class="GpaFont Vyellow" v-else-if="gpa >= 2 && gpa <= 3">
 		            	{{gpa}}
 		            </div>
 		            <h4> GPA </h4>
@@ -16,8 +22,8 @@
 		        <p class="card-text text-justify"> </p>
 		      </div>
 		    </div>
-		</div>		    
-	</div>	
+		<!-- </div>		     -->
+	</div>
 </template>
 
 <script>
@@ -37,22 +43,23 @@ export default {
 			var headers = { 'Authorization':tokenSimple2 };
 
 			try {
-				let response = await HTTP.get(`projects/${ this.$route.params.id }`, { headers:headers });		
-				let id = response.data.id;
-				console.log(id);						
-				const result2 = await HTTP.get(`projects/${id}/gpa`, { headers: headers });		
-				console.log(result2);		
-				this.gpa = result2.data;				
-			} catch(err) {
-				console.log(err)
-			}
+					let response = await HTTP.get(`projects/${ this.$route.params.id }`, { headers:headers });
+					let id = response.data.id;
+					console.log(id);
+					const result2 = await HTTP.get(`projects/${id}/gpa`, { headers: headers });
+					console.log(result2);
+					this.gpa = result2.data;
+				} catch(err) {
+					console.log(err)
+				}
 	    }
 	},
 	mounted() {
 		this.getGpa();
 	}
+
 };
-	
+
 </script>
 
 <style>
@@ -77,9 +84,21 @@ export default {
   left: 50%;
 }
 
-#GpaFont {
+.GpaFont {
   font-weight:bolder;
   font-size:1.2em;
+}
+
+.Vred{
+	color: red;
+}
+
+.Vyellow{
+	color: yellow;
+}
+
+.Vgreen{
+	color: green;
 }
 
 h4 {
