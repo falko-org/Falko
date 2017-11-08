@@ -20,6 +20,16 @@
       </div>
       <div class="col-md-5" align="end">
           <li class="list-inline-item">
+            <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
+                               v-if="!isRetrospectiveCreated()"></add-retrospective>
+
+            <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
+              <button type="button" class="btn btn-info btn-md falko-button">
+                Retrospective
+              </button>
+            </router-link>
+          </li>
+          <li class="list-inline-item">
             <add-revision v-on:revisionCreated="setRevisionAsCreated()"
                                v-if="!isRevisionCreated()"></add-revision>
 
@@ -46,6 +56,8 @@ import { HTTP } from '../../http-common.js';
 import EditSprint from '@/components/Sprints/EditSprint';
 import DeleteSprint from '@/components/Sprints/DeleteSprint';
 import dateConvert from '@/mixins/dateConvert'
+import AddRetrospective from '@/components/Retrospective/AddRetrospective';
+import Retrospective from '@/components/Retrospective/Retrospective';
 import AddRevision from '@/components/Revision/AddRevision';
 import Revision from '@/components/Revision/Revision';
 
@@ -54,11 +66,13 @@ export default{
   components: {
     'edit-sprint': EditSprint,
     'delete-sprint': DeleteSprint,
+    'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
   },
   data() {
     return {
       sprint: {},
+      sprintRetrospective: [],
       sprintRevision: [],
     };
   },
@@ -81,6 +95,42 @@ export default{
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    getRetrospective() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization': tokenSimple2 };
+
+      HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers: headers })
+        .then((response) => {
+
+          this.sprintRetrospective = response.data;
+
+          if (this.sprintRetrospective.length == 0) {
+            this.setRetrospectiveAsNotCreated();
+          } else {
+            this.setRetrospectiveAsCreated();
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    setRetrospectiveAsCreated() {
+      localStorage.setItem('isRetrospectiveCreated', 'true');
+    },
+
+    setRetrospectiveAsNotCreated() {
+      localStorage.setItem('isRetrospectiveCreated', 'false');
+    },
+
+    isRetrospectiveCreated() {
+      var retrospective = localStorage.getItem('isRetrospectiveCreated');
+
+      return localStorage.getItem('isRetrospectiveCreated') == 'true'
     },
 
     getRevision() {
@@ -140,6 +190,7 @@ export default{
         });
     });
     this.getSprint();
+    this.getRetrospective();
     this.getRevision();
   },
 };
