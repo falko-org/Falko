@@ -59,10 +59,10 @@
 </template>
 
 <script>
-import List from '@/components/Retrospective/List'
-import DeleteRetrospective from '@/components/Retrospective/DeleteRetrospective'
-import EditRetrospective from '@/components/Retrospective/EditRetrospective'
-import {HTTP} from '../../http-common.js';
+import List from './List.vue';
+import DeleteRetrospective from './DeleteRetrospective.vue';
+import EditRetrospective from './EditRetrospective.vue';
+import { HTTP } from '../../http-common';
 
 
 export default {
@@ -70,39 +70,39 @@ export default {
   components: {
     'delete-retrospective': DeleteRetrospective,
     'edit-retrospective': EditRetrospective,
-    'list': List
+    list: List,
   },
-  data () {
+  data() {
     return {
-      sprintReport: "",
+      sprintReport: '',
       positivePoints: [],
       negativePoints: [],
-      improvements: []
-    }
+      improvements: [],
+    };
   },
   methods: {
-    getRetrospective () {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+    getRetrospective() {
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
-      HTTP.get(`retrospectives/${this.$route.params.id}`, { headers:headers })
-        .then(response => {
+      HTTP.get(`retrospectives/${this.$route.params.id}`, { headers })
+        .then((response) => {
           this.sprintReport = response.data.sprint_report,
           this.positivePoints = response.data.positive_points,
           this.negativePoints = response.data.negative_points,
-          this.improvements = response.data.improvements
+          this.improvements = response.data.improvements;
         })
-      .catch(e => {
-        this.errors.push(e)
-      });
-    }
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
   },
-  mounted () {
+  mounted() {
     this.getRetrospective();
-  }
-}
+  },
+};
 
 </script>
 
@@ -127,8 +127,8 @@ li {
 }
 
 div {
-    text-align: justify;
-    text-justify: inter-word;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .active {

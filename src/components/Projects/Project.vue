@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import DeleteProject from '@/components/Projects/DeleteProject';
-import EditProject from '@/components/Projects/EditProject';
-import { HTTP } from '../../http-common.js';
+import DeleteProject from './DeleteProject.vue';
+import EditProject from './EditProject.vue';
+import { HTTP } from '../../http-common';
 
 export default{
   name: 'Project',
@@ -46,11 +46,11 @@ export default{
   },
   methods: {
     getProject() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization': tokenSimple2 };
-      HTTP.get(`projects/${this.$route.params.id}`, { headers: headers })
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
+      HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
         })
@@ -59,11 +59,11 @@ export default{
         });
     },
     refreshProject(event) {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization': tokenSimple2 };
-      HTTP.get(`projects/${event}`, { headers: headers })
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
+      HTTP.get(`projects/${event}`, { headers })
         .then((response) => {
           this.project = response.data;
         })

@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import { HTTP } from '../../http-common.js';
-import AddRelease from '@/components/Releases/AddRelease';
-import NoContent from '@/components/NoContent'
-import dateConvert from '@/mixins/dateConvert'
+import { HTTP } from '../../http-common';
+import AddRelease from './AddRelease.vue';
+import NoContent from '../NoContent.vue';
+import dateConvert from '../../mixins/dateConvert';
 
 export default {
 
@@ -70,21 +70,20 @@ export default {
     'no-content': NoContent,
   },
 
-  data () {
+  data() {
     return {
-      releases: []
-
-    }
+      releases: [],
+    };
   },
 
-  mixins: [ dateConvert ],
+  mixins: [dateConvert],
 
   methods: {
     getReleases() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const header = { Authorization: tokenSimple2 };
 
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers: header })
         .then((response) => {
@@ -95,7 +94,7 @@ export default {
         });
     },
     isReleasesEmpty() {
-      return this.releases.length == 0
+      return this.releases.length == 0;
     },
 
   },
@@ -110,8 +109,8 @@ export default {
 
   updated() {
     this.getReleases();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
