@@ -18,18 +18,20 @@
           <div class="row modal-body">
             <div class="col">
               <p><label>Name</label></p>
-              <p><input type = "text" v-model="name"></input><br></p>
+              <p><input type="text" v-model="name" id="sprintName"></input><br></p>
               <p><label>Description</label></p>
-              <input type = "text" v-model="description"></input><br>
+              <input type="text" v-model="description"></input><br>
+            </div>
+            <div class="col">
               <p><label>Initial Date</label></p>
-              <input type = "date" v-model="initialDate"></input><br>
+              <p><input type="date" v-model="initialDate"></input><br></p>
               <p><label>Final Date</label></p>
-              <input type = "date" v-model="finalDate"></input><br>
+              <p><input type="date" v-model="finalDate"></input><br></p>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
-              <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
       </div>
@@ -85,6 +87,10 @@ export default {
 </script>
 
 <style scoped>
+#sprintName {
+  color: #777;
+}
+
 #addButton {
   margin-top: 2em;
 }
