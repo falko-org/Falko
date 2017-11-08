@@ -1,6 +1,6 @@
 <template>
 <div class="edit-sprint">
-  <button type="button" class="btn btn-info btn-md falko-button" id="editIssue" data-toggle="modal" data-target="#editIssueModal" v-on:click="getIssueParams()">
+  <button type="button" class="btn btn-info btn-md falko-button" id="editIssue" data-toggle="modal" data-target="#editIssueModal">
     Editar Issue
   </button>
 
@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="modal-body">
-              <p><label > Name </label></p>
+              <p><label > {{selected_issue}} </label></p>
               <p><input type = "text" v-model="name"></input><br></p>
               <p><label> Description </label></p>
               <input type = "text" v-model="body"></input><br>
@@ -24,16 +24,12 @@
               <input type = "text" v-model="labels"></input><br>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editProject" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal">Save</button>
               <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
             </div>
       </div>
     </div>
   </div>
-
-
-
-
 </div>
 </template>
 
@@ -42,36 +38,24 @@
 export default {
   data () {
     return {
-      name: issue_name,
-      body : issue_body,
-      assignee: issue_assignee,
-      labels: issue_labels
+      name: '',
+      body : '',
+      assignee: '',
+      labels: ''
     }
   },
 
-  props: ["issue_name"],
-  props: ["issue_number"],
-  props: ["issue_body"],
-  props: ["issue_assignee"],
-  props: ["issue_labels"],
+  props: ["selected_issue"],
 
   methods: {
     getIssueParams(){
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
-
-
-      HTTP.get(`projects/${this.$route.params.id}/issues`, { headers: header })
-        .then((response) => {
-          this.issues = response.data.issues_infos;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    }
-  }
+      console.log(selected_issue.name);
+      this.name = selected_issue.name;
+    },
+    created(){
+      this.getIssueParams();
+    },
+  },
 }
 
 </script>

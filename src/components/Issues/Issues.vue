@@ -24,8 +24,8 @@
                   </div>
                 </div>
                   <div class="row">
-                    <div class="col">
-                      <edit-issue issue_number=issue.number issue_name=issue.name issue_body=issue.body issue_assignee=issue.assignee issue_labels=issue.labels></edit-issue>
+                    <div class="col" v-on:click="selectIssue(issue)">
+                      <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
                     </div>
                     <div class="col">
                       <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
@@ -56,11 +56,16 @@ export default {
 
   data () {
     return {
-      issues: []
+      issues: [],
+      selectedIssue: undefined
     }
   },
 
   methods: {
+    selectIssue(issue){
+      this.selectedIssue = issue;
+    },
+
     getIssues() {
       var token = localStorage.getItem('token');
       var tokenSimple = token.replace(/"/, "");
