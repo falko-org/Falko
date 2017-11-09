@@ -21,6 +21,7 @@ RUN rm -rf ./test
 RUN rm -rf ./src
 RUN chmod +x start-prod.sh
 
+# Exposing Express port to overwrite NGinx's default port
 ENV PORT=80
 EXPOSE 80
 
