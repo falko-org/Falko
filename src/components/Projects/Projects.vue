@@ -22,12 +22,7 @@
         <add-project v-on:added="refreshProjects()"></add-project>
       </div>
       <div class="col-md-3">
-        <div v-if="isGitHubAuthenticated()">
-          <github-projects v-on:added="refreshProjects()"></github-projects>
-        </div>
-        <div v-else>
-          <github-projects></github-projects>
-        </div>
+        <github-projects v-on:added="refreshProjects()" v-bind:gitHubLinked="is_github_authenticated"></github-projects>
       </div>
     </div>
   </div>

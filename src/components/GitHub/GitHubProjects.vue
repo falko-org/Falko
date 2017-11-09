@@ -1,9 +1,16 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
-        Import GitHub repository
-      </button>
+      <div v-if="isGitHubLenked()">
+        <button type="button" class="btn btn-info btn-md falko-button" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
+          Import GitHub repository
+        </button>
+      </div>
+      <div v-else>
+        <button type="button" class="btn btn-info btn-md falko-button-grey disabled-cursor">
+          Import GitHub repository
+        </button>
+      </div>
     </div>
     <div class="modal fade" id ="githubModal" role="dialog">
       <div class="modal-dialog">
@@ -67,28 +74,31 @@
   import { HTTP } from '../../http-common.js';
 
   export default{
+
+    props: ['gitHubLinked'],
+
     data() {
       return {
         userRepos: [],
         orgsRepos: [],
-        selectedRepos: []
-      }
+        selectedRepos: [],
+      };
     },
     methods: {
       getRepos() {
-        var token = localStorage.getItem('token');
-        var tokenSimple = token.replace(/"/, "");
-        var tokenSimple2 = tokenSimple.replace(/"/, "");
-        var headers = { 'Authorization':tokenSimple2 };
+        const token = localStorage.getItem('token');
+        const tokenSimple = token.replace(/"/, '');
+        const tokenSimple2 = tokenSimple.replace(/"/, '');
+        const headers = { Authorization: tokenSimple2 };
 
-        HTTP.get("repos", { headers: headers })
-        .then(response => {
-          this.userRepos = response.data.user[1].repos;
-          this.orgsRepos = response.data.orgs;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        HTTP.get('repos', { headers })
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
       },
       toggleButtonChanged(name, event) {
         if (event.value === true) {
@@ -99,39 +109,42 @@
       },
       importGithubProjects() {
         doRequisitions(this.selectedRepos, this.selectedRepos.length)
-        .then((response) => {this.$emit('added');})
-        .catch((e) => console.log(e.message));
-
+          .then((response) => { this.$emit('added'); })
+          .catch(e => console.log(e.message));
       },
-    }
-  }
+
+      isGitHubLenked() {
+        if (this.gitHubLinked) {
+          return true;
+        }
+        return false;
+      },
+    },
+  };
 
   function doRequisitions(repos, length) {
-
-    return new Promise(
-      (resolve, reject) => {
-        var token = localStorage.getItem('token');
-        var user_id = localStorage.getItem('user_id');
-        var user_int = parseInt(user_id);
-        var tokenSimple = token.replace(/"/, "");
-        var tokenSimple2 = tokenSimple.replace(/"/, "");
-        var headers = { 'Authorization':tokenSimple2 };
-        var count = 0;
-        for (var repo of repos) {
-          HTTP.post(`users/${user_int}/projects`, {
-            name: repo,
-            is_project_from_github: true
-          }, {headers: headers})
+    return new Promise((resolve, reject) => {
+      const token = localStorage.getItem('token');
+      const user_id = localStorage.getItem('user_id');
+      const user_int = parseInt(user_id);
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
+      let count = 0;
+      for (const repo of repos) {
+        HTTP.post(`users/${user_int}/projects`, {
+          name: repo,
+          is_project_from_github: true,
+        }, { headers })
           .then((response) => {
             count++;
             if (count === length) {
               resolve(response);
             }
           })
-          .catch((e) => reject(e));
-        }
+          .catch(e => reject(e));
       }
-    )
+    });
   }
 
 </script>
@@ -144,6 +157,10 @@
 
 .pointer-cursor {
   cursor: pointer;
+}
+
+.disabled-cursor {
+  cursor: inherit;
 }
 
 </style>
