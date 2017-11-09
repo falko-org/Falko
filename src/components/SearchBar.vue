@@ -8,9 +8,9 @@
                  placeholder="Search..." v-model="search" v-on:keyup.enter="goToProject">
           </input>
       </div>
-        <!-- <div v-for="project in filteredProjects">
+        <div v-for="project in filteredProjects">
           <router-link v-bind:to="'/projects/' + project.id"> {{ project.name }}</router-link>
-        </div> -->
+        </div>
     </form>
   </div>
 </template>
