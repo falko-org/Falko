@@ -15,9 +15,9 @@
             </div>
             <div class="modal-body">
               <p><label > Name </label></p>
-              <p><input type = "text" v-model="name" v-bind:placeholder="selected_issue.name"></input><br></p>
+              <p><input type = "text" v-model="name" placeholder="Name"></input><br></p>
               <p><label> Description </label></p>
-              <input type = "text" v-model="body" v-bind:placeholder="selected_issue.body"></input><br>
+              <input type = "text" v-model="body" placeholder="Description"></input><br>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue" data-dismiss="modal">Save</button>
@@ -50,10 +50,12 @@ export default {
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var headers = { 'Authorization': tokenSimple2 };
 
-      HTTP.patch(`projects/${this.number}/issues`, {
-        name: this.name,
-        body: this.body,
-
+      HTTP.put(`projects/${this.$route.params.id}/issues`, {
+        issue: {
+          number: this.number,
+          name: this.name,
+          body: this.body
+        }
       }, { headers: headers })
       .then((response)=>{
         this.$emit('updated-issue', this.$route.params.id)
