@@ -88,7 +88,7 @@ export default {
   height: 100%;
   margin-left: -14em;
   overflow-y: auto;
-  background: #f8f8f8;
+  background: #95B0B9;
 }
 
 .sidebar-icon {
