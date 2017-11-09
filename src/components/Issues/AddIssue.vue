@@ -22,12 +22,6 @@
                 <p><label>Body</label></p>
                 <input type="text" v-model="body" placeholder="Issue Body..."></input><br>
               </div>
-              <div class="col">
-                <p><label>Assignee</label></p>
-                <p><input type="text" v-model="assignee"></input><br></p>
-                <p><label>Label</label></p>
-                <p><input type="text" v-model="labels"></input><br></p>
-              </div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" v-on:click="addIssue(), reload()" data-dismiss="modal">Save</button>
@@ -47,9 +41,7 @@ export default {
   data () {
     return {
       name: '',
-      body : '',
-      assignee: '',
-      labels: ''
+      body : ''
     }
   },
   methods: {
@@ -63,16 +55,12 @@ export default {
       HTTP.post(`/projects/${this.$route.params.id}/issues`,  {
         issue: {
           name: this.name,
-          body: this.body,
-          assignee: this.assignee,
-          labels: this.labels
+          body: this.body
         }
 	    }, { headers: header })
 	    .then(response => {
 	    	this.name = "";
 	    	this.body = "";
-        this.assignee = "";
-        this.labels = "";
         this.$emit('added');
 	    })
 	    .catch(e => {

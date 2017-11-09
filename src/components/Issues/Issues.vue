@@ -18,7 +18,6 @@
                     <h4 class="no-margin float-left">{{issue.name}}</h4>
                   </div>
                   <div class="col">
-                    <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
                     <h6 class="no-margin float-right">
                     </h6>
                   </div>
@@ -57,7 +56,7 @@ export default {
   data () {
     return {
       issues: [],
-      selectedIssue: undefined
+      selectedIssue: ''
     }
   },
 
@@ -84,20 +83,14 @@ export default {
       return this.issues.length == 0
     },
 
-
     closeIssue(number1){
       var token = localStorage.getItem('token');
       var tokenSimple = token.replace(/"/, "");
       var tokenSimple2 = tokenSimple.replace(/"/, "");
       var header = { 'Authorization': tokenSimple2 };
 
-      console.log(header)
       let config = {data : {issue: {number:number1}}, headers:header}
 
-      // var config2 = config.replace("/", "")
-      // var config3 = config2.replace("/", "")
-
-      console.log(config)
       HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
       .then(response =>{
 				this.$router.push({ path : `/project/${this.$route.params.id}/issues`});
@@ -106,6 +99,11 @@ export default {
 				this.errors.push(e)
 			});
   	},
+
+    selectIssue(issue){
+      this.selectedIssue=issue
+    },
+
     reload() {
       this.getIssues();
     }
@@ -131,17 +129,8 @@ export default {
 }
 
 #issueTitle {
-  margin: 0;
+  margin: none;
   color: white;
-}
-
-#numberSprints {
-  margin-left: -10;
-}
-
-#amountSprintsFont {
-  font-weight:bolder;
-  font-size:1.4em;
 }
 
 .number-circle {
@@ -170,7 +159,6 @@ div a {
 }
 
 #issueCard:hover {
-  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
   border-color: #7799A5;
 }
 </style>

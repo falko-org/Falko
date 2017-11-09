@@ -1,6 +1,6 @@
 <template>
 <div class="edit-sprint">
-  <button type="button" class="btn btn-info btn-md falko-button" id="editIssue" data-toggle="modal" data-target="#editIssueModal">
+  <button type="button" class="btn btn-info btn-md falko-button" id="editIssue" data-toggle="modal" data-target="#editIssueModal" v-on:click="choseIssue()">
     Editar Issue
   </button>
 
@@ -14,17 +14,13 @@
                 </button>
             </div>
             <div class="modal-body">
-              <p><label > {{selected_issue}} </label></p>
-              <p><input type = "text" v-model="name"></input><br></p>
+              <p><label > Name </label></p>
+              <p><input type = "text" v-model="name" v-bind:placeholder="selected_issue.name"></input><br></p>
               <p><label> Description </label></p>
-              <input type = "text" v-model="body"></input><br>
-              <p><label> Assignee </label></p>
-              <input type = "text" v-model="assignee"></input><br>
-              <p><label> Labels </label></p>
-              <input type = "text" v-model="labels"></input><br>
+              <input type = "text" v-model="body" v-bind:placeholder="selected_issue.body"></input><br>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue" data-dismiss="modal">Save</button>
               <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
             </div>
       </div>
@@ -34,28 +30,45 @@
 </template>
 
 <script>
-
+import {HTTP} from '../../http-common.js';
 export default {
   data () {
     return {
-      name: '',
-      body : '',
-      assignee: '',
-      labels: ''
+      name: "",
+      body: "",
+      number: "",
     }
   },
 
   props: ["selected_issue"],
 
   methods: {
-    getIssueParams(){
-      console.log(selected_issue.name);
-      this.name = selected_issue.name;
+    editIssue() {
+
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization': tokenSimple2 };
+
+      HTTP.patch(`projects/${this.number}/issues`, {
+        name: this.name,
+        body: this.body,
+
+      }, { headers: headers })
+      .then((response)=>{
+        this.$emit('updated-issue', this.$route.params.id)
+      })
+      .catch(e=>{
+        this.errors.push(e)
+      });
     },
-    created(){
-      this.getIssueParams();
-    },
-  },
+
+    choseIssue() {
+      this.name = this.selected_issue.name,
+      this.body = this.selected_issue.body,
+      this.number = this.selected_issue.number
+    }
+  }
 }
 
 </script>
