@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { EventBus } from '../../event-bus.js';
-import {HTTP} from '../../http-common.js';
+import { EventBus } from '../../event-bus';
+import { HTTP } from '../../http-common';
 
 export default {
   name: 'addSprintBody',
@@ -55,10 +55,10 @@ export default {
   },
   methods: {
     addSprint() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
 
       HTTP.post(`releases/${this.$route.params.id}/sprints`, {
@@ -69,17 +69,17 @@ export default {
           final_date: this.finalDate,
           release_id: this.$route.params.id,
         },
-      }, { headers: headers })
-      .then((response) => {
-        this.name = '';
-        this.description = '';
-        this.initialDate = '';
-        this.finalDate = '';
-        EventBus.$emit('added-sprint', 1);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      }, { headers })
+        .then(() => {
+          this.name = '';
+          this.description = '';
+          this.initialDate = '';
+          this.finalDate = '';
+          EventBus.$emit('added-sprint', 1);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 

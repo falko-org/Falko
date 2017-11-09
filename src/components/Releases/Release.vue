@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import { HTTP } from '../../http-common.js';
-import EditRelease from '@/components/Releases/EditRelease';
-import DeleteRelease from '@/components/Releases/DeleteRelease';
-import dateConvert from '@/mixins/dateConvert';
+import EditRelease from './EditRelease.vue';
+import DeleteRelease from './DeleteRelease.vue';
+import dateConvert from '../../mixins/dateConvert';
+import { HTTP } from '../../http-common';
 
 export default {
   components: {
@@ -66,7 +66,6 @@ export default {
       const tokenSimple2 = tokenSimple.replace(/"/, '');
       const headers = { Authorization: tokenSimple2 };
 
-      // console.log(this.$route.params.id)
       HTTP.get(`releases/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.release = response.data;

@@ -86,12 +86,12 @@ export default {
       const header = { Authorization: tokenSimple2 };
 
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers: header })
-        .then((response) => {
-          this.releases = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.releases = response.data;
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
     isReleasesEmpty() {
       return this.releases.length == 0;
