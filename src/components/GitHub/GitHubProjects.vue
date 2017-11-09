@@ -120,7 +120,7 @@
         for (var repo of repos) {
           HTTP.post(`users/${user_int}/projects`, {
             name: repo,
-            check_project: true
+            is_project_from_github: true
           }, {headers: headers})
           .then((response) => {
             count++;
