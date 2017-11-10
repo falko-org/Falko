@@ -1,18 +1,21 @@
 <template>
   <div>
     <navbar></navbar>
+    <sidebar></sidebar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
 export default {
   name: 'app',
 
    components: {
-    navbar: Navbar
+    navbar: Navbar,
+    sidebar: Sidebar
   },
 }
 </script>
@@ -66,6 +69,11 @@ input:focus {
 
 .falko-button:enabled:hover {
   background-color: #6E9191;
+}
+
+.falko-button:disabled {
+  background-color: #86B1B1;
+  cursor: inherit;
 }
 
 .falko-button-danger:hover {
