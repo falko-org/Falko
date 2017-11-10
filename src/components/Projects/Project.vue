@@ -51,10 +51,10 @@ export default {
     }),
   },
   methods: {
-    getProject(param) {
+    getProject() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${param}`, { headers })
+      HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
         })
