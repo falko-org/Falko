@@ -1,7 +1,7 @@
 <template>
   <div class="edit-sprint">
     <button type="button" class="btn btn-info btn-sm falko-button" id="editIssue" data-toggle="modal" v-bind:data-target="`#editIssueModal${selected_issue.number}`" v-on:click="getIssuesInformation()">
-      Editar Issue
+      Edit
     </button>
 
     <div class="modal fade" v-bind:id="`editIssueModal${selected_issue.number}`" role="dialog">
