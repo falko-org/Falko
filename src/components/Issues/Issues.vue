@@ -27,7 +27,7 @@
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
                 </div>
                 <div class="col">
-                  <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
+                  <button type="button" v-on:click="closeIssue(issue.number)" class="btn btn-primary falko-button falko-button-danger">Close</button>
                 </div>
               </div>
             </div>
@@ -93,6 +93,7 @@ export default {
       HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
       .then(response =>{
 				this.$router.push({ path : `/project/${this.$route.params.id}/issues`});
+        this.getIssues();
 			})
 			.catch(e =>{
 				this.errors.push(e)
@@ -101,10 +102,6 @@ export default {
 
     selectIssue(issue){
       this.selectedIssue=issue
-    },
-
-    reload() {
-      this.getIssues();
     }
   },
 

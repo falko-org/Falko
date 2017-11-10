@@ -20,8 +20,8 @@
             <input type = "text" v-model="body" placeholder="Description"></input><br>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue(), reload()" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue()" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default {
       }, { headers: headers })
       .then((response)=>{
         this.$emit('updated-issue', this.$route.params.id);
-        this.reload();
+        this.$parent.getIssues();
       })
       .catch(e=>{
         this.errors.push(e)
@@ -70,10 +70,6 @@ export default {
       this.name = this.selected_issue.name,
       this.body = this.selected_issue.body,
       this.number = this.selected_issue.number
-    },
-
-    reload() {
-      this.$parent.getIssues();
     }
   }
 }
