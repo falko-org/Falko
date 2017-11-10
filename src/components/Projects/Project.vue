@@ -3,15 +3,8 @@
     <div class="row justify-content-center">
       <div class="col-md-10">
         <div class="card">
-            <div class="card-body text-center">
-              <div class="row">
-                <div class="col-md-4">
-                  <Gpa></Gpa>
-                </div>
-                <div class="col-md-3">
-                  <h4 class="card-title">{{project.name}}</h4>
-                </div>
-              </div>
+          <div class="card-body text-center">
+            <h4 class="card-title">{{project.name}}</h4>
             <p class="card-text text-muted">{{project.description}}</p>
           </div>
         </div>
@@ -25,16 +18,7 @@
         <delete-project></delete-project>
       </div>
       <div class="col-md-2" align="center">
-      </div>
-      <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/project/'+project.id+'/sprints'">
-          <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
-            Sprints
-          </button>
-        </router-link>
-      </div>
-      <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/project/'+project.id+'/releases'">
+        <router-link v-bind:to="'/projects/'+project.id+'/releases'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Releases
           </button>
@@ -45,7 +29,6 @@
 </template>
 
 <script>
-import Gpa from '../Gpa';
 import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import { HTTP } from '../../http-common';
@@ -55,7 +38,6 @@ export default{
   components: {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
-     Gpa,
   },
   data() {
     return {
@@ -68,7 +50,6 @@ export default{
       const tokenSimple = token.replace(/"/, '');
       const tokenSimple2 = tokenSimple.replace(/"/, '');
       const headers = { Authorization: tokenSimple2 };
-      
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
@@ -93,4 +74,5 @@ export default{
 #buttons {
   margin-top: 1em;
 }
+
 </style>

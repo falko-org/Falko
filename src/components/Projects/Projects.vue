@@ -12,9 +12,6 @@
                 {{project.name}}
               </h4>
               <p class="card-text text-muted">{{project.description}}</p>
-              <div class="col-md-0" align="center">
-                <Gpa></Gpa>
-              </div>
             </div>
           </div>
         </router-link>
@@ -37,7 +34,6 @@ import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
 import { HTTP } from '../../http-common';
-import Gpa from '../Gpa';
 
 export default {
 
@@ -46,7 +42,6 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-     Gpa
   },
   data() {
     return {
