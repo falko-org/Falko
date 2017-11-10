@@ -27,14 +27,14 @@
       <div class="col-md-2" align="center">
       </div>
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/inproject/'+project.id+'/sprints'">
+        <router-link v-bind:to="'/project/'+project.id+'/sprints'">
           <button type="button" class="btn btn-info btn-md falko-button" id="sprints">
             Sprints
           </button>
         </router-link>
       </div>
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/inproject/'+project.id+'/releases'">
+        <router-link v-bind:to="'/project/'+project.id+'/releases'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Releases
           </button>
