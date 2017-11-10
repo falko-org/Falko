@@ -62,16 +62,16 @@ export default {
 	    	this.name = "";
 	    	this.body = "";
         this.$emit('added');
+				this.reload();
 	    })
 	    .catch(e => {
 	      this.errors.push(e)
 	    });
-	},
+		},
 
-  reload() {
-    this.$parent.getIssues();
-  }
-
+		reload() {
+			this.$parent.getIssues();
+		}
   }
 
 }

@@ -9,29 +9,28 @@
       </div>
     </div>
     <div class="row justify-content-around" v-for="i in Math.ceil(issues.length / 2)">
-      <div v-for="issue in issues.slice((i-1) * 2,i*2)" class="col-5">
+      <div v-for="issue in issues.slice((i-1) * 2 , i * 2)" class="col-5">
         <div align="center">
           <div class="card" id="issueCard">
-              <div class="card-header" id="issueHeader">
-                <div class="row align-itens-around" id="issueTitle">
-                  <div class="col">
-                    <h4 class="no-margin float-left">{{issue.name}}</h4>
-                  </div>
-                  <div class="col">
-                    <h6 class="no-margin float-right">
-                    </h6>
-                  </div>
+            <div class="card-header" id="issueHeader">
+              <div class="row align-itens-around" id="issueTitle">
+                <div class="col">
+                  <h4 class="no-margin float-left">{{issue.name}}</h4>
                 </div>
-                  <div class="row">
-                    <div class="col" v-on:click="selectIssue(issue)">
-                      <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
-                    </div>
-                    <div class="col">
-                      <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
-                    </div>
-                  </div>
+                <div class="col">
+                  <h6 class="no-margin float-right">
+                  </h6>
+                </div>
               </div>
-            </router-link>
+              <div class="row">
+                <div class="col" v-on:click="selectIssue(issue)">
+                  <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
+                </div>
+                <div class="col">
+                  <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
+                </div>
+              </div>
+            </div>
           </div>
           <br>
         </div>
@@ -113,15 +112,16 @@ export default {
     this.getIssues();
   },
 
-  updated() {
-    this.getIssues();
-  }
 }
 </script>
 
 <style scoped>
 #issueCard {
   width: 30em;
+}
+
+#issueCard:hover {
+  border-color: #7799A5;
 }
 
 #issueHeader {
@@ -132,7 +132,7 @@ export default {
   margin: none;
   color: white;
 }
-
+/*
 .number-circle {
   font: 32px Arial, sans-serif;
 
@@ -151,14 +151,6 @@ export default {
   box-sizing: content-box;
   top: 50%;
   left: 50%;
-}
+}*/
 
-div a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#issueCard:hover {
-  border-color: #7799A5;
-}
 </style>
