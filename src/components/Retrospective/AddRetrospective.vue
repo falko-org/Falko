@@ -99,10 +99,7 @@ export default {
 
   methods: {
     addRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.post(`sprints/${this.$route.params.id}/retrospectives`, {
         sprint_report: this.sprintReport,
@@ -110,15 +107,15 @@ export default {
         negative_points: this.negativePoints,
         improvements: this.improvements,
       }, { headers })
-      .then((response) => {
-        this.$emit('retrospectiveCreated');
-        this.retrospectiveId = response.data.id;
+        .then((response) => {
+          this.$emit('retrospectiveCreated');
+          this.retrospectiveId = response.data.id;
 
-        this.$router.push({ path: `/retrospectives/${this.retrospectiveId}` });
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+          this.$router.push({ path: `/retrospectives/${this.retrospectiveId}` });
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     updateList(items, parent) {

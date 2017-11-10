@@ -74,10 +74,7 @@ export default {
     },
 
     getReleaseInformation() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${this.$route.params.id}`, { headers })
         .then((response) => {

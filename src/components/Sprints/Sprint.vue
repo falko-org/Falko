@@ -90,7 +90,8 @@ export default{
       HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
         .then((response) => {
           this.sprintRetrospective = response.data;
-
+          console.log(response);
+          console.log(response.data);
           if (this.sprintRetrospective.length === 0) {
             this.setRetrospectiveAsNotCreated();
           } else {
