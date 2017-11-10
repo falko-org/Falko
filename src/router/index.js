@@ -1,28 +1,28 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Projects from '@/components/Projects/Projects'
-import AddProject from '@/components/Projects/AddProject'
-import Project from '@/components/Projects/Project'
-import DeleteProject from '@/components/Projects/DeleteProject'
-import EditProject from '@/components/Projects/EditProject'
-import Login from '@/components/Authentication/Login'
-import Register from '@/components/Authentication/Register'
-import LoginRegister from '@/components/Authentication/LoginRegister'
-import HomePage from '@/components/HomePage'
-import NoContent from '@/components/NoContent'
-import Sprints from '@/components/Sprints/Sprints'
-import Sprint from '@/components/Sprints/Sprint'
-import EditSprint from '@/components/Sprints/EditSprint'
-import DeleteSprint from '@/components/Sprints/DeleteSprint'
-import GitHubCallBack from '@/components/GitHub/GitHubCallBack'
-import GitHubProjects from '@/components/GitHub/GitHubProjects'
-import Releases from '@/components/Releases/Releases'
-import Release from '@/components/Releases/Release'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Projects from '@/components/Projects/Projects';
+import AddProject from '@/components/Projects/AddProject';
+import Project from '@/components/Projects/Project';
+import DeleteProject from '@/components/Projects/DeleteProject';
+import EditProject from '@/components/Projects/EditProject';
+import Login from '@/components/Authentication/Login';
+import Register from '@/components/Authentication/Register';
+import LoginRegister from '@/components/Authentication/LoginRegister';
+import HomePage from '@/components/HomePage';
+import NoContent from '@/components/NoContent';
+import Sprints from '@/components/Sprints/Sprints';
+import Sprint from '@/components/Sprints/Sprint';
+import EditSprint from '@/components/Sprints/EditSprint';
+import DeleteSprint from '@/components/Sprints/DeleteSprint';
+import GitHubCallBack from '@/components/GitHub/GitHubCallBack';
+import GitHubProjects from '@/components/GitHub/GitHubProjects';
+import Releases from '@/components/Releases/Releases';
+import Release from '@/components/Releases/Release';
 import UserProfile from '@/components/Users/UserProfile';
 import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
-import Retrospective from '@/components/Retrospective/Retrospective'
+import Retrospective from '@/components/Retrospective/Retrospective';
 
 Vue.use(Router);
 
@@ -151,12 +151,12 @@ const router = new Router({
       component: Retrospective,
     },
   ],
-})
+});
 
 export default router;
 
 router.beforeEach((to, from, next) => {
-  var state = JSON.parse(localStorage.getItem('vuex'))
+  const state = JSON.parse(localStorage.getItem('vuex'));
 
   if (to.path === '/' || to.path === '/notFound') {
     next();
