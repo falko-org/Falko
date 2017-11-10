@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import GitHubCallBack from '../../../src/components/GitHubCallBack.vue'
+import GitHubCallBack from '../../../src/components/GitHub/GitHubCallBack.vue'
 import {HTTP} from '../../../src/http-common.js';
 import sinon from 'sinon';
 

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import GitHubProjects from '../../../src/components/GitHubProjects.vue'
+import GitHubProjects from '../../../src/components/GitHub/GitHubProjects.vue'
 import {HTTP} from '../../../src/http-common.js';
 import sinon from 'sinon';
 var sandbox = sinon.createSandbox();
@@ -9,7 +9,7 @@ describe('On github project list repos', function() {
 	beforeEach(function() {
 		const response = new Promise((r) => r({
 			data: {
-				user: ["userRepo1", "userRepo2"],
+				user: [{login: "pedrokelvin"}, {repos: ["userRepo1", "userRepo2"]}],
 				orgs: [{name: "Org1", repos: ["Org1Repo"]},
 					   {name: "Org2", repos: ["Org2Repo"]}]
 			}
@@ -42,7 +42,7 @@ describe('On github project list repos', function() {
 		component.getRepos();
 
 		process.nextTick(function() {
-			expect(component.userRepos).to.deep.not.equal(["differentUserRepo1", 
+			expect(component.userRepos).to.deep.not.equal(["differentUserRepo1",
 														   "differentUserRepo2"]);
 			expect(component.orgsRepos).to.deep.equal([{name: "Org1", repos: ["Org1Repo"]},
 												  	   {name: "Org2", repos: ["Org2Repo"]}]);
@@ -58,7 +58,7 @@ describe('On github project list repos', function() {
 		component.getRepos();
 
 		process.nextTick(function() {
-			expect(component.userRepos).to.deep.equal(["userRepo1", 
+			expect(component.userRepos).to.deep.equal(["userRepo1",
 													   "userRepo2"]);
 			expect(component.orgsRepos).to.deep.not.equal([{name: "differentOrg1", repos: ["differentOrg1Repo"]},
 												  	   	   {name: "differentOrg2", repos: ["differentOrg2Repo"]}]);
@@ -73,7 +73,7 @@ describe('On github project list repos', function() {
 		component.getRepos();
 
 		process.nextTick(function() {
-			expect(component.userRepos).to.deep.not.equal(["differentUserRepo1", 
+			expect(component.userRepos).to.deep.not.equal(["differentUserRepo1",
 														   "differentUserRepo2"]);
 			expect(component.orgsRepos).to.deep.not.equal([{name: "differentOrg1", repos: ["differentOrg1Repo"]},
 												  	   	   {name: "differentOrg2", repos: ["differentOrg2Repo"]}]);
