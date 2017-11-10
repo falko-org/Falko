@@ -140,7 +140,7 @@ h1 {
 
 #footer {
   background-color: #01161E;
-  margin: -1.7% 0;
+  margin: 0;
   padding: 1.5em 0;
   color: #598392;
   font-size: 0.9rem;

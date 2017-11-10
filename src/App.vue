@@ -5,7 +5,7 @@
       <div class="col limit-sidebar" v-if="this.$route.path != '/' && isLogged()">
         <sidebar></sidebar>
       </div>
-      <div class="col">
+      <div class="col no-white-bar">
         <router-view></router-view>
       </div>
     </div>
@@ -23,7 +23,7 @@ export default {
     navbar: Navbar,
     sidebar: Sidebar
   },
-  
+
   methods: {
     isLogged(){
       if (localStorage.getItem('token') != null) {
@@ -129,5 +129,9 @@ input:focus {
   font-weight: bold;
   color: #6E9191;
   margin: 0;
+}
+
+.no-white-bar {
+  margin: -1.7% 0;
 }
 </style>
