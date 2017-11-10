@@ -9,7 +9,7 @@
           <div class="card">
             <div class="card-body project">
               <h4 class="card-title">
-                  {{project.name}}
+                {{project.name}}
               </h4>
               <p class="card-text text-muted">{{project.description}}</p>
               <div class="col-md-0" align="center">
@@ -21,23 +21,23 @@
       </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-3">
-          <add-project v-on:added="refreshProjects"></add-project>
-        </div>
-        <div class="col-md-3">
-          <github-projects v-on:added="refreshProjects"></github-projects>
-        </div>
+      <div class="col-md-3">
+        <add-project v-on:added="refreshProjects"></add-project>
+      </div>
+      <div class="col-md-3">
+        <github-projects v-on:added="refreshProjects"></github-projects>
+      </div>
     </div>
   </div>
 
 </template>
 
 <script>
-import AddProject from '@/components/Projects/AddProject';
-import {HTTP} from '../../http-common.js';
-import NoContent from '@/components/NoContent';
-import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Gpa from '@/components/Gpa'
+import AddProject from './AddProject.vue';
+import NoContent from '../NoContent.vue';
+import GitHubProjects from '../GitHub/GitHubProjects.vue';
+import { HTTP } from '../../http-common';
+import Gpa from '../Gpa';
 
 export default {
 
@@ -55,15 +55,13 @@ export default {
   },
   methods: {
     getProjects() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
+      const userId = localStorage.getItem('user_id');
 
-      var userId = localStorage.getItem('user_id');
-      var userInt = parseInt(userId);
-
-      HTTP.get(`users/${userInt}/projects`, { headers: headers })
+      HTTP.get(`users/${userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
