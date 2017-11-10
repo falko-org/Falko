@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -38,8 +39,14 @@ export default {
 
     };
   },
-  methods: {
 
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
+
+  methods: {
     async deleteRetrospective() {
       const headers = { Authorization: this.token };
 

@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import List from './List.vue';
 import { HTTP } from '../../http-common';
 
@@ -54,6 +55,12 @@ export default {
       negativePoints: [],
       improvements: [],
     };
+  },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
   },
 
   methods: {

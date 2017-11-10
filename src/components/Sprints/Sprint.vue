@@ -45,7 +45,7 @@ import { mapState } from 'vuex';
 import EditSprint from './EditSprint.vue';
 import DeleteSprint from './DeleteSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
-import AddRetrospective from '../Retrospective/AddRetrospective.vue';
+import AddRetrospective from '@/components/Retrospective/AddRetrospective.vue';
 import { HTTP } from '../../http-common';
 
 export default{
@@ -90,8 +90,6 @@ export default{
       HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
         .then((response) => {
           this.sprintRetrospective = response.data;
-          console.log(response);
-          console.log(response.data);
           if (this.sprintRetrospective.length === 0) {
             this.setRetrospectiveAsNotCreated();
           } else {
@@ -112,8 +110,6 @@ export default{
     },
 
     isRetrospectiveCreated() {
-      const retrospective = localStorage.getItem('isRetrospectiveCreated');
-
       return localStorage.getItem('isRetrospectiveCreated') === 'true';
     },
 
