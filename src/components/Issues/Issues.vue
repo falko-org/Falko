@@ -8,27 +8,24 @@
         <add-issue></add-issue>
       </div>
     </div>
-    <div class="row justify-content-around" v-for="i in Math.ceil(issues.length / 2)">
-      <div v-for="issue in issues.slice((i-1) * 2 , i * 2)" class="col-5">
+    <table width="1855" v-for="i in Math.ceil(issues.length / 2)">
+    <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
+    <div class="row">
+      <div v-for="issue in issues.slice((i-1) * 6 , i * 6)" class="col-2 text-center">
         <div align="center">
           <div class="card" id="issueCard">
             <div class="card-header" id="issueHeader">
-              <div class="row align-itens-around" id="issueTitle">
-                <div class="col">
-                  <h4 class="no-margin float-left">{{issue.name}}</h4>
-                </div>
-                <div class="col">
-                  <h6 class="no-margin float-right">
-                  </h6>
-                </div>
+              <div class="text-align:center" id="issueTitle">
+                  <h4>{{issue.name}}</h4>
+                  <h8 class="card-text text-muted">{{issue.body}}</h8>
               </div>
-              <div class="row">
-                <div class="col" v-on:click="selectIssue(issue)">
-                  <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
-                </div>
-                <div class="col">
-                  <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
-                </div>
+                <div class="row " v-on:click="selectIssue(issue)">
+                  <div class="col">
+                    <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
+                  </div>
+                  <div class="col">
+                    <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="closeIssue">Close</button>
+                  </div>
               </div>
             </div>
           </div>
@@ -36,6 +33,8 @@
         </div>
       </div>
     </div>
+  </table>
+
   </div>
 </template>
 
@@ -117,40 +116,28 @@ export default {
 
 <style scoped>
 #issueCard {
-  width: 30em;
+  width: 17em;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.4);
+  transition: 0.2s;
 }
 
 #issueCard:hover {
   border-color: #7799A5;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 #issueHeader {
-  background-color: #7799A5;
+  background-color: white;
 }
 
 #issueTitle {
   margin: none;
-  color: white;
+  color: black;
 }
-/*
-.number-circle {
-  font: 32px Arial, sans-serif;
 
-  width: 2.5em;
-  height: 2.5em;
-  box-sizing: initial;
-
-  background: #fff;
-  border: 0.2em solid #7799A5;
-  border-style: solid;
-  color: #7799A5;
-  text-align: center;
-  border-radius: 50%;
-
-  line-height: 2.5em;
-  box-sizing: content-box;
-  top: 50%;
-  left: 50%;
-}*/
+#blank_row {
+    height: 10px !important;
+    background-color: #FFFFFF;
+}
 
 </style>

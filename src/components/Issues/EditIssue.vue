@@ -1,7 +1,7 @@
 <template>
   <div class="edit-sprint">
-    <button type="button" class="btn btn-info btn-md falko-button" id="editIssue" data-toggle="modal" data-target="#editIssueModal" v-on:click="choseIssue()">
-      Editar Issue
+    <button type="button" class="btn btn-info btn-sm falko-button" id="editIssue" data-toggle="modal" data-target="#editIssueModal" v-on:click="choseIssue()">
+      Editar
     </button>
 
     <div class="modal fade" id="editIssueModal" role="dialog">

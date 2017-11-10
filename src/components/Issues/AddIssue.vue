@@ -78,6 +78,12 @@ export default {
 </script>
 
 <style scoped>
+
+#addButton{
+  border-style: solid;
+  border-width: medium;
+}
+
 #issueName {
   color: #777;
 }
