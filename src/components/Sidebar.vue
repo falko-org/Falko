@@ -4,7 +4,7 @@
       <div id="sidebar-wrapper">
         <aside id="sidebar">
           <ul id="sidemenu" class="sidebar-nav">
-            <li>
+            <li align="center">
               <router-link to="#">
                 <a onclick="window.history.go(-1); return false;" v-b-popover.hover="'UserPopover'" title="Return">
                   <span class="sidebar-icon"><i class=" fa fa-arrow-left"></i></span>
@@ -12,7 +12,7 @@
                 </a>
               </router-link>
             </li>
-            <li>
+            <li align="center">
               <router-link to="/user">
                 <a v-b-popover.hover="'UserPopover'" title="User Profile">
                   <span class="sidebar-icon"><i class=" fa fa-user-circle-o"></i></span>
@@ -20,7 +20,7 @@
                 </a>
               </router-link>
             </li>
-            <li>
+            <li align="center">
               <router-link to="/projects">
                 <a v-b-popover.hover="'UserPopover'" title="Projects">
                   <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
@@ -28,7 +28,7 @@
                 </a>
               </router-link>
             </li>
-            <li>
+            <li align="center">
               <router-link v-bind:to="'/releases/'+this.$route.params.id+'/sprints'">
                 <a v-b-popover.hover="'UserPopover'" title="Sprints" id="popover">
                   <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
@@ -39,7 +39,7 @@
                 </a>
               </router-link>
             </li>
-            <li>
+            <li align="center">
               <router-link v-bind:to="'/projects/'+this.$route.params.id+'/releases'">
                 <a v-b-popover.hover="'UserPopover'" title="Releases" >
                   <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
@@ -92,11 +92,9 @@ export default {
 }
 
 #sidebar-wrapper .sidebar-nav {
-  /*position: absolute;*/
-  /*top: 0;*/
-  /*width: 100%;*/
   font-size: 2em;
   list-style: none;
+  padding: 0;
 }
 
 #sidebar-wrapper .sidebar-nav li {
