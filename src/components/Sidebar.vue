@@ -81,27 +81,21 @@ export default {
 
 
 #sidebar-wrapper {
-  z-index: 10;
   position: fixed;
-  left: 14em;
   min-width: 4em;
   height: 100%;
-  margin-left: -14em;
   overflow-y: auto;
-  background: #95B0B9;
-}
-
-.sidebar-icon {
-  margin-left: 0.5em
+  background: #f8f9fa;
+  border-right: solid;
+  border-width: thin;
+  border-color: #ddd;
 }
 
 #sidebar-wrapper .sidebar-nav {
-  position: absolute;
-  top: 0;
-  width: 100%;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*width: 100%;*/
   font-size: 2em;
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
@@ -111,7 +105,7 @@ export default {
 }
 
 .sidebar-nav li a {
-  color: #113F51;
+  color: #3E5361;
 }
 
 </style>
