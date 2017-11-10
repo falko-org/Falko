@@ -19,13 +19,13 @@
                   <h4>{{issue.name}}</h4>
                   <h8 class="card-text text-muted">{{issue.body}}</h8>
               </div>
-                <div class="row " v-on:click="selectIssue(issue)">
-                  <div class="col">
-                    <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
-                  </div>
-                  <div class="col">
-                    <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="closeIssue">Close</button>
-                  </div>
+              <div class="row">
+                <div class="col">
+                  <edit-issue v-bind:selected_issue="issue"></edit-issue>
+                </div>
+                <div class="col">
+                  <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary btn-sm falko-button falko-button-danger">Close</button>
+                </div>
               </div>
             </div>
           </div>

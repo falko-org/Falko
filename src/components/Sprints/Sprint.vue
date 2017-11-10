@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row justify-content-around" id="sprintData">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <ul class="list-inline">
           <li class="list-inline-item vertical-center">
             <h1>{{sprint.name}}</h1>
@@ -18,15 +18,23 @@
           </p>
         </ul>
       </div>
-      <div class="col-md-3">
-        <ul class="list-inline">
+      <div class="col-md-5" align="end">
+          <li class="list-inline-item">
+            <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
+                               v-if="!isRetrospectiveCreated()"></add-retrospective>
+
+            <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
+              <button type="button" class="btn btn-info btn-md falko-button">
+                Retrospective
+              </button>
+            </router-link>
+          </li>
           <li class="list-inline-item">
             <edit-sprint></edit-sprint>
           </li>
           <li class="list-inline-item">
             <delete-sprint></delete-sprint>
           </li>
-        </ul>
       </div>
     </div>
   </div>
@@ -38,16 +46,20 @@ import { HTTP } from '../../http-common.js';
 import EditSprint from '@/components/Sprints/EditSprint';
 import DeleteSprint from '@/components/Sprints/DeleteSprint';
 import dateConvert from '@/mixins/dateConvert'
+import AddRetrospective from '@/components/Retrospective/AddRetrospective';
+import Retrospective from '@/components/Retrospective/Retrospective';
 
 export default{
   name: 'Sprint',
   components: {
     'edit-sprint': EditSprint,
     'delete-sprint': DeleteSprint,
+    'add-retrospective': AddRetrospective,
   },
   data() {
     return {
       sprint: {},
+      sprintRetrospective: [],
     };
   },
 
@@ -70,6 +82,42 @@ export default{
           this.errors.push(e);
         });
     },
+
+    getRetrospective() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var headers = { 'Authorization': tokenSimple2 };
+
+      HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers: headers })
+        .then((response) => {
+
+          this.sprintRetrospective = response.data;
+
+          if (this.sprintRetrospective.length == 0) {
+            this.setRetrospectiveAsNotCreated();
+          } else {
+            this.setRetrospectiveAsCreated();
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    setRetrospectiveAsCreated() {
+      localStorage.setItem('isRetrospectiveCreated', 'true');
+    },
+
+    setRetrospectiveAsNotCreated() {
+      localStorage.setItem('isRetrospectiveCreated', 'false');
+    },
+
+    isRetrospectiveCreated() {
+      var retrospective = localStorage.getItem('isRetrospectiveCreated');
+
+      return localStorage.getItem('isRetrospectiveCreated') == 'true'
+    }
   },
 
   ready() {
@@ -95,6 +143,7 @@ export default{
         });
     });
     this.getSprint();
+    this.getRetrospective();
   },
 };
 </script>
