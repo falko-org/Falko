@@ -5,13 +5,13 @@
 		      <div class="col-5 align-content-center">
 		        <p class="card-text">
 		          <div class="number-circle">
-		            <div class="GpaFont Vgreen" v-if="gpa > 3">
+		            <div class="gpa-font v-green" v-if="gpa > 3">
 		            	{{gpa}}
 		            </div>
-								<div class="GpaFont Vred" v-else-if="gpa < 2">
+								<div class="gpa-font v-red" v-else-if="gpa < 2">
 		            	{{gpa}}
 		            </div>
-								<div class="GpaFont Vyellow" v-else-if="gpa >= 2 && gpa <= 3">
+								<div class="gpa-font v-yellow" v-else-if="gpa >= 2 && gpa <= 3">
 		            	{{gpa}}
 		            </div>
 		            <h4> GPA </h4>
@@ -84,20 +84,20 @@ export default {
   left: 50%;
 }
 
-.GpaFont {
+.gpa-font {
   font-weight:bolder;
   font-size:1.2em;
 }
 
-.Vred{
+.v-red{
 	color: red;
 }
 
-.Vyellow{
+.v-yellow{
 	color: yellow;
 }
 
-.Vgreen{
+.v-green{
 	color: green;
 }
 
