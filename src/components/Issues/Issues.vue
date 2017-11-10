@@ -23,8 +23,8 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col" v-on:click="selectIssue(issue)">
-                  <edit-issue v-bind:selected_issue="selectedIssue"></edit-issue>
+                <div class="col">
+                  <edit-issue v-bind:selected_issue="issue"></edit-issue>
                 </div>
                 <div class="col">
                   <button type="button" v-on:click="closeIssue(issue.number), reload()" class="btn btn-primary falko-button falko-button-danger">Close</button>
