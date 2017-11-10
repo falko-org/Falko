@@ -1,23 +1,50 @@
 <template>
   <div>
     <navbar></navbar>
-    <router-view></router-view>
+    <div class="row">
+      <div class="col limit-sidebar" v-if="this.$route.path != '/' && isLogged()">
+        <sidebar></sidebar>
+      </div>
+      <div class="col">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
 export default {
   name: 'app',
 
    components: {
-    navbar: Navbar
+    navbar: Navbar,
+    sidebar: Sidebar
   },
+  
+  methods: {
+    isLogged(){
+      if (localStorage.getItem('token') != null) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
 }
 </script>
 
 <style>
+.limit-sidebar {
+  max-width: 4em;
+}
+
+.no-overflow {
+  overflow-x: hidden !important;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -43,7 +70,7 @@ input:focus {
   margin-left: 1em;
 }
 
-.falko-button {
+.falko-button, .falko-button-danger, .falko-button-grey {
   align-self: center;
   margin: 0.5em 0;
   border-radius: 2em;
@@ -54,23 +81,31 @@ input:focus {
   font-weight: bold;
 }
 
-.falko-button:hover {
+.falko-button-danger
+{
+  background-color: #AA0000;
+}
+
+.falko-button-grey
+{
+  background-color: #868e96;
+}
+
+.falko-button:enabled:hover {
   background-color: #6E9191;
 }
 
-.falko-button-danger {
-  align-self: center;
-  margin: 0.5em 0;
-  border-radius: 2em;
-  padding: 0.5em 2em;
-  cursor: pointer;
-  background-color: #AA0000;
-  border-width: 0;
-  font-weight: bold;
+.falko-button:disabled {
+  background-color: #86B1B1;
+  cursor: inherit;
 }
 
-.falko-button-danger:hover {
+.falko-button-danger:enabled:hover {
   background-color: #660000;
+}
+
+.falko-button-grey:hover {
+  background-color: #565e66;
 }
 
 .small-float-left {
@@ -78,6 +113,21 @@ input:focus {
 }
 
 .no-margin {
+  margin: 0;
+}
+
+/* Modifing Bootstrap Classes */
+.col {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+.modal-title {
+  font-weight: bold;
+  color: #6E9191;
   margin: 0;
 }
 </style>

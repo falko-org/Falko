@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="card-body">
-      <img src="../../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoLogin">
+      <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoLogin">
 
       <form id="loginForm"  @submit.prevent="login()">
         <div class="form-group">
@@ -19,33 +19,33 @@
 </template>
 
 <script>
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common';
 
 export default {
-  data () {
+  data() {
     return {
       email: '',
-      password: ''
-    }
+      password: '',
+    };
   },
 
   methods: {
-    login () {
+    login() {
       HTTP.post('authenticate', {
         email: this.email,
-        password: this.password
+        password: this.password,
       })
-      .then((response) => {
-        localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-        localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
-        this.$router.push({ name: 'Projects' });
-      })
-      .catch (e => {
-        this.errors.push(e)
-      });
-    }
-  }
-}
+        .then((response) => {
+          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
+          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+          this.$router.push({ name: 'Projects' });
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+  },
+};
 </script>
 
 <style>

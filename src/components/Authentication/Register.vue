@@ -1,7 +1,7 @@
 <template>
   <div id="register">
     <div class="card-body">
-      <img src="../../assets/logo.png" class="rounded mx-auto d-block" id="falkoLogoRegister">
+      <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoRegister">
 
       <form id="registerForm" @submit.prevent="register()">
         <div class="form-group">
@@ -47,14 +47,14 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then((response) => {
-          this.$router.push({ name: 'Projects' });
-          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.$router.push({ name: 'Projects' });
+        localStorage.setItem('token', JSON.stringify(response.data.auth_token));
+        localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     register() {
@@ -67,12 +67,12 @@ export default {
           github: this.github,
         },
       })
-        .then(() => {
-          this.login();
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then(() => {
+        this.login();
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
   },
 };
