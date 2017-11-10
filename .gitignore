@@ -22,3 +22,5 @@ node_modules
 
 #Ignore Sublime temporary files
 .DS_Store
+
+test/unit/coverage/

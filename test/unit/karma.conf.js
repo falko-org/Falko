@@ -1,18 +1,19 @@
 // Karma configuration
 // Generated on Sat Sep 30 2017 17:20:10 GMT+0000 (UTC)
-var webpackConfig = require('../../build/webpack.test.conf.js')
-delete webpackConfig.entry
-module.exports = function(config) {
+const webpackConfig = require('../../build/webpack.test.conf.js');
+
+delete webpackConfig.entry;
+module.exports = function (config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: ['./index.js'],
+    files: ['../../node_modules/es6-promise/dist/es6-promise.auto.js', './index.js'],
     // we will pass the entry file to webpack for bundling.
     preprocessors: {
-      './index.js': ['webpack', 'sourcemap']
+      './index.js': ['webpack', 'sourcemap'],
     },
     plugins: [
       // Launchers
@@ -28,7 +29,7 @@ module.exports = function(config) {
 
       // Reporters
       'karma-spec-reporter',
-      'karma-coverage'
+      'karma-coverage',
     ],
     // optionally, configure the reporter
     coverageReporter: {
@@ -36,7 +37,7 @@ module.exports = function(config) {
       reporters: [
         { type: 'lcov', subdir: '.' },
         { type: 'text-summary' },
-      ]
+      ],
     },
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -54,7 +55,7 @@ module.exports = function(config) {
     webpackMiddleware: {
       // webpack-dev-middleware configuration
       // i. e.
-      stats: 'errors-only'
+      stats: 'errors-only',
     },
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -64,6 +65,6 @@ module.exports = function(config) {
     singleRun: false,
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
-  })
-}
+    concurrency: Infinity,
+  });
+};

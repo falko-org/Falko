@@ -24,7 +24,7 @@ export default {
   mounted() {
     const code = window.location.search.split('=')[1];
     const headers = { Authorization: this.token };
-
+    console.log(headers);
     HTTP.post('request_github_token', {
       code,
       id: this.userId,
