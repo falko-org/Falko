@@ -117,6 +117,8 @@ function doRequisitions(repos, length) {
       HTTP.post(`users/${userId}/projects`, {
         name: repo,
         is_project_from_github: true,
+        is_scoring: true,
+        github_slug: "slug"
       }, { headers })
         .then((response) => {
           count++;
