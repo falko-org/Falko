@@ -22,8 +22,13 @@ import UserProfile from '@/components/Users/UserProfile';
 import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
+<<<<<<< HEAD
 import Gpa from '@/components/Gpa';
 import Retrospective from '@/components/Retrospective/Retrospective';
+=======
+import Issues from '@/components/Issues/Issues';
+import Retrospective from '@/components/Retrospective/Retrospective'
+>>>>>>> devel
 
 Vue.use(Router);
 
@@ -142,7 +147,7 @@ const router = new Router({
       component: NoContent,
     },
     {
-      path: '/notFound',
+      path: '*',
       name: 'NotFound',
       component: NotFound,
     },
@@ -150,6 +155,11 @@ const router = new Router({
       path: '/gpa',
       name: 'Gpa',
       component: Gpa,
+    },
+    {
+      path: '/project/:id/issues',
+      name: 'Issues',
+      component: Issues,
     },
     {
       path: '/retrospectives/:id',
@@ -164,8 +174,6 @@ export default router;
 router.beforeEach((to, from, next) => {
   if (to.path === '/' || to.path === '/notFound') {
     next();
-  } else if (!to.matched.length) {
-    next('/notFound');
   } else if (localStorage.getItem('token') === null) {
     next('/');
   } else {
