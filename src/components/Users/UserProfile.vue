@@ -34,8 +34,15 @@
       <div class="col-md-2">
         <delete-user-profile></delete-user-profile>
       </div>
-      <div class="col-md-2">
-        <button class="falko-button btn btn-primary" v-on:click="link()">Link to Github</button>
+      <div v-if="!isGitHubLinked()">
+        <button class="falko-button btn btn-primary" v-on:click="link()">
+          Link to Github
+        </button>
+      </div>
+      <div v-else>
+        <button type="button" class="btn btn-info btn-md falko-button-grey disabled-cursor">
+          Link to Github
+        </button>
       </div>
     </div>
   </div>
@@ -83,8 +90,16 @@ export default {
           this.errors.push(e);
         });
     },
+
     link() {
       window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+    },
+
+    isGitHubLinked() {
+      if (this.is_github_authenticated) {
+        return true;
+      }
+      return false;
     },
   },
   mounted() {
