@@ -111,8 +111,6 @@ export default{
     },
 
     isRetrospectiveCreated() {
-      const retrospective = localStorage.getItem('isRetrospectiveCreated');
-
       return localStorage.getItem('isRetrospectiveCreated') === 'true';
     },
 
