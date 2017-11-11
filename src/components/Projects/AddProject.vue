@@ -56,6 +56,8 @@ export default {
           name: this.name,
           description: this.description,
           is_project_from_github: false,
+          github_slug: null,
+          is_scoring: false,
         },
       }, { headers })
         .then(() => {

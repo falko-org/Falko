@@ -10,7 +10,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { HTTP } from '../../http-common';
+import { HTTP } from '../../http-common.js';
 
 export default{
   data() {
@@ -72,19 +72,19 @@ export default{
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
+      user: '',
     };
   },
   methods: {
     getRepos() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
-
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
       HTTP.get('repos', { headers })
         .then((response) => {
           this.userRepos = response.data.user[1].repos;
           this.orgsRepos = response.data.orgs;
+          this.user = response.data.user[0].login;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -98,25 +98,25 @@ export default{
       }
     },
     importGithubProjects() {
-      doRequisitions(this.selectedRepos, this.selectedRepos.length)
+      doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
         .then((response) => { this.$emit('added'); })
         .catch(e => console.log(e.message));
     },
   },
 };
-
-function doRequisitions(repos, length) {
+function doRequisitions(repos, length, user) {
   return new Promise((resolve, reject) => {
     const rawToken = localStorage.getItem('token');
     const token = rawToken.replace(/"/, '').replace(/"/, '');
     const headers = { Authorization: token };
     const userId = localStorage.getItem('user_id');
-
     let count = 0;
     for (const repo of repos) {
       HTTP.post(`users/${userId}/projects`, {
         name: repo,
+        github_slug: `${user}/${repo}`,
         is_project_from_github: true,
+        is_scoring: false,
       }, { headers })
         .then((response) => {
           count++;
@@ -128,17 +128,13 @@ function doRequisitions(repos, length) {
     }
   });
 }
-
 </script>
 
 <style scoped>
-
 .vue-js-switch {
   float: right;
 }
-
 .pointer-cursor {
   cursor: pointer;
 }
-
 </style>
