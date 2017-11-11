@@ -24,6 +24,7 @@ import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
 import Issues from '@/components/Issues/Issues';
 import Retrospective from '@/components/Retrospective/Retrospective'
+import Assignee from '@/components/Issues/Assignee'
 
 Vue.use(Router);
 
@@ -155,6 +156,11 @@ const router = new Router({
       path: '/retrospectives/:id',
       name: 'Retrospective',
       component: Retrospective,
+    },
+    {
+      path: '/project/:id/issues/assignee',
+      name: 'Assignee',
+      component: Assignee,
     },
   ],
 })
