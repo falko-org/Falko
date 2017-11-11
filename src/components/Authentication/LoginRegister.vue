@@ -16,19 +16,20 @@
         <register></register>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
-import Login from '@/components/Authentication/Login'
-import Register from '@/components/Authentication/Register'
+import Login from './Login.vue';
+import Register from './Register.vue';
+
 export default {
 
   components: {
-    'login': Login,
-    'register': Register
-  }
-}
+    login: Login,
+    register: Register,
+  },
+};
 </script>
 
 <style>

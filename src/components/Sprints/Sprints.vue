@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import { HTTP } from '../../http-common.js';
-import AddSprint from '@/components/Sprints/AddSprint';
-import NoContent from '@/components/NoContent';
+import AddSprint from './AddSprint.vue';
+import NoContent from '../NoContent.vue';
+import { HTTP } from '../../http-common';
 
 export default{
   components: {
@@ -42,12 +42,12 @@ export default{
   },
   methods: {
     getSprints() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
-      HTTP.get(`releases/${this.$route.params.id}/sprints`, { headers: headers })
+      HTTP.get(`releases/${this.$route.params.id}/sprints`, { headers })
         .then((response) => {
           this.sprints = response.data;
         })
