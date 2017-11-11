@@ -45,7 +45,7 @@
           <h3 class="modal-title">
             Add Sprint Retrospective
           </h3>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
