@@ -8,29 +8,25 @@
         <add-issue></add-issue>
       </div>
     </div>
-    <table width="1750" v-for="i in Math.ceil(issues.length / 2)">
-    <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
-    <div class="row">
-      <div v-for="issue in issues.slice((i-1) * 4 , i * 4)" class="col-3 text-center">
+    <div v-for="i in Math.ceil(issues.length / 2)">
+      <div class="row">
+        <div v-for="issue in issues.slice((i-1) * 3 , i * 3)" class="col text-center">
         <div align="center">
           <div class="card" id="issueCard">
             <div class="card-body">
-              <div class="text-align:center">
                 <div class="row">
                   <div class="col">
                   <h4 class="float-left">{{issue.name}}</h4>
                   </div>
-                  <div class="col">
-                    <div class="number-circle margin-left">
+                  <div class="col-6 align-self-center">
+                    <div class="float-right ">Points</div>
+                    <div class="float-right number-circle">
                       <div id="pointsFont">
                         2
                       </div>
                     </div>
-                    Points
                  </div>
                </div>
-              </div>
-              <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
               <div class="row">
                 <div class="col-3" id="colIssue">
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
@@ -47,7 +43,7 @@
         </div>
       </div>
     </div>
-  </table>
+  </div>
 
   </div>
 </template>
@@ -173,17 +169,18 @@ h8{
 .number-circle {
   font: 32px Arial, sans-serif;
 
-  width: 0.7em;
-  height: 0.7em;
+  width: 0.5em;
+  height: 0.5em;
   box-sizing: initial;
 
   background: #fff;
   border: 0.1em solid;
+  margin-right: 0.3em;
   border-style: solid;
   color: #7799A5;
   border-radius: 50%;
 
-  line-height: 0.7em;
+  line-height: 0.5em;
   box-sizing: content-box;
   top: 50%;
   left: 50%;
