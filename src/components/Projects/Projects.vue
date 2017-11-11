@@ -3,6 +3,7 @@
     <div v-if="isProjectsEmpty()">
       <no-content parent ="Project"></no-content>
     </div>
+    <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
     <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)">
       <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
         <div align="center">
@@ -108,10 +109,14 @@ div a {
 }
 #projectCard:hover {
   /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
-  border-color: #7799A5;
+  /*border-color: #7799A5;*/
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+  border-color: #87A9B5;
 }
 #projectCard {
-  width: 30em;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+  transition: 0.2s;
+  /*width: 30em;*/
 }
 #projectHeader {
   background-color: #7799A5;
