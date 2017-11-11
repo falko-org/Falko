@@ -18,48 +18,47 @@
           </p>
         </ul>
       </div>
-      <div class="col-md-5" align="end">
-          <li class="list-inline-item">
-            <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
-                               v-if="!isRetrospectiveCreated()"></add-retrospective>
+      <div class="col-md-6" align="end">
+        <li class="list-inline-item">
+          <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
+          v-if="!isRetrospectiveCreated()"></add-retrospective>
 
-            <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
-              <button type="button" class="btn btn-info btn-md falko-button">
-                Retrospective
-              </button>
-            </router-link>
-          </li>
-          <li class="list-inline-item">
-            <add-revision v-on:revisionCreated="setRevisionAsCreated()"
-                               v-if="!isRevisionCreated()"></add-revision>
+          <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Retrospective
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
+          <add-revision v-on:revisionCreated="setRevisionAsCreated()"
+          v-if="!isRevisionCreated()"></add-revision>
 
-            <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
-              <button type="button" class="btn btn-info btn-md falko-button">
-                Revision
-              </button>
-            </router-link>
-          </li>
-          <li class="list-inline-item">
-            <edit-sprint></edit-sprint>
-          </li>
-          <li class="list-inline-item">
-            <delete-sprint></delete-sprint>
-          </li>
+          <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Revision
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
+          <edit-sprint v-on:edited-sprint="refreshSprint()"></edit-sprint>
+        </li>
+        <li class="list-inline-item">
+          <delete-sprint></delete-sprint>
+        </li>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { EventBus } from '../../event-bus.js';
-import { HTTP } from '../../http-common.js';
-import EditSprint from '@/components/Sprints/EditSprint';
-import DeleteSprint from '@/components/Sprints/DeleteSprint';
-import dateConvert from '@/mixins/dateConvert'
-import AddRetrospective from '@/components/Retrospective/AddRetrospective';
-import Retrospective from '@/components/Retrospective/Retrospective';
-import AddRevision from '@/components/Revision/AddRevision';
-import Revision from '@/components/Revision/Revision';
+import EditSprint from './EditSprint.vue';
+import DeleteSprint from './DeleteSprint.vue';
+import dateConvert from '../../mixins/dateConvert';
+import AddRetrospective from '../Retrospective/AddRetrospective.vue';
+import Retrospective from '../Retrospective/Retrospective.vue';
+import AddRevision from '../Revision/AddRevision.vue';
+import Revision from '../Revision/Revision.vue';
+import { HTTP } from '../../http-common';
 
 export default{
   name: 'Sprint',
@@ -77,46 +76,45 @@ export default{
     };
   },
 
-  mixins: [ dateConvert ],
+  mixins: [dateConvert],
 
   methods: {
     getSprint() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
-      HTTP.get(`sprints/${this.$route.params.id}`, { headers: headers })
-        .then((response) => {
-          this.sprint = response.data;
-          this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
-          this.sprint.final_date = this.dateConvert(this.sprint.final_date);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      HTTP.get(`sprints/${this.$route.params.id}`, { headers })
+      .then((response) => {
+        this.sprint = response.data;
+        this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
+        this.sprint.final_date = this.dateConvert(this.sprint.final_date);
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     getRetrospective() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization': tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
-      HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers: headers })
-        .then((response) => {
+      HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
+      .then((response) => {
+        this.sprintRetrospective = response.data;
 
-          this.sprintRetrospective = response.data;
-
-          if (this.sprintRetrospective.length == 0) {
-            this.setRetrospectiveAsNotCreated();
-          } else {
-            this.setRetrospectiveAsCreated();
-          }
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        if (this.sprintRetrospective.length === 0) {
+          this.setRetrospectiveAsNotCreated();
+        } else {
+          this.setRetrospectiveAsCreated();
+        }
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     setRetrospectiveAsCreated() {
@@ -128,28 +126,26 @@ export default{
     },
 
     isRetrospectiveCreated() {
-      var retrospective = localStorage.getItem('isRetrospectiveCreated');
-
-      return localStorage.getItem('isRetrospectiveCreated') == 'true'
+      return localStorage.getItem('isRetrospectiveCreated') === 'true';
     },
 
     getRevision() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization': tokenSimple2 };
-        HTTP.get(`sprints/${this.$route.params.id}/revisions`, { headers: headers })
-        .then((response) => {
-          this.sprintRevision = response.data;
-          if (this.sprintRevision == null) {
-            this.setRevisionAsNotCreated();
-          } else {
-            this.setRevisionAsCreated();
-          }
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
+      HTTP.get(`sprints/${this.$route.params.id}/revisions`, { headers })
+      .then((response) => {
+        this.sprintRevision = response.data;
+        if (this.sprintRevision == null) {
+          this.setRevisionAsNotCreated();
+        } else {
+          this.setRevisionAsCreated();
+        }
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     setRevisionAsCreated() {
@@ -161,10 +157,14 @@ export default{
     },
 
     isRevisionCreated() {
-      var revision = localStorage.getItem('isRevisionCreated');
+      const revision = localStorage.getItem('isRevisionCreated');
 
-      return localStorage.getItem('isRevisionCreated') == 'true'
-    }
+      return localStorage.getItem('isRevisionCreated') == 'true';
+    },
+
+    refreshSprint() {
+      this.getSprint();
+    },
   },
 
   ready() {
@@ -172,23 +172,6 @@ export default{
   },
 
   mounted() {
-    const myThis = this;
-
-    var token = localStorage.getItem('token');
-    var tokenSimple = token.replace(/"/, "");
-    var tokenSimple2 = tokenSimple.replace(/"/, "");
-    var headers = { 'Authorization': tokenSimple2 };
-
-
-    EventBus.$on('edited-sprint', () => {
-      HTTP.get(`sprints/${this.$route.params.id}`, { headers: headers })
-        .then((response) => {
-          myThis.project = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    });
     this.getSprint();
     this.getRetrospective();
     this.getRevision();

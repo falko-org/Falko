@@ -1,23 +1,50 @@
 <template>
   <div>
     <navbar></navbar>
-    <router-view></router-view>
+    <div class="row">
+      <div class="col limit-sidebar" v-if="this.$route.path != '/' && isLogged()">
+        <sidebar></sidebar>
+      </div>
+      <div class="col no-white-bar">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
 export default {
   name: 'app',
 
    components: {
-    navbar: Navbar
+    navbar: Navbar,
+    sidebar: Sidebar
   },
+
+  methods: {
+    isLogged(){
+      if (localStorage.getItem('token') != null) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  }
 }
 </script>
 
 <style>
+.limit-sidebar {
+  max-width: 4em;
+}
+
+.no-overflow {
+  overflow-x: hidden !important;
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -73,7 +100,7 @@ input:focus {
   cursor: inherit;
 }
 
-.falko-button-danger:hover {
+.falko-button-danger:enabled:hover {
   background-color: #660000;
 }
 
@@ -89,9 +116,22 @@ input:focus {
   margin: 0;
 }
 
+/* Modifing Bootstrap Classes */
+.col {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
+
 .modal-title {
   font-weight: bold;
   color: #6E9191;
   margin: 0;
+}
+
+.no-white-bar {
+  margin: -1.7% 0;
 }
 </style>
