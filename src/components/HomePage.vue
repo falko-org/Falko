@@ -65,15 +65,15 @@ import LoginRegister from './Authentication/LoginRegister.vue'
 
 export default {
   components: {
-    'login-register': LoginRegister
+    'login-register': LoginRegister,
   },
 
-  data () {
+  data() {
     return {
 
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped>
