@@ -101,7 +101,7 @@ export default {
 
       HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
       .then(response =>{
-				this.$router.push({ path : `/project/${this.$route.params.id}/issues`});
+				this.$router.push({ path : `/projects/${this.$route.params.id}/issues`});
         this.getIssues();
 			})
 			.catch(e =>{

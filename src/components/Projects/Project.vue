@@ -19,7 +19,7 @@
     </div>
     <div class="row justify-content-center" id="buttons">
       <div class="col-md-2" align="center">
-        <router-link v-bind:to="'/project/'+project.id+'/issues'">
+        <router-link v-bind:to="'/projects/'+project.id+'/issues'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Backlog
           </button>
