@@ -13,11 +13,17 @@
                 <span aria-hidden="true">&times;</span>
               </button>
           </div>
-          <div class="modal-body">
-            <p><label> Name </label></p>
-            <input type = "text" v-model="name" placeholder="Name"></input><br>
-            <p><label> Description </label></p>
-            <input type = "text" v-model="body" placeholder="Description"></input><br>
+          <div class="modal-body row">
+            <div class="col">
+              <p><label> Name </label></p>
+              <input type = "text" v-model="name" placeholder="Name"></input><br>
+              <p><label> Description </label></p>
+              <input type = "text" v-model="body" placeholder="Description"></input><br>
+            </div>
+            <div class="col">
+              <p><label> Assignees </label></p>
+              <input type = "text" placeholder="Assignees"></input><br>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue()" data-dismiss="modal">Save</button>
@@ -37,12 +43,29 @@ export default {
       name: "",
       body: "",
       number: "",
+      contributors: []
     }
   },
 
   props: ["selected_issue"],
 
   methods: {
+
+    getContributors() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var header = { 'Authorization': tokenSimple2 };
+
+      HTTP.get(`projects/${this.$route.params.id}/contributors`, { headers: header })
+        .then((response) => {
+          this.contributors = response.data
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
     editIssue() {
 
       var token = localStorage.getItem('token');
@@ -71,6 +94,10 @@ export default {
       this.body = this.selected_issue.body,
       this.number = this.selected_issue.number
     }
+  },
+
+  mounted() {
+    this.getContributors();
   }
 }
 

@@ -33,8 +33,8 @@
                   <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
                 </div>
                 <div class="col">
-                  <h8 class="card-text text-muted" v-if="issue.body.length < 20">{{issue.body}}</h8>
-                  <h8 class="card-text text-muted" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</h8>
+                  <p class="card-text text-muted" v-if="issue.body.length < 20">{{issue.body}}</p>
+                  <p class="card-text text-muted" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</p>
                 </div>
               </div>
             </div>
@@ -64,12 +64,14 @@ export default {
   data () {
     return {
       issues: [],
+      contributors: [],
       selectedIssue: ''
     }
   },
 
   methods: {
-    selectIssue(issue){
+
+    selectIssue(issue) {
       this.selectedIssue = issue;
     },
 
@@ -116,6 +118,7 @@ export default {
 
   mounted() {
     this.getIssues();
+    this.getContributors();
   },
 
 }
@@ -129,7 +132,7 @@ export default {
   padding: 0;
 }
 
-h8{
+p{
     width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;

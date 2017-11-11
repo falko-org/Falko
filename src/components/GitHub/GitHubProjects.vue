@@ -118,6 +118,7 @@ function doRequisitions(repos, length) {
         name: repo,
         is_project_from_github: true,
         is_scoring: false,
+        github_slug: "danieloda/ApiGithubTest", 
       }, { headers })
         .then((response) => {
           count++;
