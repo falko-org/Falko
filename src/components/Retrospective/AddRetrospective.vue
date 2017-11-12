@@ -33,42 +33,42 @@
             data-dismiss="modal"
             >
             Save
-          </button>
-          <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
-            Cancel
-          </button>
-        </div>
-        <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title">
-                  Add Sprint Retrospective
-                </h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
-                <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
-                <list parent="Improvements" v-on:listUpdated="updateList"></list>
-                <textarea class="text-justify"
-                placeholder="Input your sprint report..."
-                v-model="sprintReport"
-                />
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-info btn-md falko-button"
-                v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-                data-dismiss="modal"
-                >
-                Save
-                </button>
-                <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
-                  Cancel
-                </button>
-              </div>
+            </button>
+            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+          <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title">
+                    Add Sprint Retrospective
+                  </h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
+                  <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
+                  <list parent="Improvements" v-on:listUpdated="updateList"></list>
+                  <textarea class="text-justify"
+                  placeholder="Input your sprint report..."
+                  v-model="sprintReport"
+                  />
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-info btn-md falko-button"
+                  v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
+                  data-dismiss="modal"
+                  >
+                  Save
+                  </button>
+                  <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -120,15 +120,15 @@ export default {
         negative_points: this.negativePoints,
         improvements: this.improvements,
       }, { headers })
-        .then((response) => {
-          this.$emit('retrospectiveCreated');
-          this.retrospectiveId = response.data.id;
+      .then((response) => {
+        this.$emit('retrospectiveCreated');
+        this.retrospectiveId = response.data.id;
 
-          this.$router.push({ path: `/retrospectives/${this.retrospectiveId}` });
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        this.$router.push({ path: `/retrospectives/${this.retrospectiveId}` });
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     updateList(items, parent) {

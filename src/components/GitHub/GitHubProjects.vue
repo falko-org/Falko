@@ -73,6 +73,7 @@ export default {
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
+      user: '',
     };
   },
   computed: {
@@ -89,6 +90,7 @@ export default {
         .then((response) => {
           this.userRepos = response.data.user;
           this.orgsRepos = response.data.orgs;
+          this.user = response.data.user[0].login;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -102,7 +104,7 @@ export default {
       }
     },
     importGithubProjects() {
-      this.doRequisitions(this.selectedRepos, this.selectedRepos.length)
+      doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
         .then(() => { this.$emit('added'); })
         .catch(e => console.log(e.message));
     },
@@ -127,16 +129,37 @@ export default {
     },
   },
 };
-  </script>
+function doRequisitions(repos, length, user) {
+  return new Promise((resolve, reject) => {
+    const rawToken = localStorage.getItem('token');
+    const token = rawToken.replace(/"/, '').replace(/"/, '');
+    const headers = { Authorization: token };
+    const userId = localStorage.getItem('user_id');
+    let count = 0;
+    for (const repo of repos) {
+      HTTP.post(`users/${userId}/projects`, {
+        name: repo,
+        github_slug: `${user}/${repo}`,
+        is_project_from_github: true,
+        is_scoring: false,
+      }, { headers })
+        .then((response) => {
+          count++;
+          if (count === length) {
+            resolve(response);
+          }
+        })
+        .catch(e => reject(e));
+    }
+  });
+}
+</script>
 
-  <style scoped>
-
-  .vue-js-switch {
-    float: right;
-  }
-
-  .pointer-cursor {
-    cursor: pointer;
-  }
-
-  </style>
+<style scoped>
+.vue-js-switch {
+  float: right;
+}
+.pointer-cursor {
+  cursor: pointer;
+}
+</style>

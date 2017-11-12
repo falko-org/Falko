@@ -50,17 +50,24 @@ export default {
       if (this.authenticated) {
         return true;
       }
-
-      return false;
-    },
-  },
-};
+      else {
+        return false;
+      }
+    }
+  }
+}
 </script>
 
 <style scoped>
 
 .falko-brand:hover {
   cursor: pointer;
+}
+
+.navbar {
+  border-bottom: solid;
+  border-width: thin;
+  border-color: #ddd;
 }
 
 </style>
