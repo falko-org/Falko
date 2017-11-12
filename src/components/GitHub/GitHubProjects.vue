@@ -74,6 +74,7 @@ export default{
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
+      user: '',
     };
   },
   methods: {
@@ -103,7 +104,7 @@ export default{
     },
 
     importGithubProjects() {
-      doRequisitions(this.selectedRepos, this.selectedRepos.length)
+      doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
         .then(() => { this.$emit('added'); })
         .catch(e => console.log(e.message));
     },
@@ -123,19 +124,19 @@ export default{
     },
   },
 };
-
-function doRequisitions(repos, length) {
+function doRequisitions(repos, length, user) {
   return new Promise((resolve, reject) => {
     const rawToken = localStorage.getItem('token');
     const token = rawToken.replace(/"/, '').replace(/"/, '');
     const headers = { Authorization: token };
     const userId = localStorage.getItem('user_id');
-
     let count = 0;
     for (const repo of repos) {
       HTTP.post(`users/${userId}/projects`, {
         name: repo,
+        github_slug: `${user}/${repo}`,
         is_project_from_github: true,
+        is_scoring: false,
       }, { headers })
         .then((response) => {
           count += 1;
@@ -150,13 +151,10 @@ function doRequisitions(repos, length) {
 </script>
 
 <style scoped>
-
 .vue-js-switch {
   float: right;
 }
-
 .pointer-cursor {
   cursor: pointer;
 }
-
 </style>

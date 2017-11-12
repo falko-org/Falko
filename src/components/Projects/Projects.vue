@@ -9,9 +9,12 @@
           <div class="card">
             <div class="card-body project">
               <h4 class="card-title">
-                {{project.name}}
+                  {{project.name}}
               </h4>
               <p class="card-text text-muted">{{project.description}}</p>
+              <div class="col-md-0" align="center">
+                <Gpa></Gpa>
+              </div>
             </div>
           </div>
         </router-link>
@@ -30,10 +33,11 @@
 </template>
 
 <script>
-import AddProject from './AddProject.vue';
-import NoContent from '../NoContent.vue';
-import GitHubProjects from '../GitHub/GitHubProjects.vue';
-import { HTTP } from '../../http-common';
+import AddProject from '@/components/Projects/AddProject';
+import {HTTP} from '../../http-common.js';
+import NoContent from '@/components/NoContent';
+import GitHubProjects from '@/components/GitHub/GitHubProjects';
+import Gpa from '@/components/Gpa'
 
 export default {
 
@@ -42,6 +46,7 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
+     Gpa
   },
   data() {
     return {
@@ -56,7 +61,10 @@ export default {
       const headers = { Authorization: token };
       const userId = localStorage.getItem('user_id');
 
-      HTTP.get(`users/${userId}/projects`, { headers })
+      var userId = localStorage.getItem('user_id');
+      var userInt = parseInt(userId);
+
+      HTTP.get(`users/${userInt}/projects`, { headers: headers })
         .then((response) => {
           this.projects = response.data;
         })
