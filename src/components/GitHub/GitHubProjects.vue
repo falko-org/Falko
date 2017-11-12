@@ -1,16 +1,9 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <div v-if="isGitHubLinked()">
-        <button type="button" class="btn btn-info btn-md falko-button" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
-          Import GitHub repository
-        </button>
-      </div>
-      <div v-else>
-        <button type="button" class="btn btn-info btn-md falko-button-grey disabled-cursor">
-          Import GitHub repository
-        </button>
-      </div>
+      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
+        Import GitHub repository
+      </button>
     </div>
     <div class="modal fade" id ="githubModal" role="dialog">
       <div class="modal-dialog">
@@ -85,19 +78,20 @@ export default{
   },
   methods: {
     getRepos() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
-
-      HTTP.get('repos', { headers })
-        .then((response) => {
-          this.userRepos = response.data.user[1].repos;
-          this.orgsRepos = response.data.orgs;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      if (this.isGitHubLinked()) {
+        const rawToken = localStorage.getItem('token');
+        const token = rawToken.replace(/"/, '').replace(/"/, '');
+        const headers = { Authorization: token };
+        HTTP.get('repos', { headers })
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+            this.user = response.data.user[0].login;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      }
     },
 
     toggleButtonChanged(name, event) {
@@ -119,6 +113,13 @@ export default{
         return true;
       }
       return false;
+    },
+
+    buttonClass() {
+      if (this.gitHubLinked) {
+        return 'falko-button btn btn-primary';
+      }
+      return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
   },
 };
@@ -156,10 +157,6 @@ function doRequisitions(repos, length) {
 
 .pointer-cursor {
   cursor: pointer;
-}
-
-.disabled-cursor {
-  cursor: inherit;
 }
 
 </style>

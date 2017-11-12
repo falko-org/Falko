@@ -119,8 +119,4 @@ a:hover {
   font-weight: bold;
 }
 
-.disabled-button-github {
-  cursor: none;
-}
-
 </style>

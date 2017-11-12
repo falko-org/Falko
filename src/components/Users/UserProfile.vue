@@ -34,13 +34,8 @@
       <div class="col-md-2">
         <delete-user-profile></delete-user-profile>
       </div>
-      <div v-if="!isGitHubLinked()">
-        <button class="falko-button btn btn-primary" v-on:click="link()">
-          Link to Github
-        </button>
-      </div>
-      <div v-else>
-        <button type="button" class="btn btn-info btn-md falko-button-grey disabled-cursor">
+      <div>
+        <button v-bind:class="buttonClass()" v-on:click="link()">
           Link to Github
         </button>
       </div>
@@ -92,7 +87,9 @@ export default {
     },
 
     link() {
-      window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+      if (!this.isGitHubLinked()) {
+        window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+      }
     },
 
     isGitHubLinked() {
@@ -100,6 +97,13 @@ export default {
         return true;
       }
       return false;
+    },
+
+    buttonClass() {
+      if (this.isGitHubLinked()) {
+        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+      }
+      return 'falko-button btn btn-primary';
     },
   },
   mounted() {
