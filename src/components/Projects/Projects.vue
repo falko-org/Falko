@@ -34,10 +34,10 @@
 
 <script>
 import AddProject from '@/components/Projects/AddProject';
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Gpa from '@/components/Gpa'
+import Gpa from '@/components/Gpa';
 
 export default {
 
@@ -46,7 +46,7 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-     Gpa
+    Gpa,
   },
   data() {
     return {
@@ -61,10 +61,7 @@ export default {
       const headers = { Authorization: token };
       const userId = localStorage.getItem('user_id');
 
-      var userId = localStorage.getItem('user_id');
-      var userInt = parseInt(userId);
-
-      HTTP.get(`users/${userInt}/projects`, { headers: headers })
+      HTTP.get(`users/${userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
