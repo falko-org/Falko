@@ -1,23 +1,16 @@
 <template>
-  <div>
+  <div v-on:edited-score="getScoreInformation()">
     <div id="isScoring">
       <div class="row">
         <div class="col">
-          Is this project scoring?
+          <p>Is this project scoring?</p>
         </div>
         <div class="col">
           <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged($event)"
-          :value="false"
+          :value="this.isScoring"
+          :sync="true"
           color="#AEC3B0"
           :labels="true" />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          Setted as:
-        </div>
-        <div class="col">
-          {{is_scoring}}
         </div>
       </div>
     </div>
@@ -48,10 +41,6 @@ export default {
     getScoreInformation() {
       this.isScoring = this.is_scoring;
     },
-  },
-
-  mounted() {
-    this.getScoreInformation();
   },
 };
 </script>

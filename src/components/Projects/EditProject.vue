@@ -1,6 +1,6 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal">
+    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal" v-on:click="refreshScoreInformation()">
       Edit
     </button>
     <div class="modal fade" id ="editModal" role="dialog">
@@ -89,6 +89,11 @@ export default{
 
     refreshIsScoring(event) {
       this.isScoring = event;
+      this.$children[0].getScoreInformation();
+    },
+
+    refreshScoreInformation() {
+      this.$children[0].getScoreInformation();
     },
   },
   created() {
