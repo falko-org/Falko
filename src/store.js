@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
+import { window } from 'vue-windows';
 import auth from './services/auth/index';
 
 Vue.use(Vuex);

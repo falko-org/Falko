@@ -86,17 +86,6 @@ describe('On GitHubProjects import', () => {
   let store;
   beforeEach(() => {
     Vue.use(Vuex);
-    const response = new Promise(r => r({
-      data: {
-        user: [{ login: 'pedrokelvin' }, { repos: ['userRepo1', 'userRepo2'] }],
-        orgs: [{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }],
-      },
-    }));
-
-    const response_catch = new Promise((resolve, reject) => reject(new Error('Error no http')));
-
-    sandbox.stub(HTTP, 'get').returns(response);
-    sandbox.stub(HTTP, 'post').returns(response_catch);
 
     state = {
       auth: {
@@ -114,10 +103,18 @@ describe('On GitHubProjects import', () => {
   });
 
   it('should import projects', (done) => {
+    const response = new Promise(r => r({
+      data: {
+        user: [{ login: 'pedrokelvin' }, { repos: ['userRepo1', 'userRepo2'] }],
+        orgs: [{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }],
+      },
+    }));
+    sandbox.stub(HTTP, 'post').returns(response);
+
     const Constructor = Vue.extend(GitHubProjects);
     const component = new Constructor({ store });
     component.selectedRepos = ['userRepo1', 'userRepo2'];
-    const spy = sandbox.spy(component, '$emit');
+    const spy = sandbox.spy(component, 'importGithubProjects');
 
     component.importGithubProjects();
     process.nextTick(() => {
@@ -127,6 +124,9 @@ describe('On GitHubProjects import', () => {
   });
 
   it('should not import projects', (done) => {
+    const responseCatch = new Promise((resolve, reject) => reject(new Error('Error in http')));
+    sandbox.stub(HTTP, 'post').returns(responseCatch);
+
     const Constructor = Vue.extend(GitHubProjects);
     const component = new Constructor({ store });
     component.selectedRepos = ['userRepo1', 'userRepo2'];
@@ -134,7 +134,7 @@ describe('On GitHubProjects import', () => {
 
     component.importGithubProjects();
     process.nextTick(() => {
-      assert(spy.calledWith('Error no http'));
+      expect(spy.calledWith('Error in http')).to.be.true;
       done();
     });
   });
