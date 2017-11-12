@@ -14,13 +14,21 @@
           </div>
           <div class="row modal-body">
             <div class="col">
-              <p><label > Name </label></p>
-              <p><input type = "text" v-model="name"></input><br></p>
-              <p><label> Description </label></p>
-              <input type = "text" v-model="description"></input><br>
-            </div>
-            <div class="col">
-              <is-scoring v-bind:is_scoring="this.isScoring" v-on:edited-score="refreshIsScoring($event)"></is-scoring>
+              <div class="row">
+                <div class="col">
+                  <p><label > Name </label></p>
+                  <p><input type = "text" v-model="name"></input><br></p>
+                </div>
+                <div class="col">
+                  <p><label> Description </label></p>
+                  <input type = "text" v-model="description"></input><br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-center">
+                  <is-scoring v-bind:is_scoring="this.isScoring" v-on:edited-score="refreshIsScoring($event)"></is-scoring>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">

@@ -3,14 +3,16 @@
     <div id="isScoring">
       <div class="row">
         <div class="col">
-          <p>Is this project scoring?</p>
-        </div>
-        <div class="col">
-          <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged($event)"
-          :value="this.isScoring"
-          :sync="true"
-          color="#AEC3B0"
-          :labels="true" />
+          <p>This project uses Story Points?</p>
+          <div class="row">
+            <div class="col text-center">
+              <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged($event)"
+              :value="this.isScoring"
+              :sync="true"
+              color="#AEC3B0"
+              :labels="true" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
