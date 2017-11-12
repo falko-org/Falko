@@ -14,19 +14,14 @@
         <div align="center">
           <div class="card" id="issueCard">
             <div class="card-body">
-                <div class="row">
-                  <div class="col">
+              <div class="row">
+                <div class="col">
                   <h4 class="float-left">{{issue.name}}</h4>
-                  </div>
-                  <div class="col-6 align-self-center">
-                    <div class="float-right ">Points</div>
-                    <div class="float-right number-circle">
-                      <div id="pointsFont">
-                        2
-                      </div>
-                    </div>
-                 </div>
-               </div>
+                </div>
+                <div class="col-6 align-self-center">
+                  <score v-bind:points="points"></score>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-3" id="colIssue">
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
@@ -53,18 +48,21 @@ import { HTTP } from '../../http-common.js'
 import AddIssue from '@/components/Issues/AddIssue'
 import EditIssue from '@/components/Issues/EditIssue'
 import NoContent from '@/components/NoContent'
+import Score from '@/components/Score/Score'
 
 export default {
   components: {
     'add-issue': AddIssue,
     'edit-issue': EditIssue,
-    'no-content': NoContent
+    'no-content': NoContent,
+    'score': Score
   },
 
   data () {
     return {
       issues: [],
-      selectedIssue: ''
+      selectedIssue: '',
+      points: "210"
     }
   },
 
