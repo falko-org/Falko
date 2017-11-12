@@ -15,8 +15,7 @@ describe('On github project list repos', () => {
     const response = new Promise(r => r({
       data: {
         user: [{ login: 'pedrokelvin' }, { repos: ['userRepo1', 'userRepo2'] }],
-        orgs: [{ name: 'Org1', repos: ['Org1Repo'] },
-          { name: 'Org2', repos: ['Org2Repo'] }],
+        orgs: [{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }],
       },
     }));
 
@@ -41,82 +40,83 @@ describe('On github project list repos', () => {
     const component = new Constructor({ store });
     component.getRepos();
     process.nextTick(() => {
-      console.log(component.userRepos);
       expect(component.userRepos).to.deep.equal([{ login: 'pedrokelvin' }, { repos: ['userRepo1', 'userRepo2'] }]);
-      expect(component.orgsRepos).to.deep.equal([{ name: 'Org1', repos: ['Org1Repo'] },
-        { name: 'Org2', repos: ['Org2Repo'] }]);
+      expect(component.orgsRepos).to.deep.equal([{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }]);
       done();
     });
   });
 
   it('should not have the correct user repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
-    localStorage.setItem('token', '1234567890');
-    const component = new Constructor().$mount();
+    const component = new Constructor({ store });
     component.getRepos();
-
     process.nextTick(() => {
-      expect(component.userRepos).to.deep.not.equal(['differentUserRepo1',
-        'differentUserRepo2']);
-      expect(component.orgsRepos).to.deep.equal([{ name: 'Org1', repos: ['Org1Repo'] },
-        { name: 'Org2', repos: ['Org2Repo'] }]);
+      expect(component.userRepos).to.deep.not.equal([{ login: 'pedrokelvin' }, { repos: ['differentUserRepo1', 'differentUserRepo2'] }]);
+      expect(component.orgsRepos).to.deep.equal([{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }]);
       done();
     });
   });
 
-
   it('should not have the correct user repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
-    localStorage.setItem('token', '1234567890');
-    const component = new Constructor().$mount();
+    const component = new Constructor({ store });
     component.getRepos();
-
     process.nextTick(() => {
-      expect(component.userRepos).to.deep.equal(['userRepo1',
-        'userRepo2']);
-      expect(component.orgsRepos).to.deep.not.equal([{ name: 'differentOrg1', repos: ['differentOrg1Repo'] },
-        { name: 'differentOrg2', repos: ['differentOrg2Repo'] }]);
+      expect(component.userRepos).to.deep.equal([{ login: 'pedrokelvin' }, { repos: ['userRepo1', 'userRepo2'] }]);
+      expect(component.orgsRepos).to.deep.not.equal([{ name: 'differentOrg1', repos: ['differentOrg1Repo'] }, { name: 'differentOrg2', repos: ['differentOrg2Repo'] }]);
       done();
     });
   });
 
   it('should not have the correct user repos and orgs repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
-    localStorage.setItem('token', '1234567890');
-    const component = new Constructor().$mount();
+    const component = new Constructor({ store });
     component.getRepos();
-
     process.nextTick(() => {
-      expect(component.userRepos).to.deep.not.equal(['differentUserRepo1',
-        'differentUserRepo2']);
-      expect(component.orgsRepos).to.deep.not.equal([{ name: 'differentOrg1', repos: ['differentOrg1Repo'] },
-        { name: 'differentOrg2', repos: ['differentOrg2Repo'] }]);
+      expect(component.userRepos).to.deep.not.equal([{ login: 'pedrokelvin' }, { repos: ['differentUserRepo1', 'differentUserRepo2'] }]);
+      expect(component.orgsRepos).to.deep.not.equal([{ name: 'differentOrg1', repos: ['differentOrg1Repo'] }, { name: 'differentOrg2', repos: ['differentOrg2Repo'] }]);
       done();
     });
   });
 });
 
+
 describe('On GitHubProjects import', () => {
+  let state;
+  let store;
   beforeEach(() => {
-    const response = new Promise((resolve, reject) => resolve({
+    Vue.use(Vuex);
+    const response = new Promise(r => r({
       data: {
-        user: ['userRepo1', 'userRep2'],
-        orgs: [{ name: 'Org1', repos: ['Org1Repo'] },
-          { name: 'Org2', repos: ['Org2Repo'] }],
+        user: [{ login: 'pedrokelvin' }, { repos: ['userRepo1', 'userRepo2'] }],
+        orgs: [{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }],
       },
     }));
-    sandbox.stub(HTTP, 'post').returns(response);
+
+    const response_catch = new Promise((resolve, reject) => reject(new Error('Error no http')));
+
+    sandbox.stub(HTTP, 'get').returns(response);
+    sandbox.stub(HTTP, 'post').returns(response_catch);
+
+    state = {
+      auth: {
+        token: '12345',
+        userId: '1',
+      },
+    };
+    store = new Vuex.Store({
+      state,
+    });
   });
+
   afterEach(() => {
     sandbox.restore();
   });
-  it('should import projects', (done) => {
-    localStorage.setItem('token', '1234567890');
-    localStorage.setItem('user_id', '1');
 
+  it('should import projects', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
-    const component = new Constructor();
-    component.selectedRepos = ['repo1', 'repo2'];
+    const component = new Constructor({ store });
+    component.selectedRepos = ['userRepo1', 'userRepo2'];
     const spy = sandbox.spy(component, '$emit');
 
     component.importGithubProjects();
@@ -127,16 +127,9 @@ describe('On GitHubProjects import', () => {
   });
 
   it('should not import projects', (done) => {
-    const response_catch = new Promise((resolve, reject) => reject(new Error('Error no http')));
-    sandbox.restore();
-
-    sandbox.stub(HTTP, 'post').returns(response_catch);
-    localStorage.setItem('token', '1234567890');
-    localStorage.setItem('user_id', '1');
-
     const Constructor = Vue.extend(GitHubProjects);
-    const component = new Constructor();
-    component.selectedRepos = ['repo1', 'repo2'];
+    const component = new Constructor({ store });
+    component.selectedRepos = ['userRepo1', 'userRepo2'];
     const spy = sandbox.spy(console, 'log');
 
     component.importGithubProjects();

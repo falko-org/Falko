@@ -24,3 +24,5 @@ node_modules
 .DS_Store
 
 test/unit/coverage/
+
+karma-*/
