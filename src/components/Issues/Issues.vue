@@ -118,7 +118,6 @@ export default {
 
   mounted() {
     this.getIssues();
-    this.getContributors();
   },
 
 }

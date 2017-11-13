@@ -22,7 +22,13 @@
             </div>
             <div class="col">
               <p><label> Assignees </label></p>
-              <input type = "text" placeholder="Assignees"></input><br>
+              <div class="col" id="colContribs">
+                <label class="custom-control custom-checkbox" v-for="contributor in contributors">
+                  <input type="checkbox" class="custom-control-input">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{contributor}}</span>
+                </label>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -104,4 +110,8 @@ export default {
 </script>
 
 <style scoped>
+#colContribs {
+  width: 90px;
+
+}
 </style>
