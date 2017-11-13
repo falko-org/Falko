@@ -38,29 +38,29 @@
                 aria-expanded="false"
                 v-bind:aria-controls="orgs.name" >
                 {{orgs.name}}
-              </h4>
-              <div class="collapse" v-bind:id="orgs.name">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="repo in orgs.repos" >
-                    {{repo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
-                    :value="false"
-                    color="#AEC3B0"
-                    :labels="true" />
-                  </li>
-                </ul>
+                </h4>
+                <div class="collapse" v-bind:id="orgs.name">
+                  <ul class="list-group">
+                    <li class="list-group-item" v-for="repo in orgs.repos" >
+                      {{repo}}
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                      :value="false"
+                      color="#AEC3B0"
+                      :labels="true" />
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
-          <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
+            <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -81,14 +81,14 @@ export default{
       const token = rawToken.replace(/"/, '').replace(/"/, '');
       const headers = { Authorization: token };
       HTTP.get('repos', { headers })
-        .then((response) => {
-          this.userRepos = response.data.user[1].repos;
-          this.orgsRepos = response.data.orgs;
-          this.user = response.data.user[0].login;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.userRepos = response.data.user[1].repos;
+        this.orgsRepos = response.data.orgs;
+        this.user = response.data.user[0].login;
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
     toggleButtonChanged(name, event) {
       if (event.value === true) {
@@ -99,8 +99,8 @@ export default{
     },
     importGithubProjects() {
       doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
-        .then((response) => { this.$emit('added'); })
-        .catch(e => console.log(e.message));
+      .then((response) => { this.$emit('added'); })
+      .catch(e => console.log(e.message));
     },
   },
 };
@@ -118,13 +118,13 @@ function doRequisitions(repos, length, user) {
         is_project_from_github: true,
         is_scoring: false,
       }, { headers })
-        .then((response) => {
-          count++;
-          if (count === length) {
-            resolve(response);
-          }
-        })
-        .catch(e => reject(e));
+      .then((response) => {
+        count++;
+        if (count === length) {
+          resolve(response);
+        }
+      })
+      .catch(e => reject(e));
     }
   });
 }
