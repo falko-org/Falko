@@ -23,16 +23,18 @@
             <div class="col">
               <p><label> Assignees </label></p>
               <div class="col" id="colContribs">
-                <label class="custom-control custom-checkbox" v-for="contributor in contributors">
-                  <input type="checkbox" class="custom-control-input">
+                <div class="row" v-for="contributor in contributors">
+                <label class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" v-bind:value="contributor" v-model="selectedContribs">
                     <span class="custom-control-indicator"></span>
                     <span class="custom-control-description">{{contributor}}</span>
                 </label>
               </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue()" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue(), setAssignees()" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -49,13 +51,33 @@ export default {
       name: "",
       body: "",
       number: "",
-      contributors: []
+      contributors: [],
+      selectedContribs: []
     }
   },
 
   props: ["selected_issue"],
 
   methods: {
+
+    setAssignees() {
+      var token = localStorage.getItem('token');
+      var tokenSimple = token.replace(/"/, "");
+      var tokenSimple2 = tokenSimple.replace(/"/, "");
+      var header = { 'Authorization': tokenSimple2 };
+
+      HTTP.post(`projects/${this.$route.params.id}/issues/assignees`, {
+          assignees: this.selectedContribs,
+          issue_number: this.number
+      }, { headers: header })
+      .then((response)=>{
+        console.log("Sucesso")
+      })
+      .catch(e=>{
+        this.errors.push(e)
+      });
+
+    },
 
     getContributors() {
       var token = localStorage.getItem('token');
@@ -111,7 +133,6 @@ export default {
 
 <style scoped>
 #colContribs {
-  width: 90px;
 
 }
 </style>

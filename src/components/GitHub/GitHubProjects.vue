@@ -119,7 +119,7 @@ function doRequisitions(repos, length) {
         is_project_from_github: true,
         is_scoring: false,
         // REMOVE DEPOIS*******************************************************
-        github_slug: "fga-gpp-mds/Falko-2017.2-Frontend",
+        github_slug: "danieloda/ApiGithubTest",
       }, { headers })
         .then((response) => {
           count++;
