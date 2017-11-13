@@ -38,29 +38,29 @@
                 aria-expanded="false"
                 v-bind:aria-controls="orgs.name" >
                 {{orgs.name}}
-              </h4>
-              <div class="collapse" v-bind:id="orgs.name">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="repo in orgs.repos" >
-                    {{repo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
-                    :value="false"
-                    color="#AEC3B0"
-                    :labels="true" />
-                  </li>
-                </ul>
+                </h4>
+                <div class="collapse" v-bind:id="orgs.name">
+                  <ul class="list-group">
+                    <li class="list-group-item" v-for="repo in orgs.repos" >
+                      {{repo}}
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                      :value="false"
+                      color="#AEC3B0"
+                      :labels="true" />
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
-          <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
+            <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
