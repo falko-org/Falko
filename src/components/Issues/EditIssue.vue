@@ -21,9 +21,14 @@
               <input type = "text" v-model="body" placeholder="Description"></input><br>
             </div>
             <div class="col">
-              <p><label> Assignees </label></p>
-              <div class="col" id="colContribs">
-                <div class="row" v-for="contributor in contributors">
+                <div class="row justify-content-center">
+                  <p><label> Assignees </label></p>
+                </div>
+                <div class="row">
+                  <input type="text" v-model="search" placeholder="search...">
+                </div>
+              <div class="col" v-if="search != ''">
+                <div class="row" v-for="contributor in filteredContribs">
                 <label class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" v-bind:value="contributor" v-model="selectedContribs">
                     <span class="custom-control-indicator"></span>
@@ -52,7 +57,8 @@ export default {
       body: "",
       number: "",
       contributors: [],
-      selectedContribs: []
+      selectedContribs: [],
+      search: ""
     }
   },
 
@@ -126,13 +132,17 @@ export default {
 
   mounted() {
     this.getContributors();
+  },
+  computed: {
+    filteredContribs:function()
+    {
+        var self=this;
+        return this.contributors.filter(function(contributor){return contributor.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
+    }
   }
 }
 
 </script>
 
 <style scoped>
-#colContribs {
-
-}
 </style>
