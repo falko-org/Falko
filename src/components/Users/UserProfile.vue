@@ -34,9 +34,14 @@
       <div class="col-md-2">
         <delete-user-profile></delete-user-profile>
       </div>
-      <div>
-        <button v-bind:class="buttonClass()" v-on:click="link()">
+      <div class="col-md-2">
+        <button v-bind:class="buttonLinkClass()" v-on:click="link()">
           Link to Github
+        </button>
+      </div>
+      <div class="col-md-2">
+        <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
+          Remove link with Github
         </button>
       </div>
     </div>
@@ -92,6 +97,25 @@ export default {
       }
     },
 
+    removeToken() {
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.post('remove_github_token', {
+        id: userId,
+      }, { headers })
+        .then(() => {
+          console.log('Removed GitHub token.');
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+
+      this.is_github_authenticated = false;
+    },
+
     isGitHubLinked() {
       if (this.is_github_authenticated) {
         return true;
@@ -99,13 +123,21 @@ export default {
       return false;
     },
 
-    buttonClass() {
+    buttonLinkClass() {
       if (this.isGitHubLinked()) {
         return 'btn btn-info btn-md falko-button-grey disabled-cursor';
       }
       return 'falko-button btn btn-primary';
     },
+
+    buttonRemoveLinkClass() {
+      if (!this.isGitHubLinked()) {
+        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+      }
+      return 'falko-button btn btn-primary';
+    },
   },
+
   mounted() {
     this.getUser();
     const thisOne = this;

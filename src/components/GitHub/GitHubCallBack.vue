@@ -13,6 +13,7 @@ export default {
       token: '',
     };
   },
+
   mounted() {
     const rawToken = localStorage.getItem('token');
     const token = rawToken.replace(/"/, '').replace(/"/, '');
