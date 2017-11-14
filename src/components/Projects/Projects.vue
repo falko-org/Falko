@@ -21,12 +21,12 @@
       </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-3">
-          <add-project v-on:added="refreshProjects"></add-project>
-        </div>
-        <div class="col-md-3">
-          <github-projects v-on:added="refreshProjects"></github-projects>
-        </div>
+      <div class="col-md-3">
+        <add-project v-on:added="refreshProjects()"></add-project>
+      </div>
+      <div class="col-md-3">
+        <github-projects v-on:added="refreshProjects()" v-bind:gitHubLinked="is_github_authenticated"></github-projects>
+      </div>
     </div>
   </div>
 
@@ -34,10 +34,10 @@
 
 <script>
 import AddProject from '@/components/Projects/AddProject';
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common.js';
 import NoContent from '@/components/NoContent';
 import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Gpa from '@/components/Gpa'
+import Gpa from '@/components/Gpa';
 
 export default {
 
@@ -46,24 +46,22 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-     Gpa
+    Gpa,
   },
   data() {
     return {
       projects: [],
+      is_github_authenticated: false,
     };
   },
   methods: {
     getProjects() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
 
-      var userId = localStorage.getItem('user_id');
-      var userInt = parseInt(userId);
-
-      HTTP.get(`users/${userInt}/projects`, { headers: headers })
+      HTTP.get(`users/${userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
@@ -71,15 +69,42 @@ export default {
           this.errors.push(e);
         });
     },
+
+    gitHubAuthenticated() {
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.get(`users/${userId}`, { headers })
+        .then((response) => {
+          if (response.data.access_token != null) {
+            this.is_github_authenticated = true;
+          } else {
+            this.is_github_authenticated = false;
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    isGitHubAuthenticated() {
+      return this.is_github_authenticated;
+    },
+
     refreshProjects() {
       this.getProjects();
+      this.gitHubAuthenticated();
     },
+
     isProjectsEmpty() {
       return this.projects.length === 0;
     },
   },
   mounted() {
     this.getProjects();
+    this.gitHubAuthenticated();
   },
 };
 </script>
@@ -98,4 +123,5 @@ a:link {
 a:hover {
   font-weight: bold;
 }
+
 </style>

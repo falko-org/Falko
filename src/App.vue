@@ -136,4 +136,9 @@ input:focus {
 .no-white-bar {
   margin-bottom: -2%;
 }
+
+.disabled-cursor {
+  cursor: inherit;
+}
+
 </style>
