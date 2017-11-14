@@ -118,11 +118,13 @@ input:focus {
 
 /* Modifing Bootstrap Classes */
 .col {
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .row {
-  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .modal-title {
@@ -132,6 +134,11 @@ input:focus {
 }
 
 .no-white-bar {
-  margin: -1.7% 0;
+  margin-bottom: -2%;
 }
+
+.disabled-cursor {
+  cursor: inherit;
+}
+
 </style>
