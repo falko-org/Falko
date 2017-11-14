@@ -1,7 +1,7 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
+      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos()" id="addButton" v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal">
         Import GitHub repository
       </button>
     </div>
@@ -67,6 +67,8 @@
 import { HTTP } from '../../http-common';
 
 export default{
+  props: ['gitHubLinked'],
+
   data() {
     return {
       userRepos: [],
@@ -77,19 +79,22 @@ export default{
   },
   methods: {
     getRepos() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      HTTP.get('repos', { headers })
-      .then((response) => {
-        this.userRepos = response.data.user[1].repos;
-        this.orgsRepos = response.data.orgs;
-        this.user = response.data.user[0].login;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      if (this.isGitHubLinked()) {
+        const rawToken = localStorage.getItem('token');
+        const token = rawToken.replace(/"/, '').replace(/"/, '');
+        const headers = { Authorization: token };
+        HTTP.get('repos', { headers })
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+            this.user = response.data.user[0].login;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      }
     },
+
     toggleButtonChanged(name, event) {
       if (event.value === true) {
         this.selectedRepos.push(name);
@@ -97,10 +102,32 @@ export default{
         this.selectedRepos = this.selectedRepos.filter(item => item !== name);
       }
     },
+
     importGithubProjects() {
       doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
-      .then((response) => { this.$emit('added'); })
-      .catch(e => console.log(e.message));
+        .then(() => { this.$emit('added'); })
+        .catch(e => console.log(e.message));
+    },
+
+    isGitHubLinked() {
+      if (this.gitHubLinked) {
+        return true;
+      }
+      return false;
+    },
+
+    buttonClass() {
+      if (this.gitHubLinked) {
+        return 'falko-button btn btn-primary';
+      }
+      return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+    },
+
+    buttonDataToggle() {
+      if (this.gitHubLinked) {
+        return 'modal';
+      }
+      return 'none';
     },
   },
 };
@@ -118,13 +145,13 @@ function doRequisitions(repos, length, user) {
         is_project_from_github: true,
         is_scoring: false,
       }, { headers })
-      .then((response) => {
-        count++;
-        if (count === length) {
-          resolve(response);
-        }
-      })
-      .catch(e => reject(e));
+        .then((response) => {
+          count += 1;
+          if (count === length) {
+            resolve(response);
+          }
+        })
+        .catch(e => reject(e));
     }
   });
 }

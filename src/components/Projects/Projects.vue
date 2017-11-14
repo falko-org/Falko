@@ -39,12 +39,12 @@
       </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-3">
-          <add-project v-on:added="refreshProjects"></add-project>
-        </div>
-        <div class="col-md-3">
-          <github-projects v-on:added="refreshProjects"></github-projects>
-        </div>
+      <div class="col-md-3">
+        <add-project v-on:added="refreshProjects()"></add-project>
+      </div>
+      <div class="col-md-3">
+        <github-projects v-on:added="refreshProjects()" v-bind:gitHubLinked="is_github_authenticated"></github-projects>
+      </div>
     </div>
   </div>
 
@@ -68,17 +68,17 @@ export default {
   data() {
     return {
       projects: [],
+      is_github_authenticated: false,
     };
   },
   methods: {
     getProjects() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
-      var userId = localStorage.getItem('user_id');
-      var userInt = parseInt(userId);
-      HTTP.get(`users/${userInt}/projects`, { headers: headers })
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.get(`users/${userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
@@ -86,15 +86,42 @@ export default {
           this.errors.push(e);
         });
     },
+
+    gitHubAuthenticated() {
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.get(`users/${userId}`, { headers })
+        .then((response) => {
+          if (response.data.access_token != null) {
+            this.is_github_authenticated = true;
+          } else {
+            this.is_github_authenticated = false;
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    isGitHubAuthenticated() {
+      return this.is_github_authenticated;
+    },
+
     refreshProjects() {
       this.getProjects();
+      this.gitHubAuthenticated();
     },
+
     isProjectsEmpty() {
       return this.projects.length === 0;
     },
   },
   mounted() {
     this.getProjects();
+    this.gitHubAuthenticated();
   },
 };
 </script>
@@ -125,4 +152,5 @@ div a {
   margin: 0;
   color: white;
 }
+
 </style>

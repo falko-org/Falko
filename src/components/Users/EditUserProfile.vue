@@ -20,6 +20,8 @@
             <p><input type = "text" v-model="email"></input><br></p>
             <p><label> GitHub Account </label></p>
             <p><input type = "text" v-model="github"></input><br></p>
+            <p><label> GitHub Authenticated </label></p>
+            <p>{{is_github_authenticated}}<br></p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editUser" data-dismiss="modal">Save</button>
@@ -42,15 +44,14 @@ export default {
       name: '',
       email: '',
       github: '',
-      // is_github_authenticated: false,
+      is_github_authenticated: false,
     };
   },
   methods: {
     editUser() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
       const userId = localStorage.getItem('user_id');
 
       HTTP.put(`users/${userId}`, {
@@ -69,18 +70,21 @@ export default {
     },
 
     getUserInformation() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
       const userId = localStorage.getItem('user_id');
-
 
       HTTP.get(`users/${userId}`, { headers })
         .then((response) => {
           this.name = response.data.name;
           this.email = response.data.email;
           this.github = response.data.github;
+          if (response.data.access_token != null) {
+            this.is_github_authenticated = true;
+          } else {
+            this.is_github_authenticated = false;
+          }
         })
         .catch((e) => {
           this.errors.push(e);
