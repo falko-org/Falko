@@ -19,10 +19,6 @@
               <label> GitHub Account: </label>
               <p class="card-text text-muted">{{github}}</p>
             </div>
-            <div class="row">
-              <label> GitHub Authenticated: </label>
-              <p class="card-text text-muted">{{is_github_authenticated}}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -34,12 +30,12 @@
       <div class="col-md-2">
         <delete-user-profile></delete-user-profile>
       </div>
-      <div class="col-md-2">
+      <div v-if="!isGitHubLinked()" class="col-md-2">
         <button v-bind:class="buttonLinkClass()" v-on:click="link()">
           Link to Github
         </button>
       </div>
-      <div class="col-md-2">
+      <div v-else class="col-md-2">
         <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
           Remove link with Github
         </button>
