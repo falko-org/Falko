@@ -111,7 +111,7 @@ div a {
   /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
   /*border-color: #7799A5;*/
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
-  border-color: #87A9B5;
+  border-color: #5D6A6F;
 }
 #projectCard {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
@@ -119,7 +119,7 @@ div a {
   /*width: 30em;*/
 }
 #projectHeader {
-  background-color: #7799A5;
+  background-color: #5D6A6F;
 }
 #projectTitle {
   margin: 0;
