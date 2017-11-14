@@ -1,7 +1,7 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
+      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos()" id="addButton" v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal">
         Import GitHub repository
       </button>
     </div>
@@ -121,6 +121,13 @@ export default{
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+    },
+
+    buttonDataToggle() {
+      if (this.gitHubLinked) {
+        return 'modal';
+      }
+      return 'none';
     },
   },
 };
