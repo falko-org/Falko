@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import AddProject from '@/components/Projects/AddProject';
-import { HTTP } from '../../http-common.js';
-import NoContent from '@/components/NoContent';
-import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Gpa from '@/components/Gpa';
+import AddProject from './AddProject.vue';
+import NoContent from '../NoContent.vue';
+import GitHubProjects from '../GitHub/GitHubProjects.vue';
+import Gpa from '../Gpa.vue';
+import { HTTP } from '../../http-common';
 
 export default {
 
@@ -48,12 +48,14 @@ export default {
     'github-projects': GitHubProjects,
     Gpa,
   },
+
   data() {
     return {
       projects: [],
-      is_github_authenticated: false,
+      is_github_authenticated: '',
     };
   },
+
   methods: {
     getProjects() {
       const rawToken = localStorage.getItem('token');
@@ -83,6 +85,7 @@ export default {
           } else {
             this.is_github_authenticated = false;
           }
+          localStorage.setItem('is_github_authenticated', this.is_github_authenticated);
         })
         .catch((e) => {
           this.errors.push(e);
