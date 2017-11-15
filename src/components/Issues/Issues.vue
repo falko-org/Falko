@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isGitHubLinked()">
+  <div v-if="isFromProjectGitHub()">
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
@@ -57,7 +57,7 @@ export default {
     return {
       issues: [],
       selectedIssue: '',
-      is_github_authenticated: '',
+      is_project_from_github: '',
     };
   },
 
@@ -67,7 +67,7 @@ export default {
     },
 
     getIssues() {
-      this.setLinkedGitHub();
+      this.getProjectOrigin();
 
       const token = localStorage.getItem('token');
       const tokenSimple = token.replace(/"/, '');
@@ -104,12 +104,12 @@ export default {
         });
     },
 
-    setLinkedGitHub() {
-      this.is_github_authenticated = localStorage.getItem('is_github_authenticated') === 'true';
+    getProjectOrigin() {
+      this.is_project_from_github = (localStorage.getItem('is_project_from_github') === 'true');
     },
 
-    isGitHubLinked() {
-      if (this.is_github_authenticated) {
+    isFromProjectGitHub() {
+      if (this.is_project_from_github) {
         return true;
       }
       return false;

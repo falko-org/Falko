@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row justify-content-center" id="buttons">
-      <div class="col-md-2" v-if="isGitHubLinked()" align="center">
+      <div class="col-md-2" v-if="isFromProjectGitHub()" align="center">
         <router-link v-bind:to="'/projects/'+project.id+'/issues'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Backlog
@@ -59,12 +59,11 @@ export default{
   data() {
     return {
       project: {},
-      is_github_authenticated: '',
     };
   },
   methods: {
     getProject() {
-      this.setLinkedGitHub();
+      this.isFromProjectGitHub();
 
       const token = localStorage.getItem('token');
       const tokenSimple = token.replace(/"/, '');
@@ -83,19 +82,18 @@ export default{
       this.getProject();
     },
 
-    setLinkedGitHub() {
-      this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
-    },
-
-    isGitHubLinked() {
-      if (this.is_github_authenticated) {
+    isFromProjectGitHub() {
+      if (this.project.is_project_from_github) {
+        localStorage.setItem('is_project_from_github', 'true');
         return true;
       }
+
+      localStorage.setItem('is_project_from_github', 'false');
       return false;
     },
 
     divClass() {
-      if (this.isGitHubLinked()) {
+      if (this.isFromProjectGitHub()) {
         return 'col-md-3';
       }
       return 'col-md-2';
