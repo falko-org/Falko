@@ -1,7 +1,7 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" v-on:click="getRepos" id="addButton" data-toggle="modal" data-target="#githubModal">
+      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos()" id="addButton" v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal">
         Import GitHub repository
       </button>
     </div>
@@ -38,58 +38,63 @@
                 aria-expanded="false"
                 v-bind:aria-controls="orgs.name" >
                 {{orgs.name}}
-              </h4>
-              <div class="collapse" v-bind:id="orgs.name">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="repo in orgs.repos" >
-                    {{repo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
-                    :value="false"
-                    color="#AEC3B0"
-                    :labels="true" />
-                  </li>
-                </ul>
+                </h4>
+                <div class="collapse" v-bind:id="orgs.name">
+                  <ul class="list-group">
+                    <li class="list-group-item" v-for="repo in orgs.repos" >
+                      {{repo}}
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                      :value="false"
+                      color="#AEC3B0"
+                      :labels="true" />
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
-          <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
+            <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 import { HTTP } from '../../http-common';
 
 export default{
+  props: ['gitHubLinked'],
+
   data() {
     return {
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
+      user: '',
     };
   },
   methods: {
     getRepos() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
-
-      HTTP.get('repos', { headers })
-        .then((response) => {
-          this.userRepos = response.data.user[1].repos;
-          this.orgsRepos = response.data.orgs;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      if (this.isGitHubLinked()) {
+        const rawToken = localStorage.getItem('token');
+        const token = rawToken.replace(/"/, '').replace(/"/, '');
+        const headers = { Authorization: token };
+        HTTP.get('repos', { headers })
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+            this.user = response.data.user[0].login;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      }
     },
+
     toggleButtonChanged(name, event) {
       if (event.value === true) {
         this.selectedRepos.push(name);
@@ -97,32 +102,53 @@ export default{
         this.selectedRepos = this.selectedRepos.filter(item => item !== name);
       }
     },
+
     importGithubProjects() {
-      doRequisitions(this.selectedRepos, this.selectedRepos.length)
-        .then((response) => { this.$emit('added'); })
+      doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
+        .then(() => { this.$emit('added'); })
         .catch(e => console.log(e.message));
+    },
+
+    isGitHubLinked() {
+      if (this.gitHubLinked) {
+        return true;
+      }
+      return false;
+    },
+
+    buttonClass() {
+      if (this.gitHubLinked) {
+        return 'falko-button btn btn-primary';
+      }
+      return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+    },
+
+    buttonDataToggle() {
+      if (this.gitHubLinked) {
+        return 'modal';
+      }
+      return 'none';
     },
   },
 };
-
-function doRequisitions(repos, length) {
+function doRequisitions(repos, length, user) {
   return new Promise((resolve, reject) => {
     const rawToken = localStorage.getItem('token');
     const token = rawToken.replace(/"/, '').replace(/"/, '');
     const headers = { Authorization: token };
     const userId = localStorage.getItem('user_id');
-
     let count = 0;
     for (const repo of repos) {
       HTTP.post(`users/${userId}/projects`, {
         name: repo,
+        github_slug: `${user}/${repo}`,
         is_project_from_github: true,
         is_scoring: false,
         // REMOVE DEPOIS*******************************************************
         github_slug: "danieloda/ApiGithubTest",
       }, { headers })
         .then((response) => {
-          count++;
+          count += 1;
           if (count === length) {
             resolve(response);
           }
@@ -131,17 +157,13 @@ function doRequisitions(repos, length) {
     }
   });
 }
-
 </script>
 
 <style scoped>
-
 .vue-js-switch {
   float: right;
 }
-
 .pointer-cursor {
   cursor: pointer;
 }
-
 </style>
