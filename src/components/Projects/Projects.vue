@@ -25,7 +25,7 @@
         <add-project v-on:added="refreshProjects()"></add-project>
       </div>
       <div class="col-md-3">
-        <github-projects v-on:added="refreshProjects()" v-bind:gitHubLinked="is_github_authenticated"></github-projects>
+        <github-projects v-on:added="refreshProjects()"></github-projects>
       </div>
     </div>
   </div>
@@ -51,11 +51,12 @@ export default {
   data() {
     return {
       projects: [],
-      is_github_authenticated: false,
     };
   },
   methods: {
     getProjects() {
+      this.isGitHubAuthenticated();
+
       const rawToken = localStorage.getItem('token');
       const token = rawToken.replace(/"/, '').replace(/"/, '');
       const headers = { Authorization: token };
@@ -70,7 +71,7 @@ export default {
         });
     },
 
-    gitHubAuthenticated() {
+    isGitHubAuthenticated() {
       const rawToken = localStorage.getItem('token');
       const token = rawToken.replace(/"/, '').replace(/"/, '');
       const headers = { Authorization: token };
@@ -79,18 +80,14 @@ export default {
       HTTP.get(`users/${userId}`, { headers })
         .then((response) => {
           if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
+            localStorage.setItem('is_github_authenticated', 'true');
           } else {
-            this.is_github_authenticated = false;
+            localStorage.setItem('is_github_authenticated', 'false');
           }
         })
         .catch((e) => {
           this.errors.push(e);
         });
-    },
-
-    isGitHubAuthenticated() {
-      return this.is_github_authenticated;
     },
 
     refreshProjects() {
@@ -104,7 +101,6 @@ export default {
   },
   mounted() {
     this.getProjects();
-    this.gitHubAuthenticated();
   },
 };
 </script>

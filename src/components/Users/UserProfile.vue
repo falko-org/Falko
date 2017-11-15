@@ -61,11 +61,12 @@ export default {
       name: '',
       email: '',
       github: '',
-      is_github_authenticated: false,
     };
   },
   methods: {
     getUser() {
+      this.isGitHubLinked();
+
       const rawToken = localStorage.getItem('token');
       const token = rawToken.replace(/"/, '').replace(/"/, '');
       const headers = { Authorization: token };
@@ -77,9 +78,9 @@ export default {
           this.email = response.data.email;
           this.github = response.data.github;
           if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
+            localStorage.setItem('is_github_authenticated', true);
           } else {
-            this.is_github_authenticated = false;
+            localStorage.setItem('is_github_authenticated', false);
           }
         })
         .catch((e) => {
@@ -90,6 +91,7 @@ export default {
     link() {
       if (!this.isGitHubLinked()) {
         window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        localStorage.setItem('is_github_authenticated', true);
       }
     },
 
@@ -103,17 +105,16 @@ export default {
         id: userId,
       }, { headers })
         .then(() => {
-          console.log('Removed GitHub token.');
+          localStorage.setItem('is_github_authenticated', false);
+          this.$router.go();
         })
         .catch((e) => {
           this.errors.push(e);
         });
-
-      this.is_github_authenticated = false;
     },
 
     isGitHubLinked() {
-      if (this.is_github_authenticated) {
+      if (localStorage.getItem('is_github_authenticated') === 'true') {
         return true;
       }
       return false;

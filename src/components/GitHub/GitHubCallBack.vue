@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <h1> {{token}} </h1>
-  </div>
 </template>
 
 <script>
@@ -26,8 +23,8 @@ export default {
       id: userId,
     }, { headers })
       .then((response) => {
-        console.log(response.data.access_token);
         this.token = response.data.access_token;
+        this.$router.push({ name: 'UserProfile' });
       })
       .catch((e) => {
         this.errors.push(e);

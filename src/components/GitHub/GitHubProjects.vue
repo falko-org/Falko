@@ -67,8 +67,6 @@
 import { HTTP } from '../../http-common';
 
 export default{
-  props: ['gitHubLinked'],
-
   data() {
     return {
       userRepos: [],
@@ -110,21 +108,21 @@ export default{
     },
 
     isGitHubLinked() {
-      if (this.gitHubLinked) {
+      if (localStorage.getItem('is_github_authenticated') === 'true') {
         return true;
       }
       return false;
     },
 
     buttonClass() {
-      if (this.gitHubLinked) {
+      if (this.isGitHubLinked()) {
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
 
     buttonDataToggle() {
-      if (this.gitHubLinked) {
+      if (this.isGitHubLinked()) {
         return 'modal';
       }
       return 'none';
