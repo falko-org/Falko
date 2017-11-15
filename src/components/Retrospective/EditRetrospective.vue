@@ -2,8 +2,8 @@
   <div>
     <div>
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
-              data-toggle="modal" data-target="#editRetrospectiveModal">
-        Edit Retrospective
+      data-toggle="modal" data-target="#editRetrospectiveModal">
+      Edit Retrospective
       </button>
     </div>
 
@@ -14,7 +14,7 @@
             <h3 class="modal-title">
               Add Sprint Retrospective
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -23,8 +23,8 @@
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
             <textarea class="text-justify"
-                      placeholder="Input your sprint report..."
-                      v-model="sprintReport"
+            placeholder="Input your sprint report..."
+            v-model="sprintReport"
             />
           </div>
           <div class="modal-footer">
@@ -38,13 +38,13 @@
 </template>
 
 <script>
-import List from '@/components/Retrospective/List'
-import {HTTP} from '../../http-common.js';
+import List from './List.vue';
+import { HTTP } from '../../http-common';
 
 
 export default {
   components: {
-    'list': List
+    list: List,
   },
 
   data() {
@@ -52,55 +52,51 @@ export default {
       sprintReport: '',
       positivePoints: [],
       negativePoints: [],
-      improvements: []
-    }
+      improvements: [],
+    };
   },
 
   methods: {
     editRetrospective() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
       HTTP.patch(`retrospectives/${this.$route.params.id}`, {
         sprint_report: this.sprintReport,
         positive_points: this.positivePoints,
         negative_points: this.negativePoints,
-        improvements: this.improvements
-      }, { headers: headers })
-      .then(() => {
-        this.$emit('retrospectiveCreated')
-      })
-      .catch((e) => {
-        this.errors.push(e)
-      });
+        improvements: this.improvements,
+      }, { headers })
+        .then(() => {
+          this.$emit('edited-retrospective');
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
-    updateList (items, parent) {
-      if (parent == "PositivePoints") {
-        this.positivePoints = []
-        for(var i = 0; i < items.length; i++) {
-          this.positivePoints.push(items[i].title)
+    updateList(items, parent) {
+      if (parent === 'PositivePoints') {
+        this.positivePoints = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.positivePoints.push(items[i].title);
+        }
+      } else if (parent === 'NegativePoints') {
+        this.negativePoints = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.negativePoints.push(items[i].title);
+        }
+      } else if (parent === 'Improvements') {
+        this.improvements = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.improvements.push(items[i].title);
         }
       }
-
-      else if (parent == "NegativePoints") {
-        this.negativePoints = []
-        for(var i = 0; i < items.length; i++) {
-          this.negativePoints.push(items[i].title)
-        }
-      }
-
-      else if (parent == "Improvements") {
-        this.improvements = []
-        for(var i = 0; i < items.length; i++) {
-          this.improvements.push(items[i].title)
-        }
-      }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
