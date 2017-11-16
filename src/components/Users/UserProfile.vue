@@ -114,10 +114,7 @@ export default {
     },
 
     isGitHubLinked() {
-      if (localStorage.getItem('is_github_authenticated') === 'true') {
-        return true;
-      }
-      return false;
+      return (localStorage.getItem('is_github_authenticated') === 'true');
     },
 
     buttonLinkClass() {
