@@ -7,7 +7,6 @@
         </button>
       </div>
       <div class="col-11 text-justify align-self-center">
-        R odadO dadadL adad A
       </div>
     </li>
   </div>

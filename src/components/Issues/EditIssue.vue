@@ -77,7 +77,7 @@ export default {
           issue_number: this.number
       }, { headers: header })
       .then((response)=>{
-        console.log("Sucesso")
+        console.log("Success")
       })
       .catch(e=>{
         this.errors.push(e)
