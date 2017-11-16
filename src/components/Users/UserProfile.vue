@@ -60,7 +60,7 @@ export default {
       name: '',
       email: '',
       github: '',
-      is_github_authenticated: false,
+      is_github_authenticated: '',
     };
   },
   methods: {
@@ -80,6 +80,7 @@ export default {
           } else {
             this.is_github_authenticated = false;
           }
+          this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
         })
         .catch((e) => {
           this.errors.push(e);
@@ -93,10 +94,7 @@ export default {
     },
 
     isGitHubLinked() {
-      if (this.is_github_authenticated) {
-        return true;
-      }
-      return false;
+      return this.is_github_authenticated;
     },
 
     buttonClass() {
