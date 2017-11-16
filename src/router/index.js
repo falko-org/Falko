@@ -164,7 +164,7 @@ const router = new Router({
       component: Retrospective,
     },
     {
-      path: '/burndown',
+      path: '/sprints/:id/burndown',
       name: 'Burndown',
       component: Burndown,
     },
