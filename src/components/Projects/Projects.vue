@@ -55,8 +55,6 @@ export default {
   },
   methods: {
     getProjects() {
-      this.isGitHubAuthenticated();
-
       const rawToken = localStorage.getItem('token');
       const token = rawToken.replace(/"/, '').replace(/"/, '');
       const headers = { Authorization: token };
@@ -65,25 +63,6 @@ export default {
       HTTP.get(`users/${userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
-
-    isGitHubAuthenticated() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
-
-      HTTP.get(`users/${userId}`, { headers })
-        .then((response) => {
-          if (response.data.access_token != null) {
-            localStorage.setItem('is_github_authenticated', 'true');
-          } else {
-            localStorage.setItem('is_github_authenticated', 'false');
-          }
         })
         .catch((e) => {
           this.errors.push(e);

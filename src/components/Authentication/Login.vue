@@ -38,6 +38,26 @@ export default {
         .then((response) => {
           localStorage.setItem('token', JSON.stringify(response.data.auth_token));
           localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+          this.isGitHubAuthenticated();
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    isGitHubAuthenticated() {
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.get(`users/${userId}`, { headers })
+        .then((response) => {
+          if (response.data.access_token != null) {
+            localStorage.setItem('is_github_authenticated', 'true');
+          } else {
+            localStorage.setItem('is_github_authenticated', 'false');
+          }
           this.$router.push({ name: 'Projects' });
         })
         .catch((e) => {

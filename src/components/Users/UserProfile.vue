@@ -90,7 +90,7 @@ export default {
 
     link() {
       if (!this.isGitHubLinked()) {
-        window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
         localStorage.setItem('is_github_authenticated', true);
       }
     },
@@ -106,7 +106,7 @@ export default {
       }, { headers })
         .then(() => {
           localStorage.setItem('is_github_authenticated', false);
-          this.$router.go();
+          location.reload();
         })
         .catch((e) => {
           this.errors.push(e);
