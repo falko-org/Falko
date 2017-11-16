@@ -4,7 +4,7 @@
     <div class="row align-itens-arround">
       <div class="col-5 align-content-center">
         <p class="card-text">
-          <div class="number-circle">
+          <div class="number-circle " v-if = "gpa != 0">
             <div class="gpa-font v-green" v-if="gpa > 3">
               {{gpa}}
             </div>

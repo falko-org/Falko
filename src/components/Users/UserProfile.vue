@@ -82,6 +82,7 @@ export default {
           } else {
             localStorage.setItem('is_github_authenticated', false);
           }
+          this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
         })
         .catch((e) => {
           this.errors.push(e);
