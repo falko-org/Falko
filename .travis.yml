@@ -1,28 +1,48 @@
 sudo: required
 
+group: deprecated-2017Q3
+
 services:
   - docker
 
 language: node_js
-
+ 
 node_js:
-  - "8.6.0"
+  - 8.6.0
 
 env:
-    global:
-      - CC_TEST_REPORTER_ID=f9a7cc51d41f847d9b5c91f469606222755355ec9ea001c6bd7a16d20f45941f
+  global:
+    - CC_TEST_REPORTER_ID=f9a7cc51d41f847d9b5c91f469606222755355ec9ea001c6bd7a16d20f45941f
 
 notifications:
-    slack: gppmds8-github:sJE6QlBfPGMkfUf48wuTsKa7
+  slack: gppmds8-github:sJE6QlBfPGMkfUf48wuTsKa7
 
 before_install:
   - docker build -t alaxalves/front -f Dockerfile.test .
+  - openssl aes-256-cbc -K $encrypted_fb7d710cc1aa_key -iv $encrypted_fb7d710cc1aa_iv -in .travis/alax-digitalocean-key.enc -out .travis/alax-digitalocean-key -d
 
 before_script:
   - npm install coveralls
+  - docker build -t alaxalves/front -f Dockerfile.dev .
 
 script:
   - docker run -v /home/travis/build/fga-gpp-mds/Falko-2017.2-FrontEnd:/Falko-2017.2-FrontEnd alaxalves/front /bin/sh -c "npm run unit"
 
 after_script:
-  - ./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info
+  - "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
+
+after_success:
+  - eval "$(ssh-agent -s)"
+  - chmod 600 .travis/alax-digitalocean-key
+  - ssh-add .travis/alax-digitalocean-key
+  - ssh-keyscan 45.55.176.99 >> ~/.ssh/known_hosts
+  - git remote add dokku dokku@45.55.176.99:falko-frontend
+  - git remote -v
+  - git config --global push.default simple
+  - |
+    if [ "${TRAVIS_BRANCH}" == "devel" ]; then
+      echo "Deploying to homolog environment..."
+      git push dokku devel:master
+    else
+      echo "Skipping homolog deploy..."
+    fi

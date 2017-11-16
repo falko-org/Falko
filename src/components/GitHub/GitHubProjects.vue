@@ -110,10 +110,7 @@ export default{
     },
 
     isGitHubLinked() {
-      if (this.gitHubLinked) {
-        return true;
-      }
-      return false;
+      return this.gitHubLinked;
     },
 
     buttonClass() {

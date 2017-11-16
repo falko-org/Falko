@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isFromProjectGitHub()">
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
@@ -57,6 +57,7 @@ export default {
     return {
       issues: [],
       selectedIssue: '',
+      is_project_from_github: '',
     };
   },
 
@@ -66,6 +67,8 @@ export default {
     },
 
     getIssues() {
+      this.getProjectOrigin();
+
       const token = localStorage.getItem('token');
       const tokenSimple = token.replace(/"/, '');
       const tokenSimple2 = tokenSimple.replace(/"/, '');
@@ -101,8 +104,12 @@ export default {
         });
     },
 
-    selectIssue(issue) {
-      this.selectedIssue = issue;
+    getProjectOrigin() {
+      this.is_project_from_github = (localStorage.getItem('is_project_from_github') === 'true');
+    },
+
+    isFromProjectGitHub() {
+      return this.is_project_from_github;
     },
   },
 
