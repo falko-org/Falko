@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common';
 
 export default {
   data() {
@@ -14,16 +14,16 @@ export default {
     };
   },
   mounted() {
-    var raw_token = localStorage.getItem('token');
-    var token = raw_token.replace(/"/, "").replace(/"/, "");
-    var headers = { 'Authorization': token };
-    var user_id = localStorage.getItem('user_id');
+    const rawToken = localStorage.getItem('token');
+    const token = rawToken.replace(/"/, '').replace(/"/, '');
+    const headers = { Authorization: token };
+    const userId = localStorage.getItem('user_id');
 
-    var code = window.location.search.split('=')[1];
+    const code = window.location.search.split('=')[1];
     HTTP.post('request_github_token', {
-      code: code,
-      id: user_id,
-    }, { headers: headers })
+      code,
+      id: userId,
+    }, { headers })
       .then((response) => {
         console.log(response.data.access_token);
         this.token = response.data.access_token;

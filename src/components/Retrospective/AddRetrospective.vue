@@ -2,8 +2,8 @@
   <div>
     <div>
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
-              data-toggle="modal" data-target="#addRetrospectiveModal">
-        Add Retrospective
+      data-toggle="modal" data-target="#addRetrospectiveModal">
+      Add Retrospective
       </button>
     </div>
 
@@ -14,7 +14,7 @@
             <h3 class="modal-title">
               Add Sprint Retrospective
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -23,104 +23,133 @@
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
             <textarea class="text-justify"
-                      placeholder="Input your sprint report..."
-                      v-model="sprintReport"
+            placeholder="Input your sprint report..."
+            v-model="sprintReport"
             />
           </div>
           <div class="modal-footer">
             <button class="btn btn-info btn-md falko-button"
-                    v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-                    data-dismiss="modal"
+            v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
+            data-dismiss="modal"
             >
-              Save
-            </button>
-            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
-              Cancel
-            </button>
+            Save
+          </button>
+          <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+        <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title">
+                  Add Sprint Retrospective
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
+                <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
+                <list parent="Improvements" v-on:listUpdated="updateList"></list>
+                <textarea class="text-justify"
+                placeholder="Input your sprint report..."
+                v-model="sprintReport"
+                />
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-info btn-md falko-button"
+                v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
+                data-dismiss="modal"
+                >
+                Save
+                </button>
+                <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
-import List from '@/components/Retrospective/List'
-import {HTTP} from '../../http-common.js';
+import List from './List.vue';
+import { HTTP } from '../../http-common';
 
 
 export default {
   components: {
-    'list': List
+    list: List,
   },
 
-  data () {
+  data() {
     return {
       sprintReport: '',
       positivePoints: [],
       negativePoints: [],
       improvements: [],
-      retrospectiveId: ''
-    }
+      retrospectiveId: '',
+    };
   },
 
   methods: {
-    addRetrospective () {
-			var token = localStorage.getItem('token');
-			var tokenSimple = token.replace(/"/, "");
-			var tokenSimple2 = tokenSimple.replace(/"/, "");
-			var headers = { 'Authorization':tokenSimple2 };
+    addRetrospective() {
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const headers = { Authorization: tokenSimple2 };
 
       HTTP.post(`sprints/${this.$route.params.id}/retrospectives`, {
         sprint_report: this.sprintReport,
         positive_points: this.positivePoints,
         negative_points: this.negativePoints,
-        improvements: this.improvements
-      }, { headers:headers })
-      .then(response => {
+        improvements: this.improvements,
+      }, { headers })
+      .then((response) => {
+        this.$emit('retrospectiveCreated');
+        this.retrospectiveId = response.data.id;
 
-        this.$emit('retrospectiveCreated')
-        this.retrospectiveId = response.data.id
-
-        this.$router.push({ path : `/retrospectives/${this.retrospectiveId}`});
+        this.$router.push({ path: `/retrospectives/${this.retrospectiveId}` });
       })
-      .catch(e => {
-        this.errors.push(e)
+      .catch((e) => {
+        this.errors.push(e);
       });
     },
 
-    updateList (items, parent) {
-      if (parent == "PositivePoints") {
-        this.positivePoints = []
-        for(var i = 0; i < items.length; i++) {
-          this.positivePoints.push(items[i].title)
+    updateList(items, parent) {
+      if (parent == 'PositivePoints') {
+        this.positivePoints = [];
+        for (var i = 0; i < items.length; i++) {
+          this.positivePoints.push(items[i].title);
+        }
+      } else if (parent == 'NegativePoints') {
+        this.negativePoints = [];
+        for (var i = 0; i < items.length; i++) {
+          this.negativePoints.push(items[i].title);
+        }
+      } else if (parent == 'Improvements') {
+        this.improvements = [];
+        for (var i = 0; i < items.length; i++) {
+          this.improvements.push(items[i].title);
         }
       }
-
-      else if (parent == "NegativePoints") {
-        this.negativePoints = []
-        for(var i = 0; i < items.length; i++) {
-          this.negativePoints.push(items[i].title)
-        }
-      }
-
-      else if (parent == "Improvements") {
-        this.improvements = []
-        for(var i = 0; i < items.length; i++) {
-          this.improvements.push(items[i].title)
-        }
-      }
-    }
+    },
   },
 
   computed: {
     FieldsNotFilled() {
       return this.positivePoints.length == 0 ||
-             this.negativePoints.length == 0 ||
-             this.improvements.length == 0
-    }
-  }
-}
+      this.negativePoints.length == 0 ||
+      this.improvements.length == 0;
+    },
+  },
+};
 </script>
 
 <style scoped>
