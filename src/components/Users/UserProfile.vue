@@ -94,10 +94,7 @@ export default {
     },
 
     isGitHubLinked() {
-      if (this.is_github_authenticated) {
-        return true;
-      }
-      return false;
+      return this.is_github_authenticated;
     },
 
     buttonClass() {

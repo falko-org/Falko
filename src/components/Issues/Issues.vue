@@ -109,10 +109,7 @@ export default {
     },
 
     isFromProjectGitHub() {
-      if (this.is_project_from_github) {
-        return true;
-      }
-      return false;
+      return this.is_project_from_github;
     },
   },
 
