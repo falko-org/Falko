@@ -22,8 +22,9 @@ import UserProfile from '@/components/Users/UserProfile';
 import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
-import Gpa from '@/components/Gpa';
 import Retrospective from '@/components/Retrospective/Retrospective';
+import Revision from '@/components/Revision/Revision';
+import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
 import Burndown from '@/components/Sprints/Burndown';
 
@@ -167,6 +168,11 @@ const router = new Router({
       path: '/sprints/:id/burndown',
       name: 'Burndown',
       component: Burndown,
+    },
+    {
+      path: '/revisions/:id',
+      name: 'Revision',
+      component: Revision,
     },
   ],
 });
