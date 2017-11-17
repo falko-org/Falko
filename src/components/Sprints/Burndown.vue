@@ -1,13 +1,25 @@
 <template>
-  <svg width="700" height="270">
-    <g class="x axis" id="xAxis" transform="translate(50, 230)"></g>
-    <g class="y axis" id="yAxis" transform="translate(50, 20)"></g>
-    <g transform="translate(50, 20)">
-      <path v-bind:d="realLine" />
-      <path class="cor" v-bind:d="idealLine" />
-    </g>
-  </svg>
+  <div>
+    <div class="row text-center">
+      <div class="col align-self-center">
+        <h4>Burndown da sprint</h4>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="col-md-6 mx-auto">
+        <svg width="700" height="270">
+          <g class="x axis" id="xAxis" transform="translate(50, 230)"></g>
+          <g class="y axis" id="yAxis" transform="translate(50, 20)"></g>
+          <g transform="translate(50, 20)">
+            <path v-bind:d="realLine" />
+            <path class="cor" v-bind:d="idealLine" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
 </template>
+
 <script>
 import * as d3 from 'd3';
 import { HTTP } from '../../http-common';
