@@ -3,20 +3,28 @@
     <div class="row">
       <div class="card mx-auto">
         <div class="card-body project">
-          <h4 class="card-title"> User Profile </h4>
-          <div class="row">
-            <label> Name: </label>
-            <p class="card-text text-muted">{{name}}</p>
+          <div class="col">
+            <div class="row">
+              <h4 class="card-title"> User Profile </h4>
+            </div>
+            <div class="row">
+              <label> Name: </label>
+              <p class="card-text text-muted">{{name}}</p>
+            </div>
+            <div class="row">
+              <label> E-mail: </label>
+              <p class="card-text text-muted">{{email}}</p>
+            </div>
+            <div class="row">
+              <label> GitHub Account: </label>
+              <p class="card-text text-muted">{{github}}</p>
+            </div>
+            <div class="row">
+              <label> GitHub Authenticated: </label>
+              <p class="card-text text-muted">{{is_github_authenticated}}</p>
+            </div>
           </div>
-          <div class="row">
-            <label> E-mail: </label>
-            <p class="card-text text-muted">{{email}}</p>
-          </div>
-          <div class="row">
-            <label> GitHub Account: </label>
-            <p class="card-text text-muted">{{github}}</p>
-          </div>
-         </div>
+        </div>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -26,8 +34,10 @@
       <div class="col-md-2">
         <delete-user-profile></delete-user-profile>
       </div>
-      <div class="col-md-2">
-        <button class="falko-button btn btn-primary" v-on:click="link()">Link to Github</button>
+      <div>
+        <button v-bind:class="buttonClass()" v-on:click="link()">
+          Link to Github
+        </button>
       </div>
     </div>
   </div>
@@ -51,6 +61,7 @@ export default {
       name: '',
       email: '',
       github: '',
+      is_github_authenticated: false,
     };
   },
   computed: {
@@ -64,17 +75,36 @@ export default {
       const headers = { Authorization: this.token };
 
       HTTP.get(`users/${this.userId}`, { headers })
-        .then((response) => {
-          this.name = response.data.name;
-          this.email = response.data.email;
-          this.github = response.data.github;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.name = response.data.name;
+        this.email = response.data.email;
+        this.github = response.data.github;
+        if (response.data.access_token != null) {
+          this.is_github_authenticated = true;
+        } else {
+          this.is_github_authenticated = false;
+        }
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
+
     link() {
-      window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+      if (!this.isGitHubLinked()) {
+        window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+      }
+    },
+
+    isGitHubLinked() {
+      return this.is_github_authenticated;
+    },
+
+    buttonClass() {
+      if (this.isGitHubLinked()) {
+        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+      }
+      return 'falko-button btn btn-primary';
     },
   },
   mounted() {
@@ -89,11 +119,11 @@ export default {
 </script>
 
 <style scoped>
-  label {
-    margin-right: 5px;
-  }
+label {
+  margin-right: 5px;
+}
 
-  #buttons {
-    margin-top: 1em;
-  }
+#buttons {
+  margin-top: 1em;
+}
 </style>

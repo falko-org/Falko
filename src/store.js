@@ -7,7 +7,7 @@ import auth from './services/auth/index';
 Vue.use(Vuex);
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
-  storage: window.localStorage,
+  storage: localStorage,
   modules: ['auth'],
 });
 

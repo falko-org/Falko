@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isFromProjectGitHub()">
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
@@ -14,19 +14,11 @@
         <div align="center">
           <div class="card" id="issueCard">
             <div class="card-body">
-                <div class="row">
-                  <div class="col">
+              <div class="row">
+                <div class="col">
                   <h4 class="float-left">{{issue.name}}</h4>
-                  </div>
-                  <div class="col-6 align-self-center">
-                    <div class="float-right ">Points</div>
-                    <div class="float-right number-circle">
-                      <div id="pointsFont">
-                        2
-                      </div>
-                    </div>
-                 </div>
-               </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-3" id="colIssue">
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
@@ -49,35 +41,38 @@
 </template>
 
 <script>
-import { HTTP } from '../../http-common.js'
-import AddIssue from '@/components/Issues/AddIssue'
-import EditIssue from '@/components/Issues/EditIssue'
-import NoContent from '@/components/NoContent'
+import AddIssue from './AddIssue.vue';
+import EditIssue from './EditIssue.vue';
+import NoContent from '../NoContent.vue';
+import { HTTP } from '../../http-common';
 
 export default {
   components: {
     'add-issue': AddIssue,
     'edit-issue': EditIssue,
-    'no-content': NoContent
+    'no-content': NoContent,
   },
 
-  data () {
+  data() {
     return {
       issues: [],
-      selectedIssue: ''
-    }
+      selectedIssue: '',
+      is_project_from_github: '',
+    };
   },
 
   methods: {
-    selectIssue(issue){
+    selectIssue(issue) {
       this.selectedIssue = issue;
     },
 
     getIssues() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+      this.getProjectOrigin();
+
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const header = { Authorization: tokenSimple2 };
 
       HTTP.get(`projects/${this.$route.params.id}/issues`, { headers: header })
         .then((response) => {
@@ -88,37 +83,41 @@ export default {
         });
     },
     isIssuesEmpty() {
-      return this.issues.length == 0
+      return this.issues.length === 0;
     },
 
-    closeIssue(number1){
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+    closeIssue(number1) {
+      const token = localStorage.getItem('token');
+      const tokenSimple = token.replace(/"/, '');
+      const tokenSimple2 = tokenSimple.replace(/"/, '');
+      const header = { Authorization: tokenSimple2 };
 
-      let config = {data : {issue: {number:number1}}, headers:header}
+      const config = { data: { issue: { number: number1 } }, headers: header };
 
       HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
-      .then(response =>{
-				this.$router.push({ path : `/projects/${this.$route.params.id}/issues`});
-        this.getIssues();
-			})
-			.catch(e =>{
-				this.errors.push(e)
-			});
-  	},
+        .then(() => {
+          this.$router.push({ path: `/projects/${this.$route.params.id}/issues` });
+          this.getIssues();
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
 
-    selectIssue(issue){
-      this.selectedIssue=issue
-    }
+    getProjectOrigin() {
+      this.is_project_from_github = (localStorage.getItem('is_project_from_github') === 'true');
+    },
+
+    isFromProjectGitHub() {
+      return this.is_project_from_github;
+    },
   },
 
   mounted() {
     this.getIssues();
   },
 
-}
+};
 </script>
 
 <style scoped>
