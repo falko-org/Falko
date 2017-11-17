@@ -25,7 +25,7 @@ import NotFound from '@/components/NotFound';
 import Gpa from '@/components/Gpa';
 import Retrospective from '@/components/Retrospective/Retrospective';
 import Issues from '@/components/Issues/Issues';
-import Burndown from '@/components/Sprints/Burndown'
+import Burndown from '@/components/Sprints/Burndown';
 
 Vue.use(Router);
 
