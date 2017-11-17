@@ -120,7 +120,8 @@ export default {
 
 <style scoped>
   .card {
-    box-shadow: 0 0.2em 0.7em -0.1em #999999;
+    /*box-shadow: 0 0.2em 0.7em -0.1em #999999;*/
+    box-shadow: 0em 0.12em 0.01em 0em #ddd;
   }
   label {
     margin-right: .3em;
