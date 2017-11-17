@@ -4,7 +4,7 @@
     <g class="y axis" id="yAxis" transform="translate(50, 20)"></g>
     <g transform="translate(50, 20)">
       <path v-bind:d="line" />
-      <path v-bind:d="line1" />
+      <path class="cor" v-bind:d="line1" />
     </g>
   </svg>
 </template>
@@ -18,7 +18,7 @@ export default {
     return {
     lineData: [],
     line: '',
-    line1Data: [{x: new Date(2017,1,1), y: 20},{x: new Date(2017,1,7), y: 0}],
+    line1Data: [],
     line1: ''
     };
   },
@@ -36,6 +36,7 @@ export default {
         .then((response) => {
           this.lineData = response.data;
           this.lineData.forEach((d) => d.x = parseTime(d.x))
+          this.getIdealLine();
           this.drawAxis();
           this.drawLine();
         })
@@ -48,6 +49,16 @@ export default {
         .domain([d3.min(this.lineData, (d) => d.x),
                  d3.max(this.lineData, (d) => d.x)]);
       return xRange;
+    },
+    getIdealLine () {
+      var xMin = d3.min(this.lineData, (d) => d.x);
+      var yMax = d3.max(this.lineData, (d) => d.y);
+      var xMax = d3.max(this.lineData, (d) => d.x);
+      var yMin = d3.min(this.lineData, (d) => d.y);
+      var minPoint = {x: xMin, y: yMax};
+      var maxPoint = {x: xMax, y: yMin};
+      var idealLine = [minPoint, maxPoint];
+      this.line1Data = idealLine;
     },
     getYRange() {
       var yRange =  d3.scaleLinear().range([210, 0])
@@ -107,6 +118,11 @@ export default {
   path {
     fill: none;
     stroke: #76BF8A;
+    stroke-width: 3px;
+  }
+  .cor {
+    fill: none;
+    stroke: red;
     stroke-width: 3px;
   }
 
