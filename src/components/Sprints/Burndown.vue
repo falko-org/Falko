@@ -1,13 +1,25 @@
 <template>
-  <svg width="700" height="270">
-    <g class="x axis" id="xAxis" transform="translate(50, 230)"></g>
-    <g class="y axis" id="yAxis" transform="translate(50, 20)"></g>
-    <g transform="translate(50, 20)">
-      <path v-bind:d="line" />
-      <path class="cor" v-bind:d="line1" />
-    </g>
-  </svg>
+  <div>
+    <div class="row text-center">
+      <div class="col align-self-center">
+        <h4>Burndown da sprint</h4>
+      </div>
+    </div>
+    <div class="row"> 
+      <div class="col-md-6 mx-auto">
+        <svg width="700" height="270">
+          <g class="x axis" id="xAxis" transform="translate(50, 230)"></g>
+          <g class="y axis" id="yAxis" transform="translate(50, 20)"></g>
+          <g transform="translate(50, 20)">
+            <path v-bind:d="realLine" />
+            <path class="cor" v-bind:d="idealLine" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
 </template>
+
 <script>
 import * as d3 from 'd3';
 import { HTTP } from '../../http-common';
@@ -16,10 +28,10 @@ export default {
   name: 'vue-line-chart',
   data() {
     return {
-    lineData: [],
-    line: '',
-    line1Data: [],
-    line1: ''
+    realLineData: [],
+    realLine: '',
+    idealLineData: [],
+    idealLine: ''
     };
   },
   mounted() {
@@ -34,9 +46,9 @@ export default {
       var parseTime = d3.timeParse("%Y-%m-%d")
       HTTP.get(`sprints/${this.$route.params.id}/burndown`, { headers })
         .then((response) => {
-          this.lineData = response.data;
-          this.lineData.forEach((d) => d.x = parseTime(d.x))
-          this.getIdealLine();
+          this.realLineData = response.data;
+          this.realLineData.forEach((d) => d.x = parseTime(d.x))
+          this.getIdealLineData();
           this.drawAxis();
           this.drawLine();
         })
@@ -44,47 +56,47 @@ export default {
           this.errors.push(e);
         });
     },
-    getXRange() {
-      var xRange = d3.scaleTime().range([0, 500])
-        .domain([d3.min(this.lineData, (d) => d.x),
-                 d3.max(this.lineData, (d) => d.x)]);
-      return xRange;
-    },
-    getIdealLine () {
-      var xMin = d3.min(this.lineData, (d) => d.x);
-      var yMax = d3.max(this.lineData, (d) => d.y);
-      var xMax = d3.max(this.lineData, (d) => d.x);
-      var yMin = d3.min(this.lineData, (d) => d.y);
+    getIdealLineData () {
+      var xMin = d3.min(this.realLineData, (d) => d.x);
+      var yMax = d3.max(this.realLineData, (d) => d.y);
+      var xMax = d3.max(this.realLineData, (d) => d.x);
+      var yMin = d3.min(this.realLineData, (d) => d.y);
       var minPoint = {x: xMin, y: yMax};
       var maxPoint = {x: xMax, y: yMin};
-      var idealLine = [minPoint, maxPoint];
-      this.line1Data = idealLine;
+      var idealLineData = [minPoint, maxPoint];
+      this.idealLineData = idealLineData;
     },
-    getYRange() {
-      var yRange =  d3.scaleLinear().range([210, 0])
-        .domain([d3.min(this.lineData, (d) => d.y),
-                 d3.max(this.lineData, (d) => d.y)])
-      return yRange;
-    },
-    getX1Range() {
+    getRealXRange() {
       var xRange = d3.scaleTime().range([0, 500])
-        .domain([d3.min(this.line1Data, (d) => d.x),
-                 d3.max(this.line1Data, (d) => d.x)]);
+        .domain([d3.min(this.realLineData, (d) => d.x),
+                 d3.max(this.realLineData, (d) => d.x)]);
       return xRange;
     },
-    getY1Range() {
+    getRealYRange() {
       var yRange =  d3.scaleLinear().range([210, 0])
-        .domain([d3.min(this.line1Data, (d) => d.y),
-                 d3.max(this.line1Data, (d) => d.y)])
+        .domain([d3.min(this.realLineData, (d) => d.y),
+                 d3.max(this.realLineData, (d) => d.y)])
+      return yRange;
+    },
+    getIdealXRange() {
+      var xRange = d3.scaleTime().range([0, 500])
+        .domain([d3.min(this.idealLineData, (d) => d.x),
+                 d3.max(this.idealLineData, (d) => d.x)]);
+      return xRange;
+    },
+    getIdealYRange() {
+      var yRange =  d3.scaleLinear().range([210, 0])
+        .domain([d3.min(this.idealLineData, (d) => d.y),
+                 d3.max(this.idealLineData, (d) => d.y)])
       return yRange;
     },
     getXAxis() {
-      var xAxis = d3.axisBottom(this.getXRange()).tickValues(this.lineData.map((d) => d.x)).tickFormat(d3.timeFormat("%d-%m"))
+      var xAxis = d3.axisBottom(this.getRealXRange()).tickValues(this.realLineData.map((d) => d.x)).tickFormat(d3.timeFormat("%d-%m"))
       return xAxis;
     },
 
     getYAxis() {
-      var yAxis = d3.axisLeft(this.getYRange())
+      var yAxis = d3.axisLeft(this.getRealYRange())
       return yAxis;
     },
     drawAxis() {
@@ -92,20 +104,19 @@ export default {
       d3.select("#yAxis").call(this.getYAxis())
     },
     drawLine() {
-      var xRange = this.getXRange();
-      var yRange = this.getYRange();
+      var xRange = this.getRealXRange();
+      var yRange = this.getRealYRange();
       var path = d3.line()
       .x((d) => xRange(d.x))
       .y((d) => yRange(d.y));
-      this.line = path(this.lineData)
+      this.realLine = path(this.realLineData)
 
-
-        var x1Range = this.getX1Range();
-        var y1Range = this.getY1Range();
-        var path1 = d3.line()
-        .x((d) => x1Range(d.x))
-        .y((d) => y1Range(d.y));
-      this.line1 = path1(this.line1Data)
+      var idealXRange = this.getIdealXRange();
+      var idealYRange = this.getIdealYRange();
+      var idealPath = d3.line()
+      .x((d) => idealXRange(d.x))
+      .y((d) => idealYRange(d.y));
+      this.idealLine = idealPath(this.idealLineData)
     }
   },
 };
