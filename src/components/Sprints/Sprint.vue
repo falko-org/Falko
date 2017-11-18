@@ -46,6 +46,7 @@
           <delete-sprint></delete-sprint>
         </li>
       </div>
+      <stories></stories>
     </div>
   </div>
 </template>
@@ -59,6 +60,7 @@ import AddRetrospective from '../Retrospective/AddRetrospective.vue';
 import Retrospective from '../Retrospective/Retrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
 import Revision from '../Revision/Revision.vue';
+import Stories from '../Stories/Stories'
 import { HTTP } from '../../http-common';
 
 export default{
@@ -68,6 +70,7 @@ export default{
     'delete-sprint': DeleteSprint,
     'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
+    'stories': Stories,
   },
   data() {
     return {
