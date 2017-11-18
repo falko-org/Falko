@@ -65,6 +65,7 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      projectId: state => state.clientStatus.projectId,
     }),
   },
 
@@ -78,7 +79,7 @@ export default {
 
       const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${this.$route.params.id}/issues`, { headers })
+      HTTP.get(`projects/${this.projectId}/issues`, { headers })
         .then((response) => {
           this.issues = response.data.issues_infos;
         })
@@ -95,7 +96,7 @@ export default {
 
       const config = { data: { issue: { number: number1 } }, headers };
 
-      HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
+      HTTP.delete(`/projects/${this.projectId}/issues`, config)
         .then(() => {
           this.$router.push({ path: `/projects/${this.$route.params.id}/issues` });
           this.getIssues();

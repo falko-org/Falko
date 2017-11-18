@@ -68,6 +68,9 @@ export default {
     }),
   },
   methods: {
+    setProjetId() {
+      this.$store.dispatch('setProject',  this.$route.params.id)
+    },
     getProject() {
       const headers = { Authorization: this.token };
       this.isFromProjectGitHub();
@@ -103,6 +106,7 @@ export default {
   },
   mounted() {
     this.getProject(this.$route.params.id);
+    this.setProjetId();
   },
 };
 </script>
