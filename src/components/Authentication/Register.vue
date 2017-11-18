@@ -43,20 +43,16 @@ export default {
 
   methods: {
     login() {
-      HTTP.post('authenticate', {
-        email: this.email,
-        password: this.password,
-      })
-      .then((response) => {
-        this.$router.push({ name: 'Projects' });
-        localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-        localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      const _this = this;
+      this.$store.dispatch('login', { email: this.email, password: this.password })
+        .then(() => {
+          this.$router.push({ name: 'Projects' });
+        })
+        .catch((err) => {
+          _this.errors.add('wrong-credentials', 'Wrong Credentials');
+          console.log(err.response.data); // It goes here!
+        });
     },
-
     register() {
       HTTP.post('users', {
         user: {
@@ -67,12 +63,12 @@ export default {
           github: this.github,
         },
       })
-      .then(() => {
-        this.login();
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then(() => {
+          this.login();
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 };

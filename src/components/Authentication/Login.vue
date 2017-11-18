@@ -3,24 +3,37 @@
     <div class="card-body">
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoLogin">
 
-      <form id="loginForm"  @submit.prevent="login()">
+      <form id="loginForm"  @submit.prevent="login()" name="wrong-credentials">
         <div class="form-group">
-          <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" v-model="email">
+          <input  type="email"
+          class="form-control"
+          placeholder="Email"
+          name="email"
+          v-model="email"
+          v-validate="'email'" >
+          <p class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</p>
         </div>
+
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" v-model="password">
+          <input  type="password"
+          class="form-control"
+          placeholder="Password"
+          name="password"
+          v-model="password"
+          v-validate="'required|min:6'">
+          <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
         </div>
+
         <div class="text-center">
           <button type="submit" class="btn btn-primary falko-button" >Log In</button>
         </div>
+        <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-import { HTTP } from '../../http-common';
-
 export default {
   data() {
     return {
@@ -31,17 +44,14 @@ export default {
 
   methods: {
     login() {
-      HTTP.post('authenticate', {
-        email: this.email,
-        password: this.password,
-      })
-        .then((response) => {
-          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+      const thisOne = this;
+      this.$store.dispatch('login', { email: this.email, password: this.password })
+        .then(() => {
           this.$router.push({ name: 'Projects' });
         })
-        .catch((e) => {
-          this.errors.push(e);
+        .catch((err) => {
+          thisOne.errors.add('wrong-credentials', 'Wrong Credentials');
+          console.log(err); // It goes here!
         });
     },
   },

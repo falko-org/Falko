@@ -51,10 +51,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
-import Gpa from '../Gpa.vue';
+import Gpa from '../Gpa';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -72,15 +73,17 @@ export default {
       is_github_authenticated: '',
     };
   },
-
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
+  },
   methods: {
     getProjects() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`users/${userId}/projects`, { headers })
+      HTTP.get(`users/${this.userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
@@ -90,12 +93,8 @@ export default {
     },
 
     gitHubAuthenticated() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
-
-      HTTP.get(`users/${userId}`, { headers })
+      const headers = { Authorization: this.token };
+      HTTP.get(`users/${this.userId}`, { headers })
         .then((response) => {
           if (response.data.access_token != null) {
             this.is_github_authenticated = true;

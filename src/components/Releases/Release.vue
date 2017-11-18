@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EditRelease from './EditRelease.vue';
 import DeleteRelease from './DeleteRelease.vue';
 import dateConvert from '../../mixins/dateConvert';
@@ -56,20 +57,21 @@ export default {
       release: {},
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
 
   mixins: [dateConvert],
 
   methods: {
     getRelease() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.release = response.data;
-
           this.release.initial_date = this.dateConvert(this.release.initial_date);
           this.release.final_date = this.dateConvert(this.release.final_date);
         })

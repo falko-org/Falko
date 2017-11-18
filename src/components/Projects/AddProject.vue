@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -41,17 +42,17 @@ export default {
       description: '',
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
+  },
   methods: {
     addProject() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      const userId = localStorage.getItem('user_id');
-      const userInt = parseInt(userId, 10);
-
-      HTTP.post(`users/${userInt}/projects`, {
+      HTTP.post(`users/${this.userId}/projects`, {
         project: {
           name: this.name,
           description: this.description,

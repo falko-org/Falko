@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default{
@@ -50,13 +51,14 @@ export default{
       finalDate: '',
     };
   },
-
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     editSprint() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.put(`sprints/${this.$route.params.id}`, {
         name: this.name,
@@ -73,10 +75,7 @@ export default{
     },
 
     getSprintInformation() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}`, { headers })
         .then((response) => {

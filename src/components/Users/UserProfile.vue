@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EditUserProfile from './EditUserProfile.vue';
 import DeleteUserProfile from './DeleteUserProfile.vue';
 import { HTTP } from '../../http-common';
@@ -60,31 +61,33 @@ export default {
       name: '',
       email: '',
       github: '',
-      is_github_authenticated: '',
+      is_github_authenticated: false,
     };
+  },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
   },
   methods: {
     getUser() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`users/${userId}`, { headers })
-        .then((response) => {
-          this.name = response.data.name;
-          this.email = response.data.email;
-          this.github = response.data.github;
-          if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
-          } else {
-            this.is_github_authenticated = false;
-          }
-          this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      HTTP.get(`users/${this.userId}`, { headers })
+      .then((response) => {
+        this.name = response.data.name;
+        this.email = response.data.email;
+        this.github = response.data.github;
+        if (response.data.access_token != null) {
+          this.is_github_authenticated = true;
+        } else {
+          this.is_github_authenticated = false;
+        }
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     link() {
