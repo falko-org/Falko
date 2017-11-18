@@ -24,9 +24,9 @@
             </div>
             <div class="col">
               <p><label>Initial Date</label></p>
-              <p><input type="date" v-model="initialDate"></input><br></p>
+              <p><input type="date" v-model="initialDate" min="2017-11-01" max="2017-11-30"></input><br></p>
               <p><label>Final Date</label></p>
-              <p><input type="date" v-model="finalDate"></input><br></p>
+              <p><input type="date" v-model="finalDate" min="2017-11-01" max="2017-11-30"></input><br></p>
             </div>
           </div>
           <div class="modal-footer">
@@ -46,6 +46,9 @@ import { HTTP } from '../../http-common';
 
 export default {
   name: 'addSprintBody',
+
+  props: ['dateLimitations'],
+
   data() {
     return {
       name: '',
@@ -54,11 +57,13 @@ export default {
       finalDate: '',
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
     }),
   },
+
   methods: {
     addSprint() {
       const headers = { Authorization: this.token };

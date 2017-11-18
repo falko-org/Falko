@@ -4,53 +4,55 @@
       <no-content parent ="Release"></no-content>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col-4">
         <add-release></add-release>
+        <release-card></release-card>
       </div>
-    </div>
-
-    <div class="row justify-content-around" v-for="i in Math.ceil(releases.length / 2)">
-      <div v-for="release in releases.slice((i-1) * 2,i*2)" class="col-5">
-        <div align="center">
-          <div class="card" id="releaseCard">
-            <router-link v-bind:to="'/releases/'+release.id">
-              <div class="card-header" id="releaseHeader">
-                <div class="row align-itens-around" id="releaseTitle">
-                  <div class="col">
-                    <h4 class="no-margin float-left">{{release.name}}</h4>
-                  </div>
-                  <div class="col">
-                    <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
-                    <h6 class="no-margin float-right">
-                      {{dateConvert(release.initial_date)}}
-                      -
-                      {{dateConvert(release.final_date)}}
-                    </h6>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row align-itens-arround">
-                  <div class="col-5 align-content-center">
-                    <p class="card-text">
-                      <div class="number-circle">
-                        <div id="amountSprintsFont">
-                          {{release.amount_of_sprints}}
-                        </div>
+      <div class="col-8">
+        <div class="row justify-content-around" v-for="i in Math.ceil(releases.length / 2)">
+          <div v-for="release in releases.slice((i-1) * 2,i*2)" class="col-5">
+            <div align="center">
+              <div class="card" id="releaseCard">
+                <router-link v-bind:to="'/releases/'+release.id">
+                  <div class="card-header" id="releaseHeader">
+                    <div class="row align-itens-around" id="releaseTitle">
+                      <div class="col">
+                        <h4 class="no-margin float-left">{{release.name}}</h4>
                       </div>
-                      <h5><br>Sprints</h5>
-                    </p>
+                      <div class="col">
+                        <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
+                        <h6 class="no-margin float-right">
+                          {{dateConvert(release.initial_date)}}
+                          -
+                          {{dateConvert(release.final_date)}}
+                        </h6>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col">
-                    <p class="card-text text-justify">
-                      {{release.description}}
-                    </p>
+                  <div class="card-body">
+                    <div class="row align-itens-arround">
+                      <div class="col-5 align-content-center">
+                        <p class="card-text">
+                          <div class="number-circle">
+                            <div id="amountSprintsFont">
+                              {{release.amount_of_sprints}}
+                            </div>
+                          </div>
+                          <h5><br>Sprints</h5>
+                        </p>
+                      </div>
+                      <div class="col">
+                        <p class="card-text text-justify">
+                          {{release.description}}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </router-link>
               </div>
-            </router-link>
+              <br>
+            </div>
           </div>
-          <br>
         </div>
       </div>
     </div>
@@ -62,6 +64,7 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 import AddRelease from './AddRelease.vue';
 import NoContent from '../NoContent.vue';
+import ReleaseCard from './ReleaseCard.vue';
 import dateConvert from '../../mixins/dateConvert';
 
 export default {
@@ -69,6 +72,7 @@ export default {
   components: {
     'add-release': AddRelease,
     'no-content': NoContent,
+    'release-card': ReleaseCard,
   },
 
   data() {
@@ -87,7 +91,6 @@ export default {
   methods: {
     getReleases() {
       const headers = { Authorization: this.token };
-      console.log(headers);
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
         .then((response) => {
           this.releases = response.data;
@@ -107,10 +110,6 @@ export default {
   },
 
   mounted() {
-    this.getReleases();
-  },
-
-  updated() {
     this.getReleases();
   },
 };

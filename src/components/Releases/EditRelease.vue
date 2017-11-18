@@ -1,6 +1,6 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editReleaseModal">
+    <button type="button" class="btn btn-info btn-md falko-button-grey" id="editbutton" data-toggle="modal" data-target="#editReleaseModal">
       Edit
     </button>
 
