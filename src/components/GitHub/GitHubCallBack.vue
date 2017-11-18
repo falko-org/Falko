@@ -1,13 +1,9 @@
 <template>
-  <div>
-    <h1> {{github_token}} </h1>
-  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
-
 
 export default {
   data() {
@@ -30,6 +26,7 @@ export default {
     }, { headers })
       .then((response) => {
         this.github_token = response.data.access_token;
+        this.$router.push({ name: 'UserProfile' });
       })
       .catch((e) => {
         this.errors.push(e);

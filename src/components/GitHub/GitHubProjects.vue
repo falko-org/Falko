@@ -68,8 +68,6 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default{
-  props: ['gitHubLinked'],
-
   data() {
     return {
       userRepos: [],
@@ -137,18 +135,18 @@ export default{
     },
     
     isGitHubLinked() {
-      return this.gitHubLinked;
+      return (localStorage.getItem('is_github_authenticated') === 'true');
     },
 
     buttonClass() {
-      if (this.gitHubLinked) {
+      if (this.isGitHubLinked()) {
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
 
     buttonDataToggle() {
-      if (this.gitHubLinked) {
+      if (this.isGitHubLinked()) {
         return 'modal';
       }
       return 'none';
