@@ -18,6 +18,7 @@ notifications:
   slack: gppmds8-github:sJE6QlBfPGMkfUf48wuTsKa7
 
 before_install:
+  - docker build -t alaxalves/front -f Dockerfile.test .
   - openssl aes-256-cbc -K $encrypted_fb7d710cc1aa_key -iv $encrypted_fb7d710cc1aa_iv -in .travis/alax-digitalocean-key.enc -out .travis/alax-digitalocean-key -d
 
 before_script:

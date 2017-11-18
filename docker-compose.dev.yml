@@ -5,7 +5,7 @@ services:
     container_name: falko-front
     build:
       context: .
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     volumes:
       - .:/Falko-2017.2-FrontEnd
     external_links:
