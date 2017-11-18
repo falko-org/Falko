@@ -18,6 +18,7 @@
 
 <script>
 import { HTTP } from '../http-common.js';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -28,15 +29,9 @@ export default {
   },
   methods: {
     getProjects() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      var userId = localStorage.getItem('user_id');
-      var userInt = parseInt(userId);
-
-      HTTP.get(`users/${userInt}/projects`, { headers: headers })
+      HTTP.get(`users/${this.userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
@@ -76,7 +71,11 @@ export default {
       return this.projects.filter((project) => {
         return project.name.match(this.search);
       });
-    }
+    },
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
   }
 }
 
