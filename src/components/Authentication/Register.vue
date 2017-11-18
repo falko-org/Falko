@@ -43,17 +43,14 @@ export default {
 
   methods: {
     login() {
-      HTTP.post('authenticate', {
-        email: this.email,
-        password: this.password,
-      })
-        .then((response) => {
-          localStorage.setItem('token', JSON.stringify(response.data.auth_token));
-          localStorage.setItem('user_id', JSON.stringify(response.data.user.id));
+      const _this = this;
+      this.$store.dispatch('login', { email: this.email, password: this.password })
+        .then(() => {
           this.$router.push({ name: 'Projects' });
         })
-        .catch((e) => {
-          this.errors.push(e);
+        .catch((err) => {
+          _this.errors.add('wrong-credentials', 'Wrong Credentials');
+          console.log(err.response.data); // It goes here!
         });
     },
 

@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AddSprint from './AddSprint.vue';
 import NoContent from '../NoContent.vue';
 import { HTTP } from '../../http-common';
@@ -40,12 +41,14 @@ export default{
       sprints: [],
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     getSprints() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${this.$route.params.id}/sprints`, { headers })
         .then((response) => {
@@ -55,16 +58,13 @@ export default{
           this.errors.push(e);
         });
     },
-
     isSprintsEmpty() {
       return this.sprints.length === 0;
     },
   },
-
   mounted() {
     this.getSprints();
   },
-
   updated() {
     this.getSprints();
   },

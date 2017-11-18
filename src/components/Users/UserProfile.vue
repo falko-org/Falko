@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EditUserProfile from './EditUserProfile.vue';
 import DeleteUserProfile from './DeleteUserProfile.vue';
 import { HTTP } from '../../http-common';
@@ -63,16 +64,19 @@ export default {
       github: '',
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
+  },
   methods: {
     getUser() {
       this.isGitHubLinked();
 
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`users/${userId}`, { headers })
+      HTTP.get(`users/${this.userId}`, { headers })
         .then((response) => {
           this.name = response.data.name;
           this.email = response.data.email;

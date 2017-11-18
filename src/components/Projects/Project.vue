@@ -43,12 +43,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
 
-export default{
+export default {
   name: 'Project',
   components: {
     'delete-project': DeleteProject,
@@ -61,14 +62,15 @@ export default{
       project: {},
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     getProject() {
+      const headers = { Authorization: this.token };
       this.isFromProjectGitHub();
-
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
@@ -100,7 +102,7 @@ export default{
     },
   },
   mounted() {
-    this.getProject();
+    this.getProject(this.$route.params.id);
   },
 };
 </script>

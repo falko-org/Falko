@@ -61,17 +61,11 @@
 </template>
 
 <script>
-import LoginRegister from './Authentication/LoginRegister.vue'
+import LoginRegister from './Authentication/LoginRegister.vue';
 
 export default {
   components: {
     'login-register': LoginRegister,
-  },
-
-  data() {
-    return {
-
-    };
   },
 };
 </script>
