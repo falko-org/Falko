@@ -16,6 +16,7 @@
 import Navbar from './components/Navbar.vue';
 import Sidebar from './components/Sidebar.vue';
 import store from './store';
+import { mapState } from 'vuex';
 
 export default {
   name: 'app',
@@ -27,12 +28,14 @@ export default {
 
   methods: {
     isLogged() {
-      if (localStorage.getItem('token') != null) {
-        return true;
-      }
-
-      return false;
+      return this.token != null;
     },
+  },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+     }),
   },
 };
 </script>

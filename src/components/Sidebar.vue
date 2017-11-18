@@ -57,24 +57,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 
 export default {
-  computed: {
-    ...mapState({
-      token: state => state.auth.token,
-    }),
-  },
-
-  methods: {
-    isLogged() {
-      if (this.token != null) {
-        return true;
-      }
-
-      return false;
-    },
-  },
 };
 
 </script>
