@@ -43,7 +43,7 @@
         <add-project v-on:added="refreshProjects()"></add-project>
       </div>
       <div class="col-md-3">
-        <github-projects v-on:added="refreshProjects()" v-bind:gitHubLinked="is_github_authenticated"></github-projects>
+        <github-projects v-on:added="refreshProjects()"></github-projects>
       </div>
     </div>
   </div>
@@ -51,11 +51,12 @@
 </template>
 
 <script>
-import AddProject from '@/components/Projects/AddProject';
-import { HTTP } from '../../http-common.js';
-import NoContent from '@/components/NoContent';
-import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Gpa from '@/components/Gpa';
+import { mapState } from 'vuex';
+import AddProject from './AddProject.vue';
+import NoContent from '../NoContent.vue';
+import GitHubProjects from '../GitHub/GitHubProjects.vue';
+import Gpa from '../Gpa';
+import { HTTP } from '../../http-common';
 
 export default {
   name: 'projects',
@@ -63,51 +64,31 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-    'Gpa': Gpa,
+    Gpa,
   },
+
   data() {
     return {
       projects: [],
-      is_github_authenticated: false,
     };
+  },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
   },
   methods: {
     getProjects() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`users/${userId}/projects`, { headers })
+      HTTP.get(`users/${this.userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
         })
         .catch((e) => {
           this.errors.push(e);
         });
-    },
-
-    gitHubAuthenticated() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
-
-      HTTP.get(`users/${userId}`, { headers })
-        .then((response) => {
-          if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
-          } else {
-            this.is_github_authenticated = false;
-          }
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
-
-    isGitHubAuthenticated() {
-      return this.is_github_authenticated;
     },
 
     refreshProjects() {
@@ -121,7 +102,6 @@ export default {
   },
   mounted() {
     this.getProjects();
-    this.gitHubAuthenticated();
   },
 };
 </script>

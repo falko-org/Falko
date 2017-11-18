@@ -28,28 +28,27 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
-  data() {
-    return {
-    };
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
   },
   methods: {
     deleteRelease() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const header = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      HTTP.delete(`releases/${this.$route.params.id}`, { headers: header })
-        .then((response) => {
+      HTTP.delete(`releases/${this.$route.params.id}`, { headers })
+      .then(() => {
         // Go to the previous page
-          this.$router.go(-1);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        this.$router.go(-1);
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
   },
 };

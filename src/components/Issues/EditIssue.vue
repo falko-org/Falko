@@ -49,8 +49,12 @@
 </template>
 
 <script>
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common.js';
+import { mapState } from 'vuex';
+
 export default {
+  props: ["selected_issue"],
+  
   data () {
     return {
       name: "",
@@ -62,7 +66,11 @@ export default {
     }
   },
 
-  props: ["selected_issue"],
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
 
   methods: {
 
@@ -101,11 +109,7 @@ export default {
     },
 
     editIssue() {
-
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization': tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.put(`projects/${this.$route.params.id}/issues`, {
         issue: {
@@ -113,7 +117,7 @@ export default {
           name: this.name,
           body: this.body
         }
-      }, { headers: headers })
+      }, { headers })
       .then((response)=>{
         this.$emit('updated-issue', this.$route.params.id);
         this.$parent.getIssues();

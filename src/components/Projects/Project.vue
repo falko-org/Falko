@@ -18,20 +18,20 @@
       </div>
     </div>
     <div class="row justify-content-center" id="buttons">
-      <div class="col-md-2" align="center">
+      <div class="col-md-2" v-if="isFromProjectGitHub()" align="center">
         <router-link v-bind:to="'/projects/'+project.id+'/issues'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Backlog
           </button>
         </router-link>
       </div>
-      <div class="col-md-2" align="center">
+      <div v-bind:class="divClass()" align="center">
         <edit-project v-on:edited-project="refreshProject()"></edit-project>
       </div>
-      <div class="col-md-2" align="center">
+      <div v-bind:class="divClass()" align="center">
         <delete-project></delete-project>
       </div>
-      <div class="col-md-2" align="center">
+      <div v-bind:class="divClass()" align="center">
         <router-link v-bind:to="'/projects/'+project.id+'/releases'">
           <button type="button" class="btn btn-info btn-md falko-button">
             Releases
@@ -43,44 +43,66 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
 
-export default{
+export default {
   name: 'Project',
   components: {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
     Gpa,
   },
+
   data() {
     return {
       project: {},
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     getProject() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
+      this.isFromProjectGitHub();
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
-      .then((response) => {
-        this.project = response.data;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.project = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     refreshProject() {
       this.getProject();
     },
+
+    isFromProjectGitHub() {
+      if (this.project.is_project_from_github) {
+        localStorage.setItem('is_project_from_github', 'true');
+        return true;
+      }
+
+      localStorage.setItem('is_project_from_github', 'false');
+      return false;
+    },
+
+    divClass() {
+      if (this.isFromProjectGitHub()) {
+        return 'col-md-3';
+      }
+      return 'col-md-2';
+    },
   },
   mounted() {
-    this.getProject();
+    this.getProject(this.$route.params.id);
   },
 };
 </script>

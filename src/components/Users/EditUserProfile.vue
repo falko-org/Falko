@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 import { EventBus } from '../../event-bus';
 
@@ -47,50 +48,53 @@ export default {
       is_github_authenticated: false,
     };
   },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
+  },
+
   methods: {
     editUser() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
-      HTTP.put(`users/${userId}`, {
+      HTTP.put(`users/${this.userId}`, {
         user: {
           name: this.name,
           email: this.email,
           github: this.github,
         },
       }, { headers })
-        .then(() => {
-          EventBus.$emit('edited-user-profile', 1);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then(() => {
+        EventBus.$emit('edited-user-profile', 1);
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     getUserInformation() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`users/${userId}`, { headers })
-        .then((response) => {
-          this.name = response.data.name;
-          this.email = response.data.email;
-          this.github = response.data.github;
-          if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
-          } else {
-            this.is_github_authenticated = false;
-          }
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      HTTP.get(`users/${this.userId}`, { headers })
+      .then((response) => {
+        this.name = response.data.name;
+        this.email = response.data.email;
+        this.github = response.data.github;
+        if (response.data.access_token != null) {
+          this.is_github_authenticated = true;
+        } else {
+          this.is_github_authenticated = false;
+        }
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
   },
+  
   created() {
     this.getUserInformation();
   },

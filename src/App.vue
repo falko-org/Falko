@@ -13,28 +13,31 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import Sidebar from '@/components/Sidebar.vue'
+import Navbar from './components/Navbar.vue';
+import Sidebar from './components/Sidebar.vue';
+import store from './store';
+import { mapState } from 'vuex';
 
 export default {
   name: 'app',
-
-   components: {
+  store,
+  components: {
     navbar: Navbar,
-    sidebar: Sidebar
+    sidebar: Sidebar,
   },
 
   methods: {
-    isLogged(){
-      if (localStorage.getItem('token') != null) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-  }
-}
+    isLogged() {
+      return this.token != null;
+    },
+  },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+     }),
+  },
+};
 </script>
 
 <style>

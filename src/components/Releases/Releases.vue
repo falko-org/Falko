@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 import AddRelease from './AddRelease.vue';
 import NoContent from '../NoContent.vue';
@@ -75,26 +76,28 @@ export default {
       releases: [],
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
 
   mixins: [dateConvert],
 
   methods: {
     getReleases() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const header = { Authorization: tokenSimple2 };
-
-      HTTP.get(`projects/${this.$route.params.id}/releases`, { headers: header })
-      .then((response) => {
-        this.releases = response.data;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      const headers = { Authorization: this.token };
+      console.log(headers);
+      HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
+        .then((response) => {
+          this.releases = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
     isReleasesEmpty() {
-      return this.releases.length == 0;
+      return this.releases.length === 0;
     },
 
   },

@@ -2,3 +2,6 @@ extends: airbnb-base
 plugins: [
   "html"
 ]
+env:
+  browser: true
+  node: true

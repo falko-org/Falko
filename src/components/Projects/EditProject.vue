@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 import IsScoring from '../Score/IsScoring.vue';
 
@@ -59,12 +60,14 @@ export default{
       isScoring: '',
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     editProject() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.put(`projects/${this.$route.params.id}`, {
         name: this.name,
@@ -79,10 +82,7 @@ export default{
         });
     },
     getProjectInformation() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
