@@ -54,7 +54,7 @@ import { mapState } from 'vuex';
 
 export default {
   props: ["selected_issue"],
-  
+
   data () {
     return {
       name: "",
@@ -66,24 +66,15 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState({
-      token: state => state.auth.token,
-    }),
-  },
-
   methods: {
 
     setAssignees() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.post(`projects/${this.$route.params.id}/issues/assignees`, {
           assignees: this.selectedContribs,
           issue_number: this.number
-      }, { headers: header })
+      }, { headers })
       .then((response)=>{
         console.log("Success")
       })
@@ -94,12 +85,9 @@ export default {
     },
 
     getContributors() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${this.$route.params.id}/contributors`, { headers: header })
+      HTTP.get(`projects/${this.$route.params.id}/contributors`, { headers })
         .then((response) => {
           this.contributors = response.data
         })
@@ -138,6 +126,10 @@ export default {
     this.getContributors();
   },
   computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+
     filteredContribs:function()
     {
         var self=this;
