@@ -3,7 +3,10 @@ services:
   
   falko-front:
     container_name: falko-front
-    image: alaxalves/front:1.4
+    # image: alaxalves/front:1.4
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     command: /bin/bash -lc "npm install && npm run dev"
     volumes:
       - .:/Falko-2017.2-FrontEnd
