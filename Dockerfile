@@ -22,7 +22,5 @@ RUN rm -rf ./test
 RUN rm -rf ./src
 RUN chmod +x start-homolog.sh
 
-ENV PORT=80
-EXPOSE 80
 
 ENTRYPOINT ["./start-homolog.sh"]
