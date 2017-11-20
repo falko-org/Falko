@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="row release-card align-content-center" id="buttons">
-      <div class="col-6" align="center">
+      <div class="col-5" align="center">
         <div class="number-circle">
           <p>R1</p>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-7">
         <div align="center">
           <edit-release ></edit-release>
           <delete-release></delete-release>
@@ -15,12 +15,12 @@
     </div>
 
     <div class="row release-card-selected align-content-center" id="buttons">
-      <div class="col-6" align="center">
+      <div class="col-5" align="center">
         <div class="number-circle-selected">
           <p>R2</p>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-7">
         <div align="center">
           <edit-release ></edit-release>
           <delete-release></delete-release>
@@ -29,12 +29,12 @@
     </div>
 
     <div class="row release-card align-content-center" id="buttons">
-      <div class="col-6" align="center">
+      <div class="col-5" align="center">
         <div class="number-circle">
           <p>R3</p>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-7">
         <div align="center">
           <edit-release ></edit-release>
           <delete-release></delete-release>

@@ -4,13 +4,48 @@
       <no-content parent ="Release"></no-content>
     </div>
     <div class="row">
-      <div class="col-4">
-        <add-release></add-release>
-        <release-card></release-card>
+      <div class="col-3">
+        <div class="row">
+          <add-release></add-release>
+        </div>
+        <div class="row">
+          <div>
+            <release-card></release-card>
+          </div>
+        </div>
       </div>
+
       <div class="col-8">
-        <div class="row justify-content-around" v-for="i in Math.ceil(releases.length / 2)">
-          <div v-for="release in releases.slice((i-1) * 2,i*2)" class="col-5">
+        <div class="row">
+          <div class="col">
+            <div class="row">
+              <h4>{{this.releases[0].name}}</h4>
+            </div>
+            <div class="row text-muted">
+              <p>{{this.releases[0].description}}</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row">
+              {{dateConvert(this.releases[0].initial_date)}}
+              |
+              {{dateConvert(this.releases[0].final_date)}}
+            </div>
+            <div class="row text-muted">
+              <div class="col">
+                <p>Amount of Sprints</p>
+              </div>
+              <div class="col">
+                <p>{{this.releases[0].amount_of_sprints}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <sprint-card></sprint-card>
+
+        <!-- <div class="row justify-content-around">
+          <div v-for="release in releases" class="col-5">
             <div align="center">
               <div class="card" id="releaseCard">
                 <router-link v-bind:to="'/releases/'+release.id">
@@ -20,7 +55,6 @@
                         <h4 class="no-margin float-left">{{release.name}}</h4>
                       </div>
                       <div class="col">
-                        <!-- <img src="../../assets/dateicon.png" width="25em" alt="Date icon"/> -->
                         <h6 class="no-margin float-right">
                           {{dateConvert(release.initial_date)}}
                           -
@@ -52,7 +86,7 @@
               </div>
               <br>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -65,6 +99,7 @@ import { HTTP } from '../../http-common';
 import AddRelease from './AddRelease.vue';
 import NoContent from '../NoContent.vue';
 import ReleaseCard from './ReleaseCard.vue';
+import SprintCard from '../Sprints/SprintCard.vue';
 import dateConvert from '../../mixins/dateConvert';
 
 export default {
@@ -73,6 +108,7 @@ export default {
     'add-release': AddRelease,
     'no-content': NoContent,
     'release-card': ReleaseCard,
+    'sprint-card': SprintCard,
   },
 
   data() {
@@ -116,6 +152,11 @@ export default {
 </script>
 
 <style scoped>
+div a {
+  text-decoration: none;
+  color: inherit;
+}
+
 #releaseCard {
   width: 30em;
 }
@@ -138,6 +179,11 @@ export default {
   font-size:1.4em;
 }
 
+#releaseCard:hover {
+  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
+  border-color: #7799A5;
+}
+
 .number-circle {
   font: 32px Arial, sans-serif;
 
@@ -156,15 +202,5 @@ export default {
   box-sizing: content-box;
   top: 50%;
   left: 50%;
-}
-
-div a {
-  text-decoration: none;
-  color: inherit;
-}
-
-#releaseCard:hover {
-  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
-  border-color: #7799A5;
 }
 </style>

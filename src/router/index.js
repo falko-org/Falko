@@ -26,7 +26,9 @@ import Retrospective from '@/components/Retrospective/Retrospective';
 import Revision from '@/components/Revision/Revision';
 import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
+
 import ReleaseCard from '@/components/Releases/ReleaseCard';
+import SprintCard from '@/components/Sprints/SprintCard';
 
 Vue.use(Router);
 
@@ -169,10 +171,16 @@ const router = new Router({
       name: 'Revision',
       component: Revision,
     },
+
     {
       path: '/release/card',
       name: 'ReleaseCard',
       component: ReleaseCard,
+    },
+    {
+      path: '/sprint/card',
+      name: 'SprintCard',
+      component: SprintCard,
     },
   ],
 });
