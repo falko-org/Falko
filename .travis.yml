@@ -18,15 +18,15 @@ notifications:
   slack: gppmds8-github:sJE6QlBfPGMkfUf48wuTsKa7
 
 before_install:
-  - docker build -t alaxalves/front -f Dockerfile.test .
   - openssl aes-256-cbc -K $encrypted_fb7d710cc1aa_key -iv $encrypted_fb7d710cc1aa_iv -in .travis/alax-digitalocean-key.enc -out .travis/alax-digitalocean-key -d
 
 before_script:
   - npm install coveralls
-  - docker build -t alaxalves/front -f Dockerfile.dev .
+  - docker-compose -f docker-compose.test.yml up -d
 
 script:
-  - docker run -v /home/travis/build/fga-gpp-mds/Falko-2017.2-FrontEnd:/Falko-2017.2-FrontEnd alaxalves/front /bin/sh -c "npm run unit"
+  - docker exec -it falko-front npm run unit
+  - docker exec -it falko-front npx cypress run
 
 after_script:
   - "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
