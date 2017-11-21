@@ -8,10 +8,8 @@
         <div class="row">
           <add-release></add-release>
         </div>
-        <div class="row">
-          <div>
-            <release-card></release-card>
-          </div>
+        <div class="row" v-for="release in releases">
+          <release-card v-bind:release="[release, releases.indexOf(release)]"></release-card>
         </div>
       </div>
 
@@ -19,74 +17,32 @@
         <div class="row">
           <div class="col">
             <div class="row">
-              <h4>{{this.releases[0].name}}</h4>
+              <h4>{{this.releases[this.indexOfRelease].name}}</h4>
             </div>
             <div class="row text-muted">
-              <p>{{this.releases[0].description}}</p>
+              <p>{{this.releases[this.indexOfRelease].description}}</p>
             </div>
           </div>
           <div class="col">
             <div class="row">
-              {{dateConvert(this.releases[0].initial_date)}}
+              {{dateConvert(this.releases[this.indexOfRelease].initial_date)}}
               |
-              {{dateConvert(this.releases[0].final_date)}}
+              {{dateConvert(this.releases[this.indexOfRelease].final_date)}}
             </div>
             <div class="row text-muted">
               <div class="col">
                 <p>Amount of Sprints</p>
               </div>
               <div class="col">
-                <p>{{this.releases[0].amount_of_sprints}}</p>
+                <p>{{this.releases[this.indexOfRelease].amount_of_sprints}}</p>
               </div>
             </div>
           </div>
+          {{this.getSprints(this.releases[this.indexOfRelease].id)}}
         </div>
 
-        <sprint-card></sprint-card>
-
-        <!-- <div class="row justify-content-around">
-          <div v-for="release in releases" class="col-5">
-            <div align="center">
-              <div class="card" id="releaseCard">
-                <router-link v-bind:to="'/releases/'+release.id">
-                  <div class="card-header" id="releaseHeader">
-                    <div class="row align-itens-around" id="releaseTitle">
-                      <div class="col">
-                        <h4 class="no-margin float-left">{{release.name}}</h4>
-                      </div>
-                      <div class="col">
-                        <h6 class="no-margin float-right">
-                          {{dateConvert(release.initial_date)}}
-                          -
-                          {{dateConvert(release.final_date)}}
-                        </h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <div class="row align-itens-arround">
-                      <div class="col-5 align-content-center">
-                        <p class="card-text">
-                          <div class="number-circle">
-                            <div id="amountSprintsFont">
-                              {{release.amount_of_sprints}}
-                            </div>
-                          </div>
-                          <h5><br>Sprints</h5>
-                        </p>
-                      </div>
-                      <div class="col">
-                        <p class="card-text text-justify">
-                          {{release.description}}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </router-link>
-              </div>
-              <br>
-            </div>
-          </div> -->
+        <div v-for="sprint in sprints">
+          <sprint-card v-bind:sprint="sprint"></sprint-card>
         </div>
       </div>
     </div>
@@ -96,6 +52,7 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import { EventBus } from '../../event-bus';
 import AddRelease from './AddRelease.vue';
 import NoContent from '../NoContent.vue';
 import ReleaseCard from './ReleaseCard.vue';
@@ -103,7 +60,6 @@ import SprintCard from '../Sprints/SprintCard.vue';
 import dateConvert from '../../mixins/dateConvert';
 
 export default {
-
   components: {
     'add-release': AddRelease,
     'no-content': NoContent,
@@ -114,6 +70,8 @@ export default {
   data() {
     return {
       releases: [],
+      indexOfRelease: 0,
+      sprints: [],
     };
   },
   computed: {
@@ -127,6 +85,7 @@ export default {
   methods: {
     getReleases() {
       const headers = { Authorization: this.token };
+
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
         .then((response) => {
           this.releases = response.data;
@@ -135,10 +94,22 @@ export default {
           this.errors.push(e);
         });
     },
+
+    getSprints(releaseId) {
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`releases/${releaseId}/sprints`, { headers })
+        .then((response) => {
+          this.sprints = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
     isReleasesEmpty() {
       return this.releases.length === 0;
     },
-
   },
 
   ready() {
@@ -147,6 +118,11 @@ export default {
 
   mounted() {
     this.getReleases();
+
+    EventBus.$on('selected-release', (event) => {
+      this.indexOfRelease = event;
+      this.getSprints(this.indexOfRelease);
+    });
   },
 };
 </script>

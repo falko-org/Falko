@@ -1,49 +1,25 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card pointer-cursor">
       <div class="row">
         <div class="col-md-3 divider">
           <div class="row">
-            <p>01/01/2017</p>
+            <p>{{sprint.initial_date}}</p>
           </div>
           <div class="row">
-            <p>02/01/2017</p>
+            <p>{{sprint.final_date}}</p>
           </div>
         </div>
         <div class="col-md-6 divider">
           <div class="row card-title">
-            <h4>Sprint 01</h4>
+            <h4>{{sprint.name}}</h4>
           </div>
           <div class="row card-text text-muted">
-            <p>Sprint description</p>
+            <p>{{sprint.description}}</p>
           </div>
         </div>
         <div class="col-md-3">
           <p>STATUS</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="row">
-        <div class="col-md-3 divider">
-          <div class="row">
-            <p>02/01/2017</p>
-          </div>
-          <div class="row">
-            <p>03/01/2017</p>
-          </div>
-        </div>
-        <div class="col-md-6 divider">
-          <div class="row card-title">
-            <h4>Sprint 02</h4>
-          </div>
-          <div class="row card-text text-muted">
-            <p>Sprint 2 description</p>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <p>STATUS 2</p>
         </div>
       </div>
     </div>
@@ -52,12 +28,7 @@
 
 <script>
 export default {
-  data() {
-    return {
-      sprint: {},
-    };
-  },
-
+  props: ['sprint'],
 };
 </script>
 

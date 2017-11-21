@@ -18,7 +18,7 @@
           <div class=" row modal-body">
             <div class="col">
               <p><label>Name</label></p>
-              <p><input type="text" v-model="name" id="releaseName"></input><br></p>
+              <p><input type="text" v-model="name" placeholder="Release name..." id="releaseName"></input><br></p>
               <p><label>Description</label></p>
               <input type="text" v-model="description" placeholder="Release description..."></input><br>
             </div>
@@ -47,7 +47,7 @@ import { HTTP } from '../../http-common';
 export default {
   data() {
     return {
-      name: 'New Release',
+      name: '',
       description: '',
       initialDate: '',
       finalDate: '',
@@ -77,7 +77,7 @@ export default {
           this.description = '';
           this.initialDate = '';
           this.finalDate = '';
-          EventBus.$emit('added-release', 1);
+          location.reload();
         })
         .catch((e) => {
           this.errors.push(e);

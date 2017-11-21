@@ -32,6 +32,8 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
+  props: ['releaseId'],
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
@@ -41,14 +43,13 @@ export default {
     deleteRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.delete(`releases/${this.$route.params.id}`, { headers })
-      .then(() => {
-        // Go to the previous page
-        this.$router.go(-1);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      HTTP.delete(`releases/${this.releaseId}`, { headers })
+        .then(() => {
+          location.reload();
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 };

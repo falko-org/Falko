@@ -144,6 +144,10 @@ input:focus {
   cursor: inherit;
 }
 
+.pointer-cursor {
+  cursor: pointer;
+}
+
 .number-circle, .number-circle-selected {
   font: 32px Arial, sans-serif;
 

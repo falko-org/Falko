@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="row release-card align-content-center" id="buttons">
+    <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release[1]" v-on:click="select($event)">
       <div class="col-5" align="center">
         <div class="number-circle">
-          <p>R1</p>
+          <p>R{{release[0].id}}</p>
         </div>
       </div>
       <div class="col-7">
         <div align="center">
-          <edit-release ></edit-release>
-          <delete-release></delete-release>
+          <edit-release v-bind:releaseId="release[0].id"></edit-release>
+          <delete-release v-bind:releaseId="release[0].id"></delete-release>
         </div>
       </div>
     </div>
 
-    <div class="row release-card-selected align-content-center" id="buttons">
+    <!-- <div class="row release-card-selected align-content-center" id="buttons">
       <div class="col-5" align="center">
         <div class="number-circle-selected">
           <p>R2</p>
@@ -26,25 +26,12 @@
           <delete-release></delete-release>
         </div>
       </div>
-    </div>
-
-    <div class="row release-card align-content-center" id="buttons">
-      <div class="col-5" align="center">
-        <div class="number-circle">
-          <p>R3</p>
-        </div>
-      </div>
-      <div class="col-7">
-        <div align="center">
-          <edit-release ></edit-release>
-          <delete-release></delete-release>
-        </div>
-      </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import { EventBus } from '../../event-bus';
 import EditRelease from './EditRelease.vue';
 import DeleteRelease from './DeleteRelease.vue';
 
@@ -54,11 +41,19 @@ export default {
     'delete-release': DeleteRelease,
   },
 
+  props: ['release'],
+
+  methods: {
+    select: (event) => {
+      const targetId = event.currentTarget.id;
+      EventBus.$emit('selected-release', targetId);
+    },
+  },
 };
 </script>
 
 <style scoped>
-#buttons {
+.buttons {
   padding: 2em 0;
 }
 

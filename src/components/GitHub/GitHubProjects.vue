@@ -89,14 +89,14 @@ export default{
       const headers = { Authorization: this.token };
       if (this.isGitHubLinked()) {
         HTTP.get('repos', { headers })
-        .then((response) => {
-          this.userRepos = response.data.user[1].repos;;
-          this.orgsRepos = response.data.orgs;
-          this.user = response.data.user[0].login;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+            this.user = response.data.user[0].login;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
       }
     },
 
@@ -121,9 +121,9 @@ export default{
         for (const repo of repos) {
           HTTP.post(`users/${this.userId}/projects`, {
             name: repo,
-                github_slug: `${user}/${repo}`,
-                is_project_from_github: true,
-                is_scoring: false,
+            github_slug: `${user}/${repo}`,
+            is_project_from_github: true,
+            is_scoring: false,
           }, { headers })
             .then((response) => {
               count++;
@@ -135,7 +135,6 @@ export default{
         }
       });
     },
-    
     isGitHubLinked() {
       return this.gitHubLinked;
     },
@@ -160,8 +159,5 @@ export default{
 <style scoped>
 .vue-js-switch {
   float: right;
-}
-.pointer-cursor {
-  cursor: pointer;
 }
 </style>

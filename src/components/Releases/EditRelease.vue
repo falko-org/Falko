@@ -42,6 +42,8 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
+  props: ['releaseId'],
+
   data() {
     return {
       name: '',
@@ -59,14 +61,14 @@ export default {
     editRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.patch(`releases/${this.$route.params.id}`, {
+      HTTP.patch(`releases/${this.releaseId}`, {
         name: this.name,
         description: this.description,
         initial_date: this.initialDate,
         final_date: this.finalDate,
       }, { headers })
         .then(() => {
-          this.$emit('edited-release');
+          location.reload();
         })
         .catch((e) => {
           this.errors.push(e);
@@ -76,7 +78,7 @@ export default {
     getReleaseInformation() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`releases/${this.$route.params.id}`, { headers })
+      HTTP.get(`releases/${this.releaseId}`, { headers })
         .then((response) => {
           this.name = response.data.name;
           this.description = response.data.description;
