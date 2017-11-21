@@ -42,7 +42,7 @@ after_success:
   - |
     if [ "${TRAVIS_BRANCH}" == "devel" ]; then
       echo "Deploying to homolog environment..."
-      git push dokku devel:master
+      git push -f dokku devel:master
     else
       echo "Skipping homolog deploy..."
     fi
