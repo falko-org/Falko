@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div class="text-center">
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addReleaseModal">
         Add Release

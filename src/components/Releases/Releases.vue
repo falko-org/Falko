@@ -8,8 +8,10 @@
         <div class="row">
           <add-release></add-release>
         </div>
-        <div class="row" v-for="release in releases">
-          <release-card v-bind:release="[release, releases.indexOf(release)]"></release-card>
+        <div class="row">
+          <div v-for="release in releases">
+            <release-card v-bind:release="[release, releases.indexOf(release)]"></release-card>
+          </div>
         </div>
       </div>
 
@@ -41,8 +43,19 @@
           {{this.getSprints(this.releases[this.indexOfRelease].id)}}
         </div>
 
-        <div v-for="sprint in sprints">
-          <sprint-card v-bind:sprint="sprint"></sprint-card>
+        <div class="row">
+          <add-sprint v-bind:release="[
+            this.releases[this.indexOfRelease].id,
+            dateConvert(this.releases[this.indexOfRelease].initial_date),
+            dateConvert(this.releases[this.indexOfRelease].final_date)]">
+          </add-sprint>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div v-for="sprint in sprints">
+              <sprint-card v-bind:sprint="sprint"></sprint-card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -57,6 +70,7 @@ import AddRelease from './AddRelease.vue';
 import NoContent from '../NoContent.vue';
 import ReleaseCard from './ReleaseCard.vue';
 import SprintCard from '../Sprints/SprintCard.vue';
+import AddSprint from '../Sprints/AddSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
 
 export default {
@@ -65,6 +79,7 @@ export default {
     'no-content': NoContent,
     'release-card': ReleaseCard,
     'sprint-card': SprintCard,
+    'add-sprint': AddSprint,
   },
 
   data() {
@@ -87,24 +102,28 @@ export default {
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
-        .then((response) => {
-          this.releases = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.releases = response.data;
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     getSprints(releaseId) {
       const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${releaseId}/sprints`, { headers })
-        .then((response) => {
+      .then((response) => {
+        if (response.data !== 0) {
           this.sprints = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+        } else {
+          this.sprint = 0;
+        }
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     isReleasesEmpty() {
@@ -121,7 +140,6 @@ export default {
 
     EventBus.$on('selected-release', (event) => {
       this.indexOfRelease = event;
-      this.getSprints(this.indexOfRelease);
     });
 
     EventBus.$on('selected-sprint', (event) => {

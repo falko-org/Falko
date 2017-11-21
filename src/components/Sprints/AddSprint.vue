@@ -24,9 +24,11 @@
             </div>
             <div class="col">
               <p><label>Initial Date</label></p>
-              <p><input type="date" v-model="initialDate" min="2017-11-01" max="2017-11-30"></input><br></p>
+              <p><input type="date" v-model="initialDate" min="${this.limitedInitialDate}" max="${this.limitedFinalDate}"></input><br></p>
+              {{this.limitedInitialDate}}
               <p><label>Final Date</label></p>
-              <p><input type="date" v-model="finalDate" min="2017-11-01" max="2017-11-30"></input><br></p>
+              <p><input type="date" v-model="finalDate" min="${this.limitedInitialDate}" max="${this.limitedFinalDate}"></input><br></p>
+              {{this.limitedFinalDate}}
             </div>
           </div>
           <div class="modal-footer">
@@ -47,7 +49,7 @@ import { HTTP } from '../../http-common';
 export default {
   name: 'addSprintBody',
 
-  props: ['dateLimitations'],
+  props: ['release'],
 
   data() {
     return {
@@ -55,6 +57,8 @@ export default {
       description: '',
       initialDate: '',
       finalDate: '',
+      limitedInitialDate: this.release[1],
+      limitedFinalDate: this.release[2],
     };
   },
 
@@ -68,13 +72,13 @@ export default {
     addSprint() {
       const headers = { Authorization: this.token };
 
-      HTTP.post(`releases/${this.$route.params.id}/sprints`, {
+      HTTP.post(`releases/${this.release[0]}/sprints`, {
         sprint: {
           name: this.name,
           description: this.description,
           initial_date: this.initialDate,
           final_date: this.finalDate,
-          release_id: this.$route.params.id,
+          release_id: this.release[0],
         },
       }, { headers })
         .then(() => {
