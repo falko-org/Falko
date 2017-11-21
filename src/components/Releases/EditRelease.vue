@@ -29,7 +29,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editRelease()" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -40,6 +40,7 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import { EventBus } from '../../event-bus';
 
 export default {
   props: ['releaseId'],
@@ -68,7 +69,7 @@ export default {
         final_date: this.finalDate,
       }, { headers })
         .then(() => {
-          location.reload();
+          EventBus.$emit('edited-release');
         })
         .catch((e) => {
           this.errors.push(e);

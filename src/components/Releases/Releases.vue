@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       releases: [],
-      indexOfRelease: 0,
+      indexOfRelease: '',
       sprints: [],
     };
   },
@@ -102,28 +102,28 @@ export default {
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
-      .then((response) => {
-        this.releases = response.data;
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.releases = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     getSprints(releaseId) {
       const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${releaseId}/sprints`, { headers })
-      .then((response) => {
-        if (response.data !== 0) {
-          this.sprints = response.data;
-        } else {
-          this.sprint = 0;
-        }
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          if (response.data !== 0) {
+            this.sprints = response.data;
+          } else {
+            this.sprint = 0;
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     isReleasesEmpty() {
@@ -136,10 +136,16 @@ export default {
   },
 
   mounted() {
+    this.indexOfRelease = 0;
+
     this.getReleases();
 
     EventBus.$on('selected-release', (event) => {
       this.indexOfRelease = event;
+    });
+
+    EventBus.$on('edited-release', () => {
+      this.getReleases();
     });
 
     EventBus.$on('selected-sprint', (event) => {
