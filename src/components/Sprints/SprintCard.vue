@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card pointer-cursor">
+    <div class="card pointer-cursor" v-bind:id="sprint.id" v-on:click="select($event)">
       <div class="row">
         <div class="col-md-3 divider">
           <div class="row">
@@ -27,8 +27,17 @@
 </template>
 
 <script>
+import { EventBus } from '../../event-bus';
+
 export default {
   props: ['sprint'],
+
+  methods: {
+    select: (event) => {
+      const targetId = event.currentTarget.id;
+      EventBus.$emit('selected-sprint', targetId);
+    },
+  },
 };
 </script>
 

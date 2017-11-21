@@ -123,6 +123,10 @@ export default {
       this.indexOfRelease = event;
       this.getSprints(this.indexOfRelease);
     });
+
+    EventBus.$on('selected-sprint', (event) => {
+      this.$router.push({ name: 'Sprint', params: { id: event } });
+    });
   },
 };
 </script>
