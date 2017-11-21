@@ -12,10 +12,7 @@
       </div>
     </div>
     <div class="col" align="end" v-if="this.$route.path != '/' && isLogged()">
-      <router-link to="/user">
-        <button class="falko-button btn btn-primary small-float-left">User Profile</button>
-      </router-link>
-      <button v-on:click="logout()" class="btn btn-primary falko-button falko-button-danger">Log Out</button>
+      <button v-on:click="logout()" class="fa fa-power-off" id="logout"></button>
     </div>
   </nav>
 </template>
@@ -60,14 +57,25 @@ export default {
 
 <style scoped>
 
-.falko-brand:hover {
-  cursor: pointer;
-}
-
 .navbar {
   border-bottom: solid;
   border-width: thin;
   border-color: #ddd;
+}
+
+#logout {
+  width: 3em;
+  height: 3em;
+  background-color: inherit;
+  border: 2px solid #3E5361;
+  color: #3E5361;
+  border-radius: 50%;
+}
+
+#logout:enabled:hover {
+  background-color: #3E5361;
+  cursor: pointer;
+  color: white;
 }
 
 </style>
