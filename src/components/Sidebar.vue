@@ -22,7 +22,8 @@
           <li align="center">
             <router-link to="/projects">
               <a  title="Projects">
-                <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
+                <span v-if="this.$route.path != '/projects'"
+                 class="sidebar-icon"><i class=" fa fa-file"></i></span>
                 <span class="sidebar-title"></span>
               </a>
             </router-link>
