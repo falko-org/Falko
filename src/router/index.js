@@ -26,6 +26,7 @@ import Retrospective from '@/components/Retrospective/Retrospective';
 import Revision from '@/components/Revision/Revision';
 import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
+import Velocity from '@/components/Sprints/Velocity'
 
 Vue.use(Router);
 
@@ -167,6 +168,11 @@ const router = new Router({
       path: '/revisions/:id',
       name: 'Revision',
       component: Revision,
+    },
+    {
+      path: '/sprints/:id/velocity',
+      name: 'Velocity',
+      component: Velocity,
     },
   ],
 });
