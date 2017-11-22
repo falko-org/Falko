@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
-    <vue-chart type="bar" :width="10" :height="4" :data="datacollection"></vue-chart>
-    <!-- <vue-chart type="line" :data="datacollection"></vue-chart> -->
+    <vue-chart type="bar" :width="15" :height="4" :data="datacollection"></vue-chart>
   </div>
 </template>
 
@@ -16,32 +15,32 @@ export default {
   extends: Line,
   data () {
     return {
-      storyData: {},
       datacollection: {
         display: false,
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-        datasets: [
+        labels: [],
+        datasets: [  
+          {label:'Vazio'},    
           {
-            label: 'Date two',
+            label: 'Velocity',
             borderColor: "blue",
             lineTension: 0,
-            fill: false,
-            data: [30, 13, 13, 19, 18, 20],
+            fill: false,            
             type: 'line',
+            data: []
+          }, 
+          {
+            label: 'Total Points',
+            backgroundColor: 'pink',
+            borderColor: "black",
+            borderWidth: 2,            
+            data: []
           },
           {
-            label: 'Data One',
+            label: 'Completed Points',
             backgroundColor: '#f87979',
             borderColor: "black",
             borderWidth: 2,
-            data: [30, 30, 24, 16, 32, 20]
-          },
-          {
-            label: 'Data One',
-            backgroundColor: 'pink',
-            borderColor: "black",
-            borderWidth: 2,
-            data: [18, 15, 15, 16, 20, 14]
+            data: []
           },
         ],
       }
@@ -59,7 +58,11 @@ export default {
       HTTP.get(`sprints/${this.$route.params.id}/velocity`, { headers })
         .then((response) => {
           console.log(response)
-          this.storyData = response.data
+          this.datacollection.labels = response.data.names 
+          this.datacollection.datasets[1].data = response.data.velocities
+          this.datacollection.datasets[2].data = response.data.total_points
+          this.datacollection.datasets[3].data = response.data.completed_points
+
         })
         .catch((e) => {
           this.errors.push(e);
