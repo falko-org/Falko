@@ -4,25 +4,25 @@
     <div class="col-md-3">
       <h4>Backlog da Sprint</h4>
       <draggable v-model="issues" v-bind:options="{group:'issues'}" @change="onUpdateBacklog($event)" class="dragArea">
-        <div v-for="issue in issues">{{issue.name}}</div>
+        <div v-for="issue in issues">{{issue.name}}, {{issue.pipeline}}</div>
       </draggable>
     </div>
     <div class="col-md-3">
       <h4>To Do</h4>
       <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
-        <div v-for="story in stories">{{story.name}}</div>
+        <div v-for="story in stories">{{story.name}}, {{story.pipeline}}</div>
       </draggable>
     </div>
     <div class="col-md-3">
       <h4>Doing</h4>
       <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
-        <div v-for="story in doingStories">{{story.name}}</div>
+        <div v-for="story in doingStories">{{story.name}}, {{story.pipeline}}</div>
       </draggable>
     </div>
     <div class="col-md-3">
       <h4>Done</h4>
       <draggable v-model="doneStories" v-bind:options="{group:'issues'}" @change="onUpdateDone($event)"  class="dragArea">
-        <div v-for="story in doneStories">{{story.name}}</div>
+        <div v-for="story in doneStories">{{story.name}}, {{story.pipeline}}</div>
       </draggable>
     </div>
   </div>
@@ -77,26 +77,39 @@ export default {
         });
     },
 
+    onUpdateBacklog(evt) {
+      const headers = { Authorization: this.token };
+      if(evt.added){
+        HTTP.delete(`stories/${evt.added.element.id}`, { headers })
+        .then((response) => console.log(response.code))
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      }
+      else {
+        HTTP.post(`sprints/${this.$route.params.id}/stories`, { name: evt.removed.element.name,
+  			                                                         description: evt.removed.element.body,
+                                                                 issue_number:evt.removed.element.number,
+  			                                                         pipeline:"To Do",
+  			                                                         initial_date:new Date().toString(),
+  				                                                      }, { headers })
+        .then((response) => console.log(response.code))
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      }
+    },
+
     onUpdateToDo(evt) {
       const headers = { Authorization: this.token };
-      HTTP.post(`sprints/${this.$route.params.id}/stories`, { name: evt.added.element.name,
-			                                                         description: evt.added.element.body,
-                                                               issue_number:evt.added.element.number,
-
-			                                                         pipeline:"To Do",
-			                                                         initial_date:new Date().toString(),
-				                                                      }, { headers })
+      HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"To Do" }, { headers })
       .then((response) => console.log(response.code))
       .catch((e) => {
         this.errors.push(e);
       });
-
     },
-    onUpdateBacklog(evt) {
 
-    },
     onUpdateDoing(evt) {
-      console.log(evt);
       const headers = { Authorization: this.token };
       HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"In Progress" }, { headers })
       .then((response) => console.log(response.code))
@@ -104,8 +117,14 @@ export default {
         this.errors.push(e);
       });
     },
-    onUpdateDone(evt) {
 
+    onUpdateDone(evt) {
+      const headers = { Authorization: this.token };
+      HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Done" }, { headers })
+      .then((response) => console.log(response.code))
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
   },
