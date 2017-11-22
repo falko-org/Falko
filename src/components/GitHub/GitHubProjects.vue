@@ -153,31 +153,6 @@ export default{
     },
   },
 };
-function doRequisitions(repos, length, user) {
-  return new Promise((resolve, reject) => {
-    const rawToken = localStorage.getItem('token');
-    const token = rawToken.replace(/"/, '').replace(/"/, '');
-    const headers = { Authorization: token };
-    const userId = localStorage.getItem('user_id');
-    let count = 0;
-    for (const repo of repos) {
-      HTTP.post(`users/${userId}/projects`, {
-        name: repo,
-        github_slug: `${user}/${repo}`,
-        is_project_from_github: true,
-        is_scoring: false,
-      }, { headers })
-        .then((response) => {
-          console.log(response)
-          count += 1;
-          if (count === length) {
-            resolve(response);
-          }
-        })
-        .catch(e => reject(e));
-    }
-  });
-}
 
 </script>
 
