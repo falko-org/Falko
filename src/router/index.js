@@ -26,7 +26,6 @@ import Retrospective from '@/components/Retrospective/Retrospective';
 import Revision from '@/components/Revision/Revision';
 import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
-import Assignee from '@/components/Issues/Assignee';
 
 Vue.use(Router);
 
@@ -163,11 +162,6 @@ const router = new Router({
       path: '/retrospectives/:id',
       name: 'Retrospective',
       component: Retrospective,
-    },
-    {
-      path: '/project/:id/issues/assignee',
-      name: 'Assignee',
-      component: Assignee,
     },
     {
       path: '/revisions/:id',
