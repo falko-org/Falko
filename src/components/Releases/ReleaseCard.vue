@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release[1]" v-on:click="select($event)">
+    <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release.id" v-on:click="select($event)">
       <div class="col-5" align="center">
         <div class="number-circle">
-          <p>R{{release[0].id}}</p>
+          <p>{{release[0].name}}</p>
         </div>
       </div>
       <div class="col-7">
