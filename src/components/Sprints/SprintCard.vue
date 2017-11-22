@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="col-md-3">
-          <p>STATUS</p>
+          <p>{{this.status()}}</p>
         </div>
       </div>
     </div>
@@ -27,15 +27,49 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { EventBus } from '../../event-bus';
+import { HTTP } from '../../http-common';
 
 export default {
   props: ['sprint'],
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
 
   methods: {
     select: (event) => {
       const targetId = event.currentTarget.id;
       EventBus.$emit('selected-sprint', targetId);
+    },
+
+    status() {
+      const today = new Date();
+      const finalDate = this.sprint.final_date.split('-')[2];
+      let isRevisionCreated;
+      const headers = { Authorization: this.token };
+
+      // HTTP.get(`retrospectives/${this.sprint.id}`, { headers })
+      //   .then((response) => {
+      //     if (response.data.id !== null) {
+      //       isRevisionCreated = true;
+      //     } else {
+      //       isRevisionCreated = false;
+      //     }
+      //   })
+      //   .catch(() => {
+      //   });
+
+      // TODO: find out a way to catch retrospective status.
+      //       HTTP shows erros with no retrospective created.
+
+      if ((today.getDate() > finalDate) && !isRevisionCreated) {
+        return 'ALERT';
+      }
+      return 'OK';
     },
   },
 };

@@ -56,9 +56,7 @@ import EditSprint from './EditSprint.vue';
 import DeleteSprint from './DeleteSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
 import AddRetrospective from '../Retrospective/AddRetrospective.vue';
-import Retrospective from '../Retrospective/Retrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
-import Revision from '../Revision/Revision.vue';
 import { HTTP } from '../../http-common';
 
 export default{
@@ -89,31 +87,31 @@ export default{
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}`, { headers })
-      .then((response) => {
-        this.sprint = response.data;
-        this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
-        this.sprint.final_date = this.dateConvert(this.sprint.final_date);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.sprint = response.data;
+          this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
+          this.sprint.final_date = this.dateConvert(this.sprint.final_date);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     getRetrospective() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
-      .then((response) => {
-        this.sprintRetrospective = response.data;
-        if (this.sprintRetrospective.length === 0) {
-          this.setRetrospectiveAsNotCreated();
-        } else {
-          this.setRetrospectiveAsCreated();
-        }
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.sprintRetrospective = response.data;
+          if (this.sprintRetrospective.length === 0) {
+            this.setRetrospectiveAsNotCreated();
+          } else {
+            this.setRetrospectiveAsCreated();
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     setRetrospectiveAsCreated() {
@@ -134,17 +132,17 @@ export default{
       const tokenSimple2 = tokenSimple.replace(/"/, '');
       const headers = { Authorization: tokenSimple2 };
       HTTP.get(`sprints/${this.$route.params.id}/revisions`, { headers })
-      .then((response) => {
-        this.sprintRevision = response.data;
-        if (this.sprintRevision == null) {
-          this.setRevisionAsNotCreated();
-        } else {
-          this.setRevisionAsCreated();
-        }
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.sprintRevision = response.data;
+          if (this.sprintRevision == null) {
+            this.setRevisionAsNotCreated();
+          } else {
+            this.setRevisionAsCreated();
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     setRevisionAsCreated() {
@@ -156,9 +154,7 @@ export default{
     },
 
     isRevisionCreated() {
-      const revision = localStorage.getItem('isRevisionCreated');
-
-      return localStorage.getItem('isRevisionCreated') == 'true';
+      return localStorage.getItem('isRevisionCreated') === 'true';
     },
 
     refreshSprint() {
