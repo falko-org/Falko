@@ -41,7 +41,7 @@
                 </h4>
                 <div class="collapse" v-bind:id="orgs.name">
                   <ul class="list-group">
-                    <li class="list-group-item" v-for="repo in orgs.repos" >
+                    <li class="list-group-item" v-for="repo in orgs.repos">
                       {{repo}}
                       <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
                       :value="false"
@@ -73,7 +73,7 @@ export default{
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
-      user: '',
+      user: ""
     };
   },
   computed: {
@@ -133,7 +133,7 @@ export default{
         }
       });
     },
-    
+
     isGitHubLinked() {
       return (localStorage.getItem('is_github_authenticated') === 'true');
     },
@@ -153,6 +153,7 @@ export default{
     },
   },
 };
+
 </script>
 
 <style scoped>
