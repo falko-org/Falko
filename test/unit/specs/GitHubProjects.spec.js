@@ -37,12 +37,13 @@ describe('On github project list repos', () => {
 
   it('should have the correct user repos and org repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
+    localStorage.setItem('is_github_authenticated', 'true');
     const component = new Constructor({ store });
     component.gitHubLinked = true;
     component.getRepos();
 
     process.nextTick(() => {
-      console.log(component.userRepos)
+      console.log(component.userRepos);
       expect(component.userRepos).to.deep.equal(['userRepo1', 'userRepo2']);
       expect(component.orgsRepos).to.deep.equal([{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }]);
       done();
@@ -51,6 +52,7 @@ describe('On github project list repos', () => {
 
   it('should not have the correct user repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
+    localStorage.setItem('is_github_authenticated', 'true');
     const component = new Constructor({ store });
     component.gitHubLinked = true;
     component.getRepos();
@@ -64,6 +66,7 @@ describe('On github project list repos', () => {
 
   it('should not have the correct org repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
+    localStorage.setItem('is_github_authenticated', 'true');
     const component = new Constructor({ store });
     component.gitHubLinked = true;
     component.getRepos();
@@ -76,6 +79,7 @@ describe('On github project list repos', () => {
 
   it('should not have the correct user repos and orgs repos', (done) => {
     const Constructor = Vue.extend(GitHubProjects);
+    localStorage.setItem('is_github_authenticated', 'true');
     const component = new Constructor({ store });
     component.getRepos();
     process.nextTick(() => {

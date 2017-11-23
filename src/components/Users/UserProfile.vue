@@ -19,10 +19,6 @@
               <label> GitHub Account: </label>
               <p class="card-text text-muted">{{github}}</p>
             </div>
-            <div class="row">
-              <label> GitHub Authenticated: </label>
-              <p class="card-text text-muted">{{is_github_authenticated}}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -34,9 +30,14 @@
       <div class="col-md-2">
         <delete-user-profile></delete-user-profile>
       </div>
-      <div>
-        <button v-bind:class="buttonClass()" v-on:click="link()">
+      <div v-if="!isGitHubLinked()" class="col-md-2">
+        <button v-bind:class="buttonLinkClass()" v-on:click="link()">
           Link to Github
+        </button>
+      </div>
+      <div v-else class="col-md-2">
+        <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
+          Remove link with Github
         </button>
       </div>
     </div>
@@ -61,7 +62,6 @@ export default {
       name: '',
       email: '',
       github: '',
-      is_github_authenticated: false,
     };
   },
   computed: {
@@ -72,41 +72,71 @@ export default {
   },
   methods: {
     getUser() {
+      this.isGitHubLinked();
+
       const headers = { Authorization: this.token };
 
       HTTP.get(`users/${this.userId}`, { headers })
-      .then((response) => {
-        this.name = response.data.name;
-        this.email = response.data.email;
-        this.github = response.data.github;
-        if (response.data.access_token != null) {
-          this.is_github_authenticated = true;
-        } else {
-          this.is_github_authenticated = false;
-        }
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.name = response.data.name;
+          this.email = response.data.email;
+          this.github = response.data.github;
+          if (response.data.access_token != null) {
+            localStorage.setItem('is_github_authenticated', true);
+          } else {
+            localStorage.setItem('is_github_authenticated', false);
+          }
+          this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     link() {
       if (!this.isGitHubLinked()) {
-        window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        localStorage.setItem('is_github_authenticated', true);
       }
     },
 
-    isGitHubLinked() {
-      return this.is_github_authenticated;
+    removeToken() {
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.post('remove_github_token', {
+        id: userId,
+      }, { headers })
+        .then(() => {
+          localStorage.setItem('is_github_authenticated', false);
+          location.reload();
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
-    buttonClass() {
+    isGitHubLinked() {
+      return (localStorage.getItem('is_github_authenticated') === 'true');
+    },
+
+    buttonLinkClass() {
       if (this.isGitHubLinked()) {
         return 'btn btn-info btn-md falko-button-grey disabled-cursor';
       }
       return 'falko-button btn btn-primary';
     },
+
+    buttonRemoveLinkClass() {
+      if (!this.isGitHubLinked()) {
+        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+      }
+      return 'falko-button btn btn-primary';
+    },
   },
+
   mounted() {
     this.getUser();
     const thisOne = this;

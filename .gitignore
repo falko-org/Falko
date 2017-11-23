@@ -24,6 +24,7 @@ node_modules
 
 #Ignore Coverage Dir
 /coverage
+test/unit/coverage/
 
 #Ignore Sublime temporary files
 .DS_Store
