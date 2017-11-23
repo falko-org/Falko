@@ -1,6 +1,6 @@
   <template>
 
-  <div class="row">
+  <div>
     <table>
       <div class="row" id="rowKanban">
         <div class="col">
@@ -12,6 +12,9 @@
             <div v-for="issue in issues">
               <div align="center" id="cardDiv">
                 <div class="card" id="kanbanCard">
+                  <div class="date"><a href="#0">
+                    <div class="day">{{issue.number}}</div>
+                  </a> </div>
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
@@ -34,6 +37,9 @@
           <div v-for="story in stories">
             <div align="center" id="cardDiv">
               <div class="card" id="kanbanCard">
+                <div class="date"><a href="#0">
+                  <div class="day">{{story.number}}</div>
+                </a> </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
@@ -56,6 +62,9 @@
           <div v-for="story in doingStories">
             <div align="center" id="cardDiv">
               <div class="card" id="kanbanCard">
+                <div class="date"><a href="#0">
+                  <div class="day" v-model="issues">{{story.number}}</div>
+                </a> </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
@@ -78,6 +87,9 @@
           <div v-for="story in doneStories">
             <div align="center" id="cardDiv">
               <div class="card" id="kanbanCard">
+                <div class="date"><a href="#0">
+                  <div class="day">{{story.number}}</div>
+                </a> </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
@@ -226,8 +238,9 @@ export default {
 </script>
 
 <style scoped>
+
 .dragArea {
-  height: 1000px;
+  height: 500px;
   width: 300px;
   box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
 }
@@ -243,7 +256,6 @@ export default {
 
 #kanbanCard {
   max-width: 15em;
-  margin-top: 15px;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
 }
@@ -255,11 +267,38 @@ export default {
 
 #title {
   justify-content: center;
-  width: 270px;
+  width: 300px;
+  box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
 }
 
 #cardDiv {
   height: 70px;
+}
+
+.date {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  z-index: 1;
+  color: #688E9B;
+  width: 25px;
+  height: 25px;
+  padding: 12.5px 0;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  border-style: solid;
+  border-width: 1.3px;
+  border-color: #2f5cb6;
+  color: #FFFFFF;
+  font-style: oblique;
+  text-align: center
+}
+
+.date .day {
+  font-size: 12px;
+  line-height: 4px;
+  color: #2f5cb6;
 }
 
 </style>
