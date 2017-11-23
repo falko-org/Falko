@@ -5,7 +5,7 @@
         <h4>Burndown da sprint</h4>
       </div>
     </div>
-    <div class="row"> 
+    <div class="row">
       <div class="col-md-6 mx-auto">
         <svg width="700" height="270">
           <g class="x axis" id="xAxis" transform="translate(50, 230)"></g>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import * as d3 from 'd3';
 import { HTTP } from '../../http-common';
 
@@ -34,28 +35,30 @@ export default {
     idealLine: ''
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   mounted() {
     this.getBurndown();
   },
   methods: {
     getBurndown() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
       var parseTime = d3.timeParse("%Y-%m-%d")
-      HTTP.get(`sprints/${this.$route.params.id}/burndown`, { headers })
-        .then((response) => {
-          this.realLineData = response.data;
-          this.realLineData.forEach((d) => d.x = parseTime(d.x))
-          this.getIdealLineData();
-          this.drawAxis();
-          this.drawLine();
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
+       HTTP.get(`sprints/${this.$route.params.id}/burndown`, { headers })
+       .then((response) => {
+        this.realLineData = response.data;
+        this.realLineData.forEach((d) => d.x = parseTime(d.x))
+        this.getIdealLineData();
+        this.drawAxis();
+        this.drawLine();
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
+  },
     getIdealLineData () {
       var xMin = d3.min(this.realLineData, (d) => d.x);
       var yMax = d3.max(this.realLineData, (d) => d.y);
