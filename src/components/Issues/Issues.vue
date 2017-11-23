@@ -57,9 +57,10 @@ export default {
   data() {
     return {
       issues: [],
+      contributors: [],
       selectedIssue: '',
       is_project_from_github: '',
-    };
+    }
   },
 
   computed: {
@@ -128,6 +129,13 @@ export default {
   max-width: 100%;
   direction: ltr;
   padding: 0;
+}
+
+p{
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #close {
