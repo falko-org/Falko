@@ -30,6 +30,7 @@ script:
 
 after_script:
   - "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
+  - docker-compose down --remove-orphans
 
 after_success:
   - eval "$(ssh-agent -s)"

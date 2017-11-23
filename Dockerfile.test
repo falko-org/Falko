@@ -1,5 +1,3 @@
-# TODO Posteriormente adicionar as dependencias do Cypress (Teste de Aceitação) para o TravisCI
-
 FROM node:slim
 
 MAINTAINER alaxallves@gmail.com
