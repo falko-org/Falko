@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <vue-chart type="bar" :width="15" :height="4" :data="datacollection"></vue-chart>
+    <vue-chart type="bar" v-bind:width="15" v-bind:height="4" v-bind:options="datacollection.options" v-bind:data="datacollection"></vue-chart>
   </div>
 </template>
 
@@ -17,6 +17,30 @@ export default {
   data () {
     return {
       datacollection: {
+        options: {
+          scales: {
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  beginAtZero: true,
+                  min: 0,
+                  suggestedMin: 0
+                }
+              }
+            ],
+            yAxes: [
+              {
+                display: true,
+                ticks: {
+                  beginAtZero: true,
+                  min: 0,
+                  suggestedMin: 0
+                }
+              }
+            ]
+          },
+        },
         display: false,
         labels: [],
         datasets: [
@@ -43,7 +67,8 @@ export default {
             data: []
           },
         ],
-      }
+      },
+
     }
   },
   computed: {
