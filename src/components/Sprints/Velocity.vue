@@ -9,6 +9,7 @@ import { Bar } from 'vue-chart-js'
 import { Line } from 'vue-chart-js'
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
+import Sprint from './Sprint.vue';
 
 export default {
   extends: Bar,
@@ -18,26 +19,25 @@ export default {
       datacollection: {
         display: false,
         labels: [],
-        datasets: [  
-          {label:'Vazio'},    
+        datasets: [
           {
             label: 'Velocity',
-            borderColor: "blue",
+            borderColor: "rgba(0, 0, 0, 1)",
             lineTension: 0,
-            fill: false,            
+            fill: false,
             type: 'line',
             data: []
-          }, 
+          },
           {
             label: 'Total Points',
-            backgroundColor: 'pink',
+            backgroundColor: "rgba(100, 150, 150, 10)",
             borderColor: "black",
-            borderWidth: 2,            
+            borderWidth: 2,
             data: []
           },
           {
             label: 'Completed Points',
-            backgroundColor: '#f87979',
+            backgroundColor: "rgba(100, 150, 150, 0.3)",
             borderColor: "black",
             borderWidth: 2,
             data: []
@@ -52,17 +52,18 @@ export default {
     }),
   },
   methods: {
+    fillChart(response) {
+      this.datacollection.labels = response.data.names;
+      this.datacollection.datasets[0].data = response.data.velocities;
+      this.datacollection.datasets[1].data = response.data.total_points;
+      this.datacollection.datasets[2].data = response.data.completed_points;
+    },
     getVelocityData() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}/velocity`, { headers })
         .then((response) => {
-          console.log(response)
-          this.datacollection.labels = response.data.names 
-          this.datacollection.datasets[1].data = response.data.velocities
-          this.datacollection.datasets[2].data = response.data.total_points
-          this.datacollection.datasets[3].data = response.data.completed_points
-
+          this.fillChart(response);
         })
         .catch((e) => {
           this.errors.push(e);
