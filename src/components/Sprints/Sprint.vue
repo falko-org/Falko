@@ -21,7 +21,8 @@
       <div class="col-md-6" align="end">
         <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
-          v-if="!isRetrospectiveCreated()"></add-retrospective>
+          v-if="!isRetrospectiveCreated()">
+          </add-retrospective>
 
           <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
             <button type="button" class="btn btn-info btn-md falko-button">
@@ -36,6 +37,13 @@
           <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
             <button type="button" class="btn btn-info btn-md falko-button">
               Revision
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
+          <router-link v-bind:to="'/sprints/'+sprint.id+'/velocity'">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Velocity
             </button>
           </router-link>
         </li>
@@ -60,6 +68,7 @@ import Retrospective from '../Retrospective/Retrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
 import Revision from '../Revision/Revision.vue';
 import { HTTP } from '../../http-common';
+import Velocity from './Velocity.vue';
 
 export default{
   name: 'Sprint',
