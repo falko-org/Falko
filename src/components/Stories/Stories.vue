@@ -1,30 +1,98 @@
   <template>
 
   <div class="row">
-    <div class="col-md-3">
-      <h4>Backlog da Sprint</h4>
-      <draggable v-model="issues" v-bind:options="{group:'issues'}" @change="onUpdateBacklog($event)" class="dragArea">
-        <div v-for="issue in issues">{{issue.name}}</div>
-      </draggable>
+    <table>
+      <div class="row" id="rowKanban">
+        <div class="col">
+          <div class="row" id="title">
+            <h4>Backlog da Sprint&nbsp; &nbsp; </h4>
+            <h4 style="color:#00FFFF; font-size:24px;">{{issues.length}}</h4>
+          </div>
+          <draggable v-model="issues" v-bind:options="{group:'issues'}" @change="onUpdateBacklog($event)" class="dragArea">
+            <div v-for="issue in issues">
+              <div align="center" id="cardDiv">
+                <div class="card" id="kanbanCard">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h6 class="float-left">{{issue.name}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </div>
+          </draggable>
+        </div>
+      <div class="col">
+        <div class="row" id="title">
+          <h4>To Do&nbsp; &nbsp; </h4>
+          <h4 style="color:#00FFFF; font-size:24px;">{{stories.length}}</h4>
+        </div>
+        <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
+          <div v-for="story in stories">
+            <div align="center" id="cardDiv">
+              <div class="card" id="kanbanCard">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="float-left">{{story.name}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </draggable>
+        </div>
+      <div class="col">
+        <div class="row" id="title">
+          <h4>Doing&nbsp; &nbsp; </h4>
+          <h4 style="color:#00FFFF; font-size:24px;">{{doingStories.length}}</h4>
+        </div>
+        <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
+          <div v-for="story in doingStories">
+            <div align="center" id="cardDiv">
+              <div class="card" id="kanbanCard">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="float-left">{{story.name}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </draggable>
+      </div>
+      <div class="col">
+        <div class="row" id="title">
+          <h4>Done&nbsp; &nbsp; </h4>
+          <h4 style="color:#00FFFF; font-size:24px;">{{doneStories.length}}</h4>
+        </div>
+        <draggable v-model="doneStories" v-bind:options="{group:'issues'}" @change="onUpdateDone($event)"  class="dragArea">
+          <div v-for="story in doneStories">
+            <div align="center" id="cardDiv">
+              <div class="card" id="kanbanCard">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="float-left">{{story.name}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </draggable>
+      </div>
     </div>
-    <div class="col-md-3">
-      <h4>To Do</h4>
-      <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
-        <div v-for="story in stories">{{story.name}}</div>
-      </draggable>
-    </div>
-    <div class="col-md-3">
-      <h4>Doing</h4>
-      <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
-        <div v-for="story in doingStories">{{story.name}}</div>
-      </draggable>
-    </div>
-    <div class="col-md-3">
-      <h4>Done</h4>
-      <draggable v-model="doneStories" v-bind:options="{group:'issues'}" @change="onUpdateDone($event)"  class="dragArea">
-        <div v-for="story in doneStories">{{story.name}}</div>
-      </draggable>
-    </div>
+  </table>
   </div>
 
   </template>
@@ -159,9 +227,39 @@ export default {
 
 <style scoped>
 .dragArea {
-  min-height: 50px;
-  border-style: solid;
-  border-color: black;
-  border-width: 0.5px;
+  height: 1000px;
+  width: 300px;
+  box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
 }
+
+#rowKanban {
+  width: 1400px;
+  margin-top: 50px;
+}
+
+#kanbanSpace {
+  width: 50px;
+}
+
+#kanbanCard {
+  max-width: 15em;
+  margin-top: 15px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  transition: 0.2s;
+}
+
+#kanbanCard:hover {
+  border-color: #7799A5;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+}
+
+#title {
+  justify-content: center;
+  width: 270px;
+}
+
+#cardDiv {
+  height: 70px;
+}
+
 </style>
