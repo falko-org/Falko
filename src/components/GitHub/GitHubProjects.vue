@@ -16,7 +16,13 @@
           </div>
           <div class="modal-body">
             <div v-if="userRepos.length != 0">
-              <h4 data-toggle="collapse" class="pointer-cursor" href="#userReposCollapse" aria-expanded="false" aria-controls="userReposCollapse" >User Repos</h4>
+              <h4
+              data-toggle="collapse"
+              class="pointer-cursor dropdown-toggle"
+              href="#userReposCollapse"
+              aria-expanded="false"
+              aria-controls="userReposCollapse">User Repositories
+              </h4>
               <div class="collapse" id="userReposCollapse">
                 <ul class="list-group">
                   <li class="list-group-item" v-for="userRepo in userRepos" >
@@ -33,7 +39,7 @@
               <div v-for="orgs in orgsRepos">
                 <h4
                 data-toggle="collapse"
-                class="pointer-cursor"
+                class="pointer-cursor dropdown-toggle"
                 v-bind:href="'#'+orgs.name"
                 aria-expanded="false"
                 v-bind:aria-controls="orgs.name" >
@@ -55,7 +61,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
-            <button type="button" class="btn btn-secondary falko-button" data-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-secondary falko-button-grey" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
