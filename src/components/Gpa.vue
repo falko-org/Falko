@@ -4,7 +4,7 @@
     <div class="row align-itens-arround">
       <div class="col-5 align-content-center">
         <p class="card-text">
-          <div class="number-circle">
+          <div class="number-circle " v-if = "gpa != 0">
             <div class="gpa-font v-green" v-if="gpa > 3">
               {{gpa}}
             </div>
@@ -28,6 +28,8 @@
 
 <script>
 import {HTTP} from '../http-common.js';
+import { mapState } from 'vuex';
+
 export default {
   props: ['projectId'],
   data() {
@@ -37,23 +39,25 @@ export default {
   },
   methods: {
     async getGpa() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       try {
-        let response = await HTTP.get(`projects/${ this.$route.params.id }`, { headers:headers });
+        let response = await HTTP.get(`projects/${ this.$route.params.id }`, { headers });
         let id = response.data.id;
-        console.log(id);
-        const result2 = await HTTP.get(`projects/${id}/gpa`, { headers: headers });
-        console.log(result2);
+        const result2 = await HTTP.get(`projects/${id}/gpa`, { headers });
         this.gpa = result2.data;
       } catch(err) {
         console.log(err)
       }
     }
   },
+  
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
+
   mounted() {
     this.getGpa();
   }

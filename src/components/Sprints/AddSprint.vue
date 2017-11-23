@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { EventBus } from '../../event-bus';
 import { HTTP } from '../../http-common';
 
@@ -53,13 +54,14 @@ export default {
       finalDate: '',
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     addSprint() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
-
+      const headers = { Authorization: this.token };
 
       HTTP.post(`releases/${this.$route.params.id}/sprints`, {
         sprint: {
@@ -82,7 +84,6 @@ export default {
         });
     },
   },
-
 };
 </script>
 

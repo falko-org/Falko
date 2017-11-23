@@ -33,41 +33,42 @@
             data-dismiss="modal"
             >
             Save
-          </button>
-          <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
-            Cancel
-          </button>
-        </div>
-        <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3 class="modal-title">
-                  Add Sprint Retrospective
-                </h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
-                <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
-                <list parent="Improvements" v-on:listUpdated="updateList"></list>
-                <textarea class="text-justify"
-                placeholder="Input your sprint report..."
-                v-model="sprintReport"
-                />
-              </div>
-              <div class="modal-footer">
-                <button class="btn btn-info btn-md falko-button"
-                v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-                data-dismiss="modal"
-                >
-                Save
-                </button>
-                <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
-                  Cancel
-                </button>
+            </button>
+            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+          <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title">
+                    Add Sprint Retrospective
+                  </h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
+                  <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
+                  <list parent="Improvements" v-on:listUpdated="updateList"></list>
+                  <textarea class="text-justify"
+                  placeholder="Input your sprint report..."
+                  v-model="sprintReport"
+                  />
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-info btn-md falko-button"
+                  v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
+                  data-dismiss="modal"
+                  >
+                  Save
+                  </button>
+                  <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+                    Cancel
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -75,13 +76,12 @@
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import List from './List.vue';
 import { HTTP } from '../../http-common';
-
 
 export default {
   components: {
@@ -98,12 +98,21 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+
+    FieldsNotFilled() {
+      return this.positivePoints.length === 0 ||
+      this.negativePoints.length === 0 ||
+      this.improvements.length === 0;
+    },
+  },
+
   methods: {
     addRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.post(`sprints/${this.$route.params.id}/retrospectives`, {
         sprint_report: this.sprintReport,
@@ -123,30 +132,22 @@ export default {
     },
 
     updateList(items, parent) {
-      if (parent == 'PositivePoints') {
+      if (parent === 'PositivePoints') {
         this.positivePoints = [];
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
           this.positivePoints.push(items[i].title);
         }
-      } else if (parent == 'NegativePoints') {
+      } else if (parent === 'NegativePoints') {
         this.negativePoints = [];
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
           this.negativePoints.push(items[i].title);
         }
-      } else if (parent == 'Improvements') {
+      } else if (parent === 'Improvements') {
         this.improvements = [];
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i += 1) {
           this.improvements.push(items[i].title);
         }
       }
-    },
-  },
-
-  computed: {
-    FieldsNotFilled() {
-      return this.positivePoints.length == 0 ||
-      this.negativePoints.length == 0 ||
-      this.improvements.length == 0;
     },
   },
 };

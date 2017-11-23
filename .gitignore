@@ -1,3 +1,8 @@
+# Ignore my Continuous Deploy Keys/Credentials
+.travis/*.key
+.travis/*.key.pub
+.travis/*.pem
+
 # Ignore bundler config.
 /.bundle
 
@@ -19,6 +24,11 @@ node_modules
 
 #Ignore Coverage Dir
 /coverage
+test/unit/coverage/
 
 #Ignore Sublime temporary files
 .DS_Store
+
+test/unit/coverage/
+
+karma-*/
