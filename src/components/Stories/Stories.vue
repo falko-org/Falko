@@ -3,18 +3,21 @@
   <div>
     <table>
       <div class="row" id="rowKanban">
-        <div class="col">
+        <div class="col-sm-3 col-md-3" id="kanbanCol">
           <div class="row" id="title">
             <h4>Backlog da Sprint&nbsp; &nbsp; </h4>
-            <h4 style="color:#00FFFF; font-size:24px;">{{issues.length}}</h4>
+            <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
           </div>
           <draggable v-model="issues" v-bind:options="{group:'issues'}" @change="onUpdateBacklog($event)" class="dragArea">
             <div v-for="issue in issues">
               <div align="center" id="cardDiv">
                 <div class="card" id="kanbanCard">
-                  <div class="date"><a href="#0">
-                    <div class="day">{{issue.number}}</div>
-                  </a> </div>
+                  <div class="date">
+                    <a href="#sprints/6">
+                      <div class="day">{{issue.number}}</div>
+                      <i class="fa fa-github" aria-hidden="true" v-on:click="github(issue.number, projects[0].github_slug)"></i>
+                    </a>
+                  </div>
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
@@ -28,17 +31,18 @@
             </div>
           </draggable>
         </div>
-      <div class="col">
+      <div class="col" id="kanbanCol">
         <div class="row" id="title">
           <h4>To Do&nbsp; &nbsp; </h4>
-          <h4 style="color:#00FFFF; font-size:24px;">{{stories.length}}</h4>
+          <h4 style="color:#86B1B1; font-size:24px;">{{stories.length}}</h4>
         </div>
         <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
           <div v-for="story in stories">
             <div align="center" id="cardDiv">
               <div class="card" id="kanbanCard">
                 <div class="date"><a href="#0">
-                  <div class="day">{{story.number}}</div>
+                  <div class="day">{{story.issue_number}}</div>
+                  <i class="fa fa-github go-github-icon" aria-hidden="true" v-on:click="github(story.issue_number, projects[0].github_slug)"></i>
                 </a> </div>
                 <div class="card-body">
                   <div class="row">
@@ -53,17 +57,18 @@
           </div>
         </draggable>
         </div>
-      <div class="col">
+      <div class="col" id="kanbanCol">
         <div class="row" id="title">
           <h4>Doing&nbsp; &nbsp; </h4>
-          <h4 style="color:#00FFFF; font-size:24px;">{{doingStories.length}}</h4>
+          <h4 style="color:#86B1B1; font-size:24px;">{{doingStories.length}}</h4>
         </div>
         <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
           <div v-for="story in doingStories">
             <div align="center" id="cardDiv">
               <div class="card" id="kanbanCard">
                 <div class="date"><a href="#0">
-                  <div class="day" v-model="issues">{{story.number}}</div>
+                  <div class="day" v-model="issues">{{story.issue_number}}</div>
+                  <i class="fa fa-github go-github-icon" aria-hidden="true" v-on:click="github(story.issue_number, projects[0].github_slug)"></i>
                 </a> </div>
                 <div class="card-body">
                   <div class="row">
@@ -78,22 +83,29 @@
           </div>
         </draggable>
       </div>
-      <div class="col">
+      <div class="col" id="kanbanCol">
         <div class="row" id="title">
           <h4>Done&nbsp; &nbsp; </h4>
-          <h4 style="color:#00FFFF; font-size:24px;">{{doneStories.length}}</h4>
+          <h4 style="color:#86B1B1; font-size:24px;">{{doneStories.length}}</h4>
         </div>
         <draggable v-model="doneStories" v-bind:options="{group:'issues'}" @change="onUpdateDone($event)"  class="dragArea">
+          <div class="alert alert-warning alert-dismissible fade show" role="alert" v-if="this.closed">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Issue Closed!</strong>
+          </div>
           <div v-for="story in doneStories">
             <div align="center" id="cardDiv">
-              <div class="card" id="kanbanCard">
+              <div class="card" id="doneCard" v-on:click="closeIssue(story.issue_number)" data-hover="CLOSE">
                 <div class="date"><a href="#0">
-                  <div class="day">{{story.number}}</div>
+                  <div class="day">{{story.issue_number}}</div>
+                  <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
                 </a> </div>
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left">{{story.name}}</h6>
+                      <h6 class="float-left"><span>{{story.name}}</span></h6>
                     </div>
                   </div>
                 </div>
@@ -125,12 +137,16 @@ export default {
       stories: [],
       doingStories: [],
       doneStories: [],
+      projects: [],
+      issue_number: "",
+      closed: false,
     }
   },
   computed: {
     ...mapState({
       token: state => state.auth.token,
       projectId: state => state.clientStatus.projectId,
+      userId: state => state.auth.userId,
     }),
   },
   methods: {
@@ -219,19 +235,52 @@ export default {
 
     onUpdateDone(evt) {
       const headers = { Authorization: this.token };
-
+      console.log(evt.added)
       if(evt.added){
         HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Done" }, { headers })
         .then((response) => console.log(response.code))
+
       }
     },
 
+      closeIssue(number1) {
+        const headers = { Authorization: this.token };
+
+        const config = { data: { issue: { number: number1 } }, headers };
+
+        HTTP.delete(`/projects/${this.projectId}/issues`, config)
+          .then(() => {
+            console.log("ISSUE CLOSED");
+            this.closed = true;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      },
+
+      github(number2, github) {
+        console.log(github);
+        window.location.href = "https://github.com/" + github + "/issues/" + number2;
+      },
+
+      getProjects() {
+        const headers = { Authorization: this.token };
+
+        HTTP.get(`users/${this.userId}/projects`, { headers })
+        .then((response) => {
+          this.projects = response.data;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      },
   },
   mounted() {
     this.getIssues();
     this.getToDo();
     this.getDoing();
     this.getDone();
+    this.getProjects();
   }
 }
 
@@ -239,15 +288,20 @@ export default {
 
 <style scoped>
 
+.fa {
+  margin-top: 12px;
+}
+
 .dragArea {
-  height: 500px;
+  height: 800px;
   width: 300px;
-  box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #rowKanban {
-  width: 1400px;
-  margin-top: 50px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #kanbanSpace {
@@ -263,12 +317,26 @@ export default {
 #kanbanCard:hover {
   border-color: #7799A5;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+#doneCard {
+  max-width: 15em;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  transition: 0.2s;
+}
+
+#doneCard:hover {
+  border-color: #7799A5;
+  background-color: #AA0000;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+  cursor: pointer;
 }
 
 #title {
   justify-content: center;
-  width: 300px;
-  box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #cardDiv {
@@ -299,6 +367,132 @@ export default {
   font-size: 12px;
   line-height: 4px;
   color: #2f5cb6;
+}
+
+#kanbanCol {
+  box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
+  text-align: center;
+  justify-content: center;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+    background: #00C8FF;
+}
+
+p {
+    font-size: 1.6em;
+    font-family: 'Lato', sans-serif;
+    background-color: #fff;
+    padding: 1em;
+    color: #002240;
+    margin-top: 0;
+}
+
+/* .card */
+
+#doneCard span {
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-transition-delay: 0.2s;
+    -moz-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+}
+
+#doneCard:before,
+#doneCard:after {
+    content: '';
+    position: absolute;
+    top: 0.6em;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    -webkit-transition: .2s,opacity .3s;
+    -moz-transition: .2s,opacity .3s;
+    -o-transition: .2s,opacity .3s;
+    transition: .2s,opacity .3s;
+}
+
+/* :before */
+
+#doneCard:before {
+    content: attr(data-hover);
+    -webkit-transform: translate(-100%,0);
+    -moz-transform: translate(-100%,0);
+    -ms-transform: translate(-100%,0);
+    -o-transform: translate(-100%,0);
+    transform: translate(-100%,0);
+}
+
+/* :after */
+
+#doneCard:after {
+    content: attr(data-active);
+    -webkit-transform: translate(100%,0);
+    -moz-transform: translate(100%,0);
+    -ms-transform: translate(100%,0);
+    -o-transform: translate(100%,0);
+    transform: translate(100%,0);
+}
+
+/* Span on :hover and :active */
+
+#doneCard:hover span,
+#doneCard:active span {
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+    -moz-transform: scale(0.3);
+    -ms-transform: scale(0.3);
+    -o-transform: scale(0.3);
+    transform: scale(0.3);
+}
+
+/*
+    We show :before pseudo-element on :hover
+    and :after pseudo-element on :active
+*/
+
+#doneCard:hover:before,
+#doneCard:active:after {
+    opacity: 1;
+    color: white;
+    -webkit-transform: translate(0,0);
+    -moz-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+    -webkit-transition-delay: .4s;
+    -moz-transition-delay: .4s;
+    -o-transition-delay: .4s;
+    transition-delay: .4s;
+}
+
+/*
+  We hide :before pseudo-element on :active
+*/
+
+#doneCard:active:before {
+    -webkit-transform: translate(-100%,0);
+    -moz-transform: translate(-100%,0);
+    -ms-transform: translate(-100%,0);
+    -o-transform: translate(-100%,0);
+    transform: translate(-100%,0);
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
 }
 
 </style>
