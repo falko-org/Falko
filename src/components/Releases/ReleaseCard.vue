@@ -45,8 +45,8 @@ export default {
 
   methods: {
     select: (event) => {
-      const targetId = event.currentTarget.id;
-      EventBus.$emit('selected-release', targetId);
+      const releaseIndex = event.currentTarget.id;
+      EventBus.$emit('selected-release', releaseIndex);
     },
   },
 };

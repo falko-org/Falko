@@ -19,35 +19,35 @@
         <div class="row">
           <div class="col">
             <div class="row">
-              <h4>{{this.releases[this.indexOfRelease].name}}</h4>
+              <h4>{{this.releases[this.releaseIndex].name}}</h4>
             </div>
             <div class="row text-muted">
-              <p>{{this.releases[this.indexOfRelease].description}}</p>
+              <p>{{this.releases[this.releaseIndex].description}}</p>
             </div>
           </div>
           <div class="col">
             <div class="row">
-              {{dateConvert(this.releases[this.indexOfRelease].initial_date)}}
+              {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
               |
-              {{dateConvert(this.releases[this.indexOfRelease].final_date)}}
+              {{dateConvert(this.releases[this.releaseIndex].final_date)}}
             </div>
             <div class="row text-muted">
               <div class="col">
                 <p>Amount of Sprints</p>
               </div>
               <div class="col">
-                <p>{{this.releases[this.indexOfRelease].amount_of_sprints}}</p>
+                <p>{{this.releases[this.releaseIndex].amount_of_sprints}}</p>
               </div>
             </div>
           </div>
-          {{this.getSprints(this.releases[this.indexOfRelease].id)}}
+          <!-- {{this.getSprints(this.releases[this.releaseIndex].id)}} -->
         </div>
 
         <div class="row">
           <add-sprint v-bind:release="[
-            this.releases[this.indexOfRelease].id,
-            dateConvert(this.releases[this.indexOfRelease].initial_date),
-            dateConvert(this.releases[this.indexOfRelease].final_date)]">
+            this.releases[this.releaseIndex].id,
+            dateConvert(this.releases[this.releaseIndex].initial_date),
+            dateConvert(this.releases[this.releaseIndex].final_date)]">
           </add-sprint>
         </div>
         <div class="row">
@@ -92,12 +92,26 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseId: state => state.clientStatus.releaseId,
+      releaseIndex: state => state.clientStatus.releaseIndex,
     }),
   },
 
   mixins: [dateConvert],
 
   methods: {
+    setProjetId() {
+      this.$store.dispatch('setProject', this.$route.params.id);
+    },
+
+    setReleaseId() {
+      this.$store.dispatch('setRelease', this.releases[this.releaseIndex].id);
+    },
+
+    setReleaseIndex(releaseIndex) {
+      this.$store.dispatch('setReleaseIndex', releaseIndex);
+    },
+
     getReleases() {
       const headers = { Authorization: this.token };
 
@@ -110,10 +124,10 @@ export default {
         });
     },
 
-    getSprints(releaseId) {
+    getSprints() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`releases/${releaseId}/sprints`, { headers })
+      HTTP.get(`releases/${this.releaseId}/sprints`, { headers })
         .then((response) => {
           if (response.data !== 0) {
             this.sprints = response.data;
@@ -136,12 +150,14 @@ export default {
   },
 
   mounted() {
-    this.indexOfRelease = 0;
+    this.setProjetId();
 
     this.getReleases();
 
     EventBus.$on('selected-release', (event) => {
-      this.indexOfRelease = event;
+      this.setReleaseIndex(event);
+      this.setReleaseId();
+      this.getSprints();
     });
 
     EventBus.$on('edited-release', () => {
