@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isFromProjectGitHub()">
+  <div v-if="projectOrigin()">
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
@@ -41,11 +41,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AddIssue from './AddIssue.vue';
 import EditIssue from './EditIssue.vue';
 import NoContent from '../NoContent.vue';
 import { HTTP } from '../../http-common';
-import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -58,13 +58,13 @@ export default {
     return {
       issues: [],
       selectedIssue: '',
-      is_project_from_github: '',
     };
   },
 
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      isProjectFromGitHub: state => state.clientStatus.isProjectFromGitHub,
     }),
   },
 
@@ -74,8 +74,6 @@ export default {
     },
 
     getIssues() {
-      this.getProjectOrigin();
-
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.$route.params.id}/issues`, { headers })
@@ -86,6 +84,7 @@ export default {
           this.errors.push(e);
         });
     },
+
     isIssuesEmpty() {
       return this.issues.length === 0;
     },
@@ -105,12 +104,8 @@ export default {
         });
     },
 
-    getProjectOrigin() {
-      this.is_project_from_github = (localStorage.getItem('is_project_from_github') === 'true');
-    },
-
-    isFromProjectGitHub() {
-      return this.is_project_from_github;
+    projectOrigin() {
+      return this.isProjectFromGitHub;
     },
   },
 

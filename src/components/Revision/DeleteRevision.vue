@@ -1,10 +1,10 @@
 <template>
   <div>
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#delRevisionModal">
+    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteRevisionModal">
       Delete
     </button>
 
-    <div class="modal fade" id ="delRevisionModal" role="dialog">
+    <div class="modal fade" id ="deleteRevisionModal" role="dialog">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -19,7 +19,7 @@
                 <p><label> Are you sure?</label></p>
               </div>
               <div class="modal-footer">
-                  <button v-on:click="delRevision()" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
+                  <button v-on:click="deleteRevision()" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
               </div>
         </div>
@@ -29,36 +29,39 @@
 </template>
 
 <script>
-import {HTTP} from '../../http-common.js';
+import { mapState } from 'vuex';
+import { HTTP } from '../../http-common';
 
 export default {
-  name: 'delRevision',
-  data () {
+  name: 'deleteRevision',
+  data() {
     return {
 
-    }
+    };
   },
-  methods:{
 
-    async delRevision(){
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
 
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+  methods: {
+    async deleteRevision() {
+      const headers = { Authorization: this.token };
 
       try {
-        let response = await HTTP.get("/revisions/"+this.$route.params.id, { headers: headers });
-        let id = response.data.sprint_id;
+        const response = await HTTP.get(`/revisions/${this.$route.params.id}`, { headers });
+        const id = response.data.sprint_id;
 
-        await HTTP.delete("/revisions/"+this.$route.params.id, { headers: headers })
-        this.$router.push({ path : `/Sprints/${id}`});
-      } catch(err) {
-        console.log(err)
+        await HTTP.delete(`/revisions/${this.$route.params.id}`, { headers });
+        this.$router.push({ path: `/Sprints/${id}` });
+      } catch (err) {
+        console.log(err);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

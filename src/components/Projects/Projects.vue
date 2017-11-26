@@ -43,7 +43,7 @@
         <add-project v-on:added="refreshProjects()"></add-project>
       </div>
       <div class="col-md-3">
-        <github-projects v-on:added="refreshProjects()" v-bind:gitHubLinked="is_github_authenticated"></github-projects>
+        <github-projects v-on:added="refreshProjects()"></github-projects>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@ import { mapState } from 'vuex';
 import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
-import Gpa from '../Gpa';
+import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -64,7 +64,7 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-    'Gpa': Gpa,
+    Gpa,
   },
 
   data() {
@@ -92,29 +92,12 @@ export default {
         });
     },
 
-    gitHubAuthenticated() {
-      const headers = { Authorization: this.token };
-      HTTP.get(`users/${this.userId}`, { headers })
-        .then((response) => {
-          if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
-          } else {
-            this.is_github_authenticated = false;
-          }
-          localStorage.setItem('is_github_authenticated', this.is_github_authenticated);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
-
     isGitHubAuthenticated() {
       return this.is_github_authenticated;
     },
 
     refreshProjects() {
       this.getProjects();
-      this.gitHubAuthenticated();
     },
 
     isProjectsEmpty() {
@@ -123,7 +106,6 @@ export default {
   },
   mounted() {
     this.getProjects();
-    this.gitHubAuthenticated();
   },
 };
 </script>

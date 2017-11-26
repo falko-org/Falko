@@ -7,8 +7,9 @@ const auth = {
   state() {
     return {
       authenticated: false,
-      token: null,
+      isGitHubAuthenticated: false,
       userId: null,
+      token: null,
     };
   },
   mutations: {
@@ -17,12 +18,14 @@ const auth = {
       localState.token = res.token;
       localState.userId = res.id;
       localState.authenticated = true;
+      localState.isGitHubAuthenticated = res.isGitHubAuthenticated;
     },
     [LOGOUT](state) {
       const localState = state;
       localState.token = null;
       localState.userId = null;
       localState.authenticated = false;
+      localState.isGitHubAuthenticated = false;
     },
   },
   actions: {
@@ -32,8 +35,27 @@ const auth = {
         password: credentials.password,
       })
         .then((response) => {
-          const res = { token: response.data.auth_token, id: response.data.user.id };
-          commit(LOGIN, res);
+          let res;
+          const headers = { Authorization: response.data.auth_token };
+
+          HTTP.get(`users/${response.data.user.id}`, { headers })
+            .then((secondResponse) => {
+              let isGitHubAuthenticated;
+
+              if (secondResponse.data.access_token != null) {
+                isGitHubAuthenticated = true;
+              } else {
+                isGitHubAuthenticated = false;
+              }
+
+              res = {
+                token: response.data.auth_token,
+                id: response.data.user.id,
+                isGitHubAuthenticated,
+              };
+
+              commit(LOGIN, res);
+            });
         });
     },
 

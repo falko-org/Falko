@@ -68,8 +68,6 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default{
-  props: ['gitHubLinked'],
-
   data() {
     return {
       userRepos: [],
@@ -82,6 +80,7 @@ export default{
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
@@ -110,7 +109,7 @@ export default{
 
     importGithubProjects() {
       this.doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
-        .then(() => { this.$emit('added'); })
+        .then(() => this.$emit('added'))
         .catch(e => console.log(e.message));
     },
 
@@ -136,18 +135,18 @@ export default{
       });
     },
     isGitHubLinked() {
-      return this.gitHubLinked;
+      return this.isGitHubAuthenticated;
     },
 
     buttonClass() {
-      if (this.gitHubLinked) {
+      if (this.isGitHubLinked()) {
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
 
     buttonDataToggle() {
-      if (this.gitHubLinked) {
+      if (this.isGitHubLinked()) {
         return 'modal';
       }
       return 'none';

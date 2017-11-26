@@ -43,8 +43,6 @@ import { HTTP } from '../../http-common';
 import { EventBus } from '../../event-bus';
 
 export default {
-  props: ['releaseId'],
-
   data() {
     return {
       name: '',
@@ -56,6 +54,7 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseId: state => state.clientStatus.releaseId,
     }),
   },
   methods: {
