@@ -77,7 +77,7 @@ export default {
           this.description = '';
           this.initialDate = '';
           this.finalDate = '';
-          location.reload();
+          EventBus.$emit('added-release');
         })
         .catch((e) => {
           this.errors.push(e);

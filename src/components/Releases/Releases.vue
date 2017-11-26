@@ -40,7 +40,6 @@
               </div>
             </div>
           </div>
-          <!-- {{this.getSprints(this.releases[this.releaseIndex].id)}} -->
         </div>
 
         <div class="row">
@@ -100,10 +99,6 @@ export default {
   mixins: [dateConvert],
 
   methods: {
-    setProjetId() {
-      this.$store.dispatch('setProject', this.$route.params.id);
-    },
-
     setReleaseId() {
       this.$store.dispatch('setRelease', this.releases[this.releaseIndex].id);
     },
@@ -150,9 +145,10 @@ export default {
   },
 
   mounted() {
-    this.setProjetId();
-
     this.getReleases();
+    this.getSprints();
+
+    EventBus.$on('added-release', () => this.getReleases());
 
     EventBus.$on('selected-release', (event) => {
       this.setReleaseIndex(event);
@@ -160,9 +156,11 @@ export default {
       this.getSprints();
     });
 
-    EventBus.$on('edited-release', () => {
-      this.getReleases();
-    });
+    // EventBus.$on('edited-release', () => this.getReleases());
+
+    EventBus.$on('deleted-release', () => this.getReleases());
+
+    EventBus.$on('added-sprint', () => this.getSprints());
 
     EventBus.$on('selected-sprint', (event) => {
       this.$router.push({ name: 'Sprint', params: { id: event } });

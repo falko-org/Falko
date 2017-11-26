@@ -68,16 +68,19 @@ export default {
     }),
   },
   methods: {
+    setProjetId() {
+      this.$store.dispatch('setProject',  this.$route.params.id)
+    },
     getProject() {
       const headers = { Authorization: this.token };
       this.isFromProjectGitHub();
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
-        .then((response) => {
-          this.project = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      .then((response) => {
+        this.project = response.data;
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
     },
 
     refreshProject() {
@@ -103,6 +106,7 @@ export default {
   },
   mounted() {
     this.getProject(this.$route.params.id);
+    this.setProjetId();
   },
 };
 </script>

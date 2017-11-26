@@ -30,6 +30,7 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import { EventBus } from '../../event-bus';
 
 export default {
   props: ['releaseId'],
@@ -45,7 +46,7 @@ export default {
 
       HTTP.delete(`releases/${this.releaseId}`, { headers })
         .then(() => {
-          location.reload();
+          EventBus.$emit('deleted-release');
         })
         .catch((e) => {
           this.errors.push(e);

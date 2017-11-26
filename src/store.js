@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
   storage: localStorage,
-  modules: ['auth', 'clientStatus'],
+  modules: ['clientStatus', 'auth'],
 });
 
 const store = new Vuex.Store({
