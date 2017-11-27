@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -38,13 +39,16 @@ export default {
 
     };
   },
-  methods: {
 
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
+
+  methods: {
     async deleteRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       try {
         const response = await HTTP.get(`/retrospectives/${this.$route.params.id}`, { headers });

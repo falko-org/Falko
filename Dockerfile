@@ -20,9 +20,8 @@ RUN npm run build
 RUN rm -rf ./build
 RUN rm -rf ./test
 RUN rm -rf ./src
-RUN chmod +x start-prod.sh
+RUN chmod +x start-homolog.sh
 
-ENV PORT=80
 EXPOSE 80
 
-ENTRYPOINT ["./start-prod.sh"]
+ENTRYPOINT ["./start-homolog.sh"]

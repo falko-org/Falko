@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import List from './List.vue';
 import DeleteRetrospective from './DeleteRetrospective.vue';
 import EditRetrospective from './EditRetrospective.vue';
@@ -72,6 +73,7 @@ export default {
     'edit-retrospective': EditRetrospective,
     list: List,
   },
+
   data() {
     return {
       sprintReport: '',
@@ -80,12 +82,16 @@ export default {
       improvements: [],
     };
   },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
+
   methods: {
     getRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`retrospectives/${this.$route.params.id}`, { headers })
         .then((response) => {

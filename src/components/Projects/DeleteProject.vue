@@ -28,22 +28,21 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
   name: 'delproject',
-  data() {
-    return {
-
-    };
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
   },
   methods: {
-
     deleteProject() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
+
       HTTP.delete(`projects/${this.$route.params.id}`, { headers })
         .then(() => {
           this.$router.push({ path: '/projects' });

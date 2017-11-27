@@ -25,8 +25,8 @@
                   <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
                 </div>
                 <div class="col">
-                  <h8 class="card-text text-muted" v-if="issue.body.length < 20">{{issue.body}}</h8>
-                  <h8 class="card-text text-muted" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</h8>
+                  <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
+                  <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
                 </div>
               </div>
             </div>
@@ -45,6 +45,7 @@ import AddIssue from './AddIssue.vue';
 import EditIssue from './EditIssue.vue';
 import NoContent from '../NoContent.vue';
 import { HTTP } from '../../http-common';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -56,9 +57,16 @@ export default {
   data() {
     return {
       issues: [],
+      contributors: [],
       selectedIssue: '',
       is_project_from_github: '',
-    };
+    }
+  },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
   },
 
   methods: {
@@ -69,12 +77,9 @@ export default {
     getIssues() {
       this.getProjectOrigin();
 
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const header = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${this.$route.params.id}/issues`, { headers: header })
+      HTTP.get(`projects/${this.$route.params.id}/issues`, { headers })
         .then((response) => {
           this.issues = response.data.issues_infos;
         })
@@ -87,12 +92,9 @@ export default {
     },
 
     closeIssue(number1) {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const header = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      const config = { data: { issue: { number: number1 } }, headers: header };
+      const config = { data: { issue: { number: number1 } }, headers };
 
       HTTP.delete(`/projects/${this.$route.params.id}/issues`, config)
         .then(() => {
@@ -128,7 +130,7 @@ export default {
   padding: 0;
 }
 
-h8{
+p{
     width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -141,7 +143,7 @@ h8{
 }
 
 #issueCard {
-  width: 24em;
+  max-width: 24em;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
 }
@@ -160,9 +162,11 @@ h8{
   color: black;
 }
 
-#blank_row {
-    height: 10px !important;
-    background-color: #FFFFFF;
+.card-description {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .number-circle {

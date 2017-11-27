@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -49,20 +50,21 @@ export default {
       finalDate: '',
     };
   },
-
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
   methods: {
     editRelease() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const header = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.patch(`releases/${this.$route.params.id}`, {
         name: this.name,
         description: this.description,
         initial_date: this.initialDate,
         final_date: this.finalDate,
-      }, { headers: header })
+      }, { headers })
         .then(() => {
           this.$emit('edited-release');
         })
@@ -72,10 +74,7 @@ export default {
     },
 
     getReleaseInformation() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${this.$route.params.id}`, { headers })
         .then((response) => {

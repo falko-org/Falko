@@ -20,6 +20,13 @@
       </div>
       <div class="col-md-6" align="end">
         <li class="list-inline-item">
+          <router-link v-bind:to="'/sprints/'+$route.params.id+'/burndown'">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Burndown
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
           v-if="!isRetrospectiveCreated()"></add-retrospective>
 
@@ -51,6 +58,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EditSprint from './EditSprint.vue';
 import DeleteSprint from './DeleteSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
@@ -75,15 +83,17 @@ export default{
       sprintRevision: [],
     };
   },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
 
   mixins: [dateConvert],
 
   methods: {
     getSprint() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}`, { headers })
       .then((response) => {
@@ -97,15 +107,11 @@ export default{
     },
 
     getRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
       .then((response) => {
         this.sprintRetrospective = response.data;
-
         if (this.sprintRetrospective.length === 0) {
           this.setRetrospectiveAsNotCreated();
         } else {

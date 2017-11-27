@@ -33,7 +33,7 @@
                 <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
                 this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
                 this.$route.path == '/sprints/'+this.$route.params.id"
-                class="sidebar-icon"><i class=" fa fa-repeat"></i></span>
+                class="sidebar-icon"><i class="fa fa-angle-double-down"></i></span>
                 <span class="sidebar-title"></span>
               </a>
             </router-link>
@@ -57,8 +57,9 @@
 </template>
 
 <script>
+
 export default {
-}
+};
 
 </script>
 

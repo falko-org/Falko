@@ -30,9 +30,16 @@
           <div class="card-text">
             <div class="row justify-content-center">
               <div class="col-md-7">
-                <button v-bind:class="buttonClass()" v-on:click="link()">
-                  Link to Github
-                </button>
+                <div v-if="!isGitHubLinked()" class="col-md-2">
+                  <button v-bind:class="buttonLinkClass()" v-on:click="link()">
+                    Link to Github
+                  </button>
+                </div>
+                <div v-else class="col-md-2">
+                  <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
+                    Remove link with Github
+                  </button>
+                </div>
               </div>            
               <div class="col">
                 <edit-user-profile></edit-user-profile>
@@ -46,10 +53,10 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EditUserProfile from './EditUserProfile.vue';
 import DeleteUserProfile from './DeleteUserProfile.vue';
 import { HTTP } from '../../http-common';
@@ -66,25 +73,29 @@ export default {
       name: '',
       email: '',
       github: '',
-      is_github_authenticated: '',
     };
+  },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+      userId: state => state.auth.userId,
+    }),
   },
   methods: {
     getUser() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      this.isGitHubLinked();
 
-      HTTP.get(`users/${userId}`, { headers })
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`users/${this.userId}`, { headers })
         .then((response) => {
           this.name = response.data.name;
           this.email = response.data.email;
           this.github = response.data.github;
           if (response.data.access_token != null) {
-            this.is_github_authenticated = true;
+            localStorage.setItem('is_github_authenticated', true);
           } else {
-            this.is_github_authenticated = false;
+            localStorage.setItem('is_github_authenticated', false);
           }
           this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
         })
@@ -92,21 +103,51 @@ export default {
           this.errors.push(e);
         });
     },
+
     link() {
       if (!this.isGitHubLinked()) {
-        window.location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        localStorage.setItem('is_github_authenticated', true);
       }
     },
-    isGitHubLinked() {
-      return this.is_github_authenticated;
+
+    removeToken() {
+      const rawToken = localStorage.getItem('token');
+      const token = rawToken.replace(/"/, '').replace(/"/, '');
+      const headers = { Authorization: token };
+      const userId = localStorage.getItem('user_id');
+
+      HTTP.post('remove_github_token', {
+        id: userId,
+      }, { headers })
+        .then(() => {
+          localStorage.setItem('is_github_authenticated', false);
+          location.reload();
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
-    buttonClass() {
+
+    isGitHubLinked() {
+      return (localStorage.getItem('is_github_authenticated') === 'true');
+    },
+
+    buttonLinkClass() {
       if (this.isGitHubLinked()) {
         return 'btn btn-info btn-md falko-button-grey disabled-cursor';
       }
       return 'falko-button btn btn-primary';
     },
+
+    buttonRemoveLinkClass() {
+      if (!this.isGitHubLinked()) {
+        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+      }
+      return 'falko-button btn btn-primary';
+    },
   },
+
   mounted() {
     this.getUser();
     const thisOne = this;
@@ -120,10 +161,10 @@ export default {
 
 <style scoped>
   .card {
-    /*box-shadow: 0 0.2em 0.7em -0.1em #999999;*/
     box-shadow: 0em 0.12em 0.01em 0em #ddd;
   }
   label {
     margin-right: .3em;
   }   
 </style>
+

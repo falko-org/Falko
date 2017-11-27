@@ -24,7 +24,7 @@
               </div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-on:click="addIssue(), reload()" data-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-primary" v-on:click="addIssue()" data-dismiss="modal">Save</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 						</div>
 				</div>
@@ -35,7 +35,8 @@
 
 <script>
 import { EventBus } from '../../event-bus.js';
-import {HTTP} from '../../http-common.js';
+import { HTTP } from '../../http-common.js';
+import { mapState } from 'vuex';
 
 export default {
   data () {
@@ -43,21 +44,24 @@ export default {
       name: '',
       body : ''
     }
-  },
-  methods: {
-
+	},
+	
+	computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+	},
+	
+	methods: {
   	addIssue() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var header = { 'Authorization': tokenSimple2 };
+			const headers = { Authorization: this.token };
 
       HTTP.post(`/projects/${this.$route.params.id}/issues`,  {
         issue: {
           name: this.name,
           body: this.body
         }
-	    }, { headers: header })
+	    }, { headers })
 	    .then(response => {
 	    	this.name = "";
 	    	this.body = "";

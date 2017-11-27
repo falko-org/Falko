@@ -26,6 +26,7 @@ import Retrospective from '@/components/Retrospective/Retrospective';
 import Revision from '@/components/Revision/Revision';
 import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
+import Burndown from '@/components/Sprints/Burndown';
 
 Vue.use(Router);
 
@@ -164,6 +165,11 @@ const router = new Router({
       component: Retrospective,
     },
     {
+      path: '/sprints/:id/burndown',
+      name: 'Burndown',
+      component: Burndown,
+    },
+    {
       path: '/revisions/:id',
       name: 'Revision',
       component: Revision,
@@ -174,9 +180,13 @@ const router = new Router({
 export default router;
 
 router.beforeEach((to, from, next) => {
+  const state = JSON.parse(localStorage.getItem('vuex'));
+
   if (to.path === '/' || to.path === '/notFound') {
     next();
-  } else if (localStorage.getItem('token') === null) {
+  } else if (!to.matched.length) {
+    next('/notFound');
+  } else if (state.auth.token === null) {
     next('/');
   } else {
     next();

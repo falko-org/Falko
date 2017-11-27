@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import List from './List.vue';
 import { HTTP } from '../../http-common';
 
@@ -56,12 +57,15 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
+
   methods: {
     editRetrospective() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.patch(`retrospectives/${this.$route.params.id}`, {
         sprint_report: this.sprintReport,
