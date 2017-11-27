@@ -31,7 +31,7 @@
         <delete-user-profile></delete-user-profile>
       </div>
       <div v-if="!isGitHubLinked()" class="col-md-2">
-        <button v-bind:class="buttonLinkClass()" v-on:click="link()">
+        <button v-bind:class="buttonLinkClass()" v-on:click="link(), say('Github is now linked')">
           Link to Github
         </button>
       </div>
@@ -91,6 +91,10 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    say(message) {
+      alert(message)
     },
 
     link() {
