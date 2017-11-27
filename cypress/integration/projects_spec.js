@@ -30,10 +30,7 @@ describe('Projects tests', function(){
     cy.visit('localhost:8080/#/')
     
     cy.server()
-
-  })
-  
-  it('should get projects', function(){
+    
     cy.route({
       method: 'GET',
       url: '/users\/1/projects',
@@ -52,8 +49,11 @@ describe('Projects tests', function(){
           "user_id": 2,
         }
       ]
-    })
-
+    }).as('getProjects')
+  })
+  
+  it('should get projects', function(){
+    
     login()
     
     cy.get('.card-header').eq(0).contains('Owla')
@@ -66,4 +66,79 @@ describe('Projects tests', function(){
       cy.get('.card-text').eq(7).contains('Agile Projects Manager')
     })
   })
+  
+  it('should add a project', function() {
+    cy.route({
+      method: 'POST',
+      url: '/users\/1/projects',
+      status: 200,
+      response: [
+        {
+          "id": 1,
+          "name": "Owla",
+          "description": "Improving classes",
+          "user_id": 1,
+        },
+        {
+          "id": 2,
+          "name": "Falko",
+          "description": "Agile Projects Manager",
+          "user_id": 1,
+        },
+        {
+          "id": 3,
+          "name": "NewProject",
+          "description": "New Project Description",
+          "user_id": 1,
+        }
+      ]
+    })
+
+    login()
+
+    cy.get('.falko-button').eq(0).click()
+
+    cy.get('.modal-body').within(function(){
+      cy.get('input:first').type('NewProject')
+      cy.get('input:last').type('New Project Description')
+      
+    })
+    cy.route({
+      method: 'GET',
+      url: '/users\/1/projects',
+      status: 200,
+      response: [
+        {
+          "id": 1,
+          "name": "Owla",
+          "description": "Improving classes",
+          "user_id": 2,
+        },
+        {
+          "id": 2,
+          "name": "Falko",
+          "description": "Agile Projects Manager",
+          "user_id": 2,
+        },
+        {
+          "id": 3,
+          "name": "NewProject",
+          "description": "New Project Description",
+          "user_id": 1,
+        }
+      ]
+    }).as('getProjects')
+
+    cy.get('.modal-footer').within(function(){
+      cy.get('.falko-button').eq(0).click()
+    })
+
+    cy.get('.card-header').eq(0).contains('Owla')
+    cy.get('.card-header').eq(1).contains('Falko')
+    cy.get('.card-header').eq(2).contains('NewProject')
+    cy.get('.card-body').within(function () {
+      cy.get('.card-text').eq(11).contains('New Project Description')
+    })
+  })
 })
+
