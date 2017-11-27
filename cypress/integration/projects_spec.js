@@ -143,5 +143,21 @@ describe('Projects tests', function(){
       cy.get('.card-text').eq(11).contains('New Project Description')
     })
   })
+
+  it('should cancel add project process', function () {
+
+    login()
+
+    cy.get('#addButton').contains('Add a Project').click()
+
+    cy.wait(200)
+
+    cy.get('.modal-footer').eq(0).within(function () {
+      cy.get('.falko-button-grey').contains('Close').click()
+    })
+
+    cy.get('.card-header').eq(0).contains('Owla')
+    cy.get('.card-header').eq(1).contains('Falko')
+  })
 })
 
