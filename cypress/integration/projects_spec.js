@@ -92,7 +92,7 @@ describe('Projects tests', function(){
           "user_id": 1,
         }
       ]
-    })
+    }).as('addProject')
 
     login()
 
@@ -103,6 +103,7 @@ describe('Projects tests', function(){
       cy.get('input:last').type('New Project Description')
       
     })
+    
     cy.route({
       method: 'GET',
       url: '/users\/1/projects',
@@ -124,14 +125,16 @@ describe('Projects tests', function(){
           "id": 3,
           "name": "NewProject",
           "description": "New Project Description",
-          "user_id": 1,
+          "user_id": 2,
         }
       ]
-    }).as('getProjects')
+    }).as('newGetProjects')
 
     cy.get('.modal-footer').within(function(){
       cy.get('.falko-button').eq(0).click()
     })
+
+    cy.wait('@newGetProjects')
 
     cy.get('.card-header').eq(0).contains('Owla')
     cy.get('.card-header').eq(1).contains('Falko')

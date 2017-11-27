@@ -33,4 +33,6 @@ test/unit/coverage/
 
 karma-*/
 
+#Ignore Cypress screenshots
+cypress/screenshots
 .Trash-0/
