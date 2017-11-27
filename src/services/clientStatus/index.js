@@ -8,7 +8,8 @@ const clientStatus = {
   },
   mutations: {
     [SET_PROJECT](state, id) {
-      state.projectId = id;
+      const localState = state;
+      localState.projectId = id;
     },
   },
   actions: {
