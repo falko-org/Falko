@@ -5,14 +5,7 @@ describe('Projects tests', function(){
       method: 'POST',
       url: '/authenticate',
       status: 200,
-      response: {
-        'auth_token': 'token123',
-        'user': {
-          'id': 1,
-          'name': 'Carla',
-          'email': 'carla@gmail.com'
-        }
-      }
+      response: 'fixture:login.json'
     }).as('login')
 
     cy.get('form').within(function () {
@@ -35,20 +28,7 @@ describe('Projects tests', function(){
       method: 'GET',
       url: '/users\/1/projects',
       status: 200,
-      response: [
-        {
-          "id": 1,
-          "name": "Owla",
-          "description": "Improving classes",
-          "user_id": 2,
-        },
-        {
-          "id": 2,
-          "name": "Falko",
-          "description": "Agile Projects Manager",
-          "user_id": 2,
-        }
-      ]
+      response: 'fixture:projects.json'
     }).as('getProjects')
   })
   

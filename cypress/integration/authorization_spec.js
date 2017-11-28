@@ -9,14 +9,7 @@ describe('Authorization tests', function (){
       method: 'POST',
       url: '/authenticate',
       status: 200,
-      response: {
-        'auth_token': 'token123',
-        'user': {
-          'id': 1,
-          'name': 'Carla',
-          'email': 'carla@gmail.com'
-        }
-      }
+      response: 'fixture:login.json'
     }).as('login')
   })
   
@@ -94,14 +87,7 @@ describe('Authorization tests', function (){
       method: 'POST',
       url: '/users',
       status: 200,
-      response: {
-        'auth_token': 'token123',
-        'user': {
-          'id': 1,
-          'name': 'Carla',
-          'email': 'carla@gmail.com'
-        }
-      }
+      response: 'fixture:login.json'
     }).as('register')
 
     cy.get('#pills-register-tab').click()
