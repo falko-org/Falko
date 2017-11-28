@@ -159,5 +159,85 @@ describe('Projects tests', function(){
     cy.get('.card-header').eq(0).contains('Owla')
     cy.get('.card-header').eq(1).contains('Falko')
   })
+
+   it('should edit a project', function(){
+    login()
+
+    cy.route({
+      method: 'GET',
+      url: '/projects\/2',
+      status: 200,
+      response: 
+        {
+          "description":"Agile Projects Manager" ,
+          "github_slug": "fga-gpp-mds/owla",
+          "id":2,
+          "is_project_from_github":true,
+          "is_scoring":false,
+          "name":"Falko",
+          "user_id":1,
+        }
+    }).as('getProject')
+
+    
+
+    cy.get('.card-body').eq(1).click()
+
+    cy.wait('@getProject')
+
+    cy.get('.card-title').contains('Falko')
+    cy.get('.card-text').contains('Agile Projects Manager')   
+
+    cy.get('#editbutton').eq(0).click()
+    cy.get('.modal-header').contains('Edit Project')
+
+    cy.get('input').eq(1).type(' plus').should('have.value','Falko plus')  
+    cy.get('input').eq(2).type(' plus').should('have.value','Agile Projects Manager plus')
+
+    cy.get('.v-switch-label').contains('off')
+
+    cy.route({
+      method: 'PUT',
+      url: '/projects\/2',
+      status: 200,
+      response: 
+        {
+          "description":"AAgile Projects Manager plus" ,
+          "github_slug": "fga-gpp-mds/owla",
+          "id":2,
+          "is_project_from_github":true,
+          "is_scoring":false,
+          "name":"Falko plus",
+          "user_id":1,
+        },
+    }).as('updateProject')
+
+    cy.route({
+      method: 'GET',
+      url: '/projects\/2',
+      status: 200,
+      response: 
+        {
+          "description":"Agile Projects Manager plus" ,
+          "github_slug": "fga-gpp-mds/owla",
+          "id":2,
+          "is_project_from_github":true,
+          "is_scoring":false,
+          "name":"Falko plus",
+          "user_id":1,
+        }
+    }).as('getProjectUp')
+    
+
+    cy.get('.modal-footer').within(function(){
+      cy.get('.falko-button').eq(0).contains('Save').click()
+    }) 
+
+    cy.wait('@getProjectUp')
+
+    cy.get('.card-title').contains('Falko plus')
+    cy.get('.card-text').contains('Agile Projects Manager plus') 
+
+  })
 })
 
