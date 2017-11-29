@@ -159,8 +159,6 @@ describe('Projects tests', function(){
         }
     }).as('getProject')
 
-    
-
     cy.get('.card-body').eq(1).click()
 
     cy.wait('@getProject')
@@ -217,7 +215,58 @@ describe('Projects tests', function(){
 
     cy.get('.card-title').contains('Falko plus')
     cy.get('.card-text').contains('Agile Projects Manager plus') 
+  })
 
+  it('should delete project', function(){
+    login()
+
+    cy.route({
+      method: 'GET',
+      url: '/projects\/1',
+      status: 200,
+      response:
+        {
+          "description": "Agile Projects Manager",
+          "github_slug": "fga-gpp-mds/owla",
+          "id": 2,
+          "is_project_from_github": true,
+          "is_scoring": false,
+          "name": "Falko",
+          "user_id": 1,
+        }
+    }).as('getProject')
+
+    cy.route({
+      method: 'DELETE',
+      url: '/projects/1',
+      status: 200,
+      response: {}
+    }).as('deleteProject')
+
+    
+    cy.get('.card-header').eq(0).contains('Owla').click()
+    
+    cy.route({
+      method: 'GET',
+      url: '/users\/1/projects',
+      status: 200,
+      response: [{
+        "id": 2,
+        "name": "Falko",
+        "description": "Agile Projects Manager",
+        "user_id": 2
+      }]
+    }).as('getProjectsAfterDelete')
+
+    cy.get('#deletebutton').contains('Delete').click()
+
+    cy.wait(200)
+
+    cy.get('.modal-footer').eq(1).within(function(){
+      cy.get('.falko-button').click()
+    })
+  
+    cy.get('.card-header').contains('Falko')
   })
 })
 

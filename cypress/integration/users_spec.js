@@ -104,6 +104,15 @@ describe('Users tests', function(){
     cy.url().should('eq', 'http://localhost:8080/#/')
   })
 
+  // ##################### IMPORTANT #####################
+  // Cypress does not allow redirecting outside of the app
+  // This is only allowed disabling security options
+  // Due to this, it's "impossible" test github linking
+  //
+  // If you find a workaround, uncomment the test bellow
+  // and finish it.
+  // #####################################################
+
   // it('should link account with github', function(){
   //   cy.route({
   //     method: 'POST',
