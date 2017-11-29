@@ -146,4 +146,24 @@ describe('Authorization tests', function (){
 
     cy.url().should('eq', 'http://localhost:8080/#/')
   })
+
+  it('should logout user', function(){
+    cy.get('form').within(function () {
+      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
+        .type('carla@gmail.com').should('have.value', 'carla@gmail.com')
+
+      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
+        .type('123456789').should('have.value', '123456789')
+    })
+
+    cy.get('.falko-button').eq(0).click()
+
+    cy.get('#noProjects')
+
+    cy.get('.navbar').within(function(){
+      cy.get('#logout').click()
+    })
+
+    cy.url().should('eq', 'http://localhost:8080/#/')
+  })
 })

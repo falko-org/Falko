@@ -43,14 +43,14 @@ describe('Users tests', function(){
     cy.wait('@getUser')
   })
 
-  it.skip('should access user profile', function(){
+  it('should access user profile', function(){
     cy.get('h4').contains('User Profile')
     cy.get('.text-muted').eq(0).contains('Carla')
     cy.get('.text-muted').eq(1).contains('carla@gmail.com')
     cy.get('.text-muted').eq(2).contains('carlaGit')
   })
 
-  it.skip('should edit user', function(){
+  it('should edit user', function(){
     cy.route({
       method: 'PUT',
       url: '/users/1',
@@ -88,7 +88,7 @@ describe('Users tests', function(){
     cy.get('.text-muted').eq(0).contains('Carla Rocha')
   })
 
-  it.skip('should delete user', function(){
+  it('should delete user', function(){
     cy.route({
       method: 'DELETE',
       url: '/users/1',
