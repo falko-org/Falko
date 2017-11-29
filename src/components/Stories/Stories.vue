@@ -89,15 +89,15 @@
           <h4 style="color:#86B1B1; font-size:24px;">{{doneStories.length}}</h4>
         </div>
         <draggable v-model="doneStories" v-bind:options="{group:'issues'}" @change="onUpdateDone($event)"  class="dragArea">
-          <div class="alert alert-warning alert-dismissible fade show" role="alert" v-if="this.closed">
+          <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" v-if="this.closed">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
             <strong>Issue Closed!</strong>
-          </div>
+          </div> -->
           <div v-for="story in doneStories">
             <div align="center" id="cardDiv">
-              <div class="card" id="doneCard" v-on:click="closeIssue(story.issue_number)" data-hover="CLOSE">
+              <div class="card" id="doneCard" data-hover="CLOSE">
                 <div class="date"><a href="#0">
                   <div class="day">{{story.issue_number}}</div>
                   <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
@@ -105,7 +105,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left"><span>{{story.name}}</span></h6>
+                      <h6 class="float-left"><span>{{story.name}}, , {{story.pipeline}}</span></h6>
                     </div>
                   </div>
                 </div>
@@ -212,6 +212,7 @@ export default {
                                                                  initial_date:new Date().toString(),
                                                                 }, { headers })
         .then((response) => console.log(response.code))
+        .then(() => this.$router.push({ path: `/sprints/${this.$route.params.id}`}));
       }
     },
 
@@ -235,31 +236,33 @@ export default {
 
     onUpdateDone(evt) {
       const headers = { Authorization: this.token };
-      console.log(evt.added)
       if(evt.added){
         HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Done" }, { headers })
         .then((response) => console.log(response.code))
 
-      }
-    },
-
-      closeIssue(number1) {
-        const headers = { Authorization: this.token };
-
-        const config = { data: { issue: { number: number1 } }, headers };
+        const config = { data: { issue: { number: evt.added.element.issue_number } }, headers };
 
         HTTP.delete(`/projects/${this.projectId}/issues`, config)
           .then(() => {
-            console.log("ISSUE CLOSED");
             this.closed = true;
           })
           .catch((e) => {
             this.errors.push(e);
           });
-      },
+      }
+      else{
+
+        HTTP.post(`/projects/${this.projectId}/reopen_issue`, { issue: { number: evt.removed.element.issue_number } }, { headers })
+        .then(() => {
+          this.closed = false;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+      }
+    },
 
       github(number2, github) {
-        console.log(github);
         window.location.href = "https://github.com/" + github + "/issues/" + number2;
       },
 
@@ -326,12 +329,12 @@ export default {
   transition: 0.2s;
 }
 
-#doneCard:hover {
+/*#doneCard:hover {
   border-color: #7799A5;
   background-color: #AA0000;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   cursor: pointer;
-}
+}*/
 
 #title {
   justify-content: center;
@@ -399,7 +402,7 @@ p {
 
 /* .card */
 
-#doneCard span {
+/*#doneCard span {
     -webkit-transition: 0.2s;
     -moz-transition: 0.2s;
     -o-transition: 0.2s;
@@ -408,9 +411,9 @@ p {
     -moz-transition-delay: 0.2s;
     -o-transition-delay: 0.2s;
     transition-delay: 0.2s;
-}
+}*/
 
-#doneCard:before,
+/*#doneCard:before,
 #doneCard:after {
     content: '';
     position: absolute;
@@ -423,33 +426,33 @@ p {
     -moz-transition: .2s,opacity .3s;
     -o-transition: .2s,opacity .3s;
     transition: .2s,opacity .3s;
-}
+}*/
 
 /* :before */
 
-#doneCard:before {
+/*#doneCard:before {
     content: attr(data-hover);
     -webkit-transform: translate(-100%,0);
     -moz-transform: translate(-100%,0);
     -ms-transform: translate(-100%,0);
     -o-transform: translate(-100%,0);
     transform: translate(-100%,0);
-}
+}*/
 
 /* :after */
 
-#doneCard:after {
+/*#doneCard:after {
     content: attr(data-active);
     -webkit-transform: translate(100%,0);
     -moz-transform: translate(100%,0);
     -ms-transform: translate(100%,0);
     -o-transform: translate(100%,0);
     transform: translate(100%,0);
-}
+}*/
 
 /* Span on :hover and :active */
 
-#doneCard:hover span,
+/*#doneCard:hover span,
 #doneCard:active span {
     opacity: 0;
     -webkit-transform: scale(0.3);
@@ -457,13 +460,13 @@ p {
     -ms-transform: scale(0.3);
     -o-transform: scale(0.3);
     transform: scale(0.3);
-}
+}*/
 
 /*
     We show :before pseudo-element on :hover
     and :after pseudo-element on :active
 */
-
+/*
 #doneCard:hover:before,
 #doneCard:active:after {
     opacity: 1;
@@ -477,13 +480,13 @@ p {
     -moz-transition-delay: .4s;
     -o-transition-delay: .4s;
     transition-delay: .4s;
-}
+}*/
 
 /*
   We hide :before pseudo-element on :active
 */
 
-#doneCard:active:before {
+/*#doneCard:active:before {
     -webkit-transform: translate(-100%,0);
     -moz-transform: translate(-100%,0);
     -ms-transform: translate(-100%,0);
@@ -493,6 +496,6 @@ p {
     -moz-transition-delay: 0s;
     -o-transition-delay: 0s;
     transition-delay: 0s;
-}
+}*/
 
 </style>
