@@ -16,7 +16,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h4 class="float-left">{{issue.name}}</h4>
+                  <p>{{ issue.name | truncate '10' }}</p>
                 </div>
               </div>
               <div class="row">
@@ -68,6 +68,13 @@ export default {
       token: state => state.auth.token,
       projectId: state => state.clientStatus.projectId,
     }),
+  },
+
+  filters: {
+
+  truncate: function(string, value) {
+    return string.substring(0, value) + '...';
+  }
   },
 
   methods: {
