@@ -20,6 +20,13 @@
       </div>
       <div class="col-md-6" align="end">
         <li class="list-inline-item">
+          <router-link v-bind:to="'/sprints/'+$route.params.id+'/burndown'">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Burndown
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
           v-if="!isRetrospectiveCreated()">
           </add-retrospective>

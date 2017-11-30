@@ -19,4 +19,5 @@ exclude_paths:
 - config/
 - node_modules/
 - test/
-- build
+- build/
+- cypress/

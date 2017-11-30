@@ -3,7 +3,7 @@ services:
   
   falko-front:
     container_name: falko-front
-    image: alaxalves/front:1.4
+    image: alaxalves/front:1.5
     command: /bin/bash -lc "npm install && npm run dev"
     volumes:
       - .:/Falko-2017.2-FrontEnd
@@ -14,6 +14,7 @@ services:
     networks:
       - default
       - falko20172backend_default
+    ipc: host
 
 networks:
   falko20172backend_default: 
