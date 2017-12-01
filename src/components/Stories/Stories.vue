@@ -3,7 +3,7 @@
   <div>
     <table>
       <div class="row" id="rowKanban">
-        <div class="col-sm-3 col-md-3" id="kanbanCol">
+        <div class="col-sm-3 col-md-3" style="padding: 0;" id="kanbanCol">
           <div class="row" id="title">
             <h4>Sprint Backlog&nbsp; &nbsp; </h4>
             <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
@@ -343,6 +343,7 @@ export default {
   justify-content: center;
   margin-left:auto;
   margin-right:auto;
+  margin-bottom: 12px;
 }
 
 #cardDiv {
