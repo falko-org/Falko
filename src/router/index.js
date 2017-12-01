@@ -171,11 +171,6 @@ const router = new Router({
       component: Burndown,
     },
     {
-      path: '/revisions/:id',
-      name: 'Revision',
-      component: Revision,
-    },
-    {
       path: '/sprints/:id/velocity',
       name: 'Velocity',
       component: Velocity,
