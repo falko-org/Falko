@@ -47,7 +47,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left">{{story.name}}</h6>
+                      <h6 class="float-left text-truncate" style="max-width: 150px;">{{story.name}}</h6>
                     </div>
                   </div>
                 </div>
@@ -73,7 +73,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left">{{story.name}}</h6>
+                      <h6 class="float-left text-truncate" style="max-width: 150px;">{{story.name}}</h6>
                     </div>
                   </div>
                 </div>
@@ -105,7 +105,10 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left"><span>{{story.name}}, , {{story.pipeline}}</span></h6>
+                      <h6 class="float-left text-truncate" style="max-width: 100px;"><span>{{story.name}}</span></h6>
+                    </div>
+                    <div class="col">
+                      <a class="text-align" id="closed">Closed</a>
                     </div>
                   </div>
                 </div>
@@ -497,5 +500,9 @@ p {
     -o-transition-delay: 0s;
     transition-delay: 0s;
 }*/
+
+#closed {
+  color: red;
+}
 
 </style>
