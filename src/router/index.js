@@ -23,7 +23,6 @@ import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
 import Retrospective from '@/components/Retrospective/Retrospective';
-import Revision from '@/components/Revision/Revision';
 import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
 import Velocity from '@/components/Sprints/Velocity';
