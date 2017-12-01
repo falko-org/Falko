@@ -66,6 +66,11 @@ export default {
   mixins: [dateConvert],
 
   methods: {
+    setReleaseDates() {
+      this.$store.dispatch('setReleaseInitialDate', this.release.initialDate);
+      this.$store.dispatch('setReleaseFinalDate', this.release.finalDate);
+    },
+
     getRelease() {
       const headers = { Authorization: this.token };
 
@@ -91,6 +96,7 @@ export default {
 
   mounted() {
     this.getRelease();
+    this.setReleaseDates();
   },
 };
 </script>

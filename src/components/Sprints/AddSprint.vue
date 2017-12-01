@@ -24,9 +24,9 @@
             </div>
             <div class="col">
               <p><label>Initial Date</label></p>
-              <p><input type="date" v-model="initialDate"></input><br></p>
+              <p><input type="date" v-model="initialDate" v-bind:min="this.releaseInitialDate" v-bind:max="releaseFinalPreviousDay()"></input><br></p>
               <p><label>Final Date</label></p>
-              <p><input type="date" v-model="finalDate"></input><br></p>
+              <p><input type="date" v-model="finalDate" v-bind:min="sprintInitialFollowingDay()" v-bind:max="this.releaseFinalDate"></input><br></p>
             </div>
           </div>
           <div class="modal-footer">
@@ -46,6 +46,7 @@ import { HTTP } from '../../http-common';
 
 export default {
   name: 'addSprintBody',
+
   data() {
     return {
       name: '',
@@ -54,11 +55,15 @@ export default {
       finalDate: '',
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseInitialDate: state => state.clientStatus.releaseInitialDate,
+      releaseFinalDate: state => state.clientStatus.releaseFinalDate,
     }),
   },
+
   methods: {
     addSprint() {
       const headers = { Authorization: this.token };
@@ -82,6 +87,14 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    sprintInitialFollowingDay() {
+      this.initialDate.setDate(this.initialDate.getDate() + 1);
+    },
+
+    releaseFinalPreviousDay() {
+      this.releaseFinalDate.setDate(this.releaseFinalDate.getDate() - 1);
     },
   },
 };
