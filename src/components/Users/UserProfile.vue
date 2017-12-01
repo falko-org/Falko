@@ -1,7 +1,7 @@
-<template>  
+<template>
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card mx-auto"> 
+      <div class="card mx-auto">
         <div class="card-body project" id="userProfile">
           <h4 class="row justify-content-center card-title"> User Profile </h4>
           <div class="image-circle row justify-content-center">
@@ -26,7 +26,7 @@
                 <p class="card-text text-muted">{{is_github_authenticated}}</p>
               </div>
             </div>
-          </div>    
+          </div>
           <div class="card-text">
             <div class="row justify-content-center">
               <div class="col-md-7">
@@ -40,7 +40,7 @@
                     Remove link with Github
                   </button>
                 </div>
-              </div>            
+              </div>
               <div class="col">
                 <edit-user-profile></edit-user-profile>
               </div>
@@ -50,6 +50,24 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-2">
+        <edit-user-profile></edit-user-profile>
+      </div>
+      <div class="col-md-2">
+        <delete-user-profile></delete-user-profile>
+      </div>
+      <div v-if="!isGitHubLinked()" class="col-md-2">
+        <button v-bind:class="buttonLinkClass()" v-on:click="link(), say('Github is now linked')">
+          Link to Github
+        </button>
+      </div>
+      <div v-else class="col-md-2">
+        <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
+          Remove link with Github
+        </button>
       </div>
     </div>
   </div>
@@ -102,6 +120,10 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    say(message) {
+      alert(message)
     },
 
     link() {
@@ -165,6 +187,5 @@ export default {
   }
   label {
     margin-right: .3em;
-  }   
+  }
 </style>
-
