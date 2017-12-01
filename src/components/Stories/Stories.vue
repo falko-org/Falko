@@ -20,7 +20,7 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col">
+                      <div class="col text-truncate" style="max-width: 150px;">
                         <h6 class="float-left">{{issue.name}}</h6>
                       </div>
                     </div>
