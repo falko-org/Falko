@@ -1,23 +1,52 @@
 <template>
-  <div class="col">
-    <div class="row">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
       <div class="card mx-auto">
-        <div class="card-body project">
-          <div class="col">
-            <div class="row">
-              <h4 class="card-title"> User Profile </h4>
+        <div class="card-body project" id="userProfile">
+          <h4 class="row justify-content-center card-title"> User Profile </h4>
+          <div class="image-circle row justify-content-center">
+            <img src="../../assets/user.png" height="60" />
+          </div>
+          <div class="row justify-content-center">
+            <div class="card-body">
+              <div class="row">
+                <label> Name: </label>
+                <p class="card-text text-muted">{{name}}</p>
+              </div>
+              <div class="row">
+                <label> E-mail: </label>
+                <p class="card-text text-muted">{{email}}</p>
+              </div>
+              <div class="row">
+                <label> GitHub Account: </label>
+                <p class="card-text text-muted">{{github}}</p>
+              </div>
+              <div class="row">
+                <label> GitHub Authenticated: </label>
+                <p class="card-text text-muted">{{is_github_authenticated}}</p>
+              </div>
             </div>
-            <div class="row">
-              <label> Name: </label>
-              <p class="card-text text-muted">{{name}}</p>
-            </div>
-            <div class="row">
-              <label> E-mail: </label>
-              <p class="card-text text-muted">{{email}}</p>
-            </div>
-            <div class="row">
-              <label> GitHub Account: </label>
-              <p class="card-text text-muted">{{github}}</p>
+          </div>
+          <div class="card-text">
+            <div class="row justify-content-center">
+              <div class="col-md-7">
+                <div v-if="!isGitHubLinked()" class="col-md-2">
+                  <button v-bind:class="buttonLinkClass()" v-on:click="link()">
+                    Link to Github
+                  </button>
+                </div>
+                <div v-else class="col-md-2">
+                  <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
+                    Remove link with Github
+                  </button>
+                </div>
+              </div>
+              <div class="col">
+                <edit-user-profile></edit-user-profile>
+              </div>
+              <div class="col">
+                <delete-user-profile></delete-user-profile>
+              </div>
             </div>
           </div>
         </div>
@@ -153,11 +182,10 @@ export default {
 </script>
 
 <style scoped>
-label {
-  margin-right: 5px;
-}
-
-#buttons {
-  margin-top: 1em;
-}
+  .card {
+    box-shadow: 0em 0.12em 0.01em 0em #ddd;
+  }
+  label {
+    margin-right: .3em;
+  }
 </style>
