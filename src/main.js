@@ -6,7 +6,6 @@ import VeeValidate from 'vee-validate';
 import ToggleButton from 'vue-js-toggle-button';
 import App from './App.vue';
 import router from './router';
-// import { Bar,Line } from 'vue-chart-js';
 
 Vue.use(ToggleButton);
 Vue.use(VeeValidate);
