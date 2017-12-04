@@ -8,9 +8,9 @@
           </li>
           <li class="list-inline-item vertical-center small-float-right">
             <h5 class="float-left">
-              {{release.initial_date}}
+              {{dateConvert(release.initial_date)}}
               |
-              {{release.final_date}}
+              {{dateConvert(release.final_date)}}
             </h5>
           </li>
           <p class="text-justify text-muted">
@@ -57,6 +57,7 @@ export default {
       release: {},
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
@@ -66,23 +67,23 @@ export default {
   mixins: [dateConvert],
 
   methods: {
-    setReleaseDates() {
-      this.$store.dispatch('setReleaseInitialDate', this.release.initialDate);
-      this.$store.dispatch('setReleaseFinalDate', this.release.finalDate);
-    },
-
     getRelease() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`releases/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.release = response.data;
-          this.release.initial_date = this.dateConvert(this.release.initial_date);
-          this.release.final_date = this.dateConvert(this.release.final_date);
+
+          this.setReleaseDates();
         })
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    setReleaseDates() {
+      this.$store.dispatch('setReleaseInitialDate', this.release.initial_date);
+      this.$store.dispatch('setReleaseFinalDate', this.release.final_date);
     },
 
     refreshRelease() {
@@ -96,7 +97,6 @@ export default {
 
   mounted() {
     this.getRelease();
-    this.setReleaseDates();
   },
 };
 </script>
