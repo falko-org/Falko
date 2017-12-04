@@ -53,6 +53,7 @@ export default {
           console.log(err.response.data); // It goes here!
         });
     },
+
     register() {
       HTTP.post('users', {
         user: {

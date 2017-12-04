@@ -70,7 +70,6 @@ export default {
   data() {
     return {
       projects: [],
-      is_github_authenticated: '',
     };
   },
   computed: {

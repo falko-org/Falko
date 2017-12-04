@@ -57,6 +57,7 @@ export default {
   data() {
     return {
       issues: [],
+      contributors: [],
       selectedIssue: '',
     };
   },
@@ -122,6 +123,13 @@ export default {
   max-width: 100%;
   direction: ltr;
   padding: 0;
+}
+
+p{
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #close {

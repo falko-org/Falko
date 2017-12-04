@@ -13,14 +13,33 @@
                 <span aria-hidden="true">&times;</span>
               </button>
           </div>
-          <div class="modal-body">
-            <p><label> Name </label></p>
-            <input type = "text" v-model="name" placeholder="Name"></input><br>
-            <p><label> Description </label></p>
-            <input type = "text" v-model="body" placeholder="Description"></input><br>
+          <div class="modal-body row">
+            <div class="col">
+              <p><label> Name </label></p>
+              <input type = "text" v-model="name" placeholder="Name"></input><br>
+              <p><label> Description </label></p>
+              <input type = "text" v-model="body" placeholder="Description"></input><br>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                  <p><label> Assignees </label></p>
+                </div>
+                <div class="row">
+                  <input type="text" v-model="search" placeholder="search...">
+                </div>
+              <div class="col" v-if="search != ''">
+                <div class="row" v-for="contributor in filteredContribs">
+                <label class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" v-bind:value="contributor" v-model="selectedContribs">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{contributor}}</span>
+                </label>
+              </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue()" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue(), setAssignees()" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -35,22 +54,48 @@ import { mapState } from 'vuex';
 
 export default {
   props: ["selected_issue"],
-  
+
   data () {
     return {
       name: "",
       body: "",
       number: "",
+      contributors: [],
+      selectedContribs: [],
+      search: ""
     }
   },
 
-  computed: {
-    ...mapState({
-      token: state => state.auth.token,
-    }),
-  },
-
   methods: {
+
+    setAssignees() {
+      const headers = { Authorization: this.token };
+
+      HTTP.post(`projects/${this.$route.params.id}/issues/assignees`, {
+          assignees: this.selectedContribs,
+          issue_number: this.number
+      }, { headers })
+      .then((response)=>{
+        console.log("Success")
+      })
+      .catch(e=>{
+        this.errors.push(e)
+      });
+
+    },
+
+    getContributors() {
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`projects/${this.$route.params.id}/contributors`, { headers })
+        .then((response) => {
+          this.contributors = response.data
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
     editIssue() {
       const headers = { Authorization: this.token };
 
@@ -74,6 +119,21 @@ export default {
       this.name = this.selected_issue.name,
       this.body = this.selected_issue.body,
       this.number = this.selected_issue.number
+    }
+  },
+
+  mounted() {
+    this.getContributors();
+  },
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+
+    filteredContribs:function()
+    {
+        var self=this;
+        return this.contributors.filter(function(contributor){return contributor.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
     }
   }
 }

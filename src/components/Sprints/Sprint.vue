@@ -20,6 +20,13 @@
       </div>
       <div class="col-md-6" align="end">
         <li class="list-inline-item">
+          <router-link v-bind:to="'/sprints/'+$route.params.id+'/burndown'">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Burndown
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
           v-if="!retrospectiveCreatedStatus()"></add-retrospective>
 
@@ -36,6 +43,13 @@
           <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
             <button type="button" class="btn btn-info btn-md falko-button">
               Revision
+            </button>
+          </router-link>
+        </li>
+        <li class="list-inline-item">
+          <router-link v-bind:to="'/sprints/'+sprint.id+'/velocity'">
+            <button type="button" class="btn btn-info btn-md falko-button">
+              Velocity
             </button>
           </router-link>
         </li>
@@ -58,6 +72,7 @@ import dateConvert from '../../mixins/dateConvert';
 import AddRetrospective from '../Retrospective/AddRetrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
 import { HTTP } from '../../http-common';
+import Velocity from './Velocity.vue';
 
 export default{
   name: 'Sprint',

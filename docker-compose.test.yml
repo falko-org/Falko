@@ -3,9 +3,8 @@ services:
   
   falko-front:
     container_name: falko-front
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    image: alaxalves/front:1.5
+    command: /bin/bash -lc "npm install && npm run dev"
     volumes:
       - .:/Falko-2017.2-FrontEnd
     external_links:
@@ -14,10 +13,4 @@ services:
       - 8080:8080
     networks:
       - default
-      - falko20172backend_default
-
-networks:
-  falko20172backend_default: 
-    external: true
-     
-    
+    ipc: host    

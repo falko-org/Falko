@@ -35,19 +35,22 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
-  name: 'addProj',
+  name: 'addProject',
+
   data() {
     return {
       name: '',
       description: '',
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
     }),
   },
+
   methods: {
     addProject() {
       const headers = { Authorization: this.token };
@@ -71,7 +74,6 @@ export default {
         });
     },
   },
-
 };
 </script>
 
