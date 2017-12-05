@@ -43,7 +43,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: 'Burndown',
+            label: 'Actual Burndown',
             borderColor: "red",
             lineTension: 0,
             fill: false,
@@ -52,11 +52,11 @@ export default {
           },
           {
             label: 'Ideal Burndown',
-            borderColor: "rgba(0, 0, 0, 1)",
+            borderColor: "blue",
             lineTension: 0,
             fill: false,
             type: 'line',
-            data: [13, 0]
+            data: []
           },
         ],
       },
@@ -71,8 +71,8 @@ export default {
   methods: {
     fillChart(response) {
       this.datacollection.datasets[0].data = response.data.y;
+      this.datacollection.datasets[1].data = response.data.ideal_line;
       this.datacollection.labels = response.data.x;
-      console.log(this.datacollection.datasets[0].data);
     },
     getBurndownData() {
       const headers = { Authorization: this.token };
@@ -84,7 +84,7 @@ export default {
         .catch((e) => {
           this.errors.push(e);
       });
-    }
+    },
   },
   mounted() {
      this.getBurndownData()
