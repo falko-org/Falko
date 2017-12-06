@@ -6,9 +6,11 @@
     <div class="row">
       <div class="col-3 align-self-center no-padding" id="releases">
           <add-release></add-release>
+        <div class="ScrollStyle">
           <div v-for="release in releases">
             <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
           </div>
+        </div>
       </div>
 
       <div class="col-8">
@@ -226,5 +228,10 @@ div a {
   box-sizing: content-box;
   top: 50%;
   left: 50%;
+}
+
+.ScrollStyle {
+  max-height: calc(100vh - 8em);
+  overflow-y: auto;
 }
 </style>
