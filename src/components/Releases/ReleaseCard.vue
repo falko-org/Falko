@@ -9,7 +9,7 @@
       <div class="col-7">
         <div align="center">
           <edit-release v-bind:release="release"></edit-release>
-          <delete-release v-bind:release="release[0]"></delete-release>
+          <delete-release v-bind:parentReleaseId="release[0]"></delete-release>
         </div>
       </div>
     </div>

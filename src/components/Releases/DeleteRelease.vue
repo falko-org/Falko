@@ -1,9 +1,9 @@
 <template>
   <div class="delproject">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteReleaseModal">
+    <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentReleaseId}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentReleaseId}`">
       Delete
     </button>
-    <div class="modal fade" id ="deleteReleaseModal" role="dialog">
+    <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentReleaseId}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -15,7 +15,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p><label> Are you sure?</label></p>
+            <p><label>Are you sure?</label></p>
           </div>
           <div class="modal-footer">
             <button v-on:click="deleteRelease" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
@@ -33,7 +33,7 @@ import { HTTP } from '../../http-common';
 import { EventBus } from '../../event-bus';
 
 export default {
-  props: ['releaseId'],
+  props: ['parentReleaseId'],
 
   computed: {
     ...mapState({
@@ -44,7 +44,7 @@ export default {
     deleteRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.delete(`releases/${this.releaseId}`, { headers })
+      HTTP.delete(`releases/${this.parentReleaseId}`, { headers })
         .then(() => {
           EventBus.$emit('deleted-release');
         })
