@@ -8,8 +8,8 @@
       </div>
       <div class="col-7">
         <div align="center">
-          <edit-release v-bind:releaseIndex="release[1]"></edit-release>
-          <delete-release v-bind:releaseId="release[0].id"></delete-release>
+          <edit-release v-bind:release="release"></edit-release>
+          <delete-release v-bind:release="release[0]"></delete-release>
         </div>
       </div>
     </div>

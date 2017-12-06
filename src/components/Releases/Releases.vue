@@ -7,7 +7,7 @@
       <div class="col-3 align-self-center no-padding" id="releases">
           <add-release></add-release>
           <div v-for="release in releases">
-            <release-card v-bind:release="[release, releases.indexOf(release)]"></release-card>
+            <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
           </div>
       </div>
 

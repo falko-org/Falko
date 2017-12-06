@@ -1,10 +1,10 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button-grey" v-bind:id="`editbutton${this.releaseIndex}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.releaseIndex}`" v-on:click="getReleaseInformation()">
+    <button type="button" class="btn btn-info btn-md falko-button-grey" v-bind:id="`editbutton${this.release[1]}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.release[1]}`" v-on:click="getReleaseInformation()">
       Edit
     </button>
 
-    <div class="modal fade" v-bind:id="`editReleaseModal${this.releaseIndex}`" role="dialog">
+    <div class="modal fade" v-bind:id="`editReleaseModal${this.release[1]}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -43,7 +43,7 @@ import { HTTP } from '../../http-common';
 import { EventBus } from '../../event-bus';
 
 export default {
-  props: ['releaseIndex'],
+  props: ['release'],
 
   data() {
     return {
@@ -56,14 +56,13 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
-      releaseId: state => state.clientStatus.releaseId,
     }),
   },
-  methods: {    
+  methods: {
     editRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.patch(`releases/${this.releaseId}`, {
+      HTTP.patch(`releases/${this.release[0]}`, {
         name: this.name,
         description: this.description,
         initial_date: this.initialDate,
@@ -79,7 +78,7 @@ export default {
 
     getReleaseInformation() {
       const headers = { Authorization: this.token };
-      HTTP.get(`releases/${this.releaseId}`, { headers })
+      HTTP.get(`releases/${this.release[0]}`, { headers })
         .then((response) => {
           this.name = response.data.name;
           this.description = response.data.description;

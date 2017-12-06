@@ -4,10 +4,10 @@
       <div class="row">
         <div class="col-md-3 divider">
           <div class="row">
-            <p>{{sprint.initial_date}}</p>
+            <p>{{dateConvert(sprint.initial_date)}}</p>
           </div>
           <div class="row">
-            <p>{{sprint.final_date}}</p>
+            <p>{{dateConvert(sprint.final_date)}}</p>
           </div>
         </div>
         <div class="col-md-6 divider">
@@ -29,10 +29,12 @@
 <script>
 import { mapState } from 'vuex';
 import { EventBus } from '../../event-bus';
-import { HTTP } from '../../http-common';
+import dateConvert from '../../mixins/dateConvert';
 
 export default {
   props: ['sprint'],
+
+  mixins: [dateConvert],
 
   computed: {
     ...mapState({
