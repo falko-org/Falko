@@ -3,7 +3,7 @@
   <div>
     <table>
       <div class="row" id="rowKanban">
-        <div class="col-sm-3 col-md-3" id="kanbanCol">
+        <div class="col" style="padding: 0;" id="kanbanCol">
           <div class="row" id="title">
             <h4>Sprint Backlog&nbsp; &nbsp; </h4>
             <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
@@ -15,7 +15,7 @@
                   <div class="date">
                     <a href="#sprints/6">
                       <div class="day">{{issue.number}}</div>
-                      <i class="fa fa-github" aria-hidden="true" v-on:click="github(issue.number, projects[0].github_slug)"></i>
+                      <i class="fa fa-github" aria-hidden="true"></i>
                     </a>
                   </div>
                   <div class="card-body">
@@ -42,7 +42,7 @@
               <div class="card" id="kanbanCard">
                 <div class="date"><a href="#0">
                   <div class="day">{{story.issue_number}}</div>
-                  <i class="fa fa-github go-github-icon" aria-hidden="true" v-on:click="github(story.issue_number, projects[0].github_slug)"></i>
+                  <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
                 </a> </div>
                 <div class="card-body">
                   <div class="row">
@@ -68,7 +68,7 @@
               <div class="card" id="kanbanCard">
                 <div class="date"><a href="#0">
                   <div class="day" v-model="issues">{{story.issue_number}}</div>
-                  <i class="fa fa-github go-github-icon" aria-hidden="true" v-on:click="github(story.issue_number, projects[0].github_slug)"></i>
+                  <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
                 </a> </div>
                 <div class="card-body">
                   <div class="row">
@@ -108,7 +108,7 @@
                       <h6 class="float-left text-truncate" style="max-width: 100px;"><span>{{story.name}}</span></h6>
                     </div>
                     <div class="col">
-                      <a class="text-align" id="closed">Closed</a>
+                      <a class="text-align" id="closed" style="text-decoration: underline;">Closed</a>
                     </div>
                   </div>
                 </div>
@@ -265,10 +265,6 @@ export default {
       }
     },
 
-      github(number2, github) {
-        window.location.href = "https://github.com/" + github + "/issues/" + number2;
-      },
-
       getProjects() {
         const headers = { Authorization: this.token };
 
@@ -315,9 +311,9 @@ export default {
 }
 
 #kanbanCard {
-  max-width: 15em;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
+  width: 280px;
 }
 
 #kanbanCard:hover {
@@ -327,22 +323,16 @@ export default {
 }
 
 #doneCard {
-  max-width: 15em;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  width: 280px;
   transition: 0.2s;
 }
-
-/*#doneCard:hover {
-  border-color: #7799A5;
-  background-color: #AA0000;
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
-  cursor: pointer;
-}*/
 
 #title {
   justify-content: center;
   margin-left:auto;
   margin-right:auto;
+  margin-bottom: 12px;
 }
 
 #cardDiv {
@@ -379,6 +369,7 @@ export default {
   box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
   text-align: center;
   justify-content: center;
+  width: 1000px;
 }
 
 *,
@@ -402,104 +393,6 @@ p {
     color: #002240;
     margin-top: 0;
 }
-
-/* .card */
-
-/*#doneCard span {
-    -webkit-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s;
-    -webkit-transition-delay: 0.2s;
-    -moz-transition-delay: 0.2s;
-    -o-transition-delay: 0.2s;
-    transition-delay: 0.2s;
-}*/
-
-/*#doneCard:before,
-#doneCard:after {
-    content: '';
-    position: absolute;
-    top: 0.6em;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    -webkit-transition: .2s,opacity .3s;
-    -moz-transition: .2s,opacity .3s;
-    -o-transition: .2s,opacity .3s;
-    transition: .2s,opacity .3s;
-}*/
-
-/* :before */
-
-/*#doneCard:before {
-    content: attr(data-hover);
-    -webkit-transform: translate(-100%,0);
-    -moz-transform: translate(-100%,0);
-    -ms-transform: translate(-100%,0);
-    -o-transform: translate(-100%,0);
-    transform: translate(-100%,0);
-}*/
-
-/* :after */
-
-/*#doneCard:after {
-    content: attr(data-active);
-    -webkit-transform: translate(100%,0);
-    -moz-transform: translate(100%,0);
-    -ms-transform: translate(100%,0);
-    -o-transform: translate(100%,0);
-    transform: translate(100%,0);
-}*/
-
-/* Span on :hover and :active */
-
-/*#doneCard:hover span,
-#doneCard:active span {
-    opacity: 0;
-    -webkit-transform: scale(0.3);
-    -moz-transform: scale(0.3);
-    -ms-transform: scale(0.3);
-    -o-transform: scale(0.3);
-    transform: scale(0.3);
-}*/
-
-/*
-    We show :before pseudo-element on :hover
-    and :after pseudo-element on :active
-*/
-/*
-#doneCard:hover:before,
-#doneCard:active:after {
-    opacity: 1;
-    color: white;
-    -webkit-transform: translate(0,0);
-    -moz-transform: translate(0,0);
-    -ms-transform: translate(0,0);
-    -o-transform: translate(0,0);
-    transform: translate(0,0);
-    -webkit-transition-delay: .4s;
-    -moz-transition-delay: .4s;
-    -o-transition-delay: .4s;
-    transition-delay: .4s;
-}*/
-
-/*
-  We hide :before pseudo-element on :active
-*/
-
-/*#doneCard:active:before {
-    -webkit-transform: translate(-100%,0);
-    -moz-transform: translate(-100%,0);
-    -ms-transform: translate(-100%,0);
-    -o-transform: translate(-100%,0);
-    transform: translate(-100%,0);
-    -webkit-transition-delay: 0s;
-    -moz-transition-delay: 0s;
-    -o-transition-delay: 0s;
-    transition-delay: 0s;
-}*/
 
 #closed {
   color: red;

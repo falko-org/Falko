@@ -53,7 +53,10 @@
           <delete-sprint></delete-sprint>
         </li>
       </div>
+    </div>
+    <div class="row">
       <stories></stories>
+    </div>
     </div>
   </div>
 </template>
