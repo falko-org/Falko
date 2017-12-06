@@ -101,12 +101,20 @@ export default {
       this.$store.dispatch('setReleaseIndex', releaseIndex);
     },
 
+    setAmountOfReleases() {
+      const releaseAmount = this.releases.length;
+
+      this.$store.dispatch('setReleaseAmount', releaseAmount);
+    },
+
     getReleases() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
         .then((response) => {
           this.releases = response.data;
+
+          this.setAmountOfReleases();
         })
         .catch((e) => {
           this.errors.push(e);

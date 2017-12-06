@@ -1,6 +1,6 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button-grey" v-bind:id="`editbutton${this.release[1]}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.release[1]}`" v-on:click="getReleaseInformation()">
+    <button type="button" class="btn btn-info btn-md falko-button-grey" v-bind:id="`editButton${this.release[1]}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.release[1]}`" v-on:click="getReleaseInformation()">
       Edit
     </button>
 

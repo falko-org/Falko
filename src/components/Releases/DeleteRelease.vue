@@ -40,6 +40,7 @@ export default {
       token: state => state.auth.token,
     }),
   },
+
   methods: {
     deleteRelease() {
       const headers = { Authorization: this.token };

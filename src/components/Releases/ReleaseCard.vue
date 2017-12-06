@@ -3,7 +3,7 @@
     <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release[1]" v-on:click="select($event)">
       <div class="col-5" align="center">
         <div class="number-circle">
-          <p>R{{release[1] += 1}}</p>
+          <p>R{{this.amountOfReleases - this.release[1]}}</p>
         </div>
       </div>
       <div class="col-7">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { EventBus } from '../../event-bus';
 import EditRelease from './EditRelease.vue';
 import DeleteRelease from './DeleteRelease.vue';
@@ -42,6 +43,12 @@ export default {
   },
 
   props: ['release'],
+
+  computed: {
+    ...mapState({
+      amountOfReleases: state => state.clientStatus.amountOfReleases,
+    }),
+  },
 
   methods: {
     select: (event) => {

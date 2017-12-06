@@ -2,6 +2,7 @@ const SET_PROJECT = 'SET_PROJECT';
 const SET_PROJECT_ORIGIN = 'SET_PROJECT_ORIGIN';
 const SET_RELEASE = 'SET_RELEASE';
 const SET_RELEASE_INDEX = 'SET_RELEASE_INDEX';
+const SET_RELEASE_AMOUNT = 'SET_RELEASE_AMOUNT';
 const SET_RETROSPECTIVE_CREATED_STATUS = 'SET_RETROSPECTIVE_CREATED_STATUS';
 const SET_REVISION_CREATED_STATUS = 'SET_REVISION_CREATED_STATUS';
 
@@ -12,6 +13,7 @@ const clientStatus = {
       isProjectFromGitHub: false,
       releaseId: null,
       releaseIndex: 0,
+      amountOfReleases: 0,
       isRetrospectiveCreated: false,
       isRevisionCreated: false,
     };
@@ -31,6 +33,10 @@ const clientStatus = {
 
     [SET_RELEASE_INDEX](state, index) {
       state.releaseIndex = index;
+    },
+
+    [SET_RELEASE_AMOUNT](state, length) {
+      state.amountOfReleases = length;
     },
 
     [SET_RETROSPECTIVE_CREATED_STATUS](state, status) {
@@ -56,6 +62,10 @@ const clientStatus = {
 
     setReleaseIndex({ commit }, releaseIndex) {
       commit(SET_RELEASE_INDEX, releaseIndex);
+    },
+
+    setReleaseAmount({ commit }, amountOfReleases) {
+      commit(SET_RELEASE_AMOUNT, amountOfReleases);
     },
 
     setRetrospectiveCreatedStatus({ commit }, isRetrospectiveCreated) {
