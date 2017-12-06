@@ -4,15 +4,11 @@
       <no-content parent ="Release"></no-content>
     </div>
     <div class="row">
-      <div class="col-3">
-        <div class="row">
+      <div class="col-3 align-self-center no-padding" id="releases">
           <add-release></add-release>
-        </div>
-        <div class="row">
           <div v-for="release in releases">
             <release-card v-bind:release="[release, releases.indexOf(release)]"></release-card>
           </div>
-        </div>
       </div>
 
       <div class="col-8">
@@ -33,10 +29,7 @@
             </div>
             <div class="row text-muted">
               <div class="col">
-                <p>Amount of Sprints</p>
-              </div>
-              <div class="col">
-                <p>{{this.releases[this.releaseIndex].amount_of_sprints}}</p>
+                <p>{{this.releases[this.releaseIndex].amount_of_sprints}} Sprints</p>
               </div>
             </div>
           </div>
@@ -44,9 +37,10 @@
 
         <div class="row">
           <add-sprint v-bind:release="[
-            this.releases[this.releaseIndex].id,
-            dateConvert(this.releases[this.releaseIndex].initial_date),
-            dateConvert(this.releases[this.releaseIndex].final_date)]">
+              this.releases[this.releaseIndex].id,
+              dateConvert(this.releases[this.releaseIndex].initial_date),
+              dateConvert(this.releases[this.releaseIndex].final_date)
+          ]">
           </add-sprint>
         </div>
         <div class="row">
@@ -150,13 +144,13 @@ export default {
 
     EventBus.$on('added-release', () => this.getReleases());
 
-    EventBus.$on('selected-release', (event) => {
-      this.setReleaseIndex(event);
+    EventBus.$on('selected-release', (ReleaseId) => {
+      this.setReleaseIndex(ReleaseId);
       this.setReleaseId();
       this.getSprints();
     });
 
-    // EventBus.$on('edited-release', () => this.getReleases());
+    EventBus.$on('edited-release', () => this.getReleases());
 
     EventBus.$on('deleted-release', () => this.getReleases());
 
@@ -173,6 +167,10 @@ export default {
 div a {
   text-decoration: none;
   color: inherit;
+}
+
+#releases {
+  background-color: #d0d4da;
 }
 
 #releaseCard {

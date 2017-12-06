@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addReleaseModal">
+    <div align="center">
+      <button type="button" class="btn btn-info btn-md falko-button" id="addReleaseButton" data-toggle="modal" data-target="#addReleaseModal" align="center">
         Add Release
       </button>
     </div>
@@ -15,7 +15,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class=" row modal-body">
+          <div class="row modal-body align-content-end">
             <div class="col">
               <p><label>Name</label></p>
               <p><input type="text" v-model="name" placeholder="Release name..." id="releaseName"></input><br></p>
@@ -92,9 +92,16 @@ export default {
 #releaseName {
   color: #777;
 }
+#addReleaseButton {
+  width: 100%;
+  border-radius: 0;
+  padding: 0.9em;
+  margin: 0;
+  background-color: #637074;
+}
 
-#addButton {
-  margin-top: 2em;
+#addReleaseButton:hover {
+  background-color: #4a575b;
 }
 
 .modal-body{

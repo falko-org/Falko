@@ -119,6 +119,14 @@ input:focus {
   margin: 0;
 }
 
+.no-border {
+  border: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
 /* Modifing Bootstrap Classes */
 .col {
   padding-left: 0;
