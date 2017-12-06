@@ -45,10 +45,15 @@
           ]">
           </add-sprint>
         </div>
-        <div class="row">
-          <div class="col">
-            <div v-for="sprint in sprints">
-              <sprint-card v-bind:sprint="sprint"></sprint-card>
+        <div>
+          <div v-if="this.sprints.length == 0">
+            <no-content parent = "Sprint"></no-content>
+          </div>
+          <div v-else class="row">
+            <div class="col">
+              <div v-for="sprint in sprints">
+                <sprint-card v-bind:sprint="sprint"></sprint-card>
+              </div>
             </div>
           </div>
         </div>
