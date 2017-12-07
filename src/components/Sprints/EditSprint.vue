@@ -34,13 +34,13 @@
             </div>
             <div class="col">
               <p><label>Inital Date</label></p>
-              <p></p><input type = "date" v-model="initialDate"></input><br></p>
+              <p></p><input type = "date" v-model="initialDate" name="initialDate" min="2" v-validate="'date_format:YYYY-MM-DD'"></input><br></p>
               <p><label>Final Date</label></p>
-              <p></p><input type = "date" v-model="finalDate"></input><br></p>
+              <p></p><input type = "date" v-model="finalDate" name="finalDate" v-validate="'date_format:YYYY-MM-DD|after:initialDate'"></input><br></p>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('description')" class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('finalDate')" class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>

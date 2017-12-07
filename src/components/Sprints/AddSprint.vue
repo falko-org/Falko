@@ -39,7 +39,6 @@
                         v-model="initialDate"
                         name="initialDate"
                         min="2"
-                        8="2"
                         v-validate="'date_format:YYYY-MM-DD'">
               <br></p>
               <p><label>Final Date</label></p>
@@ -53,7 +52,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('description') || erros.has('finalDate')" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('finalDate')" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
             <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
