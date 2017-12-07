@@ -1,6 +1,6 @@
 <template>
-  <div class="addsprintBody">
-    <div class="text-center">
+  <div>
+    <div>
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
         Add a Sprint
       </button>

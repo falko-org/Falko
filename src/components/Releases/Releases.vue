@@ -4,7 +4,7 @@
       <no-content parent ="Release"></no-content>
     </div>
     <div class="row">
-      <div class="col-3 align-self-center no-padding" id="releases">
+      <div class="col-3 align-self-start no-padding" id="releases">
           <add-release></add-release>
         <div class="ScrollStyle">
           <div v-for="release in releases">
@@ -17,7 +17,7 @@
         <div class="row">
           <div class="col">
             <div class="row">
-              <h4>{{this.releases[this.releaseIndex].name}}</h4>
+              <h1>{{this.releases[this.releaseIndex].name}}</h1>
             </div>
             <div class="row text-muted">
               <p>{{this.releases[this.releaseIndex].description}}</p>
@@ -25,9 +25,11 @@
           </div>
           <div class="col">
             <div class="row">
-              {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
-              |
-              {{dateConvert(this.releases[this.releaseIndex].final_date)}}
+              <h5>
+                {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
+                |
+                {{dateConvert(this.releases[this.releaseIndex].final_date)}}
+              </h5>
             </div>
             <div class="row text-muted">
               <div class="col">
@@ -37,13 +39,15 @@
           </div>
         </div>
 
-        <div class="row">
-          <add-sprint v-bind:release="[
-              this.releases[this.releaseIndex].id,
-              dateConvert(this.releases[this.releaseIndex].initial_date),
-              dateConvert(this.releases[this.releaseIndex].final_date)
-          ]">
-          </add-sprint>
+        <div class="row align-content-center">
+          <div class="col" align="center">
+            <add-sprint v-bind:release="[
+                this.releases[this.releaseIndex].id,
+                dateConvert(this.releases[this.releaseIndex].initial_date),
+                dateConvert(this.releases[this.releaseIndex].final_date)
+            ]">
+            </add-sprint>
+          </div>
         </div>
         <div>
           <div v-if="this.sprints.length == 0">
@@ -183,6 +187,16 @@ div a {
   text-decoration: none;
   color: inherit;
 }
+
+h1 {
+  color: #688E9B;
+  font-weight: bold;
+}
+h5 {
+  color: rgba(1, 22, 30, 0.75);
+  font-weight: lighter;
+}
+
 
 #releases {
   background-color: #d0d4da;
