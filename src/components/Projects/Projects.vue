@@ -79,6 +79,17 @@ export default {
     }),
   },
   methods: {
+    setGitHubAuthenticationVuex() {
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`users/${this.userId}`, { headers })
+        .then((response) => {
+          if (response.data.access_token != null) {
+            this.$store.dispatch('setGitHubAuthentication', true);
+          }
+        });
+    },
+
     getProjects() {
       const headers = { Authorization: this.token };
 
@@ -103,7 +114,9 @@ export default {
       return this.projects.length === 0;
     },
   },
+
   mounted() {
+    this.setGitHubAuthenticationVuex();
     this.getProjects();
   },
 };

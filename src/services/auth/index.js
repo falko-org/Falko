@@ -1,6 +1,7 @@
 import { HTTP } from '../../http-common';
 
 const LOGIN = 'LOGIN';
+const SET_GITHUB_AUTHENTICATION = 'SET_GITHUB_AUTHENTICATION';
 const LOGOUT = 'LOGOUT';
 
 const auth = {
@@ -18,14 +19,18 @@ const auth = {
       localState.token = res.token;
       localState.userId = res.id;
       localState.authenticated = true;
-      localState.isGitHubAuthenticated = res.isGitHubAuthenticated;
     },
+
     [LOGOUT](state) {
       const localState = state;
       localState.token = null;
       localState.userId = null;
       localState.authenticated = false;
       localState.isGitHubAuthenticated = false;
+    },
+
+    [SET_GITHUB_AUTHENTICATION](state, isLinked) {
+      state.authenticated = isLinked;
     },
   },
   actions: {
@@ -35,32 +40,17 @@ const auth = {
         password: credentials.password,
       })
         .then((response) => {
-          let res;
-          const headers = { Authorization: response.data.auth_token };
-
-          HTTP.get(`users/${response.data.user.id}`, { headers })
-            .then((secondResponse) => {
-              let isGitHubAuthenticated;
-
-              if (secondResponse.data.access_token != null) {
-                isGitHubAuthenticated = true;
-              } else {
-                isGitHubAuthenticated = false;
-              }
-
-              res = {
-                token: response.data.auth_token,
-                id: response.data.user.id,
-                isGitHubAuthenticated,
-              };
-
-              commit(LOGIN, res);
-            });
+          const res = { token: response.data.auth_token, id: response.data.user.id };
+          commit(LOGIN, res);
         });
     },
 
     logout({ commit }) {
       commit(LOGOUT);
+    },
+
+    setGitHubAuthentication({ commit }, isGitHubAuthenticated) {
+      commit(SET_GITHUB_AUTHENTICATION, isGitHubAuthenticated);
     },
   },
 };
