@@ -18,13 +18,17 @@
 						<div class=" row modal-body">
               <div class="col">
                 <p><label>Name</label></p>
-                <p><input type="text" v-model="name" id="issueName" placeholder="Issue Title"></input><br></p>
+                <p><input type="text" v-model="name" id="issueName" placeholder="Issue Title" name="name" v-validate="'required'">
+									<p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+								</input><br></p>
                 <p><label>Body</label></p>
-                <input type="text" v-model="body" placeholder="Issue Body..."></input><br>
+                <input type="text" v-model="body" placeholder="Issue Body..." name="body" v-validate="'required'">
+								<p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
+							</input><br>
               </div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" v-on:click="addIssue()" data-dismiss="modal">Save</button>
+							<button type="button" :disabled="errors.has('name') || errors.has('body')" class="btn btn-primary" v-on:click="addIssue()" data-dismiss="modal">Save</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 						</div>
 				</div>
@@ -45,13 +49,13 @@ export default {
       body : ''
     }
 	},
-	
+
 	computed: {
     ...mapState({
       token: state => state.auth.token,
     }),
 	},
-	
+
 	methods: {
   	addIssue() {
 			const headers = { Authorization: this.token };

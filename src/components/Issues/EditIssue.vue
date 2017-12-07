@@ -16,9 +16,13 @@
           <div class="modal-body row">
             <div class="col">
               <p><label> Name </label></p>
-              <input type = "text" v-model="name" placeholder="Name"></input><br>
+              <input type = "text" v-model="name" placeholder="Name" name="name" v-validate="'required'">
+              <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+            </input><br>
               <p><label> Description </label></p>
-              <input type = "text" v-model="body" placeholder="Description"></input><br>
+              <input type = "text" v-model="body" placeholder="Description" name="body" v-validate="'required'">
+              <p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
+            </input><br>
             </div>
             <div class="col">
                 <div class="row justify-content-center">
@@ -39,7 +43,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editIssue(), setAssignees()" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('body')" class="btn btn-info btn-md falko-button" v-on:click="editIssue(), setAssignees()" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Close</button>
           </div>
         </div>
