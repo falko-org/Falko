@@ -38,6 +38,9 @@
           </button>
         </router-link>
       </div>
+      <div class="col-md-12">
+        <issues-graphic></issues-graphic>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +51,7 @@ import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
+import IssuesGraphic from '../Issues/IssuesGraphic'
 
 export default {
   name: 'Project',
@@ -55,6 +59,7 @@ export default {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
     Gpa,
+    'issues-graphic': IssuesGraphic,
   },
 
   data() {
