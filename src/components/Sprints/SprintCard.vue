@@ -1,25 +1,40 @@
 <template>
-  <div>
+  <div class="sprint-card">
     <div class="card pointer-cursor" v-bind:id="sprint.id" v-on:click="select($event)">
-      <div class="row">
-        <div class="col-md-3 divider">
-          <div class="row">
-            <p>{{dateConvert(sprint.initial_date)}}</p>
-          </div>
-          <div class="row">
-            <p>{{dateConvert(sprint.final_date)}}</p>
+      <div class="row blue-bg">
+        <div class="col-md-3 align-self-center" id="sprintPeriod">
+          <div align="center">
+            <ul>
+              <li>
+               <i class="fa fa-calendar-o"></i>
+              </li>
+
+              <li>
+                {{dateConvert(sprint.initial_date)}}
+                |
+                {{dateConvert(sprint.final_date)}}
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="col-md-6 divider">
-          <div class="row card-title">
-            <h4>{{sprint.name}}</h4>
+        <div class="col-md-6 align-self-center dark-blue-bg" align="center">
+          <div class="card-title">
+            <h4 align="center">{{sprint.name}}</h4>
           </div>
-          <div class="row card-text text-muted">
-            <p>{{sprint.description}}</p>
+          <div class="card-text" id="sprintDescription">
+            <p align="center">{{sprint.description}}</p>
           </div>
         </div>
-        <div class="col-md-3">
-          <p>{{this.status()}}</p>
+        <div class="col-md-3 align-self-center" align="center">
+          <ul>
+            <li>
+              <i class="fa fa-bullhorn"></i>
+            </li>
+            
+            <li>
+              <p align="center">{{this.status()}}</p>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -78,12 +93,40 @@ export default {
 </script>
 
 <style scoped>
-.sprint-card {
-  background-color: #D0D4DA;
-  border-bottom: 2px solid #637074;
+p {
+  margin: 0;
 }
 
-.divider {
-  border-right: 1px solid #CCC;
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+i {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.blue-bg {
+  background-color: #598392;
+}
+
+.dark-blue-bg {
+  padding: 0.75em 0 0.75em 0;
+  background-color: #124559;
+}
+
+.sprint-card {
+  color: white;
+  margin: 0.5em 0 0.5em 0;
+}
+
+.sprint-card:hover {
+  filter: grayscale(45%);
+}
+
+#sprintDescription {
+  color: rgba(255, 255, 255, 0.85);
 }
 </style>

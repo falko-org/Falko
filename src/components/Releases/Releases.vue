@@ -13,9 +13,9 @@
         </div>
       </div>
 
-      <div class="col-8">
-        <div class="row">
-          <div class="col">
+      <div class="col-9">
+        <div class="row justify-content-between" id="releaseHeader">
+          <div class="col-5 no-padding">
             <div class="row">
               <h1>{{this.releases[this.releaseIndex].name}}</h1>
             </div>
@@ -23,7 +23,7 @@
               <p>{{this.releases[this.releaseIndex].description}}</p>
             </div>
           </div>
-          <div class="col">
+          <div class="col-5 no-padding">
             <div class="row">
               <h5>
                 {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
@@ -53,8 +53,8 @@
           <div v-if="this.sprints.length == 0">
             <no-content parent = "Sprint"></no-content>
           </div>
-          <div v-else class="row">
-            <div class="col">
+          <div v-else class="row align-content-center">
+            <div class="col-12">
               <div v-for="sprint in sprints">
                 <sprint-card v-bind:sprint="sprint"></sprint-card>
               </div>
@@ -192,11 +192,11 @@ h1 {
   color: #688E9B;
   font-weight: bold;
 }
+
 h5 {
   color: rgba(1, 22, 30, 0.75);
   font-weight: lighter;
 }
-
 
 #releases {
   background-color: #d0d4da;
@@ -207,7 +207,7 @@ h5 {
 }
 
 #releaseHeader {
-  background-color: #7799A5;
+  margin-top: 1em;
 }
 
 #releaseTitle {
