@@ -14,14 +14,25 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" data-vv-scope="modal-project">
             <p><label>Name</label></p>
-            <p><input type = "text" v-model="name"></input><br></p>
+            <p><input type = "text"
+                      name="na"
+                      v-validate="'required'"
+                      v-model="name">
+                <p class="text-danger" v-if="errors.has('na')">{{ errors.first('na') }}</p>
+                <br>
+            </p>
             <p><label>Description</label></p>
-            <input type = "text" v-model="description"></input><br>
+            <input type = "text"
+                   name = "description"
+                   v-validate="'required'"
+                   v-model="description">
+            <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
+            <br>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="addProject" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description')" class="btn btn-info btn-md falko-button" v-on:click="addProject" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
@@ -53,6 +64,7 @@ export default {
 
   methods: {
     addProject() {
+      const _this = this;
       const headers = { Authorization: this.token };
 
       HTTP.post(`users/${this.userId}/projects`, {
@@ -70,7 +82,7 @@ export default {
           this.$emit('added');
         })
         .catch((e) => {
-          this.errors.push(e);
+          _this.errors.add('wrong-credentials', 'Problem with credentials');
         });
     },
   },
