@@ -17,7 +17,7 @@ export default {
       datacollection: {
         options: {
           scales: {
-            yAxes: [
+            yAxis: [
               {
                 display: true,
                 ticks: {
@@ -27,7 +27,7 @@ export default {
                 }
               }
             ],
-            xAxes: [
+            xAxis: [
               {
                 display: true,
                 ticks: {
