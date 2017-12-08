@@ -24,9 +24,9 @@
             </div>
             <div class="col">
               <p><label>Initial Date</label></p>
-              <p><input type="date" v-model="initialDate"></input><br></p>
+              <p><input type="date" v-model="sprintInitialDate" v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"></input><br></p>
               <p><label>Final Date</label></p>
-              <p><input type="date" v-model="finalDate"></input><br></p>
+              <p><input type="date" v-model="sprintFinalDate" v-bind:min="this.sprintInitialDate" v-bind:max="this.releaseFinalDate"></input><br></p>
             </div>
           </div>
           <div class="modal-footer">
@@ -46,19 +46,24 @@ import { HTTP } from '../../http-common';
 
 export default {
   name: 'addSprintBody',
+
   data() {
     return {
       name: '',
       description: '',
-      initialDate: '',
-      finalDate: '',
+      sprintInitialDate: '',
+      sprintFinalDate: '',
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseInitialDate: state => state.clientStatus.releaseInitialDate,
+      releaseFinalDate: state => state.clientStatus.releaseFinalDate,
     }),
   },
+
   methods: {
     addSprint() {
       const headers = { Authorization: this.token };
@@ -67,16 +72,16 @@ export default {
         sprint: {
           name: this.name,
           description: this.description,
-          initial_date: this.initialDate,
-          final_date: this.finalDate,
+          initial_date: this.sprintInitialDate,
+          final_date: this.sprintFinalDate,
           release_id: this.$route.params.id,
         },
       }, { headers })
         .then(() => {
           this.name = '';
           this.description = '';
-          this.initialDate = '';
-          this.finalDate = '';
+          this.sprintInitialDate = '';
+          this.sprintFinalDate = '';
           EventBus.$emit('added-sprint', 1);
         })
         .catch((e) => {
