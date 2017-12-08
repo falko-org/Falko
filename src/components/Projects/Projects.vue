@@ -84,7 +84,9 @@ export default {
 
       HTTP.get(`users/${this.userId}`, { headers })
         .then((response) => {
-          if (response.data.access_token != null) {
+          const githubLink = response.data.access_token;
+
+          if (githubLink != null) {
             this.$store.dispatch('setGitHubAuthentication', true);
           }
         });
