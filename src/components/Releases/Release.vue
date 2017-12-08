@@ -85,10 +85,6 @@ export default {
     },
   },
 
-  ready() {
-    this.dateConvert();
-  },
-
   mounted() {
     this.getRelease();
   },

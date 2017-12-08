@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <add-release></add-release>
+        <add-release v-on:added="getReleases()"></add-release>
       </div>
     </div>
 
@@ -87,7 +87,7 @@ export default {
   methods: {
     getReleases() {
       const headers = { Authorization: this.token };
-      console.log(headers);
+
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
         .then((response) => {
           this.releases = response.data;
@@ -102,15 +102,7 @@ export default {
 
   },
 
-  ready() {
-    this.dateConvert();
-  },
-
   mounted() {
-    this.getReleases();
-  },
-
-  updated() {
     this.getReleases();
   },
 };

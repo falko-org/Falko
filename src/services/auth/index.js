@@ -2,13 +2,15 @@ import { HTTP } from '../../http-common';
 
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
-
+const LINK_GITHUB = 'LINK_GITHUB';
+const UNLINK_GITHUB = 'UNLINK_GITHUB';
 const auth = {
   state() {
     return {
       authenticated: false,
       token: null,
       userId: null,
+      githubAuthenticated: false,
     };
   },
   mutations: {
@@ -24,6 +26,14 @@ const auth = {
       localState.userId = null;
       localState.authenticated = false;
     },
+    [LINK_GITHUB](state) {
+      const localState = state;
+      localState.githubAuthenticated = true;
+    },
+    [UNLINK_GITHUB](state) {
+      const localState = state;
+      localState.githubAuthenticated = false;
+    }
   },
   actions: {
     login({ commit }, credentials) {
@@ -40,6 +50,16 @@ const auth = {
     logout({ commit }) {
       commit(LOGOUT);
     },
+
+    linkGithub({ commit }, credentials) {
+      return HTTP.post('request_github_token', {
+        code: credentials.code,
+        id: credentials.userId,
+      }, { headers: credentials.headers })
+        .then((response) => {
+          commit(LINK_GITHUB);
+        })
+    }
   },
 };
 
