@@ -115,6 +115,7 @@ export default {
   mounted() {
     this.setProjetId();
     this.getProject(this.$route.params.id);
+    this.setProjectId();
   },
 };
 </script>
