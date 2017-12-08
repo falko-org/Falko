@@ -106,19 +106,16 @@ export default {
 
     link() {
       if (!this.isGitHubLinked()) {
-        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id=cbd5f91719282354f09b');
+        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id='+GITHUB_CLIENT_ID);
         localStorage.setItem('is_github_authenticated', true);
       }
     },
 
     removeToken() {
-      const rawToken = localStorage.getItem('token');
-      const token = rawToken.replace(/"/, '').replace(/"/, '');
-      const headers = { Authorization: token };
-      const userId = localStorage.getItem('user_id');
+      const headers = { Authorization: this.token };
 
       HTTP.post('remove_github_token', {
-        id: userId,
+        id: this.userId,
       }, { headers })
         .then(() => {
           localStorage.setItem('is_github_authenticated', false);
