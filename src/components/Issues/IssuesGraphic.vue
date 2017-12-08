@@ -1,8 +1,5 @@
 <template>
   <div>
-    <button type="button" class="btn btn-info btn-md falko-button" id="IssuesGraphic" data-toggle="modal" data-target="#issuesGraphicModal">
-      Issues
-    </button>
     <div class="modal fade" id ="issuesGraphicModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -32,8 +29,24 @@
           </div>
         </div>
       </div>
-    </div class="col-8" >
-      <vue-chart type="bar" v-bind:width="15" v-bind:height="4" v-bind:options="datacollection.options" v-bind:data="datacollection"></vue-chart>
+    </div>
+    <div align="center">
+      <div class = "card" id = "graphics">
+        <div class="card-header">
+          <div class="row align-itens-around">
+            <div class="float-left">
+              <button type="button" class="btn" id="IssuesGraphic" data-toggle="modal" data-target="#issuesGraphicModal">
+                Issues Interval
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body " v-if="finalDate !== ''">
+          <div class = "col-md-8">
+            <vue-chart type="bar" v-bind:width="15" v-bind:height="4" v-bind:options="datacollection.options" v-bind:data="datacollection"></vue-chart>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -49,7 +62,6 @@ export default {
     return {
       initialDate: '',
       finalDate: '',
-      escuta: '',
       datacollection: {
         options: {
           scales: {
@@ -117,4 +129,7 @@ export default {
 }
 </script>
 <style>
+#graphics {
+  max-width: 70em;
+}
 </style>
