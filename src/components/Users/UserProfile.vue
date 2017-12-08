@@ -21,10 +21,6 @@
                 <label> GitHub Account: </label>
                 <p class="card-text text-muted">{{github}}</p>
               </div>
-              <div class="row">
-                <label> GitHub Authenticated: </label>
-                <p class="card-text text-muted">{{is_github_authenticated}}</p>
-              </div>
             </div>
           </div>    
           <div class="card-text">
@@ -79,12 +75,11 @@ export default {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state=> state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
     getUser() {
-      this.isGitHubLinked();
-
       const headers = { Authorization: this.token };
 
       HTTP.get(`users/${this.userId}`, { headers })
@@ -92,22 +87,28 @@ export default {
           this.name = response.data.name;
           this.email = response.data.email;
           this.github = response.data.github;
-          if (response.data.access_token != null) {
-            localStorage.setItem('is_github_authenticated', true);
+          const isGithubLinked = response.data.access_token;          
+
+          if (isGithubLinked != null) {
+            setGithubAuthentication(true);            
           } else {
-            localStorage.setItem('is_github_authenticated', false);
+            setGithubAuthentication(false);
           }
-          this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
         })
         .catch((e) => {
           this.errors.push(e);
         });
     },
 
+    setGithubAuthentication(authentication) {
+      this.$store.dispatch('setGitHubAuthentication', authentication);
+    },
+
     link() {
       if (!this.isGitHubLinked()) {
         location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id='+GITHUB_CLIENT_ID);
-        localStorage.setItem('is_github_authenticated', true);
+        
+        setGithubAuthentication(true);
       }
     },
 
@@ -118,7 +119,8 @@ export default {
         id: this.userId,
       }, { headers })
         .then(() => {
-          localStorage.setItem('is_github_authenticated', false);
+          setGithubAuthentication(false);          
+
           location.reload();
         })
         .catch((e) => {
@@ -126,8 +128,8 @@ export default {
         });
     },
 
-    isGitHubLinked() {
-      return (localStorage.getItem('is_github_authenticated') === 'true');
+    isGitHubLinked() {      
+      return this.isGitHubAuthenticated;
     },
 
     buttonLinkClass() {
