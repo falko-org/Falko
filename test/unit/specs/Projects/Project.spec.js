@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import Project from '../../../../src/components/Projects/Project.vue';
@@ -11,7 +11,7 @@ describe('On Project Component', () => {
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -23,7 +23,6 @@ describe('On Project Component', () => {
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
@@ -32,22 +31,23 @@ describe('On Project Component', () => {
   });
 
   it('should mount and get project information correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ProjectName', description: 'ProjectDescription', isScoring: true, is_project_from_github: true } });
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        name: 'ProjectName', description: 'ProjectDescription', isScoring: true, is_project_from_github: true,
+      },
+    });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(Project, {store, localVue, mocks: {$route, $router} });
-    
-    expect(httpStub.called).to.be.true
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(Project, { store, localVue, mocks: { $route, $router } });
+
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.project.name).to.be.equal('ProjectName');
       done();
     });
   });
-
-
-
 });

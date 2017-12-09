@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import Retrospective from '../../../../src/components/Retrospective/Retrospective.vue';
@@ -11,7 +11,7 @@ describe('On Retrospective Component', () => {
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -23,10 +23,14 @@ describe('On Retrospective Component', () => {
     store = new Vuex.Store({
       state,
     });
-    sandbox.stub(HTTP, 'get').resolves({ data: { sprint_report: ['report'], 
-                                                                positive_points: ['postive'], 
-                                                                negative_points: ['negative'],
-                                                                improvements: ['improve'] } });
+    sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        sprint_report: ['report'],
+        positive_points: ['postive'],
+        negative_points: ['negative'],
+        improvements: ['improve'],
+      },
+    });
   });
 
   afterEach(() => {
@@ -36,13 +40,13 @@ describe('On Retrospective Component', () => {
 
   it('should mount and get Retrospective information correctly', (done) => {
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
+      push: sandbox.stub(),
+    };
 
-    const wrapper = shallow(Retrospective, {store, localVue, mocks: {$route, $router} }); 
+    const wrapper = shallow(Retrospective, { store, localVue, mocks: { $route, $router } });
 
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.sprintReport).to.be.deep.equal(['report']);
@@ -52,18 +56,17 @@ describe('On Retrospective Component', () => {
 
   it('should refresh Retrospective information on edit', (done) => {
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(Retrospective, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(Retrospective, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.refreshRetrospective();
 
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.sprintReport).to.be.deep.equal(['report']);
       done();
     });
-  })
-
+  });
 });

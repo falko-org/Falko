@@ -6,7 +6,6 @@ import sinon from 'sinon';
 import auth from '../../../../src/services/auth/index';
 
 
-
 describe('On github project list repos', () => {
   const sandbox = sinon.createSandbox();
   let state;

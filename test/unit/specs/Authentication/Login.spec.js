@@ -1,9 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import Vuex from 'vuex';
 import VeeValidate from 'vee-validate';
 import Login from '../../../../src/components/Authentication/Login.vue';
 import sinon from 'sinon';
-
 
 
 describe('On login', () => {
@@ -15,8 +14,8 @@ describe('On login', () => {
   let actions;
   let store;
   let router;
-  let stub = sandbox.stub();
-  
+  const stub = sandbox.stub();
+
   beforeEach(() => {
     actions = {
       login: stub,
@@ -42,12 +41,12 @@ describe('On login', () => {
 
   it('should loggin correctly', (done) => {
     const $router = {
-      push: sandbox.stub()
-    }
+      push: sandbox.stub(),
+    };
 
-    const wrapper = shallow(Login, { store, localVue, mocks: {$router} });
+    const wrapper = shallow(Login, { store, localVue, mocks: { $router } });
     wrapper.vm.login();
-    
+
     expect(actions.login.called).to.equal(true);
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.$router.push.called).to.be.true;
@@ -56,7 +55,7 @@ describe('On login', () => {
   });
 
   it('should not loggin with wrong credentials', (done) => {
-    const wrapper = shallow(Login, { store, localVue});
+    const wrapper = shallow(Login, { store, localVue });
     stub.reset();
     stub.rejects();
     wrapper.vm.login();

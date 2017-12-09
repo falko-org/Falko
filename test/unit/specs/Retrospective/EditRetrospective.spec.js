@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import EditRetrospective from '../../../../src/components/Retrospective/EditRetrospective.vue';
@@ -11,7 +11,7 @@ describe('On Edit Retrospective', () => {
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -23,7 +23,6 @@ describe('On Edit Retrospective', () => {
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
@@ -32,17 +31,17 @@ describe('On Edit Retrospective', () => {
   });
 
   it('should click and edit retrospective information correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'patch').resolves({ data: { } });
+    const httpStub = sandbox.stub(HTTP, 'patch').resolves({ data: { } });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(EditRetrospective, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(EditRetrospective, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.editRetrospective();
 
-    expect(httpStub.called).to.be.true
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.emitted('edited-retrospective')).to.be.truthy;
       done();
@@ -51,41 +50,40 @@ describe('On Edit Retrospective', () => {
 
   it('should update postive points list of retrospective correctly', () => {
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(EditRetrospective, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(EditRetrospective, { store, localVue, mocks: { $route, $router } });
 
-    wrapper.vm.updateList([{title: 'Sprint positivePoints1'}], 'PositivePoints');
-    expect(wrapper.vm.positivePoints).to.be.deep.equal(['Sprint positivePoints1'])
+    wrapper.vm.updateList([{ title: 'Sprint positivePoints1' }], 'PositivePoints');
+    expect(wrapper.vm.positivePoints).to.be.deep.equal(['Sprint positivePoints1']);
   });
 
   it('should update negative points list of retrospective correctly', () => {
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(EditRetrospective, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(EditRetrospective, { store, localVue, mocks: { $route, $router } });
 
-    wrapper.vm.updateList([{title: 'Sprint negativePoints1'}], 'NegativePoints');
-    expect(wrapper.vm.negativePoints).to.be.deep.equal(['Sprint negativePoints1'])
+    wrapper.vm.updateList([{ title: 'Sprint negativePoints1' }], 'NegativePoints');
+    expect(wrapper.vm.negativePoints).to.be.deep.equal(['Sprint negativePoints1']);
   });
 
   it('should update postive points list of retrospective correctly', () => {
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(EditRetrospective, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(EditRetrospective, { store, localVue, mocks: { $route, $router } });
 
-    wrapper.vm.updateList([{title: 'Sprint improvements'}], 'Improvements');
-    expect(wrapper.vm.improvements).to.be.deep.equal(['Sprint improvements'])
+    wrapper.vm.updateList([{ title: 'Sprint improvements' }], 'Improvements');
+    expect(wrapper.vm.improvements).to.be.deep.equal(['Sprint improvements']);
   });
-
 });

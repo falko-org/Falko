@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import Release from '../../../../src/components/Releases/Release.vue';
@@ -11,7 +11,7 @@ describe('On Release Component', () => {
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -23,7 +23,6 @@ describe('On Release Component', () => {
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
@@ -32,16 +31,20 @@ describe('On Release Component', () => {
   });
 
   it('should mount and get release information correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ReleaseName', description: 'ReleaseDescription', inital_date: "01/01/2017", final_date: "07/01/2017" } });
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        name: 'ReleaseName', description: 'ReleaseDescription', initial_date: '2017-01-01', final_date: '2017-01-01',
+      },
+    });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(Release, {store, localVue, mocks: {$route, $router} });
-    
-    expect(httpStub.called).to.be.true
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(Release, { store, localVue, mocks: { $route, $router } });
+
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.release.name).to.be.equal('ReleaseName');
       done();
@@ -49,20 +52,23 @@ describe('On Release Component', () => {
   });
 
   it('should refresh release information on edit', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ReleaseName', description: 'ReleaseDescription', initial_date: "01/01/2017", final_date: "07/01/2017" } });
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        name: 'ReleaseName', description: 'ReleaseDescription', initial_date: '01/01/2017', final_date: '07/01/2017',
+      },
+    });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(Release, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(Release, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.refreshRelease();
-    expect(httpStub.called).to.be.true
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.release.name).to.be.equal('ReleaseName');
       done();
     });
-  })
-
+  });
 });

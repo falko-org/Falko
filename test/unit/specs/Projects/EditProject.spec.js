@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import EditProject from '../../../../src/components/Projects/EditProject.vue';
@@ -11,7 +11,7 @@ describe('On Edit Project', () => {
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -23,7 +23,6 @@ describe('On Edit Project', () => {
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
@@ -32,16 +31,16 @@ describe('On Edit Project', () => {
   });
 
   it('should mount and get project information correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ProjectName', description: 'ProjectDescription', isScoring: true } });
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ProjectName', description: 'ProjectDescription', isScoring: true } });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(EditProject, {store, localVue, mocks: {$route, $router} });
-    
-    expect(httpStub.called).to.be.true
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(EditProject, { store, localVue, mocks: { $route, $router } });
+
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.emitted('edited-project')).to.be.truthy;
       done();
@@ -49,20 +48,19 @@ describe('On Edit Project', () => {
   });
 
   it('should edit a project correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'put').resolves({data: 200});
+    const httpStub = sandbox.stub(HTTP, 'put').resolves({ data: 200 });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(EditProject, {store, localVue, mocks: {$route, $router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(EditProject, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.editProject();
-    expect(httpStub.called).to.be.true
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.emitted('edited-project')).to.be.truthy;
       done();
     });
   });
-
 });

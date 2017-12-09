@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import Sprint from '../../../../src/components/Sprints/Sprint.vue';
@@ -23,7 +23,6 @@ describe('On Sprint Component', () => {
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
@@ -32,16 +31,20 @@ describe('On Sprint Component', () => {
   });
 
   it('should mount and get sprint information correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'SprintName', description: 'SprintDescription', inital_date: "01/01/2017", final_date: "07/01/2017" } });
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        name: 'SprintName', description: 'SprintDescription', inital_date: '01/01/2017', final_date: '07/01/2017',
+      },
+    });
     const $route = {
-      params: { id: "2" }
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
+      push: sandbox.stub(),
+    };
     const wrapper = shallow(Sprint, { store, localVue, mocks: { $route, $router } });
 
-    expect(httpStub.called).to.be.true
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.sprint.name).to.be.equal('SprintName');
       done();
@@ -49,20 +52,23 @@ describe('On Sprint Component', () => {
   });
 
   it('should refresh sprint information on edit', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'SprintName', description: 'SprintDescription', initial_date: "01/01/2017", final_date: "07/01/2017" } });
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        name: 'SprintName', description: 'SprintDescription', initial_date: '01/01/2017', final_date: '07/01/2017',
+      },
+    });
     const $route = {
-      params: { id: "2" }
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
+      push: sandbox.stub(),
+    };
     const wrapper = shallow(Sprint, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.refreshSprint();
-    expect(httpStub.called).to.be.true
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.sprint.name).to.be.equal('SprintName');
       done();
     });
-  })
-
+  });
 });
