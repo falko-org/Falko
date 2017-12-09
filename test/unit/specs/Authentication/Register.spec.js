@@ -1,10 +1,9 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import VeeValidate from 'vee-validate';
-import Register from '../../../../src/components/Authentication/Register.vue';
 import sinon from 'sinon';
-
+import VeeValidate from 'vee-validate';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import Register from '../../../../src/components/Authentication/Register.vue';
 
 
 describe('On register', () => {
@@ -16,8 +15,8 @@ describe('On register', () => {
   let actions;
   let store;
   let router;
-  let loginStub = sandbox.stub();
-  
+  const loginStub = sandbox.stub();
+
   beforeEach(() => {
     actions = {
       login: loginStub,
@@ -34,7 +33,6 @@ describe('On register', () => {
       state,
       actions,
     });
-
   });
 
   afterEach(() => {
@@ -43,14 +41,13 @@ describe('On register', () => {
   });
 
   it('should register correctly', (done) => {
-    
     const $router = {
-      push: sandbox.stub()
-    }
-    let httpStub = sandbox.stub(HTTP, 'post').resolves({data: 200});
+      push: sandbox.stub(),
+    };
+    const httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
 
-    const wrapper = shallow(Register, { store, localVue, mocks: {$router} });
-    
+    const wrapper = shallow(Register, { store, localVue, mocks: { $router } });
+
     wrapper.vm.register();
 
     wrapper.vm.$nextTick(() => {
@@ -62,16 +59,16 @@ describe('On register', () => {
 
   it('should not register correctly', (done) => {
     const $router = {
-      push: sandbox.stub()
-    }
-    let httpStub = sandbox.stub(HTTP, 'post').rejects();
-    const wrapper = shallow(Register, { store, localVue, mocks: {$router} });
-    
+      push: sandbox.stub(),
+    };
+    const httpStub = sandbox.stub(HTTP, 'post').rejects();
+    const wrapper = shallow(Register, { store, localVue, mocks: { $router } });
+
     wrapper.vm.register();
 
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.$router.push.called).to.be.false;
       done();
     });
-  })
+  });
 });

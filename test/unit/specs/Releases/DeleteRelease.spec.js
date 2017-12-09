@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import DeleteRelease from '../../../../src/components/Releases/DeleteRelease.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import DeleteRelease from '../../../../src/components/Releases/DeleteRelease.vue';
 
 describe('On Delete Release', () => {
   const localVue = createLocalVue();
@@ -11,7 +11,7 @@ describe('On Delete Release', () => {
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -23,27 +23,27 @@ describe('On Delete Release', () => {
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
     sandbox.reset();
     sandbox.restore();
   });
+
   it('should delete a release correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'delete').resolves({data: 200});
+    const httpStub = sandbox.stub(HTTP, 'delete').resolves({ data: 200 });
     const $route = {
-      params: {id: "2"}
-    }
+      params: { id: '2' },
+    };
     const $router = {
-      go: sandbox.stub()
-    }
-    const wrapper = shallow(DeleteRelease, {store, localVue, mocks: {$route, $router} });
+      go: sandbox.stub(),
+    };
+    const wrapper = shallow(DeleteRelease, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.deleteRelease();
-    expect(httpStub.called).to.be.true
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.$router.go.called).to.be.true;
       done();
     });
-  })
+  });
 });

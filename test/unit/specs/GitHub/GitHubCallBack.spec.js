@@ -1,13 +1,13 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex';
-import GitHubCallBack from '../../../../src/components/GitHub/GitHubCallBack.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import GitHubCallBack from '../../../../src/components/GitHub/GitHubCallBack.vue';
 
 describe('On github callback', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
-  
+
   let state;
   let actions;
   let store;
@@ -28,8 +28,6 @@ describe('On github callback', () => {
       state,
       actions,
     });
-
-
   });
 
   afterEach(() => {
@@ -39,14 +37,13 @@ describe('On github callback', () => {
 
   it('should have the correct token', () => {
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(GitHubCallBack, { store, localVue, mocks: {$router} });
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(GitHubCallBack, { store, localVue, mocks: { $router } });
 
     expect(actions.linkGithub.calledOnce).to.equal(true);
     localVue.nextTick(() => {
       expect($router.push.calledOnce).to.equal(true);
     });
-
   });
 });
