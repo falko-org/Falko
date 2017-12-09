@@ -32,6 +32,7 @@ describe('On Add Release', () => {
     sandbox.reset();
     sandbox.restore();
   });
+
   it('should add a release correctly', (done) => {
     let httpStub = sandbox.stub(HTTP, 'post').resolves({data: 200});
     const $route = {

@@ -33,7 +33,7 @@ const auth = {
     [UNLINK_GITHUB](state) {
       const localState = state;
       localState.githubAuthenticated = false;
-    }
+    },
   },
   actions: {
     login({ commit }, credentials) {
@@ -56,10 +56,10 @@ const auth = {
         code: credentials.code,
         id: credentials.userId,
       }, { headers: credentials.headers })
-        .then((response) => {
+        .then(() => {
           commit(LINK_GITHUB);
-        })
-    }
+        });
+    },
   },
 };
 

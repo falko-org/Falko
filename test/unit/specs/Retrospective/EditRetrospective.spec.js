@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import EditRetrospective from '../../../../src/components/Retrospective/EditRetrospective.vue';
 import sinon from 'sinon';
 
-describe('On Edit Release', () => {
+describe('On Edit Retrospective', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();

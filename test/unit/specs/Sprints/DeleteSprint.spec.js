@@ -1,17 +1,17 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import DeleteRetrospective from '../../../../src/components/Retrospective/DeleteRetrospective.vue';
+import DeleteSprint from '../../../../src/components/Sprints/DeleteSprint.vue';
 import sinon from 'sinon';
 
-describe('On Delete Retrospective', () => {
+describe('On Delete Sprint', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
   let state;
   let actions;
   let store;
-  
+
   beforeEach(() => {
     state = {
       auth: {
@@ -32,18 +32,19 @@ describe('On Delete Retrospective', () => {
     sandbox.restore();
   });
 
-  it('should delete a retrospective correctly', async () => {
-    let httpGetStub = sandbox.stub(HTTP, 'get').resolves({data: 4});
-    let httpStub = sandbox.stub(HTTP, 'delete').resolves({data: 200});
+  it('should delete a sprint correctly', async () => {
+    let httpGetStub = sandbox.stub(HTTP, 'get').resolves({ data: 1 });
+    let httpStub = sandbox.stub(HTTP, 'delete').resolves({ data: 200 });
     const $route = {
-      params: { id: "2" }
+      params: { id: "1" }
     }
     const $router = {
       push: sandbox.stub()
     }
 
-    const wrapper = shallow(DeleteRetrospective, {store, localVue, mocks: {$route, $router} });
-    await wrapper.vm.deleteRetrospective();
+    const wrapper = shallow(DeleteSprint, { store, localVue, mocks: { $route, $router } });
+    await wrapper.vm.deleteSprint();
+    expect(httpStub.called).to.be.true
 
     expect(wrapper.vm.$router.push.called).to.be.true;
   })
