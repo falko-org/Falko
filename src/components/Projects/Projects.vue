@@ -55,7 +55,7 @@ import { mapState } from 'vuex';
 import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
-import Gpa from '../Gpa';
+import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -89,6 +89,10 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
+    },
+
+    isGitHubAuthenticated() {
+      return this.is_github_authenticated;
     },
 
     refreshProjects() {

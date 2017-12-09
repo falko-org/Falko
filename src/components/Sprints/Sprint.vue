@@ -28,7 +28,7 @@
         </li>
         <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
-          v-if="!isRetrospectiveCreated()"></add-retrospective>
+          v-if="!retrospectiveCreatedStatus()"></add-retrospective>
 
           <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
             <button type="button" class="btn btn-info btn-md falko-button">
@@ -38,7 +38,7 @@
         </li>
         <li class="list-inline-item">
           <add-revision v-on:revisionCreated="setRevisionAsCreated()"
-          v-if="!isRevisionCreated()"></add-revision>
+          v-if="!revisionCreatedStatus()"></add-revision>
 
           <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
             <button type="button" class="btn btn-info btn-md falko-button">
@@ -86,6 +86,8 @@ export default{
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      isRetrospectiveCreated: state => state.clientStatus.isRetrospectiveCreated,
+      isRevisionCreated: state => state.clientStatus.isRevisionCreated,
     }),
   },
 
@@ -124,15 +126,15 @@ export default{
     },
 
     setRetrospectiveAsCreated() {
-      localStorage.setItem('isRetrospectiveCreated', 'true');
+      this.$store.dispatch('setRetrospectiveCreatedStatus', true);
     },
 
     setRetrospectiveAsNotCreated() {
-      localStorage.setItem('isRetrospectiveCreated', 'false');
+      this.$store.dispatch('setRetrospectiveCreatedStatus', false);
     },
 
-    isRetrospectiveCreated() {
-      return localStorage.getItem('isRetrospectiveCreated') === 'true';
+    retrospectiveCreatedStatus() {
+      return this.isRetrospectiveCreated;
     },
 
     getRevision() {
@@ -153,17 +155,15 @@ export default{
     },
 
     setRevisionAsCreated() {
-      localStorage.setItem('isRevisionCreated', 'true');
+      this.$store.dispatch('setRevisionCreatedStatus', true);
     },
 
     setRevisionAsNotCreated() {
-      localStorage.setItem('isRevisionCreated', 'false');
+      this.$store.dispatch('setRevisionCreatedStatus', false);
     },
 
-    isRevisionCreated() {
-      const revision = localStorage.getItem('isRevisionCreated');
-
-      return localStorage.getItem('isRevisionCreated') == 'true';
+    revisionCreatedStatus() {
+      return this.isRevisionCreated;
     },
 
     refreshSprint() {

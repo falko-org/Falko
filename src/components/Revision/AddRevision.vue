@@ -40,12 +40,13 @@
 </template>
 
 <script>
-import ListRevision from '@/components/Revision/ListRevision'
-import {HTTP} from '../../http-common.js';
+import { mapState } from 'vuex';
+import ListRevision from './ListRevision.vue';
+import { HTTP } from '../../http-common';
 
 export default {
   components: {
-    'listRevision': ListRevision
+    listRevision: ListRevision,
   },
 
   data() {
@@ -53,52 +54,52 @@ export default {
       doneReport: [],
       undoneReport: [],
       resivionId: '',
-    }
+    };
+  },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+
+    FieldsNotFilled() {
+      return this.undoneReport.length === 0 || this.doneReport.length === 0;
+    },
   },
 
   methods: {
     addRevision() {
-            var token = localStorage.getItem('token');
-            var tokenSimple = token.replace(/"/, "");
-            var tokenSimple2 = tokenSimple.replace(/"/, "");
-            var headers = { 'Authorization': tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.post(`sprints/${this.$route.params.id}/revisions`, {
         done_report: this.doneReport,
         undone_report: this.undoneReport,
-      }, { headers: headers })
+      }, { headers })
         .then((response) => {
-          this.$emit('revisionCreated')
-          this.revisionId = response.data.id
-          this.$router.push({ path: `/revisions/${this.revisionId}`});
+          this.$emit('revisionCreated');
+          this.revisionId = response.data.id;
+          this.$router.push({ path: `/revisions/${this.revisionId}` });
         })
         .catch((e) => {
-          this.errors.push(e)
+          this.errors.push(e);
         });
     },
 
     updateList(items, parent) {
-      if (parent == "DoneReport") {
-        this.doneReport = []
-        for(var i = 0; i < items.length; i++) {
-          this.doneReport.push(items[i].title)
+      if (parent === 'DoneReport') {
+        this.doneReport = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.doneReport.push(items[i].title);
         }
-      } else if (parent == "UndoneReport") {
-        this.undoneReport = []
-        for(var i = 0; i < items.length; i++) {
-          this.undoneReport.push(items[i].title)
+      } else if (parent === 'UndoneReport') {
+        this.undoneReport = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.undoneReport.push(items[i].title);
         }
       }
-    }
+    },
   },
-
-  computed: {
-    FieldsNotFilled() {
-      return this.undoneReport.length == 0 ||
-             this.doneReport.length == 0
-    }
-  }
-}
+};
 </script>
 
 <style scoped>

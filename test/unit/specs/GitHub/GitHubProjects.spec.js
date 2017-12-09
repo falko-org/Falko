@@ -24,6 +24,7 @@ describe('On github project list repos', () => {
     state = {
       auth: {
         token: '12345',
+        isGitHubAuthenticated: true,
       },
     };
     store = new Vuex.Store({
