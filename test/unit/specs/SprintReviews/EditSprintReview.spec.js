@@ -31,7 +31,26 @@ describe('On Edit Sprint Review', () => {
     sandbox.restore();
   });
 
-  it('should mount and get sprint review information correctly', (done) => {
+  it('should click and get sprint review information correctly', (done) => {
+    const httpStub = sandbox.stub(HTTP, 'patch').resolves({ data: { } });
+
+    const $route = {
+      params: { id: "2" }
+    }
+    const $router = {
+      push: sandbox.stub()
+    }
+    const wrapper = shallow(EditRevision, { store, localVue, mocks: { $route, $router } });
+    wrapper.vm.editRevision();
+
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.emitted('revisionCreated')).to.be.truthy;
+      done();
+    });
+  });
+
+
+  it('should mount and get sprint review information correctly', () => {
     const $route = {
       params: { id: "2" }
     }
@@ -40,9 +59,24 @@ describe('On Edit Sprint Review', () => {
     }
     const wrapper = shallow(EditRevision, { store, localVue, mocks: { $route, $router } });
 
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.emitted('revisionCreated')).to.be.truthy;
-      done();
-    });
+    wrapper.vm.updateList([{ title: 'Sprint doneReport' }], 'DoneReport');
+
+    expect(wrapper.vm.doneReport).to.be.deep.equal(['Sprint doneReport']);
+
+  });
+
+  it('should mount and get sprint review information correctly', () => {
+    const $route = {
+      params: { id: "2" }
+    }
+    const $router = {
+      push: sandbox.stub()
+    }
+    const wrapper = shallow(EditRevision, { store, localVue, mocks: { $route, $router } });
+
+    wrapper.vm.updateList([{ title: 'Sprint undoneReport' }], 'UndoneReport');
+
+    expect(wrapper.vm.undoneReport).to.be.deep.equal(['Sprint undoneReport']);
+
   });
 });

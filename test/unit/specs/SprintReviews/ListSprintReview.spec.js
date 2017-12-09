@@ -52,4 +52,15 @@ describe('On List Sprint Review Component', () => {
       done();
     });
   });
+
+  it('should remove an item correctly', () => {
+    const wrapper = shallow(Revision);
+    wrapper.setData({ items: [{ id: 1, title: 'Item Text' }] });
+
+    expect(wrapper.vm.items).to.be.deep.equal([{ id: 1, title: 'Item Text' }]);
+    wrapper.vm.removeItem(0);
+
+    expect(wrapper.vm.items).to.be.empty;
+    expect(wrapper.emitted('listUpdated')).not.undefined;
+  });
 });
