@@ -53,6 +53,7 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseId: state => state.clientStatus.releaseId,
     }),
   },
   methods: {

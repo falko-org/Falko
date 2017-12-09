@@ -18,6 +18,9 @@ describe('On Project Component', () => {
         token: '12345',
         userId: '1',
       },
+      clientStatus: {
+        isProjectFromGitHub: true,
+      },
     };
 
     store = new Vuex.Store({

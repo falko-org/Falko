@@ -86,6 +86,7 @@ export default{
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
@@ -114,7 +115,7 @@ export default{
 
     importGithubProjects() {
       this.doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
-        .then(() => { this.$emit('added'); })
+        .then(() => this.$emit('added'))
         .catch(e => console.log(e.message));
     },
 
@@ -141,7 +142,7 @@ export default{
     },
 
     isGitHubLinked() {
-      return (localStorage.getItem('is_github_authenticated') === 'true');
+      return this.isGitHubAuthenticated;
     },
 
     buttonClass() {
