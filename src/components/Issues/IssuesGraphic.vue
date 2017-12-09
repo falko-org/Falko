@@ -103,6 +103,15 @@ export default {
 
       dataBar: {
         options: {
+          hover: {
+            animationDuration: 600,
+          },
+          tooltips: {
+            titleFontSize: 25,
+            mode: "index",
+            bodyFontSize: 20,
+            bodySpacing: 6,
+          },
           legend: {
             position: "right",
             labels: {
@@ -121,6 +130,7 @@ export default {
                   color: "rgba(0, 0, 0, 0)",
                 },
                 ticks: {
+                  beginAtZero: true,
                   maxTicksLimit: 5,
                 }
               }
@@ -164,6 +174,12 @@ export default {
 
       dataActualClosedIssues: {
         options: {
+          tooltips: {
+            titleFontSize: 20,
+            mode: "index",
+            bodyFontSize: 15,
+            bodySpacing: 6,
+          },
           rotation: 1 * Math.PI,
           circumference: 1 * Math.PI,
           cutoutPercentage: 85,
@@ -187,12 +203,18 @@ export default {
 
       dataCompareClosedIssues: {
         options: {
-                rotation: 1 * Math.PI,
-                circumference: 1 * Math.PI,
-                cutoutPercentage: 85,
-                legend: {
-                  display: false
-                },
+          tooltips: {
+            titleFontSize: 20,
+            mode: "index",
+            bodyFontSize: 15,
+            bodySpacing: 6,
+          },
+          rotation: 1 * Math.PI,
+          circumference: 1 * Math.PI,
+          cutoutPercentage: 85,
+          legend: {
+            display: false
+          },
         },
         datasets: [
           {
@@ -210,17 +232,23 @@ export default {
 
       dataCompareOpenedIssues: {
         options: {
-                rotation: 1 * Math.PI,
-                circumference: 1 * Math.PI,
-                cutoutPercentage: 85,
-                legend: {
-                  display: false
-                },
+          tooltips: {
+            titleFontSize: 20,
+            mode: "index",
+            bodyFontSize: 15,
+            bodySpacing: 6,
+          },
+          rotation: 1 * Math.PI,
+          circumference: 1 * Math.PI,
+          cutoutPercentage: 85,
+          legend: {
+            display: false
+          },
         },
         datasets: [
           {
             data: [],
-            backgroundColor: ["#124559", "#AEC3B0"],
+            backgroundColor: ["#124559", "white"],
             borderColor: "black",
             borderWidth: 1,
           }
@@ -230,8 +258,6 @@ export default {
           'Opened Issues Before'
         ]
       },
-
-
     }
   },
   computed: {
@@ -291,17 +317,18 @@ export default {
       this.dataCompareClosedIssues.datasets[0].data = [response.data.closed_issues[2],
                                                        response.data.closed_issues[1]];
     },
+
     compareOpenedIssuesDoughnutPercentage(response) {
       if (response.data.opened_issues[1] == 0) {
         this.compareOpenedPercentage = response.data.opened_issues[2]*100;
       }
       else{
         if (response.data.opened_issues[2] > response.data.opened_issues[1]) {
-          this.compareOpenedPercentage = Math.round(((response.data.opened_issues[2]/response.data.opened_issues[1])-1)*100);
+          this.compareOpenedPercentage = ((response.data.opened_issues[2]/response.data.opened_issues[1])-1)*100;
           this.openedPercentageIcon = true;
         }
         else {
-          this.compareOpenedPercentage = Math.round((response.data.opened_issues[2]/response.data.opened_issues[1])*100);
+          this.compareOpenedPercentage = (response.data.opened_issues[2]/response.data.opened_issues[1])*100;
           this.openedPercentageIcon = false;
         }
       }
