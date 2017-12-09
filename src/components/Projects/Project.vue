@@ -1,42 +1,45 @@
 <template>
   <div>
     <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col">
         <div class="card">
+
           <div class="card-body text-center">
             <div class="row">
-              <div class="col-md-4">
-                <Gpa></Gpa>
+              <div class="col">
+                <h1 class="card-title"><i class="fa fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
+                <p class="card-text text-muted">{{project.description}}</p>
               </div>
-              <div class="col-md-3">
-                <h4 class="card-title">{{project.name}}</h4>
+
+                <div class="row">
+
+                  <div v-bind:class="divClass()" align="center">
+                    <router-link v-bind:to="'/projects/'+project.id+'/issues'">
+                      <button type="button" class="btn btn-info btn-md falko-button" v-if="isFromProjectGitHub()">
+                        Backlog
+                      </button>
+                    </router-link>
+                  </div>
+                  <div v-bind:class="divClass()" align="center">
+                    <router-link v-bind:to="'/projects/'+project.id+'/releases'">
+                      <button type="button" class="btn btn-info btn-md falko-button">
+                        Releases
+                      </button>
+                    </router-link>
+                  </div>
+                  <div v-bind:class="divClass()" align="center">
+                    <edit-project v-on:edited-project="refreshProject()"></edit-project>
+                  </div>
+                  <div v-bind:class="divClass()" align="center">
+                    <delete-project></delete-project>
+                  </div>
+
+                </div>
               </div>
             </div>
-            <p class="card-text text-muted">{{project.description}}</p>
           </div>
+
         </div>
-      </div>
-    </div>
-    <div class="row justify-content-center" id="buttons">
-      <div class="col-md-2" v-if="isFromProjectGitHub()" align="center">
-        <router-link v-bind:to="'/projects/'+project.id+'/issues'">
-          <button type="button" class="btn btn-info btn-md falko-button">
-            Backlog
-          </button>
-        </router-link>
-      </div>
-      <div v-bind:class="divClass()" align="center">
-        <edit-project v-on:edited-project="refreshProject()"></edit-project>
-      </div>
-      <div v-bind:class="divClass()" align="center">
-        <delete-project></delete-project>
-      </div>
-      <div v-bind:class="divClass()" align="center">
-        <router-link v-bind:to="'/projects/'+project.id+'/releases'">
-          <button type="button" class="btn btn-info btn-md falko-button">
-            Releases
-          </button>
-        </router-link>
       </div>
     </div>
   </div>
@@ -115,6 +118,24 @@ export default {
 <style scoped>
 #buttons {
   margin-top: 1em;
+}
+
+.btn {
+  width: 120px;
+}
+
+.card {
+  align-self: center;
+  border-style: none;
+  margin-top: 20px;
+}
+
+h1 {
+  color: #598392;
+}
+
+.card-title {
+  text-align: left;
 }
 
 </style>

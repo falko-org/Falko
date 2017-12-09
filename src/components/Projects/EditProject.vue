@@ -111,4 +111,9 @@ export default{
 </script>
 
 <style scoped>
+
+#editbutton {
+  width: 120px;
+}
+
 </style>
