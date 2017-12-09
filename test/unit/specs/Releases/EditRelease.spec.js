@@ -31,7 +31,7 @@ describe('On Edit Release', () => {
   });
 
   it('should mount and get release information correctly', (done) => {
-    const httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ProjectName', description: 'ProjectDescription', isScoring: true } });
+    let httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ReleaseName', description: 'Release Description'} });
     const $route = {
       params: { id: '2' },
     };

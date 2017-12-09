@@ -99,7 +99,18 @@ export default {
       }
     },
   },
-};
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+
+    FieldsNotFilled() {
+      return this.undoneReport.length == 0 ||
+             this.doneReport.length == 0
+    }
+  }
+}
 </script>
 
 <style scoped>
