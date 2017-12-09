@@ -257,15 +257,15 @@ export default {
       }
       else {
         if (response.data.closed_issues[2] > response.data.closed_issues[1]) {
-          this.actualClosedPercentage = (response.data.closed_issues[2])*100/
+          this.actualClosedPercentage = Math.round((response.data.closed_issues[2])*100/
                                         (response.data.opened_issues[2]+
-                                         response.data.closed_issues[1]);
+                                         response.data.closed_issues[1]));
           this.closedIcon = true;
         }
         else {
-          this.actualClosedPercentage = (response.data.closed_issues[2])*100/
+          this.actualClosedPercentage = Math.round((response.data.closed_issues[2])*100/
                                         (response.data.opened_issues[2]+
-                                         response.data.closed_issues[1])*-1;
+                                         response.data.closed_issues[1])*-1);
           this.closedIcon = false;
         }
       }
@@ -279,11 +279,12 @@ export default {
       }
       else {
         if (response.data.closed_issues[2] > response.data.closed_issues[1]) {
-          this.compareClosedPercentage = ((response.data.closed_issues[2]/response.data.closed_issues[1])-1)*100;
+          this.compareClosedPercentage = Math.round(((response.data.closed_issues[2]/
+                                                      response.data.closed_issues[1])-1)*100);
           this.closedPercentageIcon = true;
         }
         else {
-          this.compareClosedPercentage = (response.data.closed_issues[2]/response.data.closed_issues[1])*100;
+          this.compareClosedPercentage = Math.round((response.data.closed_issues[2]/response.data.closed_issues[1])*100);
           this.closedPercentageIcon = false;
         }
       }
@@ -296,11 +297,11 @@ export default {
       }
       else{
         if (response.data.opened_issues[2] > response.data.opened_issues[1]) {
-          this.compareOpenedPercentage = ((response.data.opened_issues[2]/response.data.opened_issues[1])-1)*100;
+          this.compareOpenedPercentage = Math.round(((response.data.opened_issues[2]/response.data.opened_issues[1])-1)*100);
           this.openedPercentageIcon = true;
         }
         else {
-          this.compareOpenedPercentage = (response.data.opened_issues[2]/response.data.opened_issues[1])*100;
+          this.compareOpenedPercentage = Math.round((response.data.opened_issues[2]/response.data.opened_issues[1])*100);
           this.openedPercentageIcon = false;
         }
       }
