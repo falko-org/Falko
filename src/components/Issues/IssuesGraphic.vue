@@ -30,10 +30,10 @@
         </div>
       </div>
     </div>
-    <div align="center">
       <div id = "graphics">
         <div class="card-body " id="dashBoard" v-if="finalDate !== ''">
-          <div v-if=" dataActualClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut">
+          <div class="row">
+          <div v-if=" dataActualClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
             <h4>Closed Issues</h4>
             <h6>Projected monthly trend compared to last month</h6>
             <div class="labelIssuesDoughnut">
@@ -44,7 +44,7 @@
             <vue-chart type="doughnut" v-bind:width="8.5" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
           </div>
 
-          <div v-if=" dataCompareClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut">
+          <div v-if=" dataCompareClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
             <h4>Issues closed this month</h4>
             <h6>Projected monthly trend compared to last month</h6>
             <div class="labelIssues">
@@ -54,7 +54,7 @@
             </div>
           </div>
 
-          <div v-if=" dataCompareOpenedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut">
+          <div v-if=" dataCompareOpenedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
             <h4>Issues</h4>
             <h6>Projected monthly trend compared to last month</h6>
             <div class="labelIssues">
@@ -63,7 +63,7 @@
               {{compareOpenedPercentage}}%
             </div>
           </div>
-
+        </div>
           <div>
           <div class = "col-md-12 card" id="chartBar">
             <br>
@@ -75,7 +75,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -351,12 +350,8 @@ export default {
 };
 </script>
 <style scoped>
-#graphics {
-  max-width: 70em;
-}
 
 .chartIssuesDoughnut {
-  width: 22.48em;
   height: 14.4em;
   float: left;
   background: #f7f7f7;
@@ -369,7 +364,7 @@ export default {
   position: absolute;
   top: 60%;
   left: 0;
-  font-size: 4.5em;
+  font-size: 3.5em;
   color: #124559;
   margin-top: -0.1em;
   line-height:1em;
@@ -388,6 +383,7 @@ export default {
 }
 #dashBoard {
   background: white;
+  width: 100%;
 }
 #chartBar {
   background: #f7f7f7;
