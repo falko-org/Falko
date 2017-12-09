@@ -37,34 +37,31 @@
             <h4>Closed Issues</h4>
             <h6>Projected monthly trend compared to last month</h6>
             <div class="labelIssuesDoughnut">
-              <img v-if="closedIcon==true" src="../../assets/up-arrow.png" class="img-fluid align-self-center"/>
-              <img v-if="closedIcon==false" src="../../assets/down-arrow.png" class="img-fluid align-self-center"/>
+              <!-- <img v-if="closedIcon==true" src="../../assets/up-arrow.png" class="img-fluid align-self-center"/>
+              <img v-if="closedIcon==false" src="../../assets/down-arrow.png" class="img-fluid align-self-center"/> -->
               {{actualClosedPercentage}}%
             </div>
-            <vue-chart type="doughnut" v-bind:width="8" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
+            <vue-chart type="doughnut" v-bind:width="8.5" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
           </div>
 
           <div v-if=" dataCompareClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut">
             <h4>Issues closed this month</h4>
             <h6>Projected monthly trend compared to last month</h6>
-            <div class="labelIssuesDoughnut">
-              <img v-if="closedPercentageIcon==true" src="../../assets/up-arrow.png" class="img-fluid align-self-center"/>
-              <img v-if="closedPercentageIcon==false" src="../../assets/down-arrow.png" class="img-fluid align-self-center"/>
-
+            <div class="labelIssues">
+              <img v-if="closedPercentageIcon==true" src="../../assets/up-porcentage-arrow.png" class="img-fluid align-self-center arrow-image"/>
+              <img v-if="closedPercentageIcon==false" src="../../assets/down-porcentage-arrow.png" class="img-fluid align-self-center arrow-image"/>
               {{compareClosedPercentage}}%
             </div>
-            <vue-chart type="doughnut" v-bind:width="8" v-bind:height="3" v-bind:options="dataCompareClosedIssues.options" v-bind:data="dataCompareClosedIssues"></vue-chart>
           </div>
 
           <div v-if=" dataCompareOpenedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut">
-            <h4>Issues opened this month</h4>
+            <h4>Issues</h4>
             <h6>Projected monthly trend compared to last month</h6>
-            <div class="labelIssuesDoughnut">
-              <img v-if="openedPercentageIcon==true"src="../../assets/up-arrow.png" class="img-fluid align-self-center"/>
-              <img v-if="openedPercentageIcon==false" src="../../assets/down-arrow.png" class="img-fluid align-self-center"/>
+            <div class="labelIssues">
+              <img v-if="openedPercentageIcon==true"src="../../assets/up-porcentage-arrow.png" class="img-fluid align-self-center arrow-image"/>
+              <img v-if="openedPercentageIcon==false" src="../../assets/down-porcentage-arrow.png" class="img-fluid align-self-center arrow-image"/>
               {{compareOpenedPercentage}}%
             </div>
-            <vue-chart type="doughnut" v-bind:width="8" v-bind:height="3" v-bind:options="dataCompareOpenedIssues.options" v-bind:data="dataCompareOpenedIssues"></vue-chart>
           </div>
 
           <div>
@@ -113,12 +110,12 @@ export default {
             bodySpacing: 6,
           },
           legend: {
-            position: "right",
+            position: "top",
             labels: {
-              fontSize: 25,
-              padding: 45,
-              boxWidth: 100,
-              usePointStyle: true,
+              fontSize: 20,
+              padding: 25,
+              // usePointStyle: true,
+              boxWidth: 30,
             },
           },
           scales: {
@@ -272,33 +269,26 @@ export default {
       this.compareClosedIssuesDoughnutPercentage(response);
       this.compareOpenedIssuesDoughnutPercentage(response);
     },
+
     compareClosedIssuesBar(response) {
       this.dataBar.labels = response.data.months;
       this.dataBar.datasets[0].data = response.data.closed_issues;
       this.dataBar.datasets[1].data = response.data.opened_issues;
     },
+
     compareClosedIssuesDoughnut(response) {
       if (response.data.closed_issues[1] == 0) {
         this.actualClosedPercentage = response.data.closed_issues[2] * 100;
       }
       else {
-        if (response.data.closed_issues[2] > response.data.closed_issues[1]) {
-          this.actualClosedPercentage = Math.round((response.data.closed_issues[2])*100/
-                                        (response.data.opened_issues[2]+
-                                         response.data.closed_issues[1]));
-          this.closedIcon = true;
-        }
-        else {
-          this.actualClosedPercentage = Math.round((response.data.closed_issues[2])*100/
-                                        (response.data.opened_issues[2]+
-                                         response.data.closed_issues[1])*-1);
-          this.closedIcon = false;
-        }
+        this.actualClosedPercentage = Math.round((response.data.closed_issues[2])*100/
+                                      (response.data.opened_issues[2]+
+                                       response.data.closed_issues[1]));
       }
-
       this.dataActualClosedIssues.datasets[0].data = [response.data.closed_issues[2],
-      response.data.opened_issues[1]];
+                                                      response.data.opened_issues[1]];
     },
+
     compareClosedIssuesDoughnutPercentage(response) {
       if (response.data.closed_issues[1] == 0) {
         this.compareClosedPercentage = response.data.closed_issues[2]*100;
@@ -332,10 +322,10 @@ export default {
           this.openedPercentageIcon = false;
         }
       }
-
       this.dataCompareOpenedIssues.datasets[0].data = [response.data.opened_issues[2],
       response.data.opened_issues[1]];
     },
+
     getIssuesGraphicData() {
       const headers = { Authorization: this.token };
       console.log(this.initialDate);
@@ -366,10 +356,10 @@ export default {
 }
 
 .chartIssuesDoughnut {
-  width: 22.45em;
+  width: 22.48em;
   height: 14.4em;
   float: left;
-  background: #f9fbfb;
+  background: #f7f7f7;
   position: relative;
   border-style: solid;
 }
@@ -377,9 +367,21 @@ export default {
 .labelIssuesDoughnut {
   width: 100%;
   position: absolute;
-  top: 69%;
+  top: 60%;
   left: 0;
-  font-size: 2.5em;
+  font-size: 4.5em;
+  color: #124559;
+  margin-top: -0.1em;
+  line-height:1em;
+  text-align: center;
+}
+.labelIssues {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  font-size: 4.5em;
+  color: #124559;
   margin-top: -0.1em;
   line-height:1em;
   text-align: center;
@@ -388,7 +390,7 @@ export default {
   background: white;
 }
 #chartBar {
-  background: #F7F9F7;
+  background: #f7f7f7;
   border-style: solid;
 }
 h1 {
@@ -407,6 +409,10 @@ h6 {
 
 .img-fluid {
  width: 0.8em;
+}
+
+.arrow-image {
+  width: 0.9em;
 }
 
 </style>
