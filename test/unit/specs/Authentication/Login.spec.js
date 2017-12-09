@@ -4,7 +4,6 @@ import { shallow, createLocalVue } from 'vue-test-utils';
 import VeeValidate from 'vee-validate';
 import Login from '../../../../src/components/Authentication/Login.vue';
 
-
 describe('On login', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);

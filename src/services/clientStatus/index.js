@@ -2,6 +2,8 @@ const SET_PROJECT = 'SET_PROJECT';
 const SET_PROJECT_ORIGIN = 'SET_PROJECT_ORIGIN';
 const SET_RELEASE = 'SET_RELEASE';
 const SET_RELEASE_INDEX = 'SET_RELEASE_INDEX';
+const SET_RELEASE_INITIAL_DATE = 'SET_RELEASE_INITIAL_DATE';
+const SET_RELEASE_FINAL_DATE = 'SET_RELEASE_FINAL_DATE';
 const SET_RETROSPECTIVE_CREATED_STATUS = 'SET_RETROSPECTIVE_CREATED_STATUS';
 const SET_REVISION_CREATED_STATUS = 'SET_REVISION_CREATED_STATUS';
 
@@ -12,6 +14,8 @@ const clientStatus = {
       isProjectFromGitHub: false,
       releaseId: null,
       releaseIndex: 0,
+      releaseInitialDate: null,
+      releaseFinalDate: null,
       isRetrospectiveCreated: false,
       isRevisionCreated: false,
     };
@@ -31,6 +35,14 @@ const clientStatus = {
 
     [SET_RELEASE_INDEX](state, index) {
       state.releaseIndex = index;
+    },
+
+    [SET_RELEASE_INITIAL_DATE](state, date) {
+      state.releaseInitialDate = date;
+    },
+
+    [SET_RELEASE_FINAL_DATE](state, date) {
+      state.releaseFinalDate = date;
     },
 
     [SET_RETROSPECTIVE_CREATED_STATUS](state, status) {
@@ -56,6 +68,14 @@ const clientStatus = {
 
     setReleaseIndex({ commit }, releaseIndex) {
       commit(SET_RELEASE_INDEX, releaseIndex);
+    },
+
+    setReleaseInitialDate({ commit }, releaseInitialDate) {
+      commit(SET_RELEASE_INITIAL_DATE, releaseInitialDate);
+    },
+
+    setReleaseFinalDate({ commit }, releaseFinalDate) {
+      commit(SET_RELEASE_FINAL_DATE, releaseFinalDate);
     },
 
     setRetrospectiveCreatedStatus({ commit }, isRetrospectiveCreated) {

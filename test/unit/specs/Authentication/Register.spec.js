@@ -5,7 +5,6 @@ import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common';
 import Register from '../../../../src/components/Authentication/Register.vue';
 
-
 describe('On register', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);

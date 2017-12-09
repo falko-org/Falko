@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import VeeValidate from 'vee-validate';
@@ -24,9 +24,8 @@ describe('On sprints component', () => {
     };
 
     store = new Vuex.Store({
-      state
+      state,
     });
-
   });
 
   afterEach(() => {
@@ -35,25 +34,25 @@ describe('On sprints component', () => {
   });
 
   it('should get sprints when mounted', (done) => {
-    let stub = sandbox.stub(HTTP, 'get').resolves({ data: [{ name: "Sprint 1", description: "Sprint description" }] });
+    const stub = sandbox.stub(HTTP, 'get').resolves({ data: [{ name: 'Sprint 1', description: 'Sprint description' }] });
     const $route = {
-      params: { id: "2" }
-    }
+      params: { id: '2' },
+    };
 
     const wrapper = shallow(Sprints, { store, localVue, mocks: { $route } });
 
     expect(stub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.sprints).to.be.deep.equal([{ name: "Sprint 1", description: "Sprint description" }]);
+      expect(wrapper.vm.sprints).to.be.deep.equal([{ name: 'Sprint 1', description: 'Sprint description' }]);
       done();
     });
   });
 
   it('should enter v-if with empty sprints array', (done) => {
-    let stub = sandbox.stub(HTTP, 'get').resolves({ data: [] });
+    const stub = sandbox.stub(HTTP, 'get').resolves({ data: [] });
     const $route = {
-      params: { id: "2" }
-    }
+      params: { id: '2' },
+    };
 
     const wrapper = shallow(Sprints, { store, localVue, mocks: { $route } });
     expect(stub.calledOnce).to.be.true;
