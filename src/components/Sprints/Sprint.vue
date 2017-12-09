@@ -63,7 +63,7 @@
       </div>
     </div>
     <div class="row">
-      <stories></stories>
+      <sprint-planing></sprint-planing>
     </div>
     </div>
   </div>
@@ -78,7 +78,7 @@ import AddRetrospective from '../Retrospective/AddRetrospective.vue';
 import Retrospective from '../Retrospective/Retrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
 import Revision from '../Revision/Revision.vue';
-import Stories from '../Stories/Stories'
+import SprintPlaning from '../SprintPlaning/SprintPlaning.vue';
 import { HTTP } from '../../http-common';
 import Velocity from './Velocity.vue';
 
@@ -89,7 +89,7 @@ export default{
     'delete-sprint': DeleteSprint,
     'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
-    'stories': Stories,
+    'sprint-planing': SprintPlaning,
   },
   data() {
     return {
