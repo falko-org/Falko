@@ -8,9 +8,9 @@
           </li>
           <li class="list-inline-item vertical-center small-float-right">
             <h5 class="float-left">
-              {{dateConvert(release.initial_date)}}
+              {{converted_initial_date}}
               |
-              {{dateConvert(release.final_date)}}
+              {{converted_final_date}}
             </h5>
           </li>
           <p class="text-justify text-muted">
@@ -55,6 +55,8 @@ export default {
   data() {
     return {
       release: {},
+      converted_initial_date: "",
+      converted_final_date: ""
     };
   },
 
@@ -73,7 +75,8 @@ export default {
       HTTP.get(`releases/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.release = response.data;
-
+          this.converted_initial_date = this.dateConvert(this.release.initial_date);
+          this.converted_final_date = this.dateConvert(this.release.final_date)
           this.setReleaseDates();
         })
         .catch((e) => {
@@ -91,11 +94,7 @@ export default {
     },
   },
 
-  ready() {
-    this.dateConvert();
-  },
-
-  mounted() {
+  created() {
     this.getRelease();
   },
 };

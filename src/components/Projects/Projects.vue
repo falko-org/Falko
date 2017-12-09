@@ -93,7 +93,6 @@ export default {
 
     refreshProjects() {
       this.getProjects();
-      this.gitHubAuthenticated();
     },
 
     isProjectsEmpty() {

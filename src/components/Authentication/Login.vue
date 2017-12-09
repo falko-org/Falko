@@ -45,40 +45,17 @@ export default {
     };
   },
 
-  computed: {
-    ...mapState({
-      token: state => state.auth.token,
-      userId: state => state.auth.userId,
-    }),
-  },
-
   methods: {
     login() {
       const thisOne = this;
+
       this.$store.dispatch('login', { email: this.email, password: this.password })
-        .then(() => {
-          this.$router.push({ name: 'Projects' });
-        })
-        .catch((err) => {
-          thisOne.errors.add('wrong-credentials', 'Wrong Credentials');
-          console.log(err); // It goes here!
-        });
-    },
-
-    isGitHubAuthenticated() {
-      const headers = { Authorization: this.token };
-
-      HTTP.get(`users/${this.userId}`, { headers })
-        .then((response) => {
-          if (response.data.access_token != null) {
-            localStorage.setItem('is_github_authenticated', 'true');
-          } else {
-            localStorage.setItem('is_github_authenticated', 'false');
-          }
-        })
-        .catch((err) => {
-          console.log(err); // It goes here!
-        });
+      .then((res) => {
+        this.$router.push({ name: 'Projects' });
+      })
+      .catch((err) => {
+        thisOne.errors.add('wrong-credentials', 'Wrong Credentials');
+      });
     },
   },
 };
