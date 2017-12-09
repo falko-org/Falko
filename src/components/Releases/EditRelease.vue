@@ -24,7 +24,7 @@
               <p><label>Initial Date</label></p>
               <p><input type="date" v-model="initialDate"></input><br></p>
               <p><label>Final Date</label></p>
-              <p><input type="date" v-model="finalDate"></input><br></p>
+              <p><input type="date" v-model="finalDate" v-bind:min="this.initialDate"></input><br></p>
             </div>
           </div>
           <div class="modal-footer">

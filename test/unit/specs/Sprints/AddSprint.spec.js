@@ -1,4 +1,4 @@
-import { shallow, createLocalVue } from 'vue-test-utils'
+import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import VeeValidate from 'vee-validate';
@@ -8,7 +8,7 @@ import sinon from 'sinon';
 describe('On Add Sprint', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  //localVue.use(VeeValidate);
+  // localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
   let actions;
@@ -20,12 +20,15 @@ describe('On Add Sprint', () => {
         token: '12345',
         userId: '1',
       },
+      clientStatus: {
+        releaseInitialDate: '2017-01-01',
+        releaseFinalDate: '2017-01-07',
+      },
     };
 
     store = new Vuex.Store({
       state,
     });
-
   });
 
   afterEach(() => {
@@ -34,20 +37,20 @@ describe('On Add Sprint', () => {
   });
 
   it('should add a sprint correctly', (done) => {
-    let httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
+    const httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
     const $route = {
-      params: { id: "1" }
-    }
+      params: { id: '1' },
+    };
     const $router = {
-      push: sandbox.stub()
-    }
-    const wrapper = shallow(AddSprint, { store, localVue, mocks: { $route, $router } });    
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(AddSprint, { store, localVue, mocks: { $route, $router } });
     wrapper.vm.addSprint();
-    
-    expect(httpStub.called).to.be.true
+
+    expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.emitted('added-sprint', 1)).to.be.truthy
+      expect(wrapper.emitted('added-sprint', 1)).to.be.truthy;
       done();
     });
-  })
+  });
 });
