@@ -27,7 +27,7 @@ import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
 import Velocity from '@/components/Sprints/Velocity';
 import Burndown from '@/components/Sprints/Burndown';
-import IssuesGraphic from '@/components/Issues/IssuesGraphic'
+import IssuesGraphic from '@/components/Issues/IssuesGraphic';
 
 Vue.use(Router);
 
@@ -179,7 +179,7 @@ const router = new Router({
       path: '/projects/:id/issueschart',
       name: 'IssuesGraphic',
       component: IssuesGraphic,
-    }
+    },
   ],
 });
 
