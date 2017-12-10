@@ -36,7 +36,6 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
-      userId: state => state.auth.userId,
     }),
   },
   methods: {

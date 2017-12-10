@@ -1,9 +1,9 @@
 <template>
   <div class="delsprint">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#delSprintModal">
+    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteSprintModal">
       Delete
     </button>
-    <div class="modal fade" id ="delSprintModal" role="dialog">
+    <div class="modal fade" id ="deleteSprintModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -18,7 +18,7 @@
             <p><label> Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <button v-on:click="delSprint" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
+            <button v-on:click="deleteSprint" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
           </div>
         </div>
@@ -39,7 +39,7 @@ export default {
     }),
   },
   methods: {
-    async delSprint() {
+    async deleteSprint() {
       const headers = { Authorization: this.token };
 
       try {

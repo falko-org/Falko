@@ -49,12 +49,12 @@ export default {
   methods: {
     async deleteRetrospective() {
       const headers = { Authorization: this.token };
-
       try {
         const response = await HTTP.get(`/retrospectives/${this.$route.params.id}`, { headers });
         const id = response.data.sprint_id;
 
         await HTTP.delete(`/retrospectives/${this.$route.params.id}`, { headers });
+
         this.$router.push({ path: `/Sprints/${id}` });
       } catch (err) {
         console.log(err);

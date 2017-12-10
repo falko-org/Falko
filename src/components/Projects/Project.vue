@@ -50,7 +50,6 @@
 import { mapState } from 'vuex';
 import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
-import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
 import IssuesGraphic from '../Issues/IssuesGraphic'
 
@@ -59,7 +58,6 @@ export default {
   components: {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
-    Gpa,
     'issues-graphic': IssuesGraphic,
   },
   data() {

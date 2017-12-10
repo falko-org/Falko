@@ -151,10 +151,8 @@ export default{
     },
 
     getRevision() {
-      const token = localStorage.getItem('token');
-      const tokenSimple = token.replace(/"/, '');
-      const tokenSimple2 = tokenSimple.replace(/"/, '');
-      const headers = { Authorization: tokenSimple2 };
+      const headers = { Authorization: this.token };
+
       HTTP.get(`sprints/${this.$route.params.id}/revisions`, { headers })
       .then((response) => {
         this.sprintRevision = response.data;
