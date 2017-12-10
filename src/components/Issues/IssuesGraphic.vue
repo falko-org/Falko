@@ -3,12 +3,6 @@
     <div class="modal fade" id ="issuesGraphicModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Set a interval</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <div class="row modal-body">
             <div class="col">
               <div class="row">
@@ -39,7 +33,7 @@
             <div class="labelIssuesDoughnut">
               {{actualClosedPercentage}}%
             </div>
-            <vue-chart type="doughnut" v-bind:width="8.5" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
+            <vue-chart type="doughnut" v-bind:width="10" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
           </div>
 
           <div v-if=" dataCompareClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
