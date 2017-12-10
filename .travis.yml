@@ -50,5 +50,6 @@ after_success:
       echo "Deploying to production environment..."
       git push -f dokkuprod master:master #Has to be forced because of amending
     else
-      echo "Skipping deploy..."
-    fi
+      echo "Skipping deploy...";
+    fi;
+    fi;
