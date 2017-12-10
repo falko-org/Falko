@@ -16,7 +16,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <p>{{ issue.name }}</p>
+                  <p>{{ issue.name | truncate '10' }}</p>
                 </div>
               </div>
               <div class="row">
@@ -90,7 +90,6 @@ export default {
       HTTP.get(`projects/${this.projectId}/issues`, { headers })
         .then((response) => {
           this.issues = response.data.issues_infos;
-          console.log(issues);
         })
         .catch((e) => {
           this.errors.push(e);

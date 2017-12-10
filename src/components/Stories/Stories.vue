@@ -206,6 +206,7 @@ export default {
       if(evt.added){
         HTTP.delete(`stories/${evt.added.element.id}`, { headers })
         .then((response) => console.log(response.code))
+        .then(() => this.refreshIssues())
       }
       else {
         HTTP.post(`sprints/${this.$route.params.id}/stories`, { name: evt.removed.element.name,
