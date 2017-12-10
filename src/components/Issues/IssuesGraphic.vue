@@ -35,10 +35,8 @@
           <div class="row">
           <div v-if=" dataActualClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
             <h4>Closed Issues</h4>
-            <h6>Projected monthly trend compared to last month</h6>
+            <h6>Closed and opened issues relation of the last 3 months</h6>
             <div class="labelIssuesDoughnut">
-              <!-- <img v-if="closedIcon==true" src="../../assets/up-arrow.png" class="img-fluid align-self-center"/>
-              <img v-if="closedIcon==false" src="../../assets/down-arrow.png" class="img-fluid align-self-center"/> -->
               {{actualClosedPercentage}}%
             </div>
             <vue-chart type="doughnut" v-bind:width="8.5" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
@@ -55,7 +53,7 @@
           </div>
 
           <div v-if=" dataCompareOpenedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
-            <h4>Issues</h4>
+            <h4>Issues opened this month</h4>
             <h6>Projected monthly trend compared to last month</h6>
             <div class="labelIssues">
               <img v-if="openedPercentageIcon==true"src="../../assets/up-porcentage-arrow.png" class="img-fluid align-self-center arrow-image"/>
@@ -173,6 +171,7 @@ export default {
           tooltips: {
             titleFontSize: 20,
             mode: "index",
+            position: "nearest",
             bodyFontSize: 15,
             bodySpacing: 6,
           },
@@ -276,59 +275,71 @@ export default {
     },
 
     compareClosedIssuesDoughnut(response) {
-      if (response.data.closed_issues[1] == 0) {
-        this.actualClosedPercentage = response.data.closed_issues[2] * 100;
+      const sumOfClosedIssues = response.data.closed_issues[2] +
+      response.data.closed_issues[1] +
+      response.data.closed_issues[0];
+
+      const sumOfOpenedIssues = response.data.opened_issues[2] +
+      response.data.opened_issues[1] +
+      response.data.opened_issues[0];
+
+
+      const sumOfAllIssues = response.data.opened_issues[2] +
+      response.data.closed_issues[2] +
+      response.data.closed_issues[1] +
+      response.data.opened_issues[1] +
+      response.data.closed_issues[0] +
+      response.data.opened_issues[0];
+
+      if (sumOfClosedIssues == 0) {
+        this.actualClosedPercentage = 0;
       }
+
       else {
-        this.actualClosedPercentage = Math.round((response.data.closed_issues[2])*100/
-                                      (response.data.opened_issues[2]+
-                                       response.data.closed_issues[1]));
+        this.actualClosedPercentage = Math.round(sumOfClosedIssues*100/sumOfAllIssues);
       }
-      this.dataActualClosedIssues.datasets[0].data = [response.data.closed_issues[2],
-                                                      response.data.opened_issues[1]];
+
+      this.dataActualClosedIssues.datasets[0].data = [sumOfClosedIssues, sumOfOpenedIssues];
     },
 
     compareClosedIssuesDoughnutPercentage(response) {
+      const diffClosedIssues = Math.abs(response.data.closed_issues[1] - response.data.closed_issues[2])
       if (response.data.closed_issues[1] == 0) {
         this.compareClosedPercentage = response.data.closed_issues[2]*100;
       }
       else {
         if (response.data.closed_issues[2] > response.data.closed_issues[1]) {
-          this.compareClosedPercentage = Math.round(((response.data.closed_issues[2]/
-                                                      response.data.closed_issues[1])-1)*100);
           this.closedPercentageIcon = true;
         }
         else {
-          this.compareClosedPercentage = Math.round((response.data.closed_issues[2]/response.data.closed_issues[1])*100);
           this.closedPercentageIcon = false;
         }
+        this.compareClosedPercentage = Math.round(diffClosedIssues*100 / response.data.closed_issues[1]);
       }
       this.dataCompareClosedIssues.datasets[0].data = [response.data.closed_issues[2],
                                                        response.data.closed_issues[1]];
     },
 
     compareOpenedIssuesDoughnutPercentage(response) {
+      const diffOpenedIssues = Math.abs(response.data.opened_issues[1] - response.data.opened_issues[2])
       if (response.data.opened_issues[1] == 0) {
         this.compareOpenedPercentage = response.data.opened_issues[2]*100;
       }
       else{
         if (response.data.opened_issues[2] > response.data.opened_issues[1]) {
-          this.compareOpenedPercentage = ((response.data.opened_issues[2]/response.data.opened_issues[1])-1)*100;
           this.openedPercentageIcon = true;
         }
         else {
-          this.compareOpenedPercentage = (response.data.opened_issues[2]/response.data.opened_issues[1])*100;
           this.openedPercentageIcon = false;
         }
+        this.compareOpenedPercentage = Math.round(diffOpenedIssues*100 / response.data.opened_issues[1]);
       }
       this.dataCompareOpenedIssues.datasets[0].data = [response.data.opened_issues[2],
-      response.data.opened_issues[1]];
+                                                       response.data.opened_issues[1]];
     },
 
     getIssuesGraphicData() {
       const headers = { Authorization: this.token };
-      console.log(this.initialDate);
-      console.log(this.finalDate);
       HTTP.post(`projects/${this.$route.params.id}/issues/graphic`, {
           actual_date: this.finalDate,
           option: 'month'
