@@ -38,12 +38,12 @@ describe('Projects tests', function(){
     
     cy.get('.card-header').eq(0).contains('Owla')
     cy.get('.card-body').within(function(){
-      cy.get('.card-text').eq(3).contains('Improving classes')
+      cy.get('.card-text').eq(0).contains('Improving classes')
     })
 
     cy.get('.card-header').eq(1).contains('Falko')
     cy.get('.card-body').within(function(){
-      cy.get('.card-text').eq(7).contains('Agile Projects Manager')
+      cy.get('.card-text').eq(1).contains('Agile Projects Manager')
     })
   })
   
@@ -120,7 +120,7 @@ describe('Projects tests', function(){
     cy.get('.card-header').eq(1).contains('Falko')
     cy.get('.card-header').eq(2).contains('NewProject')
     cy.get('.card-body').within(function () {
-      cy.get('.card-text').eq(11).contains('New Project Description')
+      cy.get('.card-text').eq(2).contains('New Project Description')
     })
   })
 
@@ -140,7 +140,7 @@ describe('Projects tests', function(){
     cy.get('.card-header').eq(1).contains('Falko')
   })
 
-   it('should edit a project', function(){
+  it('should edit a project', function(){
     login()
 
     cy.route({
@@ -169,8 +169,8 @@ describe('Projects tests', function(){
     cy.get('#editbutton').eq(0).click()
     cy.get('.modal-header').contains('Edit Project')
 
-    cy.get('input').eq(1).type(' plus').should('have.value','Falko plus')  
-    cy.get('input').eq(2).type(' plus').should('have.value','Agile Projects Manager plus')
+    cy.get('input').eq(0).type(' plus').should('have.value','Falko plus')  
+    cy.get('input').eq(1).type(' plus').should('have.value','Agile Projects Manager plus')
 
     cy.get('.v-switch-label').contains('off')
 

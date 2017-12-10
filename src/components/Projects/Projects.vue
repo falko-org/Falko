@@ -20,11 +20,6 @@
               </div>
               <div class="card-body">
                 <div class="row align-itens-arround">
-                  <div class="col-5 align-content-center">
-                    <p class="card-text">
-                      <Gpa></Gpa>
-                    </p>
-                  </div>
                   <div class="col">
                     <p class="card-text text-justify">
                       {{project.description}}
@@ -55,7 +50,6 @@ import { mapState } from 'vuex';
 import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
-import Gpa from '../Gpa';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -64,7 +58,6 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-    Gpa,
   },
 
   data() {
