@@ -45,13 +45,13 @@ export default {
       body : ''
     }
 	},
-	
+
 	computed: {
     ...mapState({
       token: state => state.auth.token,
     }),
 	},
-	
+
 	methods: {
   	addIssue() {
 			const headers = { Authorization: this.token };

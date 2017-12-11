@@ -3,6 +3,7 @@
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
+    <h1>Backlog</h1>
     <div class="row">
       <div class="col">
         <add-issue></add-issue>
@@ -154,6 +155,7 @@ p{
   max-width: 24em;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
+  margin-top: 10px;
 }
 
 #issueCard:hover {
@@ -202,4 +204,9 @@ p{
   font-size:0.4em;
 }
 
+h1 {
+  margin-top: 20px;
+  margin-left: 20px;
+  color: #598392;
+}
 </style>
