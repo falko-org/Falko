@@ -8,7 +8,7 @@
             <h4>Sprint Backlog&nbsp; &nbsp; </h4>
             <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
           </div>
-          <draggable v-model="issues" v-bind:options="{group:'issues'}" @change="onUpdateBacklog($event)" class="dragArea">
+          <draggable v-model="issues" v-bind:options="{group:'issues'}"  @change="onUpdateBacklog($event)" class="dragArea"> 
             <div v-for="issue in issues">
               <div align="center" id="cardDiv">
                 <div class="card" id="kanbanCard">
@@ -153,7 +153,7 @@ export default {
     }),
   },
   methods: {
-    getIssues() {
+    getIssues() {  
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.projectId}/issues`, { headers })
@@ -206,16 +206,22 @@ export default {
       if(evt.added){
         HTTP.delete(`stories/${evt.added.element.id}`, { headers })
         .then((response) => console.log(response.code))
+        .then(() => this.refreshIssues())
       }
       else {
         HTTP.post(`sprints/${this.$route.params.id}/stories`, { name: evt.removed.element.name,
                                                                  description: evt.removed.element.body,
                                                                  issue_number:evt.removed.element.number,
+                                                                 issue_id:evt.removed.element.issue_id,
                                                                  pipeline:"To Do",
                                                                  initial_date:new Date().toString(),
                                                                 }, { headers })
         .then((response) => console.log(response.code))
-        .then(() => this.$router.push({ path: `/sprints/${this.$route.params.id}`}));
+        .then(() => this.$router.push({ path: `/sprints/${this.$route.params.id}`}))
+        .then(() => this.refreshToDo())
+        .then(() => this.refreshDoing())
+        .then(() => this.refreshDone())
+        .then(() => this.refreshIssues())
       }
     },
 
@@ -265,17 +271,33 @@ export default {
       }
     },
 
-      getProjects() {
-        const headers = { Authorization: this.token };
+    getProjects() {
+      const headers = { Authorization: this.token };
 
-        HTTP.get(`users/${this.userId}/projects`, { headers })
-        .then((response) => {
-          this.projects = response.data;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-      },
+      HTTP.get(`users/${this.userId}/projects`, { headers })
+      .then((response) => {
+        this.projects = response.data;
+      })
+      .catch((e) => {
+        this.errors.push(e);
+      });
+    },
+
+    refreshToDo() {
+      this.getToDo();
+    },  
+    
+    refreshDoing() {
+      this.getDoing();
+    },
+
+    refreshDone() {
+      this.getDone();
+    },
+
+    refreshIssues() {
+      this.getIssues();
+    }
   },
   mounted() {
     this.getIssues();

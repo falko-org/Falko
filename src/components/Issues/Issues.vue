@@ -25,7 +25,7 @@
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
                   <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
                 </div>
-                <div class="col">
+                <div class="col" v-if="issue.body != null" >
                   <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
                   <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
                 </div>
