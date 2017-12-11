@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import GitHubProjects from '../../../src/components/GitHub/GitHubProjects.vue';
-import { HTTP } from '../../../src/http-common.js';
+import GitHubProjects from '../../../../src/components/GitHub/GitHubProjects.vue';
+import { HTTP } from '../../../../src/http-common.js';
 import sinon from 'sinon';
-import auth from '../../../src/services/auth/index';
+import auth from '../../../../src/services/auth/index';
 
-const sandbox = sinon.createSandbox();
 
 describe('On github project list repos', () => {
+  const sandbox = sinon.createSandbox();
   let state;
   let store;
   beforeEach(() => {
@@ -33,6 +33,7 @@ describe('On github project list repos', () => {
   });
 
   afterEach(() => {
+    sandbox.reset();
     sandbox.restore();
   });
 
@@ -93,6 +94,7 @@ describe('On github project list repos', () => {
 
 
 describe('On GitHubProjects import', () => {
+  const sandbox = sinon.createSandbox();
   let state;
   let store;
   beforeEach(() => {

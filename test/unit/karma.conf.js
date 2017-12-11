@@ -10,7 +10,9 @@ module.exports = function (config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: ['../../node_modules/es6-promise/dist/es6-promise.auto.js', './index.js'],
+    files: ['../../node_modules/es6-promise/dist/es6-promise.auto.js',
+            '../../node_modules/phantomjs-polyfill-object-assign/object-assign-polyfill.js',
+            './index.js'],
     // we will pass the entry file to webpack for bundling.
     preprocessors: {
       './index.js': ['webpack', 'sourcemap'],

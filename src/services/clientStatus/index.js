@@ -5,6 +5,8 @@ const SET_RELEASE_INDEX = 'SET_RELEASE_INDEX';
 const SET_RELEASE_AMOUNT = 'SET_RELEASE_AMOUNT';
 const SET_RETROSPECTIVE_CREATED_STATUS = 'SET_RETROSPECTIVE_CREATED_STATUS';
 const SET_REVISION_CREATED_STATUS = 'SET_REVISION_CREATED_STATUS';
+const SET_RELEASE_INITIAL_DATE = 'SET_RELEASE_INITIAL_DATE';
+const SET_RELEASE_FINAL_DATE = 'SET_RELEASE_FINAL_DATE';
 
 const clientStatus = {
   state() {
@@ -16,6 +18,8 @@ const clientStatus = {
       amountOfReleases: 0,
       isRetrospectiveCreated: false,
       isRevisionCreated: false,
+      releaseInitialDate: null,
+      releaseFinalDate: null,
     };
   },
   mutations: {
@@ -46,6 +50,16 @@ const clientStatus = {
     [SET_REVISION_CREATED_STATUS](state, status) {
       state.isRevisionCreated = status;
     },
+
+    [SET_RELEASE_INITIAL_DATE](state, date) {
+      const localState = state;
+      localState.releaseInitialDate = date;
+    },
+
+    [SET_RELEASE_FINAL_DATE](state, date) {
+      const localState = state;
+      localState.releaseFinalDate = date;
+    },
   },
   actions: {
     setProject({ commit }, projectId) {
@@ -74,6 +88,14 @@ const clientStatus = {
 
     setRevisionCreatedStatus({ commit }, isRevisionCreated) {
       commit(SET_REVISION_CREATED_STATUS, isRevisionCreated);
+    },
+
+    setReleaseInitialDate({ commit }, releaseInitialDate) {
+      commit(SET_RELEASE_INITIAL_DATE, releaseInitialDate);
+    },
+
+    setReleaseFinalDate({ commit }, releaseFinalDate) {
+      commit(SET_RELEASE_FINAL_DATE, releaseFinalDate);
     },
   },
 };

@@ -153,10 +153,6 @@ export default {
     },
   },
 
-  ready() {
-    this.dateConvert();
-  },
-
   mounted() {
     this.getReleases();
     this.getSprints();

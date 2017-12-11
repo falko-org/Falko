@@ -20,14 +20,10 @@ export default {
   mounted() {
     const code = window.location.search.split('=')[1];
     const headers = { Authorization: this.token };
-    HTTP.post('request_github_token', {
-      code,
-      id: this.userId,
-    }, { headers })
-      .then((response) => {
-        this.github_token = response.data.access_token;
+    this.$store.dispatch('linkGithub', { code, headers, userId: this.userId })
+      .then(() => {
         this.$router.push({ name: 'UserProfile' });
-      })
+      }) 
       .catch((e) => {
         this.errors.push(e);
       });

@@ -23,7 +23,6 @@ import EditUserProfile from '@/components/Users/EditUserProfile';
 import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
 import NotFound from '@/components/NotFound';
 import Retrospective from '@/components/Retrospective/Retrospective';
-import Gpa from '@/components/Gpa';
 import Issues from '@/components/Issues/Issues';
 import Velocity from '@/components/Sprints/Velocity';
 import Burndown from '@/components/Sprints/Burndown';
@@ -151,11 +150,6 @@ const router = new Router({
       path: '*',
       name: 'NotFound',
       component: NotFound,
-    },
-    {
-      path: '/gpa',
-      name: 'Gpa',
-      component: Gpa,
     },
     {
       path: '/projects/:id/issues',
