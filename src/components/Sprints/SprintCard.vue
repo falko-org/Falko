@@ -30,7 +30,7 @@
             <li>
               <i class="fa fa-bullhorn"></i>
             </li>
-            
+
             <li>
               <p align="center">{{this.status()}}</p>
             </li>
@@ -67,7 +67,7 @@ export default {
       const today = new Date();
       const finalDate = this.sprint.final_date.split('-')[2];
       let isRevisionCreated;
-      const headers = { Authorization: this.token };
+      // const headers = { Authorization: this.token };
 
       // HTTP.get(`retrospectives/${this.sprint.id}`, { headers })
       //   .then((response) => {
@@ -79,9 +79,6 @@ export default {
       //   })
       //   .catch(() => {
       //   });
-
-      // TODO: find out a way to catch retrospective status.
-      //       HTTP shows erros with no retrospective created.
 
       if ((today.getDate() > finalDate) && !isRevisionCreated) {
         return 'ALERT';

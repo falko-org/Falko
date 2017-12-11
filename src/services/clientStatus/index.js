@@ -24,31 +24,38 @@ const clientStatus = {
   },
   mutations: {
     [SET_PROJECT](state, id) {
-      state.projectId = id;
+      const localState = state;
+      localState.projectId = id;
     },
 
     [SET_PROJECT_ORIGIN](state, status) {
-      state.isProjectFromGitHub = status;
+      const localState = state;
+      localState.isProjectFromGitHub = status;
     },
 
     [SET_RELEASE](state, id) {
-      state.releaseId = id;
+      const localState = state;
+      localState.releaseId = id;
     },
 
     [SET_RELEASE_INDEX](state, index) {
-      state.releaseIndex = index;
+      const localState = state;
+      localState.releaseIndex = index;
     },
 
     [SET_RELEASE_AMOUNT](state, length) {
-      state.amountOfReleases = length;
+      const localState = state;
+      localState.amountOfReleases = length;
     },
 
     [SET_RETROSPECTIVE_CREATED_STATUS](state, status) {
-      state.isRetrospectiveCreated = status;
+      const localState = state;
+      localState.isRetrospectiveCreated = status;
     },
 
     [SET_REVISION_CREATED_STATUS](state, status) {
-      state.isRevisionCreated = status;
+      const localState = state;
+      localState.isRevisionCreated = status;
     },
 
     [SET_RELEASE_INITIAL_DATE](state, date) {

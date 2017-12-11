@@ -12,7 +12,6 @@ const auth = {
       isGitHubAuthenticated: false,
       userId: null,
       token: null,
-      userId: null,
       githubAuthenticated: false,
     };
   },
@@ -41,7 +40,8 @@ const auth = {
     },
 
     [SET_GITHUB_AUTHENTICATION](state, isLinked) {
-      state.authenticated = isLinked;
+      const localState = state;
+      localState.authenticated = isLinked;
     },
   },
   actions: {
