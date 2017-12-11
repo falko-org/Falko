@@ -84,17 +84,17 @@ const auth = {
         });
     },
 
-    unlinkGithub({ commit }, credentials) {
-      return HTTP.post('remove_github_token', {
-        id: credentials.userId,
-      }, { headers: credentials.headers })
-        .then(() => {
-          commit(UNLINKED_GITHUB);
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
-    },
+    // unlinkGithub({ commit }, credentials) {
+    //   return HTTP.post('remove_github_token', {
+    //     id: credentials.userId,
+    //   }, { headers: credentials.headers })
+    //     .then(() => {
+    //       commit(UNLINKED_GITHUB);
+    //     })
+    //     .catch((e) => {
+    //       this.errors.push(e);
+    //     });
+    // },
 
     linkedGitHub({ commit }) {
       commit(LINKED_GITHUB);

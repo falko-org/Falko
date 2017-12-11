@@ -88,6 +88,8 @@ export default {
           } else {
             this.setGithubAuthentication(false);
           }
+
+          this.setGitHubButtonLabel();
         })
         .catch((e) => {
           this.errors.push(e);
@@ -126,6 +128,10 @@ export default {
       }, { headers })
         .then(() => {
           this.$store.dispatch('unlinkedGitHub');
+          this.setGitHubButtonLabel();
+        })
+        .catch((e) => {
+          this.errors.push(e);
         });
     },
 
@@ -151,13 +157,9 @@ export default {
   },
 
   mounted() {
-    this.setGitHubButtonLabel();
     this.getUser();
-    const thisOne = this;
 
-    EventBus.$on('edited-user-profile', () => {
-      thisOne.getUser();
-    });
+    EventBus.$on('edited-user-profile', () => this.getUser());
   },
 };
 </script>
