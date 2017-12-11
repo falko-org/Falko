@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-3 align-self-start no-padding" id="releases">
           <add-release></add-release>
-        <div class="ScrollStyle">
+        <div class="scroll-style-releases-cards">
           <div v-for="release in releases">
             <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
           </div>
@@ -55,8 +55,10 @@
           </div>
           <div v-else class="row align-content-center">
             <div class="col-12">
-              <div v-for="sprint in sprints">
-                <sprint-card v-bind:sprint="sprint"></sprint-card>
+              <div class="scroll-style-sprints-cards">
+                <div v-for="sprint in sprints">
+                  <sprint-card v-bind:sprint="sprint"></sprint-card>
+                </div>
               </div>
             </div>
           </div>
@@ -245,8 +247,13 @@ h5 {
   left: 50%;
 }
 
-.ScrollStyle {
+.scroll-style-releases-cards {
   max-height: calc(100vh - 8em);
+  overflow-y: auto;
+}
+
+.scroll-style-sprints-cards {
+  max-height: calc(100vh - 17em);
   overflow-y: auto;
 }
 </style>
