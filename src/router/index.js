@@ -182,19 +182,15 @@ export default router;
 router.beforeEach((to, from, next) => {
   const state = JSON.parse(localStorage.getItem('vuex'));
 
-  if ( (to.path === '/' && state.auth.token === null) || to.path === '/notFound') {
+  if ((to.path === '/' && state.auth.token === null) || to.path === '/notFound') {
     next();
-  }
-  else if((to.path === '/' && state.auth.token !== null) ) {
+  } else if ((to.path === '/' && state.auth.token !== null)) {
     next('/projects');
-  } 
-  else if (!to.matched.length) {
+  } else if (!to.matched.length) {
     next('/notFound');
-  } 
-  else if (state.auth.token === null) {
+  } else if (state.auth.token === null) {
     next('/');
-  } 
-  else {
+  } else {
     next();
   }
 });
