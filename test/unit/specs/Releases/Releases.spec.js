@@ -38,7 +38,7 @@ describe('On releases component', () => {
     sandbox.restore();
   });
 
-  it.only('should get releases when mounted', (done) => {
+  it('should get releases when mounted', (done) => {
     const stub = sandbox.stub(HTTP, 'get').resolves({
       data: [
         {
@@ -65,8 +65,8 @@ describe('On releases component', () => {
     const wrapper = shallow(Releases, { store, localVue, mocks: { $route } });
 
     expect(stub.called).to.be.true;
+
     wrapper.vm.$nextTick(() => {
-      console.log(wrapper.vm.releases[state.clientStatus.releaseIndex].name)
       expect(wrapper.vm.releases).to.be.deep.equal(
         [
           {
@@ -96,7 +96,7 @@ describe('On releases component', () => {
     };
 
     const wrapper = shallow(Releases, { store, localVue, mocks: { $route } });
-    expect(stub.calledOnce).to.be.true;
+    expect(stub.called).to.be.true;
 
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.releases).to.be.deep.equal([]);

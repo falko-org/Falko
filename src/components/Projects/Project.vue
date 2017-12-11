@@ -66,7 +66,7 @@ export default {
   },
 
   methods: {
-    setProjetId() {
+    setProjectId() {
       this.$store.dispatch('setProject', this.$route.params.id);
     },
 
@@ -108,9 +108,8 @@ export default {
   },
 
   mounted() {
-    this.setProjetId();
-    this.getProject(this.$route.params.id);
     this.setProjectId();
+    this.getProject(this.$route.params.id);
   },
 };
 </script>

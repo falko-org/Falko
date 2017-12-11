@@ -45,7 +45,6 @@ describe('On github project list repos', () => {
     component.getRepos();
 
     process.nextTick(() => {
-      console.log(component.userRepos);
       expect(component.userRepos).to.deep.equal(['userRepo1', 'userRepo2']);
       expect(component.orgsRepos).to.deep.equal([{ name: 'Org1', repos: ['Org1Repo'] }, { name: 'Org2', repos: ['Org2Repo'] }]);
       done();

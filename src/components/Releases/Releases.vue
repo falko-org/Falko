@@ -3,7 +3,7 @@
     <div v-if="isReleasesEmpty()">
       <no-content parent ="Release"></no-content>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-3 align-self-start no-padding" id="releases">
           <add-release></add-release>
         <div class="scroll-style-releases-cards">
@@ -13,9 +13,9 @@
         </div>
       </div>
 
-      <div class="col-9">
+      <div class="col-9" v-if="isLoaded">
         <div class="row justify-content-between" id="releaseHeader">
-          <div class="col-5 no-padding">
+          <div class="col-5 no-padding" align="center">
             <div class="row">
               <h1>{{this.releases[this.releaseIndex].name}}</h1>
             </div>
@@ -93,6 +93,7 @@ export default {
       releases: [],
       indexOfRelease: '',
       sprints: [],
+      isLoaded: false
     };
   },
   computed: {
@@ -125,6 +126,7 @@ export default {
 
       HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
         .then((response) => {
+          this.isLoaded = true;
           this.releases = response.data;
 
           this.setAmountOfReleases();
