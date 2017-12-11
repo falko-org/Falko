@@ -27,7 +27,7 @@
                 <ul class="list-group">
                   <li class="list-group-item" v-for="userRepo in userRepos" >
                     {{userRepo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(userRepo, $event)"
+                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(user + '/' + userRepo, $event)"
                     :value="false"
                     color="#AEC3B0"
                     :labels="true" />
@@ -49,7 +49,7 @@
                   <ul class="list-group">
                     <li class="list-group-item" v-for="repo in orgs.repos">
                       {{repo}}
-                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(orgs.name + '/' + repo, $event)"
                       :value="false"
                       color="#AEC3B0"
                       :labels="true" />
@@ -119,7 +119,7 @@ export default{
         .catch(e => console.log(e.message));
     },
 
-    doRequisitions(repos, length, user) {
+    doRequisitions(repos, length) {
       return new Promise((resolve, reject) => {
         const headers = { Authorization: this.token };
         let count = 0;

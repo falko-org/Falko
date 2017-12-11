@@ -26,6 +26,7 @@ import Retrospective from '@/components/Retrospective/Retrospective';
 import Issues from '@/components/Issues/Issues';
 import Velocity from '@/components/Sprints/Velocity';
 import Burndown from '@/components/Sprints/Burndown';
+import IssuesGraphic from '@/components/Issues/IssuesGraphic';
 
 import ReleaseCard from '@/components/Releases/ReleaseCard';
 import SprintCard from '@/components/Sprints/SprintCard';
@@ -171,16 +172,10 @@ const router = new Router({
       name: 'Velocity',
       component: Velocity,
     },
-
     {
-      path: '/release/card',
-      name: 'ReleaseCard',
-      component: ReleaseCard,
-    },
-    {
-      path: '/sprint/card',
-      name: 'SprintCard',
-      component: SprintCard,
+      path: '/projects/:id/issueschart',
+      name: 'IssuesGraphic',
+      component: IssuesGraphic,
     },
   ],
 });

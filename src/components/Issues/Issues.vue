@@ -3,6 +3,7 @@
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
+    <h1>Backlog</h1>
     <div class="row">
       <div class="col">
         <add-issue></add-issue>
@@ -24,7 +25,7 @@
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
                   <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
                 </div>
-                <div class="col">
+                <div class="col" v-if="issue.body != null" >
                   <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
                   <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
                 </div>
@@ -149,6 +150,7 @@ p{
   max-width: 24em;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
+  margin-top: 10px;
 }
 
 #issueCard:hover {
@@ -197,4 +199,9 @@ p{
   font-size:0.4em;
 }
 
+h1 {
+  margin-top: 20px;
+  margin-left: 20px;
+  color: #598392;
+}
 </style>
