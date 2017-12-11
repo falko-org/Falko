@@ -45,5 +45,32 @@ describe('On Add Sprint Review', () => {
       expect(wrapper.emitted('revisionCreated')).to.be.truthy
       done();
     });
-  })
+  });
+
+  it('should update Done Report list of review correctly', () => {
+    const $route = {
+      params: { id: '2' },
+    };
+    const $router = {
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(AddRevision, { store, localVue, mocks: { $route, $router } });
+
+    wrapper.vm.updateList([{ title: 'Sprint DoneReport' }], 'DoneReport');
+    expect(wrapper.vm.doneReport).to.be.deep.equal(['Sprint DoneReport']);
+  });
+
+  it('should update Undone Report list of review correctly', () => {
+    const $route = {
+      params: { id: '2' },
+    };
+    const $router = {
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(AddRevision, { store, localVue, mocks: { $route, $router } });
+
+    wrapper.vm.updateList([{ title: 'Sprint UndoneReport' }], 'UndoneReport');
+    expect(wrapper.vm.undoneReport).to.be.deep.equal(['Sprint UndoneReport']);
+  });
+
 });

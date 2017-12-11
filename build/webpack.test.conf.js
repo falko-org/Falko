@@ -21,7 +21,9 @@ var webpackConfig = merge(baseConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/test.env'),
-      'API_URL': JSON.stringify('http://localhost:3000/')
+      'API_URL': JSON.stringify('http://localhost:3000/'),
+      'GITHUB_CLIENT_ID': JSON.stringify('cbd5f91719282354f09b'),
+
     })
   ]
 })

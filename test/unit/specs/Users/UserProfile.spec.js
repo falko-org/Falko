@@ -11,7 +11,7 @@ describe('On User Component', () => {
   const sandbox = sinon.createSandbox();
   let state;
   let store;
-
+  let actions;
   beforeEach(() => {
     state = {
       auth: {
@@ -21,8 +21,13 @@ describe('On User Component', () => {
       },
     };
 
+    actions = {
+      linkGithub: sinon.stub(),
+    }
+
     store = new Vuex.Store({
       state,
+      actions
     });
   });
 
@@ -142,5 +147,47 @@ describe('On User Component', () => {
       expect(wrapper.vm.name).to.be.not.equal('UserName');
       done();
     });
+  });
+
+   it('should set github action and call link', () => {
+    const httpStub = sandbox.stub(HTTP, 'get').resolves({
+      data: {
+        name: 'UserName',
+        email: 'username@mail.com',
+        github: 'User_Name',
+        access_token: '12345',
+      },
+    });
+
+    const locationStub = sandbox.stub(location, 'replace').returns({});
+
+    const wrapper = shallow(UserProfile, { store, localVue });
+
+    wrapper.vm.setGitHubButtonAction();
+
+    expect(httpStub.called).to.be.true;
+    expect(locationStub.called).to.be.true;
+
+  });
+
+   it('should set github action and call unlink', () => {
+    const httpStub = sandbox.stub(HTTP, 'post').resolves({
+      data: {
+        name: 'UserName',
+        email: 'username@mail.com',
+        github: 'User_Name',
+        access_token: '12345',
+      },
+    });
+    const locationStub = sandbox.stub(location, 'replace').returns({});
+    state.auth.isGitHubAuthenticated = true;
+
+
+    const wrapper = shallow(UserProfile, { store, localVue });
+
+    wrapper.vm.setGitHubButtonAction();
+
+    expect(httpStub.called).to.be.true;
+
   });
 });
