@@ -8,6 +8,8 @@
     <div class="modal fade" id ="githubModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
+          
+
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,6 +17,9 @@
             </button>
           </div>
           <div class="modal-body">
+            <div>
+              <spinner :status="loading"></spinner>
+            </div>
             <div v-if="userRepos.length != 0">
               <h4
               data-toggle="collapse"
@@ -72,14 +77,19 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import Spinner from 'vue-spinner-component/src/Spinner.vue';
 
-export default{
+export default {
+  components: {
+    Spinner
+  },
   data() {
     return {
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
-      user: ""
+      user: "",
+      loading: false
     };
   },
   computed: {
@@ -90,10 +100,19 @@ export default{
   },
   methods: {
     getRepos() {
+      console.log("AAAAAAA");
+
+      console.log(this.loading);
+      this.loading = true;
+      console.log(this.loading);
+
       const headers = { Authorization: this.token };
       if (this.isGitHubLinked()) {
         HTTP.get('repos', { headers })
         .then((response) => {
+          this.loading = false;
+          console.log(this.loading);
+
           this.userRepos = response.data.user[1].repos;;
           this.orgsRepos = response.data.orgs;
           this.user = response.data.user[0].login;
