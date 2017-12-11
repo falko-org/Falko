@@ -22,7 +22,8 @@
           <li align="center">
             <router-link to="/projects">
               <a  title="Projects">
-                <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
+                <span v-if="this.$route.path != '/projects'"
+                 class="sidebar-icon"><i class=" fa fa-file"></i></span>
                 <span class="sidebar-title"></span>
               </a>
             </router-link>
@@ -31,7 +32,6 @@
             <router-link v-bind:to="'/releases/'+this.$route.params.id+'/sprints'">
               <a  title="Sprints" id="popover">
                 <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
-                this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
                 this.$route.path == '/sprints/'+this.$route.params.id"
                 class="sidebar-icon"><i class="fa fa-angle-double-down"></i></span>
                 <span class="sidebar-title"></span>
@@ -43,8 +43,7 @@
               <a  title="Releases" >
                 <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
                 this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
-                this.$route.path == '/releases/'+this.$route.params.id ||
-                this.$route.path == '/projects/'+this.$route.params.id+'/releases'"
+                this.$route.path == '/releases/'+this.$route.params.id"
                 class="sidebar-icon"><i class=" fa fa-cube"></i></span>
                 <span class="sidebar-title"></span>
               </a>
