@@ -74,8 +74,8 @@ export default {
   },
 
   methods: {
-    setProjectId() {
-      this.$store.dispatch('setProject', this.$route.params.id);
+    setProjectId(projectId) {
+      this.$store.dispatch('setProject', projectId);
     },
 
     setProjectOrigin() {
@@ -92,6 +92,8 @@ export default {
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
+
+          this.setProjectId(this.project.id.toString(10));
           this.setProjectOrigin();
         })
         .catch((e) => {
@@ -112,9 +114,8 @@ export default {
     },
   },
 
-  mounted() {
-    this.setProjectId();
-    this.getProject(this.$route.params.id);
+  created() {
+    this.getProject();
   },
 };
 </script>
