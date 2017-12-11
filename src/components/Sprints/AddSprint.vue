@@ -37,22 +37,22 @@
               <p><label>Initial Date</label></p>
               <p><input type="date"
                         v-model="initialDate"
-                        name="initialDate"
+                        name="Initial Date"
                         min="2"
                         v-validate="'date_format:YYYY-MM-DD'">
               <br></p>
               <p><label>Final Date</label></p>
               <p><input type="date"
                         v-model="finalDate"
-                        name="finalDate"
-                        v-validate="'date_format:YYYY-MM-DD|after:initialDate'">
-              <p class="text-danger" v-if="errors.has('finalDate')">{{ errors.first('finalDate') }}</p>
+                        name="Final Date"
+                        v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+              <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
 
               <br></p>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('finalDate')" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">Save</button>
             <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>

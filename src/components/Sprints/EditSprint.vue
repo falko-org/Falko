@@ -34,13 +34,15 @@
             </div>
             <div class="col">
               <p><label>Inital Date</label></p>
-              <p></p><input type = "date" v-model="initialDate" name="initialDate" min="2" v-validate="'date_format:YYYY-MM-DD'"></input><br></p>
+              <p></p><input type = "date" v-model="initialDate" name="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"></input><br></p>
               <p><label>Final Date</label></p>
-              <p></p><input type = "date" v-model="finalDate" name="finalDate" v-validate="'date_format:YYYY-MM-DD|after:initialDate'"></input><br></p>
+              <p></p><input type = "date" v-model="finalDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+              <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
+            </input><br></p>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('finalDate')" class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
