@@ -27,7 +27,7 @@
                 <ul class="list-group">
                   <li class="list-group-item" v-for="userRepo in userRepos" >
                     {{userRepo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(userRepo, $event)"
+                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(user + '/' + userRepo, $event)"
                     :value="false"
                     color="#AEC3B0"
                     :labels="true" />
@@ -49,7 +49,7 @@
                   <ul class="list-group">
                     <li class="list-group-item" v-for="repo in orgs.repos">
                       {{repo}}
-                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(orgs.name + '/' + repo, $event)"
                       :value="false"
                       color="#AEC3B0"
                       :labels="true" />
@@ -94,7 +94,7 @@ export default{
       if (this.isGitHubLinked()) {
         HTTP.get('repos', { headers })
         .then((response) => {
-          this.userRepos = response.data.user[1].repos;;
+          this.userRepos = response.data.user[1].repos;
           this.orgsRepos = response.data.orgs;
           this.user = response.data.user[0].login;
         })
@@ -113,19 +113,19 @@ export default{
     },
 
     importGithubProjects() {
-      this.doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
+      this.doRequisitions(this.selectedRepos, this.selectedRepos.length)
         .then(() => { this.$emit('added'); })
         .catch(e => console.log(e.message));
     },
 
-    doRequisitions(repos, length, user) {
+    doRequisitions(repos, length) {
       return new Promise((resolve, reject) => {
         const headers = { Authorization: this.token };
         let count = 0;
         for (const repo of repos) {
           HTTP.post(`users/${this.userId}/projects`, {
-            name: repo,
-                github_slug: `${user}/${repo}`,
+            name: repo.split("/")[1],
+                github_slug: repo,
                 is_project_from_github: true,
                 is_scoring: false,
           }, { headers })
