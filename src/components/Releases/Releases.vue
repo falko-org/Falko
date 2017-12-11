@@ -153,7 +153,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.getReleases();
     this.getSprints();
 

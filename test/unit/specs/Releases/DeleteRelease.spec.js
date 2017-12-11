@@ -29,6 +29,7 @@ describe('On Delete Release', () => {
     sandbox.reset();
     sandbox.restore();
   });
+
   it('should delete a release correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'delete').resolves({ data: 200 });
     const $route = {
@@ -38,10 +39,10 @@ describe('On Delete Release', () => {
       go: sandbox.stub(),
     };
     const wrapper = shallow(DeleteRelease, { store, localVue, mocks: { $route, $router } });
+
     wrapper.vm.deleteRelease();
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.$router.go.called).to.be.true;
       done();
     });
   });
