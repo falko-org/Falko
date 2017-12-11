@@ -285,7 +285,7 @@ export default {
       response.data.closed_issues[0] +
       response.data.opened_issues[0];
 
-      if (sumOfClosedIssues == 0) {
+      if (sumOfClosedIssues === 0) {
         this.actualClosedPercentage = 0;
       }
 
@@ -298,7 +298,7 @@ export default {
 
     compareClosedIssuesDoughnutPercentage(response) {
       const diffClosedIssues = Math.abs(response.data.closed_issues[1] - response.data.closed_issues[2])
-      if (response.data.closed_issues[1] == 0) {
+      if (response.data.closed_issues[1] === 0) {
         this.compareClosedPercentage = response.data.closed_issues[2]*100;
       }
       else {
@@ -316,7 +316,7 @@ export default {
 
     compareOpenedIssuesDoughnutPercentage(response) {
       const diffOpenedIssues = Math.abs(response.data.opened_issues[1] - response.data.opened_issues[2])
-      if (response.data.opened_issues[1] == 0) {
+      if (response.data.opened_issues[1] === 0) {
         this.compareOpenedPercentage = response.data.opened_issues[2]*100;
       }
       else{
