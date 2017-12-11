@@ -41,6 +41,9 @@
 
         <div class="row align-content-center">
           <div class="col" align="center">
+            <div v-if="this.sprints.length == 0">
+              <no-content parent = "Sprint"></no-content>
+            </div>
             <add-sprint v-bind:release="[
                 this.releases[this.releaseIndex].id,
                 dateConvert(this.releases[this.releaseIndex].initial_date),
@@ -50,10 +53,7 @@
           </div>
         </div>
         <div>
-          <div v-if="this.sprints.length == 0">
-            <no-content parent = "Sprint"></no-content>
-          </div>
-          <div v-else class="row align-content-center">
+          <div v-if="this.sprints.length != 0" class="row align-content-center">
             <div class="col-12">
               <div class="scroll-style-sprints-cards">
                 <div v-for="sprint in sprints">
