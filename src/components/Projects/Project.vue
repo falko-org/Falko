@@ -5,9 +5,6 @@
         <div class="card">
           <div class="card-body text-center">
             <div class="row">
-              <div class="col-md-4">
-                <Gpa></Gpa>
-              </div>
               <div class="col-md-3">
                 <h4 class="card-title">{{project.name}}</h4>
               </div>
@@ -46,7 +43,6 @@
 import { mapState } from 'vuex';
 import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
-import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
 
 export default {
@@ -54,7 +50,6 @@ export default {
   components: {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
-    Gpa,
   },
 
   data() {
@@ -68,6 +63,9 @@ export default {
     }),
   },
   methods: {
+    setProjectId() {
+      this.$store.dispatch('setProject',  this.$route.params.id)
+    },
     getProject() {
       const headers = { Authorization: this.token };
       this.isFromProjectGitHub();
@@ -103,6 +101,7 @@ export default {
   },
   mounted() {
     this.getProject(this.$route.params.id);
+    this.setProjectId();
   },
 };
 </script>

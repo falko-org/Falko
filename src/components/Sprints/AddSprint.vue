@@ -69,17 +69,21 @@ import { HTTP } from '../../http-common';
 
 export default {
   name: 'addSprintBody',
+
   data() {
     return {
       name: '',
       description: '',
-      initialDate: '',
-      finalDate: '',
+      sprintInitialDate: '',
+      sprintFinalDate: '',
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseInitialDate: state => state.clientStatus.releaseInitialDate,
+      releaseFinalDate: state => state.clientStatus.releaseFinalDate,
     }),
   },
 
@@ -92,16 +96,16 @@ export default {
         sprint: {
           name: this.name,
           description: this.description,
-          initial_date: this.initialDate,
-          final_date: this.finalDate,
+          initial_date: this.sprintInitialDate,
+          final_date: this.sprintFinalDate,
           release_id: this.$route.params.id,
         },
       }, { headers })
         .then(() => {
           this.name = '';
           this.description = '';
-          this.initialDate = '';
-          this.finalDate = '';
+          this.sprintInitialDate = '';
+          this.sprintFinalDate = '';
           EventBus.$emit('added-sprint', 1);
         })
         .catch((e) => {
