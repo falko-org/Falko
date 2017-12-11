@@ -42,44 +42,44 @@ describe('Authorization tests', function (){
     cy.url().should('eq', 'http://localhost:8080/#/projects')
   })
 
-  // it('should not log in invalid user', function(){
-  //   cy.route({
-  //     method: 'POST',
-  //     url: '/authenticate',
-  //     status: 401,
-  //     response: {
-  //       "error": {
-  //         "user_authentication": [
-  //           "invalid credentials"
-  //         ]
-  //       }
-  //     }
-  //   }).as('invalidLogin')
-  //
-  //   cy.get('form').within(function () {
-  //     cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
-  //       .type('invalid@gmail').should('have.value', 'invalid@gmail')
-  //
-  //     cy.get('.text-danger').contains('The email field must be a valid email.')
-  //
-  //     cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
-  //       .type('.com').should('have.value', 'invalid@gmail.com')
-  //
-  //     cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
-  //       .type('12345').should('have.value', '12345')
-  //
-  //     cy.get('.text-danger').contains('The password field must be at least 6 characters.')
-  //
-  //     cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
-  //       .type('6').should('have.value', '123456')
-  //   })
-  //
-  //   cy.get('.falko-button').eq(0).click()
-  //
-  //   cy.get('.text-danger').contains('Wrong Credentials')
-  //
-  //   cy.url().should('eq', 'http://localhost:8080/#/')
-  // })
+  it('should not log in invalid user', function(){
+    cy.route({
+      method: 'POST',
+      url: '/authenticate',
+      status: 401,
+      response: {
+        "error": {
+          "user_authentication": [
+            "invalid credentials"
+          ]
+        }
+      }
+    }).as('invalidLogin')
+
+    cy.get('form').within(function () {
+      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
+        .type('invalid@gmail').should('have.value', 'invalid@gmail')
+
+      cy.get('.text-danger').contains('The email field must be a valid email.')
+
+      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
+        .type('.com').should('have.value', 'invalid@gmail.com')
+
+      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
+        .type('12345').should('have.value', '12345')
+
+      cy.get('.text-danger').contains('The password field must be at least 6 characters.')
+
+      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
+        .type('6').should('have.value', '123456')
+    })
+
+    cy.get('.falko-button').eq(0).click()
+
+    cy.get('.text-danger').contains('Wrong Credentials')
+
+    cy.url().should('eq', 'http://localhost:8080/#/')
+  })
 
   it('should register user', function(){
     // Stubing server response
@@ -142,7 +142,7 @@ describe('Authorization tests', function (){
         .type('carlaGit').should('have.value', 'carlaGit')
     })
 
-    cy.get('.falko-button').eq(1).click()
+    cy.get('.falko-button').not('[enabled]').should('not.contain', 'enabled')
 
     cy.url().should('eq', 'http://localhost:8080/#/')
   })
