@@ -176,4 +176,28 @@ input:focus {
   left: 50%;
 }
 
+.scroll-style-releases-cards {
+  max-height: calc(100vh - 8em);
+  overflow-y: auto;
+  direction: rtl;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #E0E5EB;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #95B0B9;
+}
+
+.scroll-style-sprints-cards {
+  max-height: calc(100vh - 17em);
+  overflow-y: auto;
+}
+
 </style>

@@ -51,7 +51,7 @@ export default {
 }
 
 .release-card {
-  background-color: #D0D4DA;
+  background-color: #eee;
   border-bottom: 2px solid #637074;
 }
 
@@ -73,5 +73,4 @@ export default {
   border: 0.2em solid #CCC;
   color: #CCC;
 }
-
 </style>

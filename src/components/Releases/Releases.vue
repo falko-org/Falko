@@ -199,7 +199,7 @@ h5 {
 }
 
 #releases {
-  background-color: #d0d4da;
+  direction: ltr;
 }
 
 #releaseCard {
@@ -225,7 +225,6 @@ h5 {
 }
 
 #releaseCard:hover {
-  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
   border-color: #7799A5;
 }
 
@@ -250,12 +249,16 @@ h5 {
 }
 
 .scroll-style-releases-cards {
-  max-height: calc(100vh - 8em);
-  overflow-y: auto;
+  border-right:1px solid #c3c3c3;
 }
 
-.scroll-style-sprints-cards {
-  max-height: calc(100vh - 17em);
-  overflow-y: auto;
+.scroll-style-releases-cards::-webkit-scrollbar-thumb {
+  background-color: #ababab;
+}
+
+.scroll-style-releases-cards::-webkit-scrollbar-track {
+  background-color: #dfdfdf;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;  
 }
 </style>
