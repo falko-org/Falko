@@ -5,41 +5,41 @@
 
       <form id="registerForm" @submit.prevent="register()"  data-vv-scope="form-register">
         <div class="form-group">
-          <input  type="text" 
-                  class="form-control" 
-                  aria-describedby="userHelp" 
-                  placeholder="Username" 
+          <input  type="text"
+                  class="form-control"
+                  aria-describedby="userHelp"
+                  placeholder="Username"
                   name="username"
                   v-validate="'required'"
                   v-model="username">
           <p class="text-danger" v-if="errors.has('form-register.username')">{{ errors.first('form-register.username') }}</p>
         </div>
         <div class="form-group">
-          <input  type="email" 
-                  class="form-control" 
-                  aria-describedby="emailHelp" 
+          <input  type="email"
+                  class="form-control"
+                  aria-describedby="emailHelp"
                   name="email"
-                  placeholder="Enter email" 
+                  placeholder="Enter email"
                   v-model="email"
                   v-validate="'required|email'">
           <p class="text-danger" v-if="errors.has('form-register.email')">{{ errors.first('form-register.email') }}</p>
         </div>
         <div class="form-group">
-          <input  type="password" 
-                  class="form-control" 
-                  placeholder="Password" 
+          <input  type="password"
+                  class="form-control"
+                  placeholder="Password"
                   v-model="password"
                   name="password"
                   v-validate="'required|min:6'">
           <p class="text-danger" v-if="errors.has('form-register.password')">{{ errors.first('form-register.password') }}</p>
         </div>
         <div class="form-group">
-          <input  type="password" 
-                  class="form-control" 
-                  placeholder="Confirm Password" 
+          <input  type="password"
+                  class="form-control"
+                  placeholder="Confirm Password"
                   v-model="password_confirmation"
-                  name="password_confirmation"
-                  v-validate="'required|min:6'">
+                  name="password"
+                  v-validate="'confirmed:password'">
           <p class="text-danger" v-if="errors.has('form-register.password_confirmation')">{{ errors.first('form-register.password_confirmation') }}</p>
         </div>
         <div class="form-group">
