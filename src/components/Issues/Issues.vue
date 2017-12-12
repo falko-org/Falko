@@ -1,9 +1,9 @@
 <template>
   <div v-if="isFromProjectGitHub()">
+    <h1>Backlog</h1>
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
-    <h1>Backlog</h1>
     <div class="row">
       <div class="col">
         <add-issue></add-issue>
