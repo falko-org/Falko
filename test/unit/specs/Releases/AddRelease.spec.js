@@ -5,7 +5,7 @@ import VeeValidate from 'vee-validate';
 import AddRelease from '../../../../src/components/Releases/AddRelease.vue';
 import sinon from 'sinon';
 
-describe.only('On Add Release', () => {
+describe('On Add Release', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   // localVue.use(VeeValidate);
