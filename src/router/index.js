@@ -10,14 +10,12 @@ import Register from '../components/Authentication/Register.vue';
 import LoginRegister from '../components/Authentication/LoginRegister.vue';
 import HomePage from '../components/HomePage.vue';
 import NoContent from '../components/NoContent.vue';
-import Sprints from '../components/Sprints/Sprints.vue';
 import Sprint from '../components/Sprints/Sprint.vue';
 import EditSprint from '../components/Sprints/EditSprint.vue';
 import DeleteSprint from '../components/Sprints/DeleteSprint.vue';
 import GitHubCallBack from '../components/GitHub/GitHubCallBack.vue';
 import GitHubProjects from '../components/GitHub/GitHubProjects.vue';
 import Releases from '../components/Releases/Releases.vue';
-import Release from '../components/Releases/Release.vue';
 import UserProfile from '../components/Users/UserProfile.vue';
 import EditUserProfile from '../components/Users/EditUserProfile.vue';
 import DeleteUserProfile from '../components/Users/DeleteUserProfile.vue';
@@ -99,11 +97,6 @@ const router = new Router({
       component: HomePage,
     },
     {
-      path: '/releases/:id/sprints',
-      name: 'Sprints',
-      component: Sprints,
-    },
-    {
       path: '/sprints/:id',
       name: 'Sprint',
       component: Sprint,
@@ -127,11 +120,6 @@ const router = new Router({
       path: '/projects/:id/releases',
       name: 'Releases',
       component: Releases,
-    },
-    {
-      path: '/releases/:id',
-      name: 'Release',
-      component: Release,
     },
     {
       path: '/nocontent',
