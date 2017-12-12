@@ -141,4 +141,7 @@ export default {
 </script>
 
 <style scoped>
+#editIssue {
+  margin-right: 4px;
+}
 </style>

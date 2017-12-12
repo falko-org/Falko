@@ -1,7 +1,7 @@
 import { shallow, createLocalVue } from 'vue-test-utils';
 import Vuex from 'vuex';
-import GitHubCallBack from '../../../../src/components/GitHub/GitHubCallBack.vue';
 import sinon from 'sinon';
+import GitHubCallBack from '../../../../src/components/GitHub/GitHubCallBack.vue';
 
 describe('On github callback', () => {
   const localVue = createLocalVue();

@@ -41,45 +41,53 @@
 </template>
 
 <script>
-import ListRevision from '@/components/Revision/ListRevision'
-import DeleteRevision from '@/components/Revision/DeleteRevision'
-import EditRevision from '@/components/Revision/EditRevision'
-import {HTTP} from '../../http-common.js';
+import { mapState } from 'vuex';
+import ListRevision from './ListRevision.vue';
+import DeleteRevision from './DeleteRevision.vue';
+import EditRevision from './EditRevision.vue';
+import { HTTP } from '../../http-common';
 
 export default {
   name: 'Revision',
+
   components: {
     'delete-revision': DeleteRevision,
     'edit-revision': EditRevision,
-    'list-revision': ListRevision
+    'list-revision': ListRevision,
   },
+
   data() {
     return {
       undoneReport: [],
       doneReport: [],
-    }
+    };
   },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
+  },
+
   methods: {
     getRevision() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const headers = { Authorization: this.token };
 
-      HTTP.get(`revisions/${this.$route.params.id}`, { headers: headers })
+      HTTP.get(`revisions/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.doneReport = response.data.done_report,
-          this.undoneReport = response.data.undone_report
+          this.undoneReport = response.data.undone_report;
         })
-      .catch((e) => {
-        this.errors.push(e)
-      });
-    }
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
   },
+
   mounted() {
     this.getRevision();
-  }
-}
+  },
+};
 
 </script>
 

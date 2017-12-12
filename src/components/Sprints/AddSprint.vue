@@ -1,6 +1,6 @@
 <template>
-  <div class="addsprintBody">
-    <div class="text-center">
+  <div>
+    <div>
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
         Add a Sprint
       </button>
@@ -59,6 +59,7 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseId: state => state.clientStatus.releaseId,
       releaseInitialDate: state => state.clientStatus.releaseInitialDate,
       releaseFinalDate: state => state.clientStatus.releaseFinalDate,
     }),
@@ -68,13 +69,13 @@ export default {
     addSprint() {
       const headers = { Authorization: this.token };
 
-      HTTP.post(`releases/${this.$route.params.id}/sprints`, {
+      HTTP.post(`releases/${this.releaseId}/sprints`, {
         sprint: {
           name: this.name,
           description: this.description,
           initial_date: this.sprintInitialDate,
           final_date: this.sprintFinalDate,
-          release_id: this.$route.params.id,
+          release_id: this.releaseId,
         },
       }, { headers })
         .then(() => {

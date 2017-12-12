@@ -2,37 +2,42 @@ import { HTTP } from '../../http-common';
 
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
-const LINK_GITHUB = 'LINK_GITHUB';
-const UNLINK_GITHUB = 'UNLINK_GITHUB';
+const LINKED_GITHUB = 'LINKED_GITHUB';
+const UNLINKED_GITHUB = 'UNLINKED_GITHUB';
 const auth = {
   state() {
     return {
       authenticated: false,
-      token: null,
+      isGitHubAuthenticated: false,
       userId: null,
-      githubAuthenticated: false,
+      token: null,
     };
   },
   mutations: {
     [LOGIN](state, res) {
-      const localState = state;
-      localState.token = res.token;
-      localState.userId = res.id;
-      localState.authenticated = true;
+      const localStorage = state;
+      localStorage.token = res.token;
+      localStorage.userId = res.id;
+      localStorage.authenticated = true;
+      localStorage.isGitHubAuthenticated = res.isGitHubAuthenticated;
     },
+
     [LOGOUT](state) {
-      const localState = state;
-      localState.token = null;
-      localState.userId = null;
-      localState.authenticated = false;
+      const localStorage = state;
+      localStorage.token = null;
+      localStorage.userId = null;
+      localStorage.authenticated = false;
+      localStorage.isGitHubAuthenticated = false;
     },
-    [LINK_GITHUB](state) {
-      const localState = state;
-      localState.githubAuthenticated = true;
+
+    [LINKED_GITHUB](state) {
+      const localStorage = state;
+      localStorage.isGitHubAuthenticated = true;
     },
-    [UNLINK_GITHUB](state) {
-      const localState = state;
-      localState.githubAuthenticated = false;
+
+    [UNLINKED_GITHUB](state) {
+      const localStorage = state;
+      localStorage.isGitHubAuthenticated = false;
     },
   },
   actions: {
@@ -53,12 +58,35 @@ const auth = {
 
     linkGithub({ commit }, credentials) {
       return HTTP.post('request_github_token', {
-        code: credentials.code,
         id: credentials.userId,
+        code: credentials.code,
       }, { headers: credentials.headers })
         .then(() => {
-          commit(LINK_GITHUB);
+          commit(LINKED_GITHUB);
+        })
+        .catch((e) => {
+          this.errors.push(e);
         });
+    },
+
+    // unlinkGithub({ commit }, credentials) {
+    //   return HTTP.post('remove_github_token', {
+    //     id: credentials.userId,
+    //   }, { headers: credentials.headers })
+    //     .then(() => {
+    //       commit(UNLINKED_GITHUB);
+    //     })
+    //     .catch((e) => {
+    //       this.errors.push(e);
+    //     });
+    // },
+
+    linkedGitHub({ commit }) {
+      commit(LINKED_GITHUB);
+    },
+
+    unlinkedGitHub({ commit }) {
+      commit(UNLINKED_GITHUB);
     },
   },
 };

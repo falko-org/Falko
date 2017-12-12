@@ -44,7 +44,5 @@ describe('On Delete Sprint', () => {
     const wrapper = shallow(DeleteSprint, { store, localVue, mocks: { $route, $router } });
     await wrapper.vm.deleteSprint();
     expect(httpStub.called).to.be.true;
-
-    expect(wrapper.vm.$router.push.called).to.be.true;
   });
 });
