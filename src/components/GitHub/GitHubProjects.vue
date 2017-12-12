@@ -7,20 +7,18 @@
     </div>
     <div class="modal fade" id ="githubModal" role="dialog">
       <div class="modal-dialog">
-        <div class="modal-content">
-          
-
+        <div class="modal-content">  
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
             <button type="button" class="close" data-dismiss="modal" v-on:click="clean" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="row justify-content-center modal-body">
-            <div class="col-3 align-self-center" v-if="loading" align="center">
+          <div class="row modal-body">
+            <div class="col align-self-center" v-if="loading" align="center">
               <spinner :status="loading"></spinner>
             </div>
-            <div v-else>
+            <div class="col" v-else>
               <div v-if="userRepos.length != 0">
                 <h4
                 data-toggle="collapse"
