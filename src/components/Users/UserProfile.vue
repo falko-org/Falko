@@ -1,7 +1,7 @@
-<template>  
+<template>
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card mx-auto"> 
+      <div class="card mx-auto">
         <div class="card-body project" id="userProfile">
           <h4 class="row justify-content-center card-title"> User Profile </h4>
           <div class="image-circle row justify-content-center">
@@ -17,16 +17,8 @@
                 <label> E-mail: </label>
                 <p class="card-text text-muted">{{email}}</p>
               </div>
-              <div class="row">
-                <label> GitHub Account: </label>
-                <p class="card-text text-muted">{{github}}</p>
-              </div>
-              <div class="row">
-                <label> GitHub Authenticated: </label>
-                <p class="card-text text-muted">{{is_github_authenticated}}</p>
-              </div>
             </div>
-          </div>    
+          </div>
           <div class="card-text">
             <div class="row justify-content-center">
               <div class="col-md-7">
@@ -40,7 +32,7 @@
                     Remove link with Github
                   </button>
                 </div>
-              </div>            
+              </div>
               <div class="col">
                 <edit-user-profile></edit-user-profile>
               </div>
@@ -72,7 +64,6 @@ export default {
     return {
       name: '',
       email: '',
-      github: '',
     };
   },
   computed: {
@@ -91,7 +82,6 @@ export default {
         .then((response) => {
           this.name = response.data.name;
           this.email = response.data.email;
-          this.github = response.data.github;
           if (response.data.access_token != null) {
             localStorage.setItem('is_github_authenticated', true);
           } else {
@@ -106,7 +96,7 @@ export default {
 
     link() {
       if (!this.isGitHubLinked()) {
-        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id='+GITHUB_CLIENT_ID);
+        location.replace(`https://github.com/login/oauth/authorize?scope=repo&client_id=${GITHUB_CLIENT_ID}`);
         localStorage.setItem('is_github_authenticated', true);
       }
     },
@@ -162,6 +152,5 @@ export default {
   }
   label {
     margin-right: .3em;
-  }   
+  }
 </style>
-
