@@ -12,49 +12,28 @@
 
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" v-on:click="clean" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <div>
+          <div class="row justify-content-center modal-body">
+            <div class="col-3 align-self-center" v-if="loading" align="center">
               <spinner :status="loading"></spinner>
             </div>
-            <div v-if="userRepos.length != 0">
-              <h4
-              data-toggle="collapse"
-              class="pointer-cursor dropdown-toggle"
-              href="#userReposCollapse"
-              aria-expanded="false"
-              aria-controls="userReposCollapse">User Repositories
-              </h4>
-              <div class="collapse" id="userReposCollapse">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="userRepo in userRepos" >
-                    {{userRepo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(userRepo, $event)"
-                    :value="false"
-                    color="#AEC3B0"
-                    :labels="true" />
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div v-if="orgsRepos.length != 0">
-              <div v-for="orgs in orgsRepos">
+            <div v-else>
+              <div v-if="userRepos.length != 0">
                 <h4
                 data-toggle="collapse"
                 class="pointer-cursor dropdown-toggle"
-                v-bind:href="'#'+orgs.name"
+                href="#userReposCollapse"
                 aria-expanded="false"
-                v-bind:aria-controls="orgs.name" >
-                {{orgs.name}}
+                aria-controls="userReposCollapse">User Repositories
                 </h4>
-                <div class="collapse" v-bind:id="orgs.name">
+                <div class="collapse" id="userReposCollapse">
                   <ul class="list-group">
-                    <li class="list-group-item" v-for="repo in orgs.repos">
-                      {{repo}}
-                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                    <li class="list-group-item" v-for="userRepo in userRepos" >
+                      {{userRepo}}
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(userRepo, $event)"
                       :value="false"
                       color="#AEC3B0"
                       :labels="true" />
@@ -62,11 +41,34 @@
                   </ul>
                 </div>
               </div>
+              <div v-if="orgsRepos.length != 0">
+                <div v-for="orgs in orgsRepos">
+                  <h4
+                  data-toggle="collapse"
+                  class="pointer-cursor dropdown-toggle"
+                  v-bind:href="'#'+orgs.name"
+                  aria-expanded="false"
+                  v-bind:aria-controls="orgs.name" >
+                  {{orgs.name}}
+                  </h4>
+                  <div class="collapse" v-bind:id="orgs.name">
+                    <ul class="list-group">
+                      <li class="list-group-item" v-for="repo in orgs.repos">
+                        {{repo}}
+                        <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
+                        :value="false"
+                        color="#AEC3B0"
+                        :labels="true" />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
-            <button type="button" class="btn btn-secondary falko-button-grey" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary falko-button-grey" v-on:click="clean" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
@@ -176,6 +178,15 @@ export default {
       }
       return 'none';
     },
+
+    clean() {
+      this.userRepos = [];
+      this.orgsRepos = [];
+      this.selectedRepos = [];
+      this.user = "";
+
+      console.log("HUE");
+    }
   },
 };
 
