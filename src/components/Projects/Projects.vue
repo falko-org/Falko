@@ -72,6 +72,21 @@ export default {
     }),
   },
   methods: {
+    setGitHubAuthenticationVuex() {
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`users/${this.userId}`, { headers })
+        .then((response) => {
+          const gitHubToken = response.data.access_token;
+
+          if (gitHubToken != null) {
+            this.$store.dispatch('linkedGitHub');
+          } else {
+            this.$store.dispatch('unlinkedGitHub');
+          }
+        });
+    },
+
     getProjects() {
       const headers = { Authorization: this.token };
 
@@ -84,6 +99,10 @@ export default {
         });
     },
 
+    isGitHubAuthenticated() {
+      return this.is_github_authenticated;
+    },
+
     refreshProjects() {
       this.getProjects();
     },
@@ -92,7 +111,9 @@ export default {
       return this.projects.length === 0;
     },
   },
+
   mounted() {
+    this.setGitHubAuthenticationVuex();
     this.getProjects();
   },
 };

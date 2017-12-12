@@ -1,32 +1,30 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Projects from '@/components/Projects/Projects';
-import AddProject from '@/components/Projects/AddProject';
-import Project from '@/components/Projects/Project';
-import DeleteProject from '@/components/Projects/DeleteProject';
-import EditProject from '@/components/Projects/EditProject';
-import Login from '@/components/Authentication/Login';
-import Register from '@/components/Authentication/Register';
-import LoginRegister from '@/components/Authentication/LoginRegister';
-import HomePage from '@/components/HomePage';
-import NoContent from '@/components/NoContent';
-import Sprints from '@/components/Sprints/Sprints';
-import Sprint from '@/components/Sprints/Sprint';
-import EditSprint from '@/components/Sprints/EditSprint';
-import DeleteSprint from '@/components/Sprints/DeleteSprint';
-import GitHubCallBack from '@/components/GitHub/GitHubCallBack';
-import GitHubProjects from '@/components/GitHub/GitHubProjects';
-import Releases from '@/components/Releases/Releases';
-import Release from '@/components/Releases/Release';
-import UserProfile from '@/components/Users/UserProfile';
-import EditUserProfile from '@/components/Users/EditUserProfile';
-import DeleteUserProfile from '@/components/Users/DeleteUserProfile';
-import NotFound from '@/components/NotFound';
-import Retrospective from '@/components/Retrospective/Retrospective';
-import Issues from '@/components/Issues/Issues';
-import Velocity from '@/components/Sprints/Velocity';
-import Burndown from '@/components/Sprints/Burndown';
-import IssuesGraphic from '@/components/Issues/IssuesGraphic';
+import Projects from '../components/Projects/Projects.vue';
+import AddProject from '../components/Projects/AddProject.vue';
+import Project from '../components/Projects/Project.vue';
+import DeleteProject from '../components/Projects/DeleteProject.vue';
+import EditProject from '../components/Projects/EditProject.vue';
+import Login from '../components/Authentication/Login.vue';
+import Register from '../components/Authentication/Register.vue';
+import LoginRegister from '../components/Authentication/LoginRegister.vue';
+import HomePage from '../components/HomePage.vue';
+import NoContent from '../components/NoContent.vue';
+import Sprint from '../components/Sprints/Sprint.vue';
+import EditSprint from '../components/Sprints/EditSprint.vue';
+import DeleteSprint from '../components/Sprints/DeleteSprint.vue';
+import GitHubCallBack from '../components/GitHub/GitHubCallBack.vue';
+import GitHubProjects from '../components/GitHub/GitHubProjects.vue';
+import Releases from '../components/Releases/Releases.vue';
+import UserProfile from '../components/Users/UserProfile.vue';
+import EditUserProfile from '../components/Users/EditUserProfile.vue';
+import DeleteUserProfile from '../components/Users/DeleteUserProfile.vue';
+import NotFound from '../components/NotFound.vue';
+import Retrospective from '../components/Retrospective/Retrospective.vue';
+import Issues from '../components/Issues/Issues.vue';
+import Velocity from '../components/Sprints/Velocity.vue';
+import Burndown from '../components/Sprints/Burndown.vue';
+import IssuesGraphic from '../components/Issues/IssuesGraphic.vue';
 
 Vue.use(Router);
 
@@ -63,31 +61,26 @@ const router = new Router({
       name: 'Login',
       component: Login,
     },
-
     {
       path: '/register',
       name: 'Register',
       component: Register,
     },
-
     {
       path: '/loginregister',
       name: 'LoginRegister',
       component: LoginRegister,
     },
-
     {
       path: '/user',
       name: 'UserProfile',
       component: UserProfile,
     },
-
     {
       path: '/edituser',
       name: 'EditUserProfile',
       component: EditUserProfile,
     },
-
     {
       path: '/deleteuser',
       name: 'DeleteUserProfile',
@@ -98,16 +91,10 @@ const router = new Router({
       name: 'GitHubCallBack',
       component: GitHubCallBack,
     },
-
     {
       path: '/',
       name: 'HomePage',
       component: HomePage,
-    },
-    {
-      path: '/releases/:id/sprints',
-      name: 'Sprints',
-      component: Sprints,
     },
     {
       path: '/sprints/:id',
@@ -133,11 +120,6 @@ const router = new Router({
       path: '/projects/:id/releases',
       name: 'Releases',
       component: Releases,
-    },
-    {
-      path: '/releases/:id',
-      name: 'Release',
-      component: Release,
     },
     {
       path: '/nocontent',

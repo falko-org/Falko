@@ -20,6 +20,9 @@ describe('On Add Release', () => {
         token: '12345',
         userId: '1',
       },
+      clientStatus: {
+        projectId: '1',
+      },
     };
 
     store = new Vuex.Store({

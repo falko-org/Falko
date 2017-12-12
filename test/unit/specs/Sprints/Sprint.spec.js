@@ -18,6 +18,11 @@ describe('On Sprint Component', () => {
         token: '12345',
         userId: '1',
       },
+
+      clientStatus: {
+        isRetrospectiveCreated:'true',
+        isRevisionCreated: 'true',
+      }
     };
 
     store = new Vuex.Store({

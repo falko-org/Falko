@@ -79,13 +79,14 @@ export default{
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
-      user: ""
+      user: '',
     };
   },
   computed: {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
@@ -93,14 +94,14 @@ export default{
       const headers = { Authorization: this.token };
       if (this.isGitHubLinked()) {
         HTTP.get('repos', { headers })
-        .then((response) => {
-          this.userRepos = response.data.user[1].repos;
-          this.orgsRepos = response.data.orgs;
-          this.user = response.data.user[0].login;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+            this.user = response.data.user[0].login;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
       }
     },
 
@@ -113,8 +114,8 @@ export default{
     },
 
     importGithubProjects() {
-      this.doRequisitions(this.selectedRepos, this.selectedRepos.length)
-        .then(() => { this.$emit('added'); })
+      this.doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
+        .then(() => this.$emit('added'))
         .catch(e => console.log(e.message));
     },
 
@@ -124,10 +125,10 @@ export default{
         let count = 0;
         for (const repo of repos) {
           HTTP.post(`users/${this.userId}/projects`, {
-            name: repo.split("/")[1],
-                github_slug: repo,
-                is_project_from_github: true,
-                is_scoring: false,
+            name: repo.split('/')[1],
+            github_slug: repo,
+            is_project_from_github: true,
+            is_scoring: false,
           }, { headers })
             .then((response) => {
               count++;
@@ -139,9 +140,8 @@ export default{
         }
       });
     },
-
     isGitHubLinked() {
-      return (localStorage.getItem('is_github_authenticated') === 'true');
+      return this.isGitHubAuthenticated;
     },
 
     buttonClass() {
@@ -165,8 +165,5 @@ export default{
 <style scoped>
 .vue-js-switch {
   float: right;
-}
-.pointer-cursor {
-  cursor: pointer;
 }
 </style>

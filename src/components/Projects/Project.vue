@@ -65,21 +65,36 @@ export default {
       project: {},
     };
   },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      isProjectFromGitHub: state => state.clientStatus.isProjectFromGitHub,
     }),
   },
+
   methods: {
-    setProjectId() {
-      this.$store.dispatch('setProject',  this.$route.params.id)
+    setProjectId(projectId) {
+      this.$store.dispatch('setProject', projectId);
     },
+
+    setProjectOrigin() {
+      if (this.project.is_project_from_github) {
+        this.$store.dispatch('setProjectOrigin', true);
+      } else {
+        this.$store.dispatch('setProjectOrigin', false);
+      }
+    },
+
     getProject() {
       const headers = { Authorization: this.token };
-      this.isFromProjectGitHub();
+
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
+
+          this.setProjectId(this.project.id.toString(10));
+          this.setProjectOrigin();
         })
         .catch((e) => {
           this.errors.push(e);
@@ -89,12 +104,7 @@ export default {
       this.getProject();
     },
     isFromProjectGitHub() {
-      if (this.project.is_project_from_github) {
-        localStorage.setItem('is_project_from_github', 'true');
-        return true;
-      }
-      localStorage.setItem('is_project_from_github', 'false');
-      return false;
+      return this.isProjectFromGitHub;
     },
     divClass() {
       if (this.isFromProjectGitHub()) {
@@ -103,9 +113,9 @@ export default {
       return 'col-md-2';
     },
   },
-  mounted() {
-    this.getProject(this.$route.params.id);
-    this.setProjectId();
+
+  created() {
+    this.getProject();
   },
 };
 </script>

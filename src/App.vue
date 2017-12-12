@@ -41,12 +41,15 @@ export default {
 </script>
 
 <style>
-.limit-sidebar {
-  max-width: 4em;
+input {
+  border: none;
+  border-radius: 0;
+  border-bottom: solid #c0c0c0 thin;
+  padding-left: 0;
 }
 
-.no-overflow {
-  overflow-x: hidden !important;
+input:focus {
+  outline: 0;
 }
 
 #app {
@@ -58,15 +61,12 @@ export default {
   margin-top: 100px;
 }
 
-input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
+.limit-sidebar {
+  max-width: 4em;
 }
 
-input:focus {
-  outline: 0;
+.no-overflow {
+  overflow-x: hidden !important;
 }
 
 .navbar-brand{
@@ -119,6 +119,14 @@ input:focus {
   margin: 0;
 }
 
+.no-border {
+  border: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
 /* Modifing Bootstrap Classes */
 .col {
   padding-left: 0;
@@ -142,6 +150,54 @@ input:focus {
 
 .disabled-cursor {
   cursor: inherit;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.number-circle, .number-circle-selected {
+  font: 32px Arial, sans-serif;
+
+  width: 2.5em;
+  height: 2.5em;
+  box-sizing: initial;
+
+  background: transparent;
+  border: 0.2em solid #7799A5;
+  border-style: solid;
+  color: #7799A5;
+  text-align: center;
+  border-radius: 50%;
+
+  line-height: 2.5em;
+  box-sizing: content-box;
+  top: 50%;
+  left: 50%;
+}
+
+.scroll-style-releases-cards {
+  max-height: calc(100vh - 8em);
+  overflow-y: auto;
+  direction: rtl;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #E0E5EB;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #95B0B9;
+}
+
+.scroll-style-sprints-cards {
+  max-height: calc(100vh - 17em);
+  overflow-y: auto;
 }
 
 </style>
