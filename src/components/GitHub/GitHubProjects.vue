@@ -86,12 +86,13 @@ export default{
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
     getRepos() {
       const headers = { Authorization: this.token };
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         HTTP.get('repos', { headers })
         .then((response) => {
           this.userRepos = response.data.user[1].repos;
@@ -140,19 +141,15 @@ export default{
       });
     },
 
-    isGitHubLinked() {
-      return (localStorage.getItem('is_github_authenticated') === 'true');
-    },
-
     buttonClass() {
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
 
     buttonDataToggle() {
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         return 'modal';
       }
       return 'none';
