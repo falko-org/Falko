@@ -14,7 +14,7 @@ const clientStatus = {
       projectId: null,
       isProjectFromGitHub: false,
       releaseId: null,
-      releaseIndex: 0,
+      releaseIndex: '0',
       amountOfReleases: 0,
       isRetrospectiveCreated: false,
       isRevisionCreated: false,

@@ -1,5 +1,5 @@
 <template>
-  <div class="delproject">
+  <div>
     <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentReleaseId}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentReleaseId}`">
       Delete
     </button>

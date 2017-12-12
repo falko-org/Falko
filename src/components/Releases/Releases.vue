@@ -93,12 +93,13 @@ export default {
       releases: [],
       indexOfRelease: '',
       sprints: [],
-      isLoaded: false
+      isLoaded: false,
     };
   },
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      projectId: state => state.clientStatus.projectId,
       releaseId: state => state.clientStatus.releaseId,
       releaseIndex: state => state.clientStatus.releaseIndex,
     }),
@@ -107,12 +108,14 @@ export default {
   mixins: [dateConvert],
 
   methods: {
-    setReleaseId() {
-      this.$store.dispatch('setRelease', this.releases[this.releaseIndex].id);
-    },
-
     setReleaseIndex(releaseIndex) {
       this.$store.dispatch('setReleaseIndex', releaseIndex);
+    },
+
+    setReleaseId() {
+      const releaseId = (this.releases[this.releaseIndex].id).toString(10);
+
+      this.$store.dispatch('setRelease', releaseId);
     },
 
     setAmountOfReleases() {
@@ -121,10 +124,15 @@ export default {
       this.$store.dispatch('setReleaseAmount', releaseAmount);
     },
 
+    setReleaseDates() {
+      this.$store.dispatch('setReleaseInitialDate', this.releases[this.releaseIndex].initial_date);
+      this.$store.dispatch('setReleaseFinalDate', this.releases[this.releaseIndex].final_date);
+    },
+
     getReleases() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${this.$route.params.id}/releases`, { headers })
+      HTTP.get(`projects/${this.projectId}/releases`, { headers })
         .then((response) => {
           this.isLoaded = true;
           this.releases = response.data;
@@ -163,9 +171,10 @@ export default {
 
     EventBus.$on('added-release', () => this.getReleases());
 
-    EventBus.$on('selected-release', (ReleaseId) => {
-      this.setReleaseIndex(ReleaseId);
+    EventBus.$on('selected-release', (releaseIndex) => {
+      this.setReleaseIndex(releaseIndex);
       this.setReleaseId();
+      this.setReleaseDates();
       this.getSprints();
     });
 
@@ -175,8 +184,8 @@ export default {
 
     EventBus.$on('added-sprint', () => this.getSprints());
 
-    EventBus.$on('selected-sprint', (event) => {
-      this.$router.push({ name: 'Sprint', params: { id: event } });
+    EventBus.$on('selected-sprint', (sprintId) => {
+      this.$router.push({ name: 'Sprint', params: { id: sprintId } });
     });
   },
 };
@@ -259,6 +268,6 @@ h5 {
 .scroll-style-releases-cards::-webkit-scrollbar-track {
   background-color: #dfdfdf;
   border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc;  
+  border-left: 1px solid #ccc;
 }
 </style>

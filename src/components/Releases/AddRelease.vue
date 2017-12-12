@@ -57,13 +57,14 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      projectId: state => state.clientStatus.projectId,
     }),
   },
   methods: {
     addRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.post(`/projects/${this.$route.params.id}/releases`, {
+      HTTP.post(`/projects/${this.projectId}/releases`, {
         release: {
           name: this.name,
           description: this.description,
@@ -77,6 +78,7 @@ export default {
           this.description = '';
           this.initialDate = '';
           this.finalDate = '';
+
           EventBus.$emit('added-release');
         })
         .catch((e) => {
