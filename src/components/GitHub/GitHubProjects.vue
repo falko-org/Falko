@@ -3,7 +3,7 @@
     <div class="text-center">
       <button type="button" id="addButton"
               v-bind:class="buttonClass()" 
-              v-bind:disabled="this.isGitHubAuthenticated" 
+              v-bind:disabled="!this.isGitHubAuthenticated" 
               v-on:click="getRepos()" 
               v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal"
       >
@@ -144,9 +144,6 @@ export default{
             .catch(e => reject(e));
         }
       });
-    },
-    isGitHubLinked() {
-      return this.isGitHubAuthenticated;
     },
 
     buttonClass() {

@@ -41,7 +41,7 @@
         <github-projects v-on:added="refreshProjects()"></github-projects>
       </div>
     </div>
-    <div v-if="" class="row justify-content-center" id="importTutorial">
+    <div v-if="!this.isGitHubAuthenticated" class="row justify-content-center" id="importTutorial">
       <p class="text-muted">
         To import a repository, you must have previously linked your github account
       </p>
@@ -74,6 +74,7 @@ export default {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
@@ -102,10 +103,6 @@ export default {
         .catch((e) => {
           this.errors.push(e);
         });
-    },
-
-    isGitHubAuthenticated() {
-      return this.is_github_authenticated;
     },
 
     refreshProjects() {
