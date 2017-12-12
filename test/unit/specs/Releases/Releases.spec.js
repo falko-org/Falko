@@ -24,8 +24,8 @@ describe('On releases component', () => {
 
       clientStatus: {
         releaseId: '1',
-        releaseIndex: '0',        
-      }
+        releaseIndex: '0',
+      },
     };
 
     store = new Vuex.Store({
@@ -42,22 +42,22 @@ describe('On releases component', () => {
     const stub = sandbox.stub(HTTP, 'get').resolves({
       data: [
         {
-          name: "R2",
-          description: "Agile Release",
+          name: 'R2',
+          description: 'Agile Release',
           amount_of_sprints: 9,
-          initial_date: "2016-01-01",
-          final_date: "2016-12-01"
+          initial_date: '2016-01-01',
+          final_date: '2016-12-01',
         },
         {
-          name: "R1",
-          description: "RUP Release",
+          name: 'R1',
+          description: 'RUP Release',
           amount_of_sprints: 0,
-          initial_date: "2016-01-01",
-          final_date: "2016-10-01"
-        }
-      ]
+          initial_date: '2016-01-01',
+          final_date: '2016-10-01',
+        },
+      ],
     });
-    
+
     const $route = {
       params: { id: '2' },
     };
@@ -67,24 +67,22 @@ describe('On releases component', () => {
     expect(stub.called).to.be.true;
 
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.releases).to.be.deep.equal(
-        [
-          {
-            name: "R2",
-            description: "Agile Release",
-            amount_of_sprints: 9,
-            initial_date: "2016-01-01",
-            final_date: "2016-12-01"
-          },
-          {
-            name: "R1",
-            description: "RUP Release",
-            amount_of_sprints: 0,
-            initial_date: "2016-01-01",
-            final_date: "2016-10-01"
-          }
-        ]
-      );
+      expect(wrapper.vm.releases).to.be.deep.equal([
+        {
+          name: 'R2',
+          description: 'Agile Release',
+          amount_of_sprints: 9,
+          initial_date: '2016-01-01',
+          final_date: '2016-12-01',
+        },
+        {
+          name: 'R1',
+          description: 'RUP Release',
+          amount_of_sprints: 0,
+          initial_date: '2016-01-01',
+          final_date: '2016-10-01',
+        },
+      ]);
       done();
     });
   });
