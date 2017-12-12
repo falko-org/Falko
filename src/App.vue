@@ -111,6 +111,14 @@ input:focus {
   background-color: #565e66;
 }
 
+.falko-button-grey:disabled {
+  background-color: #565e66;
+}
+
+.falko-button-grey:disabled:hover {
+  background-color: #565e66;
+}
+
 .small-float-left {
   margin-right: 1em;
 }
@@ -137,7 +145,7 @@ input:focus {
 }
 
 .no-white-bar {
-  margin-bottom: -2%;
+  margin-bottom: -100%;
 }
 
 .disabled-cursor {

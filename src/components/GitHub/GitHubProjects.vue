@@ -1,7 +1,12 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos()" id="addButton" v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal">
+      <button type="button" id="addButton"
+              v-bind:class="buttonClass()" 
+              v-bind:disabled="this.isGitHubAuthenticated" 
+              v-on:click="getRepos()" 
+              v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal"
+      >
         Import GitHub repository
       </button>
     </div>
