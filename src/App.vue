@@ -63,10 +63,16 @@ input {
   border-radius: 0;
   border-bottom: solid #c0c0c0 thin;
   padding-left: 0;
+  color: #333;
 }
 
 input:focus {
   outline: 0;
+}
+
+label {
+  font-weight: bold;
+  color: #598392;
 }
 
 .navbar-brand{
@@ -140,7 +146,7 @@ input:focus {
 
 .modal-title {
   font-weight: bold;
-  color: #6E9191;
+  color: #527786;
   margin: 0;
 }
 
