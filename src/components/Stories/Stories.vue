@@ -40,14 +40,24 @@
           <div v-for="story in stories">
             <div align="center" id="cardDiv">
               <div class="card" id="kanbanCard">
-                <div class="date"><a href="#0">
-                  <div class="day">{{story.issue_number}}</div>
-                  <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
-                </a> </div>
                 <div class="card-body">
+                  <div class="row justify-content-around">
+                    <div class="col-md-3" align="center">
+                      <!-- COLOCAR LINK PARA ISSUE GITHUB -->
+                      #{{story.issue_number}}
+                    </div>
+                    <div class="col-md-9 float-left text-truncate bold" align="end">{{story.name}}</div>
+                  </div>
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left text-truncate" style="max-width: 150px;">{{story.name}}</h6>
+                      <p align="center" class="story-description text-muted">{{story.description}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <span class="badge badge-primary"><score-points :story-id="story.id"></score-points></span>
+                    </div>
+                    <div class="col-md-8" id="assignees">
                     </div>
                   </div>
                 </div>
@@ -125,7 +135,7 @@
   </template>
 
 <script>
-
+import ScorePoints from '@/components/Stories/ScorePoints';
 import draggable from 'vuedraggable';
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
@@ -133,6 +143,7 @@ import { mapState } from 'vuex';
 export default {
   components: {
     draggable,
+    'score-points': ScorePoints,
   },
   data() {
     return {
@@ -311,9 +322,16 @@ export default {
 </script>
 
 <style scoped>
+.bold {
+  font-weight: bold;
+}
 
 .fa {
   margin-top: 12px;
+}
+
+.story-description {
+  margin: 0.2em 0 0 0;
 }
 
 .dragArea {
@@ -386,7 +404,9 @@ export default {
   line-height: 4px;
   color: #2f5cb6;
 }
-
+.card-body {
+  padding: 1em;
+}
 #kanbanCol {
   box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
   text-align: center;
@@ -400,20 +420,6 @@ export default {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-}
-
-body {
-    text-align: center;
-    background: #00C8FF;
-}
-
-p {
-    font-size: 1.6em;
-    font-family: 'Lato', sans-serif;
-    background-color: #fff;
-    padding: 1em;
-    color: #002240;
-    margin-top: 0;
 }
 
 #closed {

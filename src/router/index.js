@@ -27,6 +27,8 @@ import Issues from '@/components/Issues/Issues';
 import Velocity from '@/components/Sprints/Velocity';
 import Burndown from '@/components/Sprints/Burndown';
 import IssuesGraphic from '@/components/Issues/IssuesGraphic';
+import AssignMember from '@/components/Stories/AssignMember';
+import ScorePoints from '@/components/Stories/ScorePoints';
 
 Vue.use(Router);
 
@@ -173,6 +175,16 @@ const router = new Router({
       path: '/projects/:id/issueschart',
       name: 'IssuesGraphic',
       component: IssuesGraphic,
+    },
+    {
+      path: '/stories/assign',
+      name: 'AssignMember',
+      component: AssignMember,
+    },
+    {
+      path: '/stories/score',
+      name: 'ScorePoints',
+      component: ScorePoints,
     },
   ],
 });
