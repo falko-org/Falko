@@ -45,12 +45,11 @@ describe('Users tests', () => {
     cy.wait('@getUser');
   });
 
-  it('should access user profile', () => {
-    cy.get('h4').contains('User Profile');
-    cy.get('.text-muted').eq(0).contains('Carla');
-    cy.get('.text-muted').eq(1).contains('carla@gmail.com');
-    cy.get('.text-muted').eq(2).contains('carlaGit');
-  });
+  it.only('should access user profile', function(){
+    cy.get('h4').contains('User Profile')
+    cy.get('.text-muted').eq(0).contains('Carla')
+    cy.get('.text-muted').eq(1).contains('carla@gmail.com')
+  })
 
   it('should edit user', () => {
     cy.route({
