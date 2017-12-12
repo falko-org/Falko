@@ -5,7 +5,7 @@ import VeeValidate from 'vee-validate';
 import AddRelease from '../../../../src/components/Releases/AddRelease.vue';
 import sinon from 'sinon';
 
-describe('On Add Release', () => {
+describe.only('On Add Release', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   // localVue.use(VeeValidate);
@@ -19,6 +19,9 @@ describe('On Add Release', () => {
       auth: {
         token: '12345',
         userId: '1',
+      },
+      clientStatus: {
+        projectId: '1',
       },
     };
 
