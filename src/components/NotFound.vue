@@ -1,7 +1,7 @@
 <template>
-  <div class= "row justify-content-around no-margin" id="notfound">
+  <div class= "row justify-content-around no-margin" id="notFound">
     <div class="col-md-8 align-self-center" align="center">
-      <img src="../assets/bw-logo.png" class="img-fluid align-self-center"/>
+      <img src="../assets/bw-logo.png" class="img-fluid align-self-center" id="notFoundLogo"/>
       <h1 class="no-margin align-self-center">404</h1>
       <h2 class="no-margin align-self-center">Oops!</h2>
       <h3 class="text-muted no-margin align-self-center"> Requested page not found!</h3>
@@ -29,7 +29,7 @@ h3 {
     font-size: 1.2em;
 }
 
-#notfound{
+#notFound{
   height: 32.4em;
 }
 

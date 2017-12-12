@@ -166,4 +166,12 @@ describe('Authorization tests', function (){
 
     cy.url().should('eq', 'http://localhost:8080/#/')
   })
+
+  it.only('should not access any page with user logged out', function(){
+    cy.visit('localhost:8080/#/projects')
+
+    cy.get('#notFound').within(function(){
+      cy.get('#notFoundLogo')
+    })
+  })
 })
