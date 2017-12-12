@@ -16,7 +16,7 @@ import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
-			points: "HAHAHAHAH",
+			points: "?",
 			edit: false,
 		}
 	},

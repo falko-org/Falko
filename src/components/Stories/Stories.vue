@@ -3,14 +3,14 @@
   <div>
     <table>
       <div class="row" id="rowKanban">
-        <div class="col" style="padding: 0;" id="kanbanCol">
+        <div class="col kanban-col" style="padding: 0;">
           <div class="row" id="title">
             <h4>Sprint Backlog&nbsp; &nbsp; </h4>
             <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
           </div>
           <draggable v-model="issues" v-bind:options="{group:'issues'}"  @change="onUpdateBacklog($event)" class="dragArea"> 
             <div v-for="issue in issues">
-              <div align="center" id="cardDiv">
+              <div align="center">
                 <div class="card" id="kanbanCard">
                   <div class="date">
                     <a href="#sprints/6">
@@ -31,20 +31,23 @@
             </div>
           </draggable>
         </div>
-      <div class="col" id="kanbanCol">
+      <div class="col kanban-col">
         <div class="row" id="title">
           <h4>To Do&nbsp; &nbsp; </h4>
           <h4 style="color:#86B1B1; font-size:24px;">{{stories.length}}</h4>
         </div>
         <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
           <div v-for="story in stories">
-            <div align="center" id="cardDiv">
+            <div align="center">
               <div class="card" id="kanbanCard">
                 <div class="card-body">
                   <div class="row justify-content-around">
                     <div class="col-md-3" align="center">
-                      <!-- COLOCAR LINK PARA ISSUE GITHUB -->
-                      #{{story.issue_number}}
+                      <!-- TODO Pegar github slug e por no vuex -->
+                      <!-- <a v-bind:href="`https://github.com/${this.githubSlug}/issues/${story.issue_number}`"> -->
+                      <a v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
+                        #{{story.issue_number}}
+                      </a>
                     </div>
                     <div class="col-md-9 float-left text-truncate bold" align="end">{{story.name}}</div>
                   </div>
@@ -54,8 +57,10 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-4">
-                      <span class="badge badge-primary"><score-points :story-id="story.id"></score-points></span>
+                    <div class="col-md-4" align="start">
+                      <span class="badge badge-primary">
+                        <score-points :story-id="story.id"></score-points>
+                      </span>
                     </div>
                     <div class="col-md-8" id="assignees">
                     </div>
@@ -67,14 +72,14 @@
           </div>
         </draggable>
         </div>
-      <div class="col" id="kanbanCol">
+      <div class="col kanban-col">
         <div class="row" id="title">
           <h4>Doing&nbsp; &nbsp; </h4>
           <h4 style="color:#86B1B1; font-size:24px;">{{doingStories.length}}</h4>
         </div>
         <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
           <div v-for="story in doingStories">
-            <div align="center" id="cardDiv">
+            <div align="center">
               <div class="card" id="kanbanCard">
                 <div class="date"><a href="#0">
                   <div class="day" v-model="issues">{{story.issue_number}}</div>
@@ -93,7 +98,7 @@
           </div>
         </draggable>
       </div>
-      <div class="col" id="kanbanCol">
+      <div class="col kanban-col">
         <div class="row" id="title">
           <h4>Done&nbsp; &nbsp; </h4>
           <h4 style="color:#86B1B1; font-size:24px;">{{doneStories.length}}</h4>
@@ -106,7 +111,7 @@
             <strong>Issue Closed!</strong>
           </div> -->
           <div v-for="story in doneStories">
-            <div align="center" id="cardDiv">
+            <div align="center">
               <div class="card" id="doneCard" data-hover="CLOSE">
                 <div class="date"><a href="#0">
                   <div class="day">{{story.issue_number}}</div>
@@ -322,6 +327,11 @@ export default {
 </script>
 
 <style scoped>
+a {
+  font-weight: bold;
+  font-style: italic;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -353,7 +363,7 @@ export default {
 #kanbanCard {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
-  width: 280px;
+  max-width: 280px;
 }
 
 #kanbanCard:hover {
@@ -373,10 +383,6 @@ export default {
   margin-left:auto;
   margin-right:auto;
   margin-bottom: 12px;
-}
-
-#cardDiv {
-  height: 70px;
 }
 
 .date {
@@ -407,7 +413,8 @@ export default {
 .card-body {
   padding: 1em;
 }
-#kanbanCol {
+
+.kanban-col {
   box-shadow: 5px 0 0 0 rgba(0,0,0,0.1);
   text-align: center;
   justify-content: center;
