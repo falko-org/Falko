@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('logout', { email: this.email, password: this.password })
+      this.$store.dispatch('logout')
         .then(() => this.$router.push({ path: '/' }));
     },
     goToHome() {
