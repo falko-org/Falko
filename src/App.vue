@@ -182,6 +182,16 @@ input:focus {
   direction: rtl;
 }
 
+.scroll-style-sprints-cards {
+  max-height: calc(100vh - 17em);
+  overflow-y: auto;
+}
+
+.scroll-style-github-projects {
+  max-height: calc(100vh - 26em);
+  overflow-y: auto;
+}
+
 ::-webkit-scrollbar {
     width: 0.5em;
 }
@@ -195,9 +205,5 @@ input:focus {
   background-color: #95B0B9;
 }
 
-.scroll-style-sprints-cards {
-  max-height: calc(100vh - 17em);
-  overflow-y: auto;
-}
 
 </style>
