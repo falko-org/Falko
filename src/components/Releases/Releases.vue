@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
       <div class="col-3 align-self-start no-padding" id="releases">
           <add-release></add-release>
-        <div class="scroll-style-releases-cards">
+        <div v-bind:class="this.hasNoReleasesId()">
           <div v-for="release in releases">
             <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
           </div>
@@ -163,6 +163,14 @@ export default {
     isReleasesEmpty() {
       return this.releases.length === 0;
     },
+
+    hasNoReleasesId() {
+      if(this.isReleasesEmpty()) {
+        return 'scroll-style-releases-cards'
+      }
+
+      return 'scroll-style-releases-cards releasesBorder'
+    }
   },
 
   created() {
@@ -257,7 +265,7 @@ h5 {
   left: 50%;
 }
 
-.scroll-style-releases-cards {
+.releasesBorder {
   border-right:1px solid #c3c3c3;
 }
 
