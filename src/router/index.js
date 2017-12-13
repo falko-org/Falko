@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import AssignMember from '@/components/Stories/AssignMember';
+import ScorePoints from '@/components/Stories/ScorePoints';
 import Projects from '../components/Projects/Projects.vue';
 import Project from '../components/Projects/Project.vue';
 import HomePage from '../components/HomePage.vue';
@@ -15,8 +17,6 @@ import Velocity from '../components/Sprints/Velocity.vue';
 import Burndown from '../components/Sprints/Burndown.vue';
 import IssuesGraphic from '../components/Issues/IssuesGraphic.vue';
 import Revision from '../components/Revision/Revision.vue';
-import AssignMember from '@/components/Stories/AssignMember';
-import ScorePoints from '@/components/Stories/ScorePoints';
 
 Vue.use(Router);
 
