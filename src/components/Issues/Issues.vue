@@ -1,6 +1,6 @@
 <template>
   <div v-if="isFromProjectGitHub()">
-    <div v-if="isIssuesEmpty()">
+    <div v-if="isIssuesEmpty() && loading == false">
       <no-content parent ="Issue"></no-content>
     </div>
     <h1>Backlog</h1>
@@ -8,6 +8,9 @@
       <div class="col">
         <add-issue></add-issue>
       </div>
+    </div>
+    <div class="align-self-center margin" v-if="loading" align="center">
+      <spinner :status="loading"></spinner>
     </div>
     <div v-for="i in Math.ceil(issues.length / 2)">
       <div class="row">
@@ -47,12 +50,14 @@ import EditIssue from './EditIssue.vue';
 import NoContent from '../NoContent.vue';
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
+import Spinner from 'vue-spinner-component/src/Spinner.vue';
 
 export default {
   components: {
     'add-issue': AddIssue,
     'edit-issue': EditIssue,
     'no-content': NoContent,
+    Spinner,
   },
 
   data() {
@@ -61,6 +66,7 @@ export default {
       contributors: [],
       selectedIssue: '',
       is_project_from_github: '',
+      loading: false,
     }
   },
 
@@ -85,14 +91,17 @@ export default {
 
     getIssues() {
       this.getProjectOrigin();
+      this.loading = true;
 
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.projectId}/issues`, { headers })
         .then((response) => {
           this.issues = response.data.issues_infos;
+          this.loading = false;
         })
         .catch((e) => {
+          this.loading = false;
           this.errors.push(e);
         });
     },
@@ -208,5 +217,9 @@ h1 {
   margin-top: 20px;
   margin-left: 20px;
   color: #598392;
+}
+
+.margin {
+  margin-top: 40px;
 }
 </style>
