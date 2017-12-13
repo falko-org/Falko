@@ -1,9 +1,9 @@
 <template>
 	<div>
-			<div v-show = "edit == false" @dblclick = "edit = true">
+			<div v-if = "edit == false" @dblclick = "edit = true">
       	{{points}}
     	</div>
-    	<input min="0" type="number" v-show = "edit == true" 
+    	<input min="0" type="number" v-else
     				v-model = "points"
       			@keyup.enter = "edit=false; scoreStory(points)">
 	</div>
@@ -16,7 +16,7 @@ import { mapState } from 'vuex';
 export default {
 	data() {
 		return {
-			points: "?",
+			points: "0",
 			edit: false,
 		}
 	},

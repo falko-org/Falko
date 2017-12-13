@@ -1,4 +1,4 @@
-  <template>
+<template>
 
   <div>
     <table>
@@ -11,23 +11,31 @@
           <draggable v-model="issues" v-bind:options="{group:'issues'}"  @change="onUpdateBacklog($event)" class="dragArea"> 
             <div v-for="issue in issues">
               <div align="center">
-                <div class="card" id="kanbanCard">
-                  <div class="date">
-                    <a href="#sprints/6">
-                      <div class="day">{{issue.number}}</div>
-                      <i class="fa fa-github" aria-hidden="true"></i>
-                    </a>
+              <div class="card kanbanCard">
+                <div class="card-body">
+                  <div class="row justify-content-around">
+                    <div class="col-md-4" align="center">
+                      <a target="_blank" v-bind:href="`https://github.com/${githubSlug}/issues/${issue.number}`">
+                        #{{issue.number}}
+                      </a>
+                    </div>
+                    <div class="col-md-8 float-left text-truncate bold" align="end">{{issue.name}}</div>
                   </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col text-truncate" style="max-width: 150px;">
-                        <h6 class="float-left">{{issue.name}}</h6>
-                      </div>
+                  <div class="row">
+                    <div class="col">
+                      <p align="center" class="story-description text-muted">{{issue.body}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4" align="start">
+                    </div>
+                    <div class="col-md-8" id="assignees">
                     </div>
                   </div>
                 </div>
-                <br>
               </div>
+              <br>
+            </div>
             </div>
           </draggable>
         </div>
@@ -42,12 +50,12 @@
               <div class="card kanbanCard">
                 <div class="card-body">
                   <div class="row justify-content-around">
-                    <div class="col-md-3" align="center">
+                    <div class="col-md-4" align="center">
                       <a target="_blank" v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
                         #{{story.issue_number}}
                       </a>
                     </div>
-                    <div class="col-md-9 float-left text-truncate bold" align="end">{{story.name}}</div>
+                    <div class="col-md-8 float-left text-truncate bold" align="end">{{story.name}}</div>
                   </div>
                   <div class="row">
                     <div class="col">
@@ -81,12 +89,12 @@
               <div class="card kanbanCard">
                 <div class="card-body">
                   <div class="row justify-content-around">
-                    <div class="col-md-3" align="center">
+                    <div class="col-md-4" align="center">
                       <a target="_blank" v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
                         #{{story.issue_number}}
                       </a>
                     </div>
-                    <div class="col-md-9 float-left text-truncate bold" align="end">{{story.name}}</div>
+                    <div class="col-md-8 float-left text-truncate bold" align="end">{{story.name}}</div>
                   </div>
                   <div class="row">
                     <div class="col">
@@ -123,18 +131,29 @@
           </div> -->
           <div v-for="story in doneStories">
             <div align="center">
-              <div class="card" id="doneCard" data-hover="CLOSE">
-                <div class="date"><a href="#0">
-                  <div class="day">{{story.issue_number}}</div>
-                  <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
-                </a> </div>
+              <div class="card kanbanCard">
                 <div class="card-body">
+                  <div class="row justify-content-around">
+                    <div class="col-md-4" align="center">
+                      <a target="_blank" v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
+                        #{{story.issue_number}}
+                      </a>
+                    </div>
+                    <div class="col-md-8 float-left text-truncate bold" align="end">{{story.name}}</div>
+                  </div>
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left text-truncate" style="max-width: 100px;"><span>{{story.name}}</span></h6>
+                      <p align="center" class="story-description text-muted">{{story.description}}</p>
                     </div>
-                    <div class="col">
-                      <a class="text-align" id="closed" style="text-decoration: underline;">Closed</a>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4" align="start">
+                      <span class="badge badge-primary">
+                        <score-points :story-id="story.id" :id="story.id"></score-points>
+                      </span>
+                    </div>
+                    <div class="col-md-8" id="assignees" align="end">
+                      <a class="text-align" id="closed">Closed</a>
                     </div>
                   </div>
                 </div>
@@ -148,7 +167,7 @@
   </table>
   </div>
 
-  </template>
+</template>
 
 <script>
 import ScorePoints from '@/components/Stories/ScorePoints';
@@ -241,6 +260,7 @@ export default {
                                                                  description: evt.removed.element.body,
                                                                  issue_number:evt.removed.element.number,
                                                                  issue_id:evt.removed.element.issue_id,
+                                                                 story_points: 0,
                                                                  pipeline:"To Do",
                                                                  initial_date:new Date().toString(),
                                                                 }, { headers })
@@ -442,7 +462,7 @@ a {
 }
 
 #closed {
-  color: red;
+  color: #AA0000;
 }
 
 </style>
