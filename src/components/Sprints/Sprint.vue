@@ -20,16 +20,8 @@
       </div>
       <div class="col-md-6" align="end">
         <li class="list-inline-item">
-          <router-link v-bind:to="'/sprints/'+$route.params.id+'/burndown'">
-            <button type="button" class="btn btn-info btn-md falko-button">
-              Burndown
-            </button>
-          </router-link>
-        </li>
-        <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
-          v-if="!isRetrospectiveCreated()">
-          </add-retrospective>
+          v-if="!retrospectiveCreatedStatus()"></add-retrospective>
 
           <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
             <button type="button" class="btn btn-info btn-md falko-button">
@@ -39,18 +31,11 @@
         </li>
         <li class="list-inline-item">
           <add-revision v-on:revisionCreated="setRevisionAsCreated()"
-          v-if="!isRevisionCreated()"></add-revision>
+          v-if="!revisionCreatedStatus()"></add-revision>
 
           <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
             <button type="button" class="btn btn-info btn-md falko-button">
               Revision
-            </button>
-          </router-link>
-        </li>
-        <li class="list-inline-item">
-          <router-link v-bind:to="'/sprints/'+sprint.id+'/velocity'">
-            <button type="button" class="btn btn-info btn-md falko-button">
-              Velocity
             </button>
           </router-link>
         </li>
@@ -62,8 +47,8 @@
         </li>
       </div>
     </div>
-    <div class="row">
-      <stories></stories>
+    <div class="metrics">
+      <metrics></metrics>
     </div>
     </div>
   </div>
@@ -75,12 +60,12 @@ import EditSprint from './EditSprint.vue';
 import DeleteSprint from './DeleteSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
 import AddRetrospective from '../Retrospective/AddRetrospective.vue';
-import Retrospective from '../Retrospective/Retrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
 import Revision from '../Revision/Revision.vue';
 import Stories from '../Stories/Stories'
 import { HTTP } from '../../http-common';
 import Velocity from './Velocity.vue';
+import Metrics from './Metrics.vue';
 
 export default{
   name: 'Sprint',
@@ -90,6 +75,7 @@ export default{
     'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
     'stories': Stories,
+    'metrics': Metrics,
   },
   data() {
     return {
@@ -101,6 +87,8 @@ export default{
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      isRetrospectiveCreated: state => state.clientStatus.isRetrospectiveCreated,
+      isRevisionCreated: state => state.clientStatus.isRevisionCreated,
     }),
   },
 
@@ -111,74 +99,72 @@ export default{
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}`, { headers })
-      .then((response) => {
-        this.sprint = response.data;
-        this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
-        this.sprint.final_date = this.dateConvert(this.sprint.final_date);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.sprint = response.data;
+          this.sprint.initial_date = this.dateConvert(this.sprint.initial_date);
+          this.sprint.final_date = this.dateConvert(this.sprint.final_date);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     getRetrospective() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}/retrospectives`, { headers })
-      .then((response) => {
-        this.sprintRetrospective = response.data;
-        if (this.sprintRetrospective.length === 0) {
-          this.setRetrospectiveAsNotCreated();
-        } else {
-          this.setRetrospectiveAsCreated();
-        }
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.sprintRetrospective = response.data;
+          if (this.sprintRetrospective.length === 0) {
+            this.setRetrospectiveAsNotCreated();
+          } else {
+            this.setRetrospectiveAsCreated();
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     setRetrospectiveAsCreated() {
-      localStorage.setItem('isRetrospectiveCreated', 'true');
+      this.$store.dispatch('setRetrospectiveCreatedStatus', true);
     },
 
     setRetrospectiveAsNotCreated() {
-      localStorage.setItem('isRetrospectiveCreated', 'false');
+      this.$store.dispatch('setRetrospectiveCreatedStatus', false);
     },
 
-    isRetrospectiveCreated() {
-      return localStorage.getItem('isRetrospectiveCreated') === 'true';
+    retrospectiveCreatedStatus() {
+      return this.isRetrospectiveCreated;
     },
 
     getRevision() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}/revisions`, { headers })
-      .then((response) => {
-        this.sprintRevision = response.data;
-        if (this.sprintRevision == null) {
-          this.setRevisionAsNotCreated();
-        } else {
-          this.setRevisionAsCreated();
-        }
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+        .then((response) => {
+          this.sprintRevision = response.data;
+          if (this.sprintRevision == null) {
+            this.setRevisionAsNotCreated();
+          } else {
+            this.setRevisionAsCreated();
+          }
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
     setRevisionAsCreated() {
-      localStorage.setItem('isRevisionCreated', 'true');
+      this.$store.dispatch('setRevisionCreatedStatus', true);
     },
 
     setRevisionAsNotCreated() {
-      localStorage.setItem('isRevisionCreated', 'false');
+      this.$store.dispatch('setRevisionCreatedStatus', false);
     },
 
-    isRevisionCreated() {
-      const revision = localStorage.getItem('isRevisionCreated');
-
-      return localStorage.getItem('isRevisionCreated') == 'true';
+    revisionCreatedStatus() {
+      return this.isRevisionCreated;
     },
 
     refreshSprint() {
@@ -219,5 +205,9 @@ h5 {
 }
 .vertical-center {
   vertical-align: middle;
+}
+.metrics {
+  margin-top: 40px;
+  width: 99%;
 }
 </style>

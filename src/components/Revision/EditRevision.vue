@@ -19,8 +19,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <listRevision parent="DoneReport" v-on:listUpdated="updateList"></listRevision>
-            <listRevision parent="UndoneReport" v-on:listUpdated="updateList"></listRevision>
+            <list-revision parent="DoneReport" v-on:listUpdated="updateList"></list-revision>
+            <list-revision parent="UndoneReport" v-on:listUpdated="updateList"></list-revision>
           </div>
           <div class="modal-footer">
             <button class="btn btn-info btn-md falko-button" v-on:click="editRevision()" data-dismiss="modal">Save</button>
@@ -33,56 +33,60 @@
 </template>
 
 <script>
-import ListRevision from '@/components/Revision/ListRevision';
-import { HTTP } from '../../http-common.js';
+import { mapState } from 'vuex';
+import ListRevision from './ListRevision.vue';
+import { HTTP } from '../../http-common';
 
 
 export default {
   components: {
-    'listRevision': ListRevision
+    'list-revision': ListRevision,
   },
 
   data() {
     return {
       doneReport: [],
       undoneReport: [],
-    }
+    };
+  },
+
+  computed: {
+    ...mapState({
+      token: state => state.auth.token,
+    }),
   },
 
   methods: {
     editRevision() {
-      var token = localStorage.getItem('token');
-      var tokenSimple = token.replace(/"/, "");
-      var tokenSimple2 = tokenSimple.replace(/"/, "");
-      var headers = { 'Authorization':tokenSimple2 };
+      const headers = { Authorization: this.token };
 
       HTTP.patch(`revisions/${this.$route.params.id}`, {
         done_report: this.doneReport,
         undone_report: this.undoneReport,
-      }, { headers: headers })
-      .then(() => {
-        this.$emit('revisionCreated')
-      })
-      .catch((e) => {
-        this.errors.push(e)
-      });
+      }, { headers })
+        .then(() => {
+          this.$emit('revisionCreated');
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
 
-    updateList (items, parent) {
-      if (parent == "DoneReport") {
-        this.doneReport = []
-        for(var i = 0; i < items.length; i++) {
-          this.doneReport.push(items[i].title)
+    updateList(items, parent) {
+      if (parent === 'DoneReport') {
+        this.doneReport = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.doneReport.push(items[i].title);
         }
-      } else if (parent == "UndoneReport") {
-        this.undoneReport = []
-        for(var i = 0; i < items.length; i++) {
-          this.undoneReport.push(items[i].title)
+      } else if (parent === 'UndoneReport') {
+        this.undoneReport = [];
+        for (let i = 0; i < items.length; i += 1) {
+          this.undoneReport.push(items[i].title);
         }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -8,7 +8,7 @@
             <h4>Sprint Backlog&nbsp; &nbsp; </h4>
             <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
           </div>
-          <draggable v-model="issues" v-bind:options="{group:'issues'}"  @change="onUpdateBacklog($event)" class="dragArea"> 
+          <draggable v-model="issues" v-bind:options="{group:'issues'}"  @change="onUpdateBacklog($event)" class="dragArea">
             <div v-for="issue in issues">
               <div align="center">
               <div class="card kanbanCard">
@@ -214,7 +214,7 @@ export default {
     }),
   },
   methods: {
-    getIssues() {  
+    getIssues() {
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.projectId}/issues`, { headers })
@@ -347,8 +347,8 @@ export default {
 
     refreshToDo() {
       this.getToDo();
-    },  
-    
+    },
+
     refreshDoing() {
       this.getDoing();
     },
@@ -391,8 +391,8 @@ a {
 }
 
 .dragArea {
-  height: 800px;
-  width: 300px;
+  min-height: 280px;
+  width: 270px;
   margin-left:auto;
   margin-right:auto;
 }

@@ -57,5 +57,6 @@ export default {
 <style scoped>
 #deletebutton {
   width: 120px;
+  margin-left: 4px;
 }
 </style>

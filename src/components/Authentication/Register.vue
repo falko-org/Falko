@@ -16,9 +16,6 @@
         <div class="form-group">
           <input type="password" class="form-control" placeholder="Confirm Password" v-model="password_confirmation">
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" aria-describedby="gitHelp" placeholder="GitHub" v-model="github">
-        </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary falko-button" id="">Register</button>
         </div>
@@ -37,19 +34,18 @@ export default {
       username: '',
       password: '',
       password_confirmation: '',
-      github: '',
     };
   },
 
   methods: {
     login() {
-      const _this = this;
+      const thisOne = this;
       this.$store.dispatch('login', { email: this.email, password: this.password })
         .then(() => {
           this.$router.push({ name: 'Projects' });
         })
         .catch((err) => {
-          _this.errors.add('wrong-credentials', 'Wrong Credentials');
+          thisOne.errors.add('wrong-credentials', 'Wrong Credentials');
           console.log(err.response.data); // It goes here!
         });
     },
@@ -61,7 +57,6 @@ export default {
           name: this.username,
           password: this.password,
           password_confirmation: this.password_confirmation,
-          github: this.github,
         },
       })
         .then(() => {

@@ -18,6 +18,10 @@ describe('On Project Component', () => {
         token: '12345',
         userId: '1',
       },
+      
+      clientStatus: {
+        isProjectFromGitHub: false,
+      }
     };
 
     store = new Vuex.Store({
@@ -33,7 +37,10 @@ describe('On Project Component', () => {
   it('should mount and get project information correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'get').resolves({
       data: {
-        name: 'ProjectName', description: 'ProjectDescription', isScoring: true, is_project_from_github: true,
+        name: 'ProjectName', 
+        description: 'ProjectDescription', 
+        isScoring: true, 
+        is_project_from_github: true,
       },
     });
     const $route = {
