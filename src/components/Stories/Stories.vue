@@ -29,7 +29,8 @@
                   <div class="row">
                     <div class="col-md-4" align="start">
                     </div>
-                    <div class="col-md-8" id="assignees">
+                    <div class="col-md-8" id="assignees" align="end">
+                      <assignees :issue-number="issue.number"></assignees>
                     </div>
                   </div>
                 </div>
@@ -65,10 +66,14 @@
                   <div class="row">
                     <div class="col-md-4" align="start">
                       <span class="badge badge-primary">
-                        <score-points :story-id="story.id" :id="story.id"></score-points>
+                        <score-points 
+                            @update="refreshToDo" 
+                            :story-id="story.id" 
+                            :story-points="story.story_points"></score-points>
                       </span>
                     </div>
-                    <div class="col-md-8" id="assignees">
+                    <div class="col-md-8" id="assignees" align="end">
+                      <assignees :issue-number="story.issue_number"></assignees>
                     </div>
                   </div>
                 </div>
@@ -104,10 +109,13 @@
                   <div class="row">
                     <div class="col-md-4" align="start">
                       <span class="badge badge-primary">
-                        <score-points :story-id="story.id" :id="story.id"></score-points>
+                        <score-points @update="refreshDoing" 
+                                      :story-id="story.id" 
+                                      :story-points="story.story_points"></score-points>
                       </span>
                     </div>
-                    <div class="col-md-8" id="assignees">
+                    <div class="col-md-8" id="assignees" align="end">
+                      <assignees :issue-number="story.issue_number"></assignees>
                     </div>
                   </div>
                 </div>
@@ -149,10 +157,14 @@
                   <div class="row">
                     <div class="col-md-4" align="start">
                       <span class="badge badge-primary">
-                        <score-points :story-id="story.id" :id="story.id"></score-points>
+                        <score-points 
+                            @update="refreshDone" 
+                            :story-id="story.id" 
+                            :story-points="story.story_points"></score-points>
                       </span>
                     </div>
                     <div class="col-md-8" id="assignees" align="end">
+                      <assignees :issue-number="story.issue_number"></assignees>
                       <a class="text-align" id="closed">Closed</a>
                     </div>
                   </div>
@@ -171,6 +183,7 @@
 
 <script>
 import ScorePoints from '@/components/Stories/ScorePoints';
+import AssignMember  from '@/components/Stories/AssignMember';
 import draggable from 'vuedraggable';
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
@@ -179,6 +192,7 @@ export default {
   components: {
     draggable,
     'score-points': ScorePoints,
+    'assignees': AssignMember,
   },
   data() {
     return {
@@ -260,7 +274,7 @@ export default {
                                                                  description: evt.removed.element.body,
                                                                  issue_number:evt.removed.element.number,
                                                                  issue_id:evt.removed.element.issue_id,
-                                                                 story_points: 0,
+                                                                 story_points: "0",
                                                                  pipeline:"To Do",
                                                                  initial_date:new Date().toString(),
                                                                 }, { headers })
@@ -275,7 +289,7 @@ export default {
 
     onUpdateToDo(evt) {
       const headers = { Authorization: this.token };
-
+      console.log(evt);
       if(evt.added){
         HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"To Do" }, { headers })
         .then((response) => console.log(response.code))
@@ -398,7 +412,7 @@ a {
   max-width: 280px;
 }
 
-#kanbanCard:hover {
+.kanbanCard:hover {
   border-color: #7799A5;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   cursor: pointer;

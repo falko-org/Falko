@@ -1,7 +1,7 @@
 <template>
 	<div>
 			<div v-if = "edit == false" @dblclick = "edit = true">
-      	{{points}}
+      	{{storyPoints}}
     	</div>
     	<input min="0" type="number" v-else
     				v-model = "points"
@@ -25,25 +25,16 @@ export default {
       token: state => state.auth.token,
     }),
   },
-	props: ['storyId'],
+	props: ['storyId', 'storyPoints'],
 	methods: {
     scoreStory: function(points) {
     	const headers = { Authorization: this.token };
 
       HTTP.patch(`/stories/${this.storyId}`, { story_points: points }, { headers })
-      .then((response) => console.log(response.code))
+      .then((response) => this.$emit('update'));
     },
   },
-  mounted() {
-    const headers = { Authorization: this.token };
 
-    HTTP.get(`/stories/${this.storyId}`, { headers })
-      .then((response) => {
-        console.log(response.data.issue_number + "|||"+ response.data.story_points)
-        console.log(this);
-        this.points = response.data.story_points
-      });
-  }
 }
 </script>
 

@@ -127,7 +127,7 @@ export default{
             name: repo.split("/")[1],
                 github_slug: repo,
                 is_project_from_github: true,
-                is_scoring: false,
+                is_scoring: true,
           }, { headers })
             .then((response) => {
               count++;

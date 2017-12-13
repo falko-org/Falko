@@ -1,21 +1,23 @@
 <template>
 	<div class="assign">
-    <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#assignMemberModal">
-        Assigned Member
-      </button>
+    <div >
+      <i class="fa fa-address-book" aria-hidden="true" data-toggle="modal" :data-target='"#assignMemberModal"+issueNumber' @click="loadData">
+      </i>
     </div>
-    <div class="modal fade" id ="assignMemberModal" role="dialog">
+    <div class="modal fade" :id='"assignMemberModal"+issueNumber' role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Assign Member</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" @click="cleanData" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-         		<ul class="list-group">
+          <div class="modal-body text-center">
+            <div v-if="loading">
+              Loading...
+            </div>
+         		<ul class="list-group" v-else>
               <li class="list-group-item" v-for="contributor in contributors" >
                 {{contributor}}
                 <toggle-button class="pointer-cursor" 
@@ -27,8 +29,8 @@
              </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="assignMembers" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="assignMembers, cleanData" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" @click="cleanData" data-dismiss="modal" >Close</button>
           </div>
         </div>
       </div>
@@ -44,7 +46,9 @@ export default {
 	data() {
     return {
       contributors: [],
-      selected: []
+      selected: [],
+      issuesAssignees: [],
+      loading: false,
     };
   },
   props: ['issueNumber'],
@@ -57,10 +61,15 @@ export default {
   methods: { 
   	
   	getContributors() {
+        this.loading = true;
+
       	const headers = { Authorization: this.token };
         HTTP.get(`projects/${this.projectId}/contributors`, { headers })
         .then((response) => {
           this.contributors = response.data
+          this.getIssues();
+          this.loading = false;
+
         })
         .catch((e) => {
           this.errors.push(e);
@@ -83,11 +92,30 @@ export default {
     	.catch((e) => {
 
     	});
-    }
+    },
+    getIssues() {  
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`projects/${this.projectId}/issues`, { headers })
+        .then((response) => {
+          console.log(response.data.issues_infos);
+          this.issuesAssignees = response.data.issues_infos;
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    loadData() {
+      this.getContributors();
+    },
+    cleanData() {
+      this.contributors = [];
+      this.selected = [];
+      this.issuesAssignees = [];
+      this.loading = false;
+    }   
   },
-	created() {
-		this.getContributors();
-	}  
+	
 
 }
 </script>
