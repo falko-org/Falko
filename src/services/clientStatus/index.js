@@ -82,7 +82,7 @@ const clientStatus = {
     setGithubSlug({ commit }, slug) {
       commit(SET_GITHUB_SLUG, slug);
     },
-    
+
     setProjectOrigin({ commit }, isProjectFromGitHub) {
       commit(SET_PROJECT_ORIGIN, isProjectFromGitHub);
     },
