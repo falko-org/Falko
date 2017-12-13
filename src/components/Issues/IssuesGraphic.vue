@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="align-self-center margin" v-if="loading" align="center">
+      <spinner :status="loading"></spinner>
+    </div>
+    <div v-if="loading == false">
     <div class="modal fade" id ="issuesGraphicModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -67,6 +71,7 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -74,13 +79,18 @@
 import { Bar } from 'vue-chart-js'
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
+import Spinner from 'vue-spinner-component/src/Spinner.vue';
 
 export default {
+  components: {
+    Spinner
+  },
   extends: Bar,
   data () {
     return {
       initialDate: '',
       finalDate: '',
+      loading: true,
       actualClosedPercentage: 0,
       compareClosedPercentage: 0,
       compareOpenedPercentage: 0,
@@ -334,14 +344,17 @@ export default {
 
     getIssuesGraphicData() {
       const headers = { Authorization: this.token };
+      this.loading = true
       HTTP.post(`projects/${this.$route.params.id}/issues/graphic`, {
           actual_date: this.finalDate,
           option: 'month'
       }, { headers })
       .then((response)=>{
         this.fillChart(response);
+        this.loading = false;
       })
       .catch(e=>{
+        this.loading = false;
         this.errors.push(e)
       });
     }
@@ -416,4 +429,8 @@ h6 {
   width: 0.9em;
 }
 
+.margin {
+  margin-top: 80px;
+  width: 100px;
+}
 </style>
