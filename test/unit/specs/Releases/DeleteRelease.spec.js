@@ -1,15 +1,14 @@
 import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import DeleteRelease from '../../../../src/components/Releases/DeleteRelease.vue';
 import sinon from 'sinon';
+import { HTTP } from '../../../../src/http-common';
+import DeleteRelease from '../../../../src/components/Releases/DeleteRelease.vue';
 
 describe('On Delete Release', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
   let state;
-  let actions;
   let store;
 
   beforeEach(() => {
@@ -17,6 +16,10 @@ describe('On Delete Release', () => {
       auth: {
         token: '12345',
         userId: '1',
+      },
+
+      clientStatus: {
+        amountOfReleases: 2,
       },
     };
 

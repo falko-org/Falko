@@ -165,12 +165,12 @@ export default {
     },
 
     hasNoReleasesId() {
-      if(this.isReleasesEmpty()) {
-        return 'scroll-style-releases-cards'
+      if (this.isReleasesEmpty()) {
+        return 'scroll-style-releases-cards';
       }
 
-      return 'scroll-style-releases-cards releasesBorder'
-    }
+      return 'scroll-style-releases-cards releasesBorder';
+    },
   },
 
   created() {
@@ -188,7 +188,14 @@ export default {
 
     EventBus.$on('edited-release', () => this.getReleases());
 
-    EventBus.$on('deleted-release', () => this.getReleases());
+    EventBus.$on('deleted-release', (newReleaseIndex) => {
+      this.getReleases();
+      if (newReleaseIndex >= 0) {
+        this.setReleaseIndex(newReleaseIndex);
+      } else {
+        location.reload();
+      }
+    });
 
     EventBus.$on('added-sprint', () => this.getSprints());
 

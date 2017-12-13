@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentReleaseId}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentReleaseId}`">
+    <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentRelease}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentRelease}`">
       Delete
     </button>
-    <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentReleaseId}`" role="dialog">
+    <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentRelease}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -33,21 +33,29 @@ import { HTTP } from '../../http-common';
 import { EventBus } from '../../event-bus';
 
 export default {
-  props: ['parentReleaseId'],
+  props: ['parentRelease'],
 
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseIndex: state => state.clientStatus.releaseIndex,
+      amountOfReleases: state => state.clientStatus.amountOfReleases,
     }),
   },
 
   methods: {
     deleteRelease() {
       const headers = { Authorization: this.token };
+      const index = parseInt(this.releaseIndex, 10);
+      let previousIndex = index - 1;
 
-      HTTP.delete(`releases/${this.parentReleaseId}`, { headers })
+      if (previousIndex < 0 && this.amountOfReleases > 1) {
+        previousIndex = 0;
+      }
+
+      HTTP.delete(`releases/${this.parentRelease}`, { headers })
         .then(() => {
-          EventBus.$emit('deleted-release');
+          EventBus.$emit('deleted-release', previousIndex);
         })
         .catch((e) => {
           this.errors.push(e);
