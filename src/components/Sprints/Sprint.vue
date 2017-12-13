@@ -20,13 +20,6 @@
       </div>
       <div class="col-md-6" align="end">
         <li class="list-inline-item">
-          <router-link v-bind:to="'/sprints/'+$route.params.id+'/burndown'">
-            <button type="button" class="btn btn-info btn-md falko-button">
-              Burndown
-            </button>
-          </router-link>
-        </li>
-        <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
           v-if="!retrospectiveCreatedStatus()"></add-retrospective>
 
@@ -47,13 +40,6 @@
           </router-link>
         </li>
         <li class="list-inline-item">
-          <router-link v-bind:to="'/sprints/'+sprint.id+'/velocity'">
-            <button type="button" class="btn btn-info btn-md falko-button">
-              Velocity
-            </button>
-          </router-link>
-        </li>
-        <li class="list-inline-item">
           <edit-sprint v-on:edited-sprint="refreshSprint()"></edit-sprint>
         </li>
         <li class="list-inline-item">
@@ -61,8 +47,8 @@
         </li>
       </div>
     </div>
-    <div class="row">
-      <stories></stories>
+    <div class="metrics">
+      <metrics></metrics>
     </div>
     </div>
   </div>
@@ -79,6 +65,7 @@ import Revision from '../Revision/Revision.vue';
 import Stories from '../Stories/Stories'
 import { HTTP } from '../../http-common';
 import Velocity from './Velocity.vue';
+import Metrics from './Metrics.vue';
 
 export default{
   name: 'Sprint',
@@ -88,6 +75,7 @@ export default{
     'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
     'stories': Stories,
+    'metrics': Metrics,
   },
   data() {
     return {
@@ -217,5 +205,9 @@ h5 {
 }
 .vertical-center {
   vertical-align: middle;
+}
+.metrics {
+  margin-top: 40px;
+  width: 99%;
 }
 </style>

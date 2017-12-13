@@ -166,7 +166,7 @@ label {
 }
 
 .no-white-bar {
-  margin-bottom: -100%;
+  margin-bottom: -10%;
 }
 
 .disabled-cursor {
