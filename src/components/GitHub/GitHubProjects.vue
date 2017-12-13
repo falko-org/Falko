@@ -5,9 +5,9 @@
         Import GitHub repository
       </button>
     </div>
-    <div class="modal fade" id ="githubModal" role="dialog">
+    <div class="modal fade" id="githubModal" role="dialog">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" id="importProjectsModal">
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -21,7 +21,9 @@
               class="pointer-cursor dropdown-toggle"
               href="#userReposCollapse"
               aria-expanded="false"
-              aria-controls="userReposCollapse">User Repositories
+              aria-controls="userReposCollapse"
+              >
+                User Repositories
               </h4>
               <div class="collapse" id="userReposCollapse">
                 <ul class="list-group">
@@ -165,5 +167,9 @@ export default{
 <style scoped>
 .vue-js-switch {
   float: right;
+}
+
+#importProjectsModal {
+  min-height: 20em;
 }
 </style>
