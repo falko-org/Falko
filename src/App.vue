@@ -199,9 +199,7 @@ label {
 
 .scroll-style-releases-cards {
   max-height: calc(100vh - 8em);
-  min-height: 15em;
   overflow-y: auto;
-  direction: rtl;
 }
 
 .scroll-style-sprints-cards {
