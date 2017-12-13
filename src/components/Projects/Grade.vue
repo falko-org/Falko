@@ -50,7 +50,6 @@
 
 	    	HTTP.get(`grades/${grade.id}`, { headers })
         .then((response) => {
-        	console.log(response.data);
           this.grade = response.data;
         })
         .catch((e) => {
