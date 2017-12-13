@@ -134,19 +134,12 @@ export default {
   },
   methods: {
     getRepos() {
-      console.log("AAAAAAA");
-
-      console.log(this.loading);
       this.loading = true;
-      console.log(this.loading);
-
       const headers = { Authorization: this.token };
       if (this.isGitHubAuthenticated) {
         HTTP.get('repos', { headers })
         .then((response) => {
           this.loading = false;
-          console.log(this.loading);
-
           this.userRepos = response.data.user[1].repos;;
           this.orgsRepos = response.data.orgs;
           this.user = response.data.user[0].login;
@@ -212,8 +205,6 @@ export default {
       this.orgsRepos = [];
       this.selectedRepos = [];
       this.user = "";
-
-      console.log("HUE");
     }
   },
 };
