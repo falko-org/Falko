@@ -17,7 +17,7 @@
           <div class="modal-body">
             <p><label> Are you sure?</label></p>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" id="deleteFooterModal">
             <button v-on:click="deleteProject" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
           </div>
