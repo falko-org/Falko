@@ -16,6 +16,12 @@ export default {
     return {
       datacollection: {
         options: {
+          legend: {
+            labels: {
+              boxWidth: 2,
+              fontSize: 18,
+            },
+          },
           scales: {
             yAxis: [
               {
@@ -44,7 +50,7 @@ export default {
         datasets: [
           {
             label: 'Actual Burndown',
-            borderColor: "red",
+            borderColor: "#688E9B",
             lineTension: 0,
             fill: false,
             type: 'line',
@@ -52,7 +58,7 @@ export default {
           },
           {
             label: 'Ideal Burndown',
-            borderColor: "blue",
+            borderColor: "#AEC3B0",
             lineTension: 0,
             fill: false,
             type: 'line',

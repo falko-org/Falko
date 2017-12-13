@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="error == false">
     <div class="modal fade" id ="issuesGraphicModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -33,7 +33,7 @@
             <div class="labelIssuesDoughnut">
               {{actualClosedPercentage}}%
             </div>
-            <vue-chart type="doughnut" v-bind:width="10" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
+            <vue-chart type="doughnut" v-bind:width="7.5" v-bind:height="3" v-bind:options="dataActualClosedIssues.options" v-bind:data="dataActualClosedIssues"></vue-chart>
           </div>
 
           <div v-if=" dataCompareClosedIssues.datasets[0].data != ''" class="float-right card chartIssuesDoughnut col-md-4">
@@ -81,6 +81,7 @@ export default {
     return {
       initialDate: '',
       finalDate: '',
+      error: true,
       actualClosedPercentage: 0,
       compareClosedPercentage: 0,
       compareOpenedPercentage: 0,
@@ -340,9 +341,10 @@ export default {
       }, { headers })
       .then((response)=>{
         this.fillChart(response);
+        this.error = false;
       })
       .catch(e=>{
-        this.errors.push(e)
+        this.error = true;
       });
     }
   },
@@ -351,13 +353,16 @@ export default {
     this.initialDate = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
     this.finalDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
     this.getIssuesGraphicData();
-  }
+  },
+  created() {
+    this.error = true;
+  },
 };
 </script>
 <style scoped>
 
 .chartIssuesDoughnut {
-  height: 14.4em;
+  height: 11.4em;
   float: left;
   background: #f7f7f7;
   position: relative;
@@ -369,7 +374,7 @@ export default {
   position: absolute;
   top: 60%;
   left: 0;
-  font-size: 3.5em;
+  font-size: 3em;
   color: #124559;
   margin-top: -0.1em;
   line-height:1em;
@@ -380,7 +385,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 0;
-  font-size: 4.5em;
+  font-size: 3.5em;
   color: #124559;
   margin-top: -0.1em;
   line-height:1em;
@@ -395,16 +400,18 @@ export default {
   border-style: solid;
 }
 h1 {
+  font-size: 1.6em;
   color: #688E9B;
   font-weight: bold;
 }
 h4 {
+  font-size: 1em;
   margin-top: 0.4em;
   color: #688E9B;
   font-weight: bold;
 }
 h6 {
-  font-size: 0.9em;
+  font-size: 0.60em;
   margin-bottom: 1em;
 }
 
@@ -413,7 +420,7 @@ h6 {
 }
 
 .arrow-image {
-  width: 0.9em;
+  width: 0.95em;
 }
 
 </style>
