@@ -178,18 +178,21 @@ input:focus {
 
 .scroll-style-releases-cards {
   max-height: calc(100vh - 8em);
+  min-height: 15em;
   overflow-y: auto;
   direction: rtl;
 }
 
 .scroll-style-sprints-cards {
   max-height: calc(100vh - 17em);
+  min-height: 7em;
   overflow-y: auto;
 }
 
 .scroll-style-github-projects {
   max-height: calc(100vh - 26em);
   overflow-y: auto;
+  min-height: 7em;
 }
 
 ::-webkit-scrollbar {
