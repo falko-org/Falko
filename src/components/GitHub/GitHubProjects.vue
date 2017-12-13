@@ -1,7 +1,12 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos()" id="addButton" v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal">
+      <button type="button" id="addButton"
+              v-bind:class="buttonClass()" 
+              v-bind:disabled="!this.isGitHubAuthenticated" 
+              v-on:click="getRepos()" 
+              v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal"
+      >
         Import GitHub repository
       </button>
     </div>
@@ -92,7 +97,7 @@ export default{
   methods: {
     getRepos() {
       const headers = { Authorization: this.token };
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         HTTP.get('repos', { headers })
           .then((response) => {
             this.userRepos = response.data.user[1].repos;
@@ -140,19 +145,16 @@ export default{
         }
       });
     },
-    isGitHubLinked() {
-      return this.isGitHubAuthenticated;
-    },
 
     buttonClass() {
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
 
     buttonDataToggle() {
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         return 'modal';
       }
       return 'none';

@@ -6,7 +6,7 @@ import GitHubProjects from '../../../../src/components/GitHub/GitHubProjects.vue
 import { HTTP } from '../../../../src/http-common';
 
 
-describe.only('On github project list repos', () => {
+describe('On github project list repos', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
@@ -288,7 +288,7 @@ describe.only('On github project list repos', () => {
 });
 
 
-describe.only('On GitHubProjects import', () => {
+describe('On GitHubProjects import', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();

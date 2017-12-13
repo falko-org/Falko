@@ -41,6 +41,11 @@
         <github-projects v-on:added="refreshProjects()"></github-projects>
       </div>
     </div>
+    <div v-if="!this.isGitHubAuthenticated" class="row justify-content-center" id="importTutorial">
+      <p class="text-muted">
+        To import a repository, you must have previously linked your github account
+      </p>
+    </div>
   </div>
 
 </template>
@@ -69,6 +74,7 @@ export default {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
@@ -99,10 +105,6 @@ export default {
         });
     },
 
-    isGitHubAuthenticated() {
-      return this.is_github_authenticated;
-    },
-
     refreshProjects() {
       this.getProjects();
     },
@@ -127,23 +129,30 @@ div a {
   text-decoration: none;
   color: inherit;
 }
+
 #projectCard:hover {
   /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
   /*border-color: #7799A5;*/
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   border-color: #5D6A6F;
 }
+
 #projectCard {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
   transition: 0.2s;
-  /*width: 30em;*/
 }
+
 #projectHeader {
   background-color: #5D6A6F;
 }
+
 #projectTitle {
   margin: 0;
   color: white;
 }
 
+#importTutorial {
+  margin-top: 1em;
+  font-style: italic;
+}
 </style>

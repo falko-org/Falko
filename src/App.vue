@@ -61,12 +61,25 @@ input:focus {
   margin-top: 100px;
 }
 
+input {
+  border: none;
+  border-radius: 0;
+  border-bottom: solid #c0c0c0 thin;
+  padding-left: 0;
+  color: #333;
+}
+
 .limit-sidebar {
   max-width: 4em;
 }
 
 .no-overflow {
   overflow-x: hidden !important;
+}
+
+label {
+  font-weight: bold;
+  color: #598392;
 }
 
 .navbar-brand{
@@ -111,6 +124,14 @@ input:focus {
   background-color: #565e66;
 }
 
+.falko-button-grey:disabled {
+  background-color: #565e66;
+}
+
+.falko-button-grey:disabled:hover {
+  background-color: #565e66;
+}
+
 .small-float-left {
   margin-right: 1em;
 }
@@ -140,12 +161,12 @@ input:focus {
 
 .modal-title {
   font-weight: bold;
-  color: #6E9191;
+  color: #527786;
   margin: 0;
 }
 
 .no-white-bar {
-  margin-bottom: -2%;
+  margin-bottom: -100%;
 }
 
 .disabled-cursor {
