@@ -9,6 +9,10 @@
                 <h1 class="card-title" align="left"><i class="fa fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
                 <h4 class="card-text text-muted" align="left">&nbsp;&nbsp;{{project.description}}</h4>
               </div>
+              <!-- <div>
+                <grade v-bind:project="project.id"></grade>
+                {{project.id}}
+              </div> -->
                 <div class="row">
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/issues'">
@@ -55,6 +59,7 @@ import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import { HTTP } from '../../http-common';
 import IssuesGraphic from '../Issues/IssuesGraphic'
+import Grade from './Grade.vue'
 import AddGrades from '../Projects/AddGrades'
 
 export default {

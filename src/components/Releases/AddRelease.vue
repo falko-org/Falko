@@ -2,7 +2,14 @@
   <div>
     <div align="center">
       <button type="button" class="btn btn-info btn-md falko-button" id="addReleaseButton" data-toggle="modal" data-target="#addReleaseModal" align="center">
-        Add Release
+        <div class="row justify-content-center">
+          <div class="col-">
+            <i class="fa fa-lg fa-plus-circle"></i>
+          </div>
+          <div class="col-5">
+            Add Release
+          </div>
+        </div>
       </button>
     </div>
 
@@ -99,16 +106,20 @@ export default {
   border-radius: 0;
   padding: 0.9em;
   margin: 0;
-  background-color: #637074;
+  background-color: #326579;
 }
 
 #addReleaseButton:hover {
-  background-color: #4a575b;
+  background-color: #124559;
 }
 
 .modal-body{
   position: relative;
   top: 5px;
+}
+
+.small-float-left {
+  margin-right: .5em;
 }
 
 p {

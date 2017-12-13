@@ -166,7 +166,7 @@ label {
 }
 
 .no-white-bar {
-  margin-bottom: -100%;
+  margin-bottom: -10%;
 }
 
 .disabled-cursor {
@@ -200,7 +200,18 @@ label {
 .scroll-style-releases-cards {
   max-height: calc(100vh - 8em);
   overflow-y: auto;
-  direction: rtl;
+}
+
+.scroll-style-sprints-cards {
+  max-height: calc(100vh - 17em);
+  min-height: 7em;
+  overflow-y: auto;
+}
+
+.scroll-style-github-projects {
+  max-height: calc(100vh - 26em);
+  overflow-y: auto;
+  min-height: 7em;
 }
 
 ::-webkit-scrollbar {
@@ -216,9 +227,5 @@ label {
   background-color: #95B0B9;
 }
 
-.scroll-style-sprints-cards {
-  max-height: calc(100vh - 17em);
-  overflow-y: auto;
-}
 
 </style>
