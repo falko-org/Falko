@@ -28,21 +28,9 @@
             </router-link>
           </li>
           <li align="center">
-            <router-link v-bind:to="'/releases/'+this.$route.params.id+'/sprints'">
-              <a  title="Sprints" id="popover">
-                <span  v-if="this.$route.path == '/releases/'+this.$route.params.id ||
-                this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
-                this.$route.path == '/sprints/'+this.$route.params.id"
-                class="sidebar-icon"><i class="fa fa-angle-double-down"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
-            </router-link>
-          </li>
-          <li align="center">
             <router-link v-bind:to="'/projects/'+this.$route.params.id+'/releases'">
               <a  title="Releases" >
                 <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
-                this.$route.path == '/releases/'+this.$route.params.id+'/sprints' ||
                 this.$route.path == '/releases/'+this.$route.params.id ||
                 this.$route.path == '/projects/'+this.$route.params.id+'/releases'"
                 class="sidebar-icon"><i class=" fa fa-cube"></i></span>

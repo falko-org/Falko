@@ -1,14 +1,15 @@
 <template>
-  <div class="delsprint">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteSprintModal">
+  <div>
+    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteRetrospectiveModal">
       Delete
     </button>
-    <div class="modal fade" id ="deleteSprintModal" role="dialog">
+
+    <div class="modal fade" id ="deleteRetrospectiveModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <div>
-              <h4 class="modal-title">Delete Sprint?</h4>
+              <h4 class="modal-title">Delete Retrospective?</h4>
             </div>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -18,8 +19,8 @@
             <p><label> Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <button v-on:click="deleteSprint" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
+            <button v-on:click="deleteRetrospective()" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
           </div>
         </div>
       </div>
@@ -32,21 +33,29 @@ import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
 
 export default {
-  name: 'delsprint',
+  name: 'deleteRetrospective',
+  data() {
+    return {
+
+    };
+  },
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
-      projectId: state => state.clientStatus.projectId,
     }),
   },
-  methods: {
-    async deleteSprint() {
-      const headers = { Authorization: this.token };
 
+  methods: {
+    async deleteRetrospective() {
+      const headers = { Authorization: this.token };
       try {
-        const response = await HTTP.get(`sprints/${this.$route.params.id}`, { headers });
-        await HTTP.delete(`sprints/${this.$route.params.id}`, { headers });
-        this.$router.push({ name: 'Releases', params: { id: this.projectId } });
+        const response = await HTTP.get(`/retrospectives/${this.$route.params.id}`, { headers });
+        const id = response.data.sprint_id;
+
+        await HTTP.delete(`/retrospectives/${this.$route.params.id}`, { headers });
+
+        this.$router.push({ path: `/Sprints/${id}` });
       } catch (err) {
         console.log(err);
       }
@@ -56,4 +65,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

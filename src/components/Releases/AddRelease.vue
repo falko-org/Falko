@@ -1,8 +1,15 @@
 <template>
-  <div class="">
-    <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addReleaseModal">
-        Add Release
+  <div>
+    <div align="center">
+      <button type="button" class="btn btn-info btn-md falko-button" id="addReleaseButton" data-toggle="modal" data-target="#addReleaseModal" align="center">
+        <div class="row justify-content-center">
+          <div class="col-">
+            <i class="fa fa-lg fa-plus-circle"></i>
+          </div>
+          <div class="col-5">
+            Add Release
+          </div>
+        </div>
       </button>
     </div>
 
@@ -15,10 +22,10 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class=" row modal-body">
+          <div class="row modal-body align-content-end">
             <div class="col">
               <p><label>Name</label></p>
-              <p><input type="text" v-model="name" id="releaseName"></input><br></p>
+              <p><input type="text" v-model="name" placeholder="Release name..." id="releaseName"></input><br></p>
               <p><label>Description</label></p>
               <input type="text" v-model="description" placeholder="Release description..."></input><br>
             </div>
@@ -47,7 +54,7 @@ import { HTTP } from '../../http-common';
 export default {
   data() {
     return {
-      name: 'New Release',
+      name: '',
       description: '',
       initialDate: '',
       finalDate: '',
@@ -57,13 +64,14 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      projectId: state => state.clientStatus.projectId,
     }),
   },
   methods: {
     addRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.post(`/projects/${this.$route.params.id}/releases`, {
+      HTTP.post(`/projects/${this.projectId}/releases`, {
         release: {
           name: this.name,
           description: this.description,
@@ -77,7 +85,8 @@ export default {
           this.description = '';
           this.initialDate = '';
           this.finalDate = '';
-          this.$emit('added');
+
+          EventBus.$emit('added-release');
         })
         .catch((e) => {
           this.errors.push(e);
@@ -92,14 +101,25 @@ export default {
 #releaseName {
   color: #777;
 }
+#addReleaseButton {
+  width: 100%;
+  border-radius: 0;
+  padding: 0.9em;
+  margin: 0;
+  background-color: #326579;
+}
 
-#addButton {
-  margin-top: 2em;
+#addReleaseButton:hover {
+  background-color: #124559;
 }
 
 .modal-body{
   position: relative;
   top: 5px;
+}
+
+.small-float-left {
+  margin-right: .5em;
 }
 
 p {

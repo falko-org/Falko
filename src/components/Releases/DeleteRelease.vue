@@ -1,9 +1,9 @@
 <template>
-  <div class="delproject">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteReleaseModal">
+  <div>
+    <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentReleaseId}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentReleaseId}`">
       Delete
     </button>
-    <div class="modal fade" id ="deleteReleaseModal" role="dialog">
+    <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentReleaseId}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -15,7 +15,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p><label> Are you sure?</label></p>
+            <p><label>Are you sure?</label></p>
           </div>
           <div class="modal-footer">
             <button v-on:click="deleteRelease" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
@@ -30,25 +30,28 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import { EventBus } from '../../event-bus';
 
 export default {
+  props: ['parentReleaseId'],
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
     }),
   },
+
   methods: {
     deleteRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.delete(`releases/${this.$route.params.id}`, { headers })
-      .then(() => {
-        // Go to the previous page
-        this.$router.go(-1);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      HTTP.delete(`releases/${this.parentReleaseId}`, { headers })
+        .then(() => {
+          EventBus.$emit('deleted-release');
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 };

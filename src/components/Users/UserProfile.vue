@@ -1,7 +1,7 @@
-<template>  
+<template>
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="card mx-auto"> 
+      <div class="card mx-auto">
         <div class="card-body project" id="userProfile">
           <h4 class="row justify-content-center card-title"> User Profile </h4>
           <div class="image-circle row justify-content-center">
@@ -17,30 +17,15 @@
                 <label> E-mail: </label>
                 <p class="card-text text-muted">{{email}}</p>
               </div>
-              <div class="row">
-                <label> GitHub Account: </label>
-                <p class="card-text text-muted">{{github}}</p>
-              </div>
-              <div class="row">
-                <label> GitHub Authenticated: </label>
-                <p class="card-text text-muted">{{is_github_authenticated}}</p>
-              </div>
             </div>
-          </div>    
+          </div>
           <div class="card-text">
             <div class="row justify-content-center">
               <div class="col-md-7">
-                <div v-if="!isGitHubLinked()" class="col-md-2">
-                  <button v-bind:class="buttonLinkClass()" v-on:click="link()">
-                    Link to Github
-                  </button>
-                </div>
-                <div v-else class="col-md-2">
-                  <button v-bind:class="buttonRemoveLinkClass()" v-on:click="removeToken()">
-                    Remove link with Github
-                  </button>
-                </div>
-              </div>            
+                <button class="falko-button btn btn-primary" v-on:click="setGitHubButtonAction()">
+                  {{this.gitHubButtonLabel}}
+                </button>
+              </div>
               <div class="col">
                 <edit-user-profile></edit-user-profile>
               </div>
@@ -72,19 +57,18 @@ export default {
     return {
       name: '',
       email: '',
-      github: '',
+      gitHubButtonLabel: '',
     };
   },
   computed: {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
     getUser() {
-      this.isGitHubLinked();
-
       const headers = { Authorization: this.token };
 
       HTTP.get(`users/${this.userId}`, { headers })
@@ -92,34 +76,54 @@ export default {
           this.name = response.data.name;
           this.email = response.data.email;
           this.github = response.data.github;
-          if (response.data.access_token != null) {
-            localStorage.setItem('is_github_authenticated', true);
+          const isGithubLinked = response.data.access_token;
+
+          if (isGithubLinked != null) {
+            this.setGithubAuthentication(true);
           } else {
-            localStorage.setItem('is_github_authenticated', false);
+            this.setGithubAuthentication(false);
           }
-          this.is_github_authenticated = (localStorage.getItem('is_github_authenticated') === 'true');
+
+          this.setGitHubButtonLabel();
         })
         .catch((e) => {
           this.errors.push(e);
         });
     },
 
-    link() {
-      if (!this.isGitHubLinked()) {
-        location.replace('https://github.com/login/oauth/authorize?scope=repo&client_id='+GITHUB_CLIENT_ID);
-        localStorage.setItem('is_github_authenticated', true);
+    setGithubAuthentication(authenticated) {
+      if (authenticated) {
+        this.$store.dispatch('linkedGitHub');
+      } else {
+        this.$store.dispatch('unlinkedGitHub');
       }
     },
 
-    removeToken() {
+    link() {
+      location.replace(`https://github.com/login/oauth/authorize?scope=repo&client_id=${GITHUB_CLIENT_ID}`);
+
+      const headers = { Authorization: this.token };
+      const id = this.userId;
+      const code = window.location.search.split('=')[1];
+
+      this.$store.dispatch('linkGithub', { headers, id, code })
+        .then(() => {
+          this.$router.push({ name: 'UserProfile' });
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+
+    unlink() {
       const headers = { Authorization: this.token };
 
       HTTP.post('remove_github_token', {
         id: this.userId,
       }, { headers })
         .then(() => {
-          localStorage.setItem('is_github_authenticated', false);
-          location.reload();
+          this.$store.dispatch('unlinkedGitHub');
+          this.setGitHubButtonLabel();
         })
         .catch((e) => {
           this.errors.push(e);
@@ -127,31 +131,30 @@ export default {
     },
 
     isGitHubLinked() {
-      return (localStorage.getItem('is_github_authenticated') === 'true');
+      return this.isGitHubAuthenticated;
     },
 
-    buttonLinkClass() {
+    setGitHubButtonLabel() {
       if (this.isGitHubLinked()) {
-        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+        this.gitHubButtonLabel = 'Remove link with Github';
+      } else {
+        this.gitHubButtonLabel = 'Link to Github';
       }
-      return 'falko-button btn btn-primary';
     },
 
-    buttonRemoveLinkClass() {
-      if (!this.isGitHubLinked()) {
-        return 'btn btn-info btn-md falko-button-grey disabled-cursor';
+    setGitHubButtonAction() {
+      if (this.isGitHubLinked()) {
+        this.unlink();
+      } else {
+        this.link();
       }
-      return 'falko-button btn btn-primary';
     },
   },
 
   mounted() {
     this.getUser();
-    const thisOne = this;
 
-    EventBus.$on('edited-user-profile', () => {
-      thisOne.getUser();
-    });
+    EventBus.$on('edited-user-profile', () => this.getUser());
   },
 };
 </script>
@@ -160,8 +163,8 @@ export default {
   .card {
     box-shadow: 0em 0.12em 0.01em 0em #ddd;
   }
+
   label {
     margin-right: .3em;
-  }   
+  }
 </style>
-
