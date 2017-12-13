@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="error == false">
     <div class="modal fade" id ="issuesGraphicModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -81,6 +81,7 @@ export default {
     return {
       initialDate: '',
       finalDate: '',
+      error: true,
       actualClosedPercentage: 0,
       compareClosedPercentage: 0,
       compareOpenedPercentage: 0,
@@ -340,9 +341,10 @@ export default {
       }, { headers })
       .then((response)=>{
         this.fillChart(response);
+        this.error = false;
       })
       .catch(e=>{
-        this.errors.push(e)
+        this.error = true;
       });
     }
   },
@@ -351,7 +353,10 @@ export default {
     this.initialDate = today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate();
     this.finalDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
     this.getIssuesGraphicData();
-  }
+  },
+  created() {
+    this.error = true;
+  },
 };
 </script>
 <style scoped>
