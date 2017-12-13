@@ -182,7 +182,6 @@ export default{
     this.getSprint();
     this.getRetrospective();
     this.getRevision();
-    document.getElementById("defaultOpen").click();
   },
 };
 </script>
@@ -212,6 +211,5 @@ h5 {
 .metrics {
   margin-top: 40px;
   width: 99%;
-  /*margin-bottom: 60px;*/
 }
 </style>

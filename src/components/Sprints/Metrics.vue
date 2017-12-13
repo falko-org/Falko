@@ -4,7 +4,7 @@
     <button class="tablink" v-on:click="openMetrics($event, 'Velocity')"><h3>Velocity</h3></button>
     <button class="tablink" v-on:click="openMetrics($event, 'Burndown')"><h3>Burndown</h3></button>
 
-    <div id="Velocity" class="tabcontent">
+    <div id="Velocity" class="tabcontent active">
       <br><br><br>
       <velocity></velocity>
     </div>
@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     openMetrics(evt, metric) {
+      console.log(evt);
       var i, tabcontent, tablinks;
       this.metric = metric;
       tabcontent = document.getElementsByClassName("tabcontent");
@@ -56,11 +57,14 @@ export default {
       for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
           tablinks[i].style.background = "";
+          tablinks[i].style.border = "none";
       }
 
       document.getElementById(metric).style.display = "block";
       evt.currentTarget.className += " active";
-      evt.currentTarget.style.background = "#F0F4F0";
+      evt.currentTarget.style.background = "white";
+      evt.currentTarget.style.border = "3px solid #496C78";
+      evt.currentTarget.style.borderWidth = "0.4px 0.4px 0px 0.4px";
     },
   },
 }
@@ -75,7 +79,7 @@ export default {
     outline: none;
     cursor: pointer;
     padding: 14px 16px;
-    width: 33.3%;
+    width: 33%;
     margin-bottom: 50px;
 }
 
@@ -85,7 +89,7 @@ export default {
 
 .tabcontent {
     display: none;
-    background-color: #F0F4F0 ;
+    background-color: white ;
     text-align: left;
 }
 .kanban-style {

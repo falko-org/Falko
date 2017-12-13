@@ -137,7 +137,7 @@ input:focus {
 }
 
 .no-white-bar {
-  margin-bottom: -2%;
+  margin-bottom: -10%;
 }
 
 .disabled-cursor {
