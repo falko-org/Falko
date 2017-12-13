@@ -29,6 +29,9 @@
                     </router-link>
                   </div>
                   <div align="center">
+                    <addGrade></addGrade>
+                  </div>
+                  <div align="center">
                     <edit-project v-on:edited-project="refreshProject()"></edit-project>
                   </div>
                   <div align="center">
@@ -57,6 +60,7 @@ import EditProject from './EditProject.vue';
 import { HTTP } from '../../http-common';
 import IssuesGraphic from '../Issues/IssuesGraphic'
 import Grade from './Grade.vue'
+import AddGrades from '../Projects/AddGrades'
 
 export default {
   name: 'Project',
@@ -64,7 +68,7 @@ export default {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
     'issues-graphic': IssuesGraphic,
-    'grade': Grade,
+    'addGrade': AddGrades,
   },
   data() {
     return {
