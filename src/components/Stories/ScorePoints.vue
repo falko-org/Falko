@@ -33,6 +33,16 @@ export default {
       HTTP.patch(`/stories/${this.storyId}`, { story_points: points }, { headers })
       .then((response) => console.log(response.code))
     },
+  },
+  mounted() {
+    const headers = { Authorization: this.token };
+
+    HTTP.get(`/stories/${this.storyId}`, { headers })
+      .then((response) => {
+        console.log(response.data.issue_number + "|||"+ response.data.story_points)
+        console.log(this);
+        this.points = response.data.story_points
+      });
   }
 }
 </script>

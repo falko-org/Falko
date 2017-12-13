@@ -39,13 +39,11 @@
         <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
           <div v-for="story in stories">
             <div align="center">
-              <div class="card" id="kanbanCard">
+              <div class="card kanbanCard">
                 <div class="card-body">
                   <div class="row justify-content-around">
                     <div class="col-md-3" align="center">
-                      <!-- TODO Pegar github slug e por no vuex -->
-                      <!-- <a v-bind:href="`https://github.com/${this.githubSlug}/issues/${story.issue_number}`"> -->
-                      <a v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
+                      <a target="_blank" v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
                         #{{story.issue_number}}
                       </a>
                     </div>
@@ -59,7 +57,7 @@
                   <div class="row">
                     <div class="col-md-4" align="start">
                       <span class="badge badge-primary">
-                        <score-points :story-id="story.id"></score-points>
+                        <score-points :story-id="story.id" :id="story.id"></score-points>
                       </span>
                     </div>
                     <div class="col-md-8" id="assignees">
@@ -80,15 +78,28 @@
         <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
           <div v-for="story in doingStories">
             <div align="center">
-              <div class="card" id="kanbanCard">
-                <div class="date"><a href="#0">
-                  <div class="day" v-model="issues">{{story.issue_number}}</div>
-                  <i class="fa fa-github go-github-icon" aria-hidden="true"></i>
-                </a> </div>
+              <div class="card kanbanCard">
                 <div class="card-body">
+                  <div class="row justify-content-around">
+                    <div class="col-md-3" align="center">
+                      <a target="_blank" v-bind:href="`https://github.com/${githubSlug}/issues/${story.issue_number}`">
+                        #{{story.issue_number}}
+                      </a>
+                    </div>
+                    <div class="col-md-9 float-left text-truncate bold" align="end">{{story.name}}</div>
+                  </div>
                   <div class="row">
                     <div class="col">
-                      <h6 class="float-left text-truncate" style="max-width: 150px;">{{story.name}}</h6>
+                      <p align="center" class="story-description text-muted">{{story.description}}</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4" align="start">
+                      <span class="badge badge-primary">
+                        <score-points :story-id="story.id" :id="story.id"></score-points>
+                      </span>
+                    </div>
+                    <div class="col-md-8" id="assignees">
                     </div>
                   </div>
                 </div>
@@ -165,6 +176,7 @@ export default {
     ...mapState({
       token: state => state.auth.token,
       projectId: state => state.clientStatus.projectId,
+      githubSlug: state => state.clientStatus.githubSlug,
       userId: state => state.auth.userId,
     }),
   },
@@ -360,7 +372,7 @@ a {
   width: 50px;
 }
 
-#kanbanCard {
+.kanbanCard {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
   max-width: 280px;

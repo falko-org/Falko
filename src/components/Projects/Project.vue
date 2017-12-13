@@ -72,7 +72,8 @@ export default {
   },
   methods: {
     setProjectInfo() {
-      this.$store.dispatch('setProject',  this.$route.params.id)
+      this.$store.dispatch('setProject',  this.$route.params.id);
+      
     },
     getProject() {
       const headers = { Authorization: this.token };
@@ -80,6 +81,7 @@ export default {
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
+          this.$store.dispatch('setGithubSlug', this.project.github_slug);
         })
         .catch((e) => {
           this.errors.push(e);
