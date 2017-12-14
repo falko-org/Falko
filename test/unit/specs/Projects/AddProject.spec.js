@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import AddProject from '../../../../src/components/Projects/AddProject.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import AddProject from '../../../../src/components/Projects/AddProject.vue';
 
 describe('On Add Project', () => {
   const localVue = createLocalVue();

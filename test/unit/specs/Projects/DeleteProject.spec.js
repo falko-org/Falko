@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import DeleteProject from '../../../../src/components/Projects/DeleteProject.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import DeleteProject from '../../../../src/components/Projects/DeleteProject.vue';
 
 describe('On Delete Project', () => {
   const localVue = createLocalVue();
@@ -29,6 +29,7 @@ describe('On Delete Project', () => {
     sandbox.reset();
     sandbox.restore();
   });
+
   it('should delete a project correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'delete').resolves({ data: 200 });
     const $route = {

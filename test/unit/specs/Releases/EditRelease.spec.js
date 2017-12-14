@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import EditRelease from '../../../../src/components/Releases/EditRelease.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import EditRelease from '../../../../src/components/Releases/EditRelease.vue';
 
 describe('On Edit Release', () => {
   const localVue = createLocalVue();

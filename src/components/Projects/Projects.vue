@@ -110,6 +110,10 @@ export default {
         });
     },
 
+    isGitHubAuthenticated() {
+      return this.is_github_authenticated;
+    },
+
     refreshProjects() {
       this.getProjects();
     },

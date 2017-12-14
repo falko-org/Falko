@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import Retrospective from '../../../../src/components/Retrospective/Retrospective.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import Retrospective from '../../../../src/components/Retrospective/Retrospective.vue';
 
 describe('On Retrospective Component', () => {
   const localVue = createLocalVue();

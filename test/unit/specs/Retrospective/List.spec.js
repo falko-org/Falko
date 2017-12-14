@@ -1,6 +1,6 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import List from '../../../../src/components/Retrospective/List.vue';
 import sinon from 'sinon';
+import { shallow } from 'vue-test-utils';
+import List from '../../../../src/components/Retrospective/List.vue';
 
 describe('On List component retrospective', () => {
   const sandbox = sinon.createSandbox();

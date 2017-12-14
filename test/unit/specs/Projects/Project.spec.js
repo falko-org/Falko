@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import Project from '../../../../src/components/Projects/Project.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import Project from '../../../../src/components/Projects/Project.vue';
 
 describe('On Project Component', () => {
   const localVue = createLocalVue();
@@ -18,10 +18,9 @@ describe('On Project Component', () => {
         token: '12345',
         userId: '1',
       },
-      
       clientStatus: {
-        isProjectFromGitHub: false,
-      }
+        isProjectFromGitHub: true,
+      },
     };
 
     store = new Vuex.Store({

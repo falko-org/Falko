@@ -19,7 +19,6 @@ const auth = {
       localStorage.token = res.token;
       localStorage.userId = res.id;
       localStorage.authenticated = true;
-      localStorage.isGitHubAuthenticated = res.isGitHubAuthenticated;
     },
 
     [LOGOUT](state) {
@@ -47,7 +46,11 @@ const auth = {
         password: credentials.password,
       })
         .then((response) => {
-          const res = { token: response.data.auth_token, id: response.data.user.id };
+          const res = {
+            token: response.data.auth_token,
+            id: response.data.user.id,
+          };
+
           commit(LOGIN, res);
         });
     },

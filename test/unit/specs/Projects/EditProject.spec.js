@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import EditProject from '../../../../src/components/Projects/EditProject.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import EditProject from '../../../../src/components/Projects/EditProject.vue';
 
 describe('On Edit Project', () => {
   const localVue = createLocalVue();

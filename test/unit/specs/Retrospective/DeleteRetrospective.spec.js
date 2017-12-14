@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import DeleteRetrospective from '../../../../src/components/Retrospective/DeleteRetrospective.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import DeleteRetrospective from '../../../../src/components/Retrospective/DeleteRetrospective.vue';
 
 describe('On Delete Retrospective', () => {
   const localVue = createLocalVue();

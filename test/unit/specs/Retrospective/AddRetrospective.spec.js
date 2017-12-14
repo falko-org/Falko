@@ -1,9 +1,9 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import VeeValidate from 'vee-validate';
-import AddRetrospective from '../../../../src/components/Retrospective/AddRetrospective.vue';
 import sinon from 'sinon';
+import VeeValidate from 'vee-validate';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import AddRetrospective from '../../../../src/components/Retrospective/AddRetrospective.vue';
 
 describe('On Add Release', () => {
   const localVue = createLocalVue();

@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import EditRetrospective from '../../../../src/components/Retrospective/EditRetrospective.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import EditRetrospective from '../../../../src/components/Retrospective/EditRetrospective.vue';
 
 describe('On Edit Retrospective', () => {
   const localVue = createLocalVue();

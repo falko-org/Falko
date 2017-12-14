@@ -1,9 +1,9 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import VeeValidate from 'vee-validate';
-import Releases from '../../../../src/components/Releases/Releases.vue';
 import sinon from 'sinon';
+import VeeValidate from 'vee-validate';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import Releases from '../../../../src/components/Releases/Releases.vue';
 
 
 describe('On releases component', () => {

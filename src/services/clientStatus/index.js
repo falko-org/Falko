@@ -31,7 +31,8 @@ const clientStatus = {
     },
 
     [SET_GITHUB_SLUG](state, slug) {
-      state.githubSlug = slug;
+      const localState = state;
+      localState.githubSlug = slug;
     },
 
     [SET_PROJECT_ORIGIN](state, status) {

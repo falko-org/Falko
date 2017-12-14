@@ -2,14 +2,13 @@ import Vuex from 'vuex';
 import sinon from 'sinon';
 import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common';
-import AddRelease from '../../../../src/components/Releases/AddRelease.vue';
+import DeleteUserProfile from '../../../../src/components/Users/DeleteUserProfile.vue';
 
-describe('On Add Release', () => {
+describe('On User Component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
   let state;
-  let actions;
   let store;
 
   beforeEach(() => {
@@ -17,9 +16,6 @@ describe('On Add Release', () => {
       auth: {
         token: '12345',
         userId: '1',
-      },
-      clientStatus: {
-        projectId: '1',
       },
     };
 
@@ -33,20 +29,20 @@ describe('On Add Release', () => {
     sandbox.restore();
   });
 
-  it('should add a release correctly', (done) => {
-    const httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
-    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
-
+  it('should delete user correctly', (done) => {
+    const httpStub = sandbox.stub(HTTP, 'delete').resolves({ data: 200 });
     const $route = {
       params: { id: '2' },
     };
-    const wrapper = shallow(AddRelease, { store, localVue, mocks: { $route, errors } });
+    const $router = {
+      push: sandbox.stub(),
+    };
+    const wrapper = shallow(DeleteUserProfile, { store, localVue, mocks: { $route, $router } });
 
-    wrapper.vm.addRelease();
-
+    wrapper.vm.deleteUser();
     expect(httpStub.called).to.be.true;
+
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.emitted('added')).to.be.truthy;
       done();
     });
   });

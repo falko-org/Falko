@@ -1,8 +1,8 @@
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import Sprint from '../../../../src/components/Sprints/Sprint.vue';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
+import { HTTP } from '../../../../src/http-common';
+import Sprint from '../../../../src/components/Sprints/Sprint.vue';
 
 describe('On Sprint Component', () => {
   const localVue = createLocalVue();
@@ -18,11 +18,10 @@ describe('On Sprint Component', () => {
         token: '12345',
         userId: '1',
       },
-
       clientStatus: {
-        isRetrospectiveCreated:'true',
-        isRevisionCreated: 'true',
-      }
+        isRetrospectiveCreated: true,
+        isRevisionCreated: true,
+      },
     };
 
     store = new Vuex.Store({
@@ -50,6 +49,7 @@ describe('On Sprint Component', () => {
     const wrapper = shallow(Sprint, { store, localVue, mocks: { $route, $router } });
 
     expect(httpStub.called).to.be.true;
+
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.sprint.name).to.be.equal('SprintName');
       done();
@@ -69,6 +69,7 @@ describe('On Sprint Component', () => {
       push: sandbox.stub(),
     };
     const wrapper = shallow(Sprint, { store, localVue, mocks: { $route, $router } });
+
     wrapper.vm.refreshSprint();
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
