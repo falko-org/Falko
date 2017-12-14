@@ -1,9 +1,9 @@
 <template>
-  <div class="delproject">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteReleaseModal">
+  <div>
+    <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentRelease}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentRelease}`">
       Delete
     </button>
-    <div class="modal fade" id ="deleteReleaseModal" role="dialog">
+    <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentRelease}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -15,7 +15,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <p><label> Are you sure?</label></p>
+            <p><label>Are you sure?</label></p>
           </div>
           <div class="modal-footer">
             <button v-on:click="deleteRelease" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
@@ -30,25 +30,36 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import { EventBus } from '../../event-bus';
 
 export default {
+  props: ['parentRelease'],
+
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseIndex: state => state.clientStatus.releaseIndex,
+      amountOfReleases: state => state.clientStatus.amountOfReleases,
     }),
   },
+
   methods: {
     deleteRelease() {
       const headers = { Authorization: this.token };
+      const index = parseInt(this.releaseIndex, 10);
+      let previousIndex = index - 1;
 
-      HTTP.delete(`releases/${this.$route.params.id}`, { headers })
-      .then(() => {
-        // Go to the previous page
-        this.$router.go(-1);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+      if (previousIndex < 0 && this.amountOfReleases > 1) {
+        previousIndex = 0;
+      }
+
+      HTTP.delete(`releases/${this.parentRelease}`, { headers })
+        .then(() => {
+          EventBus.$emit('deleted-release', previousIndex);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 };

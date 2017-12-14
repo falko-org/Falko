@@ -1,10 +1,10 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editReleaseModal">
+    <button type="button" class="btn btn-info btn-md falko-button-grey" v-bind:id="`editButton${this.release[1]}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.release[1]}`" v-on:click="getReleaseInformation()">
       Edit
     </button>
 
-    <div class="modal fade" id ="editReleaseModal" role="dialog">
+    <div class="modal fade" v-bind:id="`editReleaseModal${this.release[1]}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -44,8 +44,11 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
+import { EventBus } from '../../event-bus';
 
 export default {
+  props: ['release'],
+
   data() {
     return {
       name: '',
@@ -63,14 +66,14 @@ export default {
     editRelease() {
       const headers = { Authorization: this.token };
 
-      HTTP.patch(`releases/${this.$route.params.id}`, {
+      HTTP.patch(`releases/${this.release[0]}`, {
         name: this.name,
         description: this.description,
         initial_date: this.initialDate,
         final_date: this.finalDate,
       }, { headers })
         .then(() => {
-          this.$emit('edited-release');
+          EventBus.$emit('edited-release');
         })
         .catch((e) => {
           this.errors.push(e);
@@ -79,8 +82,7 @@ export default {
 
     getReleaseInformation() {
       const headers = { Authorization: this.token };
-
-      HTTP.get(`releases/${this.$route.params.id}`, { headers })
+      HTTP.get(`releases/${this.release[0]}`, { headers })
         .then((response) => {
           this.name = response.data.name;
           this.description = response.data.description;

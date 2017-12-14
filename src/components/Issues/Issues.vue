@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isFromProjectGitHub()">
+  <div v-if="projectOrigin()">
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
@@ -24,7 +24,7 @@
                   <edit-issue v-bind:selected_issue="issue"></edit-issue>
                   <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
                 </div>
-                <div class="col">
+                <div class="col" v-if="issue.body != null" >
                   <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
                   <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
                 </div>
@@ -41,11 +41,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import AddIssue from './AddIssue.vue';
 import EditIssue from './EditIssue.vue';
 import NoContent from '../NoContent.vue';
 import { HTTP } from '../../http-common';
-import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -59,14 +59,14 @@ export default {
       issues: [],
       contributors: [],
       selectedIssue: '',
-      is_project_from_github: '',
-    }
+    };
   },
 
   computed: {
     ...mapState({
       token: state => state.auth.token,
       projectId: state => state.clientStatus.projectId,
+      isProjectFromGitHub: state => state.clientStatus.isProjectFromGitHub,
     }),
   },
 
@@ -83,8 +83,6 @@ export default {
     },
 
     getIssues() {
-      this.getProjectOrigin();
-
       const headers = { Authorization: this.token };
 
       HTTP.get(`projects/${this.projectId}/issues`, { headers })
@@ -95,6 +93,7 @@ export default {
           this.errors.push(e);
         });
     },
+
     isIssuesEmpty() {
       return this.issues.length === 0;
     },
@@ -114,12 +113,8 @@ export default {
         });
     },
 
-    getProjectOrigin() {
-      this.is_project_from_github = (localStorage.getItem('is_project_from_github') === 'true');
-    },
-
-    isFromProjectGitHub() {
-      return this.is_project_from_github;
+    projectOrigin() {
+      return this.isProjectFromGitHub;
     },
   },
 
@@ -154,6 +149,7 @@ p{
   max-width: 24em;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   transition: 0.2s;
+  margin-top: 10px;
 }
 
 #issueCard:hover {
@@ -202,4 +198,9 @@ p{
   font-size:0.4em;
 }
 
+h1 {
+  margin-top: 20px;
+  margin-left: 20px;
+  color: #598392;
+}
 </style>

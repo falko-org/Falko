@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar sticky-top navbar-light bg-light row justify-content-around no-margin">
-    <div class="col">
+    <div class="col" id="logo">
       <a class="navbar-brand falko-brand" v-on:click="goToHome()">
         <img src="logo.png" width="50"/>
         <img src="../assets/falko-text.png" height="50"/>
@@ -26,8 +26,11 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('logout', { email: this.email, password: this.password })
-        .then(() => this.$router.push({ path: '/' }));
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push({ path: '/' })
+          localStorage.clear();
+        });
     },
     goToHome() {
       if (this.authenticated) {
@@ -69,6 +72,10 @@ export default {
   background-color: #3E5361;
   cursor: pointer;
   color: white;
+}
+
+#logo{
+  cursor: pointer;
 }
 
 </style>

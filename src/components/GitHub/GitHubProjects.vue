@@ -1,13 +1,18 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" v-bind:class="buttonClass()" v-on:click="getRepos()" id="addButton" v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal">
+      <button type="button" id="addButton"
+              v-bind:class="buttonClass()" 
+              v-bind:disabled="!this.isGitHubAuthenticated" 
+              v-on:click="getRepos()" 
+              v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal"
+      >
         Import GitHub repository
       </button>
     </div>
-    <div class="modal fade" id ="githubModal" role="dialog">
+    <div class="modal fade" id="githubModal" role="dialog">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" id="importProjectsModal">
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -21,18 +26,22 @@
               class="pointer-cursor dropdown-toggle"
               href="#userReposCollapse"
               aria-expanded="false"
-              aria-controls="userReposCollapse">User Repositories
+              aria-controls="userReposCollapse"
+              >
+                User Repositories
               </h4>
               <div class="collapse" id="userReposCollapse">
-                <ul class="list-group">
-                  <li class="list-group-item" v-for="userRepo in userRepos" >
-                    {{userRepo}}
-                    <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(userRepo, $event)"
-                    :value="false"
-                    color="#AEC3B0"
-                    :labels="true" />
-                  </li>
-                </ul>
+                <div class="scroll-style-github-projects">
+                  <ul class="list-group">
+                    <li class="list-group-item" v-for="userRepo in userRepos" >
+                      {{userRepo}}
+                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(user + '/' + userRepo, $event)"
+                      :value="false"
+                      color="#AEC3B0"
+                      :labels="true" />
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div v-if="orgsRepos.length != 0">
@@ -46,15 +55,17 @@
                 {{orgs.name}}
                 </h4>
                 <div class="collapse" v-bind:id="orgs.name">
-                  <ul class="list-group">
-                    <li class="list-group-item" v-for="repo in orgs.repos">
-                      {{repo}}
-                      <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
-                      :value="false"
-                      color="#AEC3B0"
-                      :labels="true" />
-                    </li>
-                  </ul>
+                  <div class="scroll-style-github-projects">
+                    <ul class="list-group">
+                      <li class="list-group-item" v-for="repo in orgs.repos">
+                        {{repo}}
+                        <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(orgs.name + '/' + repo, $event)"
+                        :value="false"
+                        color="#AEC3B0"
+                        :labels="true" />
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,28 +90,29 @@ export default{
       userRepos: [],
       orgsRepos: [],
       selectedRepos: [],
-      user: ""
+      user: '',
     };
   },
   computed: {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
     getRepos() {
       const headers = { Authorization: this.token };
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         HTTP.get('repos', { headers })
-        .then((response) => {
-          this.userRepos = response.data.user[1].repos;;
-          this.orgsRepos = response.data.orgs;
-          this.user = response.data.user[0].login;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+          .then((response) => {
+            this.userRepos = response.data.user[1].repos;
+            this.orgsRepos = response.data.orgs;
+            this.user = response.data.user[0].login;
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
       }
     },
 
@@ -114,20 +126,20 @@ export default{
 
     importGithubProjects() {
       this.doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
-        .then(() => { this.$emit('added'); })
+        .then(() => this.$emit('added'))
         .catch(e => console.log(e.message));
     },
 
-    doRequisitions(repos, length, user) {
+    doRequisitions(repos, length) {
       return new Promise((resolve, reject) => {
         const headers = { Authorization: this.token };
         let count = 0;
         for (const repo of repos) {
           HTTP.post(`users/${this.userId}/projects`, {
-            name: repo,
-                github_slug: `${user}/${repo}`,
+            name: repo.split("/")[1],
+                github_slug: repo,
                 is_project_from_github: true,
-                is_scoring: false,
+                is_scoring: true,
           }, { headers })
             .then((response) => {
               count++;
@@ -140,19 +152,15 @@ export default{
       });
     },
 
-    isGitHubLinked() {
-      return (localStorage.getItem('is_github_authenticated') === 'true');
-    },
-
     buttonClass() {
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         return 'falko-button btn btn-primary';
       }
       return 'btn btn-info btn-md falko-button-grey disabled-cursor';
     },
 
     buttonDataToggle() {
-      if (this.isGitHubLinked()) {
+      if (this.isGitHubAuthenticated) {
         return 'modal';
       }
       return 'none';
@@ -163,10 +171,11 @@ export default{
 </script>
 
 <style scoped>
+#importProjectsModal {
+  min-height: 20em;
+}
+
 .vue-js-switch {
   float: right;
-}
-.pointer-cursor {
-  cursor: pointer;
 }
 </style>

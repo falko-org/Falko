@@ -42,9 +42,6 @@
                   v-validate="'confirmed:password'">
           <p class="text-danger" v-if="errors.has('form-register.password_confirmation')">{{ errors.first('form-register.password_confirmation') }}</p>
         </div>
-        <div class="form-group">
-          <input type="text" class="form-control" aria-describedby="gitHelp" placeholder="GitHub" v-model="github">
-        </div>
         <div class="text-center">
           <button type="submit" :disabled="errors.any('form-register')" class="btn btn-primary falko-button" id="">Register</button>
           <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
@@ -64,17 +61,18 @@ export default {
       username: '',
       password: '',
       password_confirmation: '',
-      github: '',
     };
   },
 
   methods: {
     login() {
+      const thisOne = this;
       this.$store.dispatch('login', { email: this.email, password: this.password })
         .then(() => {
           this.$router.push({ name: 'Projects' });
         })
         .catch((err) => {
+          thisOne.errors.add('wrong-credentials', 'Wrong Credentials');
           console.log(err.response.data); // It goes here!
         });
     },
@@ -88,7 +86,6 @@ export default {
           name: this.username,
           password: this.password,
           password_confirmation: this.password_confirmation,
-          github: this.github,
         },
       })
         .then(() => {
