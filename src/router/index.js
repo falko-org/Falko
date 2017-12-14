@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import AssignMember from '@/components/Stories/AssignMember';
+import ScorePoints from '@/components/Stories/ScorePoints';
 import Projects from '../components/Projects/Projects.vue';
 import Project from '../components/Projects/Project.vue';
 import HomePage from '../components/HomePage.vue';
@@ -91,6 +93,16 @@ const router = new Router({
       path: '/projects/:id/issueschart',
       name: 'IssuesGraphic',
       component: IssuesGraphic,
+    },
+    {
+      path: '/stories/assign',
+      name: 'AssignMember',
+      component: AssignMember,
+    },
+    {
+      path: '/stories/score',
+      name: 'ScorePoints',
+      component: ScorePoints,
     },
     {
       path: '/revisions/:id',

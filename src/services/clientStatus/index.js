@@ -1,4 +1,5 @@
 const SET_PROJECT = 'SET_PROJECT';
+const SET_GITHUB_SLUG = 'SET_GITHUB_SLUG';
 const SET_PROJECT_ORIGIN = 'SET_PROJECT_ORIGIN';
 const SET_RELEASE = 'SET_RELEASE';
 const SET_RELEASE_INDEX = 'SET_RELEASE_INDEX';
@@ -12,6 +13,7 @@ const clientStatus = {
   state() {
     return {
       projectId: null,
+      githubSlug: null,
       isProjectFromGitHub: false,
       releaseId: null,
       releaseIndex: '0',
@@ -26,6 +28,10 @@ const clientStatus = {
     [SET_PROJECT](state, id) {
       const localState = state;
       localState.projectId = id;
+    },
+
+    [SET_GITHUB_SLUG](state, slug) {
+      state.githubSlug = slug;
     },
 
     [SET_PROJECT_ORIGIN](state, status) {
@@ -71,6 +77,10 @@ const clientStatus = {
   actions: {
     setProject({ commit }, projectId) {
       commit(SET_PROJECT, projectId);
+    },
+
+    setGithubSlug({ commit }, slug) {
+      commit(SET_GITHUB_SLUG, slug);
     },
 
     setProjectOrigin({ commit }, isProjectFromGitHub) {

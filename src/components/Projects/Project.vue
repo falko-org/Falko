@@ -102,7 +102,7 @@ export default {
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
-
+          this.$store.dispatch('setGithubSlug', this.project.github_slug);
           this.setProjectId(this.project.id.toString(10));
           this.setProjectOrigin();
         })
@@ -117,7 +117,6 @@ export default {
       return this.isProjectFromGitHub;
     },
   },
-
   created() {
     this.getProject();
   },

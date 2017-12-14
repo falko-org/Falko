@@ -136,10 +136,10 @@ export default{
         let count = 0;
         for (const repo of repos) {
           HTTP.post(`users/${this.userId}/projects`, {
-            name: repo.split('/')[1],
-            github_slug: repo,
-            is_project_from_github: true,
-            is_scoring: false,
+            name: repo.split("/")[1],
+                github_slug: repo,
+                is_project_from_github: true,
+                is_scoring: true,
           }, { headers })
             .then((response) => {
               count++;
