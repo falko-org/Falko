@@ -19,7 +19,6 @@ const auth = {
       localStorage.token = res.token;
       localStorage.userId = res.id;
       localStorage.authenticated = true;
-      localStorage.isGitHubAuthenticated = res.isGitHubAuthenticated;
     },
 
     [LOGOUT](state) {
@@ -47,27 +46,12 @@ const auth = {
         password: credentials.password,
       })
         .then((response) => {
-          let res;
-          const headers = { Authorization: response.data.auth_token };
+          const res = {
+            token: response.data.auth_token,
+            id: response.data.user.id,
+          };
 
-          HTTP.get(`users/${response.data.user.id}`, { headers })
-            .then((secondResponse) => {
-              let isGitHubAuthenticated;
-
-              if (secondResponse.data.access_token != null) {
-                isGitHubAuthenticated = true;
-              } else {
-                isGitHubAuthenticated = false;
-              }
-
-              res = {
-                token: response.data.auth_token,
-                id: response.data.user.id,
-                isGitHubAuthenticated,
-              };
-
-              commit(LOGIN, res);
-            });
+          commit(LOGIN, res);
         });
     },
 
