@@ -8,8 +8,6 @@ const SET_RETROSPECTIVE_CREATED_STATUS = 'SET_RETROSPECTIVE_CREATED_STATUS';
 const SET_REVISION_CREATED_STATUS = 'SET_REVISION_CREATED_STATUS';
 const SET_RELEASE_INITIAL_DATE = 'SET_RELEASE_INITIAL_DATE';
 const SET_RELEASE_FINAL_DATE = 'SET_RELEASE_FINAL_DATE';
-const SET_RETROSPECTIVE_CREATED_STATUS = 'SET_RETROSPECTIVE_CREATED_STATUS';
-const SET_REVISION_CREATED_STATUS = 'SET_REVISION_CREATED_STATUS';
 
 const clientStatus = {
   state() {
@@ -24,8 +22,6 @@ const clientStatus = {
       isRevisionCreated: false,
       releaseInitialDate: null,
       releaseFinalDate: null,
-      isRetrospectiveCreated: false,
-      isRevisionCreated: false,
     };
   },
   mutations: {
@@ -68,19 +64,13 @@ const clientStatus = {
     },
 
     [SET_RELEASE_INITIAL_DATE](state, date) {
-      state.releaseInitialDate = date;
+      const localState = state;
+      localState.releaseInitialDate = date;
     },
 
     [SET_RELEASE_FINAL_DATE](state, date) {
-      state.releaseFinalDate = date;
-    },
-
-    [SET_RETROSPECTIVE_CREATED_STATUS](state, status) {
-      state.isRetrospectiveCreated = status;
-    },
-
-    [SET_REVISION_CREATED_STATUS](state, status) {
-      state.isRevisionCreated = status;
+      const localState = state;
+      localState.releaseFinalDate = date;
     },
   },
   actions: {
@@ -122,14 +112,6 @@ const clientStatus = {
 
     setReleaseFinalDate({ commit }, releaseFinalDate) {
       commit(SET_RELEASE_FINAL_DATE, releaseFinalDate);
-    },
-
-    setRetrospectiveCreatedStatus({ commit }, isRetrospectiveCreated) {
-      commit(SET_RETROSPECTIVE_CREATED_STATUS, isRetrospectiveCreated);
-    },
-
-    setRevisionCreatedStatus({ commit }, isRevisionCreated) {
-      commit(SET_REVISION_CREATED_STATUS, isRevisionCreated);
     },
   },
 };
