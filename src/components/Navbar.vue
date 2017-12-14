@@ -27,7 +27,10 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout')
-        .then(() => this.$router.push({ path: '/' }));
+        .then(() => {
+          this.$router.push({ path: '/' })
+          localStorage.clear();
+        });
     },
     goToHome() {
       if (this.authenticated) {
