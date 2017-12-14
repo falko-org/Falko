@@ -26,11 +26,13 @@ const clientStatus = {
   },
   mutations: {
     [SET_PROJECT](state, id) {
-      state.projectId = id;
+      const localState = state;
+      localState.projectId = id;
     },
 
     [SET_GITHUB_SLUG](state, slug) {
-      state.githubSlug = slug;
+      const localState = state;
+      localState.githubSlug = slug;
     },
 
     [SET_PROJECT_ORIGIN](state, status) {
