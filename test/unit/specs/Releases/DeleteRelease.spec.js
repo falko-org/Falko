@@ -1,8 +1,6 @@
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { shallow, createLocalVue } from 'vue-test-utils';
-import Vuex from 'vuex';
-import sinon from 'sinon';
 import { HTTP } from '../../../../src/http-common';
 import DeleteRelease from '../../../../src/components/Releases/DeleteRelease.vue';
 

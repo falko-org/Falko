@@ -1,5 +1,6 @@
 import Vuex from 'vuex';
 import sinon from 'sinon';
+import { shallow, createLocalVue } from 'vue-test-utils';
 import GitHubCallBack from '../../../../src/components/GitHub/GitHubCallBack.vue';
 
 describe('On github callback', () => {
