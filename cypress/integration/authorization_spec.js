@@ -148,7 +148,7 @@ describe('Authorization tests', () => {
         .should('have.value', '1234');
     });
 
-    cy.get('.falko-button').eq(1).click();
+    cy.get('.falko-button').eq(1).should('have.attr', 'disabled', 'disabled');
 
     cy.url().should('eq', 'http://localhost:8080/#/');
   });
