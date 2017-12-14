@@ -9,6 +9,10 @@
                 <h1 class="card-title" align="left"><i class="fa fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
                 <h4 class="card-text text-muted" align="left">&nbsp;&nbsp;{{project.description}}</h4>
               </div>
+              <!-- <div>
+                <grade v-bind:project="project.id"></grade>
+                {{project.id}}
+              </div> -->
                 <div class="row">
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/issues'">
@@ -23,6 +27,9 @@
                         Releases
                       </button>
                     </router-link>
+                  </div>
+                  <div align="center">
+                    <addGrade></addGrade>
                   </div>
                   <div align="center">
                     <edit-project v-on:edited-project="refreshProject()"></edit-project>
@@ -52,6 +59,8 @@ import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import { HTTP } from '../../http-common';
 import IssuesGraphic from '../Issues/IssuesGraphic'
+import Grade from './Grade.vue'
+import AddGrades from '../Projects/AddGrades'
 
 export default {
   name: 'Project',
@@ -59,6 +68,7 @@ export default {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
     'issues-graphic': IssuesGraphic,
+    'addGrade': AddGrades,
   },
   data() {
     return {
@@ -92,7 +102,7 @@ export default {
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
-
+          this.$store.dispatch('setGithubSlug', this.project.github_slug);
           this.setProjectId(this.project.id.toString(10));
           this.setProjectOrigin();
         })
@@ -107,7 +117,6 @@ export default {
       return this.isProjectFromGitHub;
     },
   },
-
   created() {
     this.getProject();
   },

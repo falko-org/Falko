@@ -25,6 +25,9 @@
                       {{project.description}}
                     </p>
                   </div>
+                  <div class="col-md-4 justify-content-center">
+                    <grade id="grade" align="center" v-bind:project="project.id"></grade>
+                  </div>
                 </div>
               </div>
             </router-link>
@@ -56,6 +59,7 @@ import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
 import { HTTP } from '../../http-common';
+import Grade from './Grade.vue'
 
 export default {
   name: 'projects',
@@ -63,6 +67,7 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
+    'grade': Grade,
   },
 
   data() {
@@ -154,5 +159,9 @@ div a {
 #importTutorial {
   margin-top: 1em;
   font-style: italic;
+}
+
+#grade {
+  margin-left: 1.5em;
 }
 </style>

@@ -46,13 +46,14 @@ describe('On Edit Sprint', () => {
         final_date: '2017-12-02',
       },
     });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $route = {
       params: { id: '1' },
     };
     const $router = {
       push: sandbox.stub(),
     };
-    const wrapper = shallow(EditSprint, { store, localVue, mocks: { $route, $router } });
+    const wrapper = shallow(EditSprint, { store, localVue, mocks: { $route, $router, errors } });
 
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
@@ -63,13 +64,14 @@ describe('On Edit Sprint', () => {
 
   it('should click and edit sprint information correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'put').resolves({ data: 200 });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $route = {
       params: { id: '2' },
     };
     const $router = {
       push: sandbox.stub(),
     };
-    const wrapper = shallow(EditSprint, { store, localVue, mocks: { $route, $router } });
+    const wrapper = shallow(EditSprint, { store, localVue, mocks: { $route, $router, errors } });
     wrapper.vm.editSprint();
 
     expect(httpStub.called).to.be.true;

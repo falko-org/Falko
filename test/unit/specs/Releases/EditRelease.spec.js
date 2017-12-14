@@ -32,6 +32,7 @@ describe('On Edit Release', () => {
 
   it('should mount and get release information correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ProjectName', description: 'ProjectDescription', isScoring: true } });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $route = {
       params: { id: '2' },
     };
@@ -42,7 +43,7 @@ describe('On Edit Release', () => {
     const wrapper = shallow(EditRelease, {
       store,
       localVue,
-      mocks: { $route, $router }, 
+      mocks: { $route, $router, errors }, 
       propsData: {
         release: [0, 1]
       }
@@ -59,6 +60,7 @@ describe('On Edit Release', () => {
 
   it('should edit a release correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'patch').resolves({ data: 200 });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $route = {
       params: { id: '2' },
     };
@@ -68,7 +70,7 @@ describe('On Edit Release', () => {
     const wrapper = shallow(EditRelease, {
       store,
       localVue,
-      mocks: { $route, $router },
+      mocks: { $route, $router, errors },
       propsData: {
         release: [0, 1]
       }

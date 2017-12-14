@@ -21,7 +21,7 @@
           </div>
           <div class="row">
             <div class="col align-self-center margin" v-if="loading" align="center">
-              <spinner :status="loading"></spinner>
+              <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
             </div>
           </div>
           <div class="row modal-body">
@@ -110,12 +110,8 @@
 <script>
 import { mapState } from 'vuex';
 import { HTTP } from '../../http-common';
-import Spinner from 'vue-spinner-component/src/Spinner.vue';
 
 export default {
-  components: {
-    Spinner
-  },
   data() {
     return {
       userRepos: [],
@@ -170,10 +166,10 @@ export default {
         let count = 0;
         for (const repo of repos) {
           HTTP.post(`users/${this.userId}/projects`, {
-            name: repo.split('/')[1],
-            github_slug: repo,
-            is_project_from_github: true,
-            is_scoring: false,
+            name: repo.split("/")[1],
+                github_slug: repo,
+                is_project_from_github: true,
+                is_scoring: true,
           }, { headers })
             .then((response) => {
               count++;

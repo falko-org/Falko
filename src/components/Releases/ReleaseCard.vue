@@ -2,14 +2,14 @@
   <div>
     <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release[1]" v-on:click="select($event)">
       <div class="col-5" align="center">
-        <div class="number-circle">
+        <div class="number-circle align-self-center">
           <p>R{{this.amountOfReleases - this.release[1]}}</p>
         </div>
       </div>
       <div class="col-7">
         <div align="center">
           <edit-release v-bind:release="release"></edit-release>
-          <delete-release v-bind:parentReleaseId="release[0]"></delete-release>
+          <delete-release v-bind:parentRelease="release[0]"></delete-release>
         </div>
       </div>
     </div>

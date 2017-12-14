@@ -16,19 +16,33 @@
           <div class="row modal-body">
             <div class="col">
               <p><label > Name </label></p>
-              <p><input type = "text" v-model="name"></input><br></p>
+              <p><input type="text"
+                        v-model="name"
+                        id="sprintName"
+                        name="name"
+                        v-validate="'required'">
+                  <br>
+                  <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+              </p>
               <p><label> Description </label></p>
-              <input type = "text" v-model="description"></input><br>
+              <input type="text"
+                     v-model="description"
+                     name="description"
+                     v-validate="'required'"></input>
+              <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
+              <br>
             </div>
             <div class="col">
-              <p><label>Initial Date</label></p>
-              <p><input type="date" v-model="sprintInitialDate" v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"></input><br></p>
+              <p><label>Inital Date</label></p>
+              <p></p><input type = "date" v-model="initialDate" name="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"></input><br></p>
               <p><label>Final Date</label></p>
-              <p><input type="date" v-model="sprintFinalDate" v-bind:min="this.sprintInitialDate" v-bind:max="this.releaseFinalDate"></input><br></p>
+              <p></p><input type = "date" v-model="finalDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+              <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
+            </input><br></p>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editSprint()" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
@@ -60,6 +74,7 @@ export default{
   },
   methods: {
     editSprint() {
+      const _this = this;
       const headers = { Authorization: this.token };
 
       HTTP.put(`sprints/${this.$route.params.id}`, {
@@ -72,7 +87,7 @@ export default{
           this.$emit('edited-sprint');
         })
         .catch((e) => {
-          this.errors.push(e);
+          _this.errors.add('wrong-credentials', 'Problem with credentials');
         });
     },
 

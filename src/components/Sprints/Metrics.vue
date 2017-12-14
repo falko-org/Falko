@@ -6,12 +6,12 @@
 
     <div id="Velocity" class="tabcontent active">
       <br><br><br>
-      <velocity></velocity>
+      <velocity ref="velocity"></velocity>
     </div>
 
     <div id="Burndown" class="tabcontent">
       <br><br><br>
-      <burndown></burndown>
+      <burndown ref="burndown"></burndown>
     </div>
 
     <div id="Stories" class="tabcontent">
@@ -65,6 +65,8 @@ export default {
       evt.currentTarget.style.background = "white";
       evt.currentTarget.style.border = "3px solid #496C78";
       evt.currentTarget.style.borderWidth = "0.4px 0.4px 0px 0.4px";
+      this.$refs.velocity.getVelocityData();
+      this.$refs.burndown.getBurndownData();
     },
   },
 }
