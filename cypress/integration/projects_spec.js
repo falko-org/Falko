@@ -21,9 +21,9 @@ describe('Projects tests', function(){
 
   beforeEach(function(){
     cy.visit('localhost:8080/#/')
-    
+
     cy.server()
-    
+
     cy.route({
       method: 'GET',
       url: '/users\/1/projects',
@@ -31,22 +31,22 @@ describe('Projects tests', function(){
       response: 'fixture:projects.json'
     }).as('getProjects')
   })
-  
+
   it('should get projects', function(){
-    
+
     login()
-    
+
     cy.get('.card-header').eq(0).contains('Owla')
     cy.get('.card-body').within(function(){
-      cy.get('.card-text').eq(3).contains('Improving classes')
+      cy.get('.card-text').eq(0).contains('Improving classes')
     })
 
     cy.get('.card-header').eq(1).contains('Falko')
     cy.get('.card-body').within(function(){
-      cy.get('.card-text').eq(7).contains('Agile Projects Manager')
+      cy.get('.card-text').eq(1).contains('Agile Projects Manager')
     })
   })
-  
+
   it('should add a project', function() {
     cy.route({
       method: 'POST',
@@ -81,9 +81,9 @@ describe('Projects tests', function(){
     cy.get('.modal-body').within(function(){
       cy.get('input:first').type('NewProject')
       cy.get('input:last').type('New Project Description')
-      
+
     })
-    
+
     cy.route({
       method: 'GET',
       url: '/users\/1/projects',
@@ -120,7 +120,7 @@ describe('Projects tests', function(){
     cy.get('.card-header').eq(1).contains('Falko')
     cy.get('.card-header').eq(2).contains('NewProject')
     cy.get('.card-body').within(function () {
-      cy.get('.card-text').eq(11).contains('New Project Description')
+      cy.get('.card-text').eq(2).contains('New Project Description')
     })
   })
 
@@ -140,14 +140,14 @@ describe('Projects tests', function(){
     cy.get('.card-header').eq(1).contains('Falko')
   })
 
-   it('should edit a project', function(){
+  it('should edit a project', function(){
     login()
 
     cy.route({
       method: 'GET',
       url: '/projects\/2',
       status: 200,
-      response: 
+      response:
         {
           "description":"Agile Projects Manager" ,
           "github_slug": "fga-gpp-mds/owla",
@@ -164,13 +164,14 @@ describe('Projects tests', function(){
     cy.wait('@getProject')
 
     cy.get('.card-title').contains('Falko')
-    cy.get('.card-text').contains('Agile Projects Manager')   
+    cy.get('.card-text').contains('Agile Projects Manager')
 
     cy.get('#editbutton').eq(0).click()
-    cy.get('.modal-header').contains('Edit Project')
+    cy.wait(2000)
+    cy.get('.modal-header').eq(1).contains('Edit Project')
 
-    cy.get('input').eq(1).type(' plus').should('have.value','Falko plus')  
-    cy.get('input').eq(2).type(' plus').should('have.value','Agile Projects Manager plus')
+    cy.get('input').eq(0).type(' plus').should('have.value','Falko plus')
+    cy.get('input').eq(1).type(' plus').should('have.value','Agile Projects Manager plus')
 
     cy.get('.v-switch-label').contains('off')
 
@@ -178,7 +179,7 @@ describe('Projects tests', function(){
       method: 'PUT',
       url: '/projects\/2',
       status: 200,
-      response: 
+      response:
         {
           "description":"AAgile Projects Manager plus" ,
           "github_slug": "fga-gpp-mds/owla",
@@ -194,7 +195,7 @@ describe('Projects tests', function(){
       method: 'GET',
       url: '/projects\/2',
       status: 200,
-      response: 
+      response:
         {
           "description":"Agile Projects Manager plus" ,
           "github_slug": "fga-gpp-mds/owla",
@@ -205,16 +206,16 @@ describe('Projects tests', function(){
           "user_id":1,
         }
     }).as('getProjectUp')
-    
 
-    cy.get('.modal-footer').within(function(){
+
+    cy.get('#editFooterModal').within(function(){
       cy.get('.falko-button').eq(0).contains('Save').click()
-    }) 
+    })
 
     cy.wait('@getProjectUp')
 
     cy.get('.card-title').contains('Falko plus')
-    cy.get('.card-text').contains('Agile Projects Manager plus') 
+    cy.get('.card-text').contains('Agile Projects Manager plus')
   })
 
   it('should delete project', function(){
@@ -243,9 +244,9 @@ describe('Projects tests', function(){
       response: {}
     }).as('deleteProject')
 
-    
+
     cy.get('.card-header').eq(0).contains('Owla').click()
-    
+
     cy.route({
       method: 'GET',
       url: '/users\/1/projects',
@@ -262,11 +263,10 @@ describe('Projects tests', function(){
 
     cy.wait(200)
 
-    cy.get('.modal-footer').eq(1).within(function(){
+    cy.get('#deleteFooterModal').within(function(){
       cy.get('.falko-button').click()
     })
-  
+
     cy.get('.card-header').contains('Falko')
   })
 })
-

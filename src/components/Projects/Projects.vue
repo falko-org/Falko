@@ -20,15 +20,13 @@
               </div>
               <div class="card-body">
                 <div class="row align-itens-arround">
-                  <div class="col-5 align-content-center">
-                    <p class="card-text">
-                      <Gpa></Gpa>
-                    </p>
-                  </div>
                   <div class="col">
                     <p class="card-text text-justify">
                       {{project.description}}
                     </p>
+                  </div>
+                  <div class="col-md-4 justify-content-center">
+                    <grade id="grade" align="center" v-bind:project="project.id"></grade>
                   </div>
                 </div>
               </div>
@@ -46,6 +44,11 @@
         <github-projects v-on:added="refreshProjects()"></github-projects>
       </div>
     </div>
+    <div v-if="!this.isGitHubAuthenticated" class="row justify-content-center" id="importTutorial">
+      <p class="text-muted">
+        To import a repository, you must have previously linked your github account
+      </p>
+    </div>
   </div>
 
 </template>
@@ -55,8 +58,8 @@ import { mapState } from 'vuex';
 import AddProject from './AddProject.vue';
 import NoContent from '../NoContent.vue';
 import GitHubProjects from '../GitHub/GitHubProjects.vue';
-import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
+import Grade from './Grade.vue'
 
 export default {
   name: 'projects',
@@ -64,7 +67,7 @@ export default {
     'add-project': AddProject,
     'no-content': NoContent,
     'github-projects': GitHubProjects,
-    Gpa,
+    'grade': Grade,
   },
 
   data() {
@@ -76,9 +79,25 @@ export default {
     ...mapState({
       token: state => state.auth.token,
       userId: state => state.auth.userId,
+      isGitHubAuthenticated: state => state.auth.isGitHubAuthenticated,
     }),
   },
   methods: {
+    setGitHubAuthenticationVuex() {
+      const headers = { Authorization: this.token };
+
+      HTTP.get(`users/${this.userId}`, { headers })
+        .then((response) => {
+          const gitHubToken = response.data.access_token;
+
+          if (gitHubToken != null) {
+            this.$store.dispatch('linkedGitHub');
+          } else {
+            this.$store.dispatch('unlinkedGitHub');
+          }
+        });
+    },
+
     getProjects() {
       const headers = { Authorization: this.token };
 
@@ -103,7 +122,9 @@ export default {
       return this.projects.length === 0;
     },
   },
+
   mounted() {
+    this.setGitHubAuthenticationVuex();
     this.getProjects();
   },
 };
@@ -117,23 +138,34 @@ div a {
   text-decoration: none;
   color: inherit;
 }
+
 #projectCard:hover {
   /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
   /*border-color: #7799A5;*/
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   border-color: #5D6A6F;
 }
+
 #projectCard {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
   transition: 0.2s;
-  /*width: 30em;*/
 }
+
 #projectHeader {
   background-color: #5D6A6F;
 }
+
 #projectTitle {
   margin: 0;
   color: white;
 }
 
+#importTutorial {
+  margin-top: 1em;
+  font-style: italic;
+}
+
+#grade {
+  margin-left: 1.5em;
+}
 </style>

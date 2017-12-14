@@ -17,10 +17,6 @@
                 <label> E-mail: </label>
                 <p class="card-text text-muted">{{email}}</p>
               </div>
-              <div class="row">
-                <label> GitHub Account: </label>
-                <p class="card-text text-muted">{{github}}</p>
-              </div>
             </div>
           </div>
           <div class="card-text">
@@ -61,7 +57,6 @@ export default {
     return {
       name: '',
       email: '',
-      github: '',
       gitHubButtonLabel: '',
     };
   },

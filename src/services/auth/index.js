@@ -15,25 +15,29 @@ const auth = {
   },
   mutations: {
     [LOGIN](state, res) {
-      state.token = res.token;
-      state.userId = res.id;
-      state.authenticated = true;
-      state.isGitHubAuthenticated = res.isGitHubAuthenticated;
+      const localStorage = state;
+      localStorage.token = res.token;
+      localStorage.userId = res.id;
+      localStorage.authenticated = true;
+      localStorage.isGitHubAuthenticated = res.isGitHubAuthenticated;
     },
 
     [LOGOUT](state) {
-      state.token = null;
-      state.userId = null;
-      state.authenticated = false;
-      state.isGitHubAuthenticated = false;
+      const localStorage = state;
+      localStorage.token = null;
+      localStorage.userId = null;
+      localStorage.authenticated = false;
+      localStorage.isGitHubAuthenticated = false;
     },
 
     [LINKED_GITHUB](state) {
-      state.isGitHubAuthenticated = true;
+      const localStorage = state;
+      localStorage.isGitHubAuthenticated = true;
     },
 
     [UNLINKED_GITHUB](state) {
-      state.isGitHubAuthenticated = false;
+      const localStorage = state;
+      localStorage.isGitHubAuthenticated = false;
     },
   },
   actions: {

@@ -1,6 +1,6 @@
 <template>
-  <div class="addsprintBody">
-    <div class="text-center">
+  <div>
+    <div>
       <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
         Add a Sprint
       </button>
@@ -15,14 +15,14 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="row modal-body">
-            <div class="col">
+          <div class="row justify-content-center modal-body">
+            <div class="col-6">
               <p><label>Name</label></p>
-              <p><input type="text" v-model="name" id="sprintName"></input><br></p>
+              <p><input type="text" placeholder="Sprint name..." v-model="name" id="sprintName"></input><br></p>
               <p><label>Description</label></p>
-              <input type="text" v-model="description"></input><br>
+              <input type="text" placeholder="Sprint description..." v-model="description"></input><br>
             </div>
-            <div class="col">
+            <div class="col-5">
               <p><label>Initial Date</label></p>
               <p><input type="date" v-model="sprintInitialDate" v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"></input><br></p>
               <p><label>Final Date</label></p>
@@ -59,6 +59,7 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      releaseId: state => state.clientStatus.releaseId,
       releaseInitialDate: state => state.clientStatus.releaseInitialDate,
       releaseFinalDate: state => state.clientStatus.releaseFinalDate,
     }),
@@ -68,13 +69,13 @@ export default {
     addSprint() {
       const headers = { Authorization: this.token };
 
-      HTTP.post(`releases/${this.$route.params.id}/sprints`, {
+      HTTP.post(`releases/${this.releaseId}/sprints`, {
         sprint: {
           name: this.name,
           description: this.description,
           initial_date: this.sprintInitialDate,
           final_date: this.sprintFinalDate,
-          release_id: this.$route.params.id,
+          release_id: this.releaseId,
         },
       }, { headers })
         .then(() => {

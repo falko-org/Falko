@@ -1,6 +1,8 @@
 import Vuex from 'vuex';
 import sinon from 'sinon';
 import { shallow, createLocalVue } from 'vue-test-utils';
+import Vuex from 'vuex';
+import sinon from 'sinon';
 import { HTTP } from '../../../../src/http-common';
 import DeleteRelease from '../../../../src/components/Releases/DeleteRelease.vue';
 
@@ -9,7 +11,6 @@ describe('On Delete Release', () => {
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
   let state;
-  let actions;
   let store;
 
   beforeEach(() => {
@@ -17,6 +18,10 @@ describe('On Delete Release', () => {
       auth: {
         token: '12345',
         userId: '1',
+      },
+
+      clientStatus: {
+        amountOfReleases: 2,
       },
     };
 
@@ -39,10 +44,10 @@ describe('On Delete Release', () => {
       go: sandbox.stub(),
     };
     const wrapper = shallow(DeleteRelease, { store, localVue, mocks: { $route, $router } });
+
     wrapper.vm.deleteRelease();
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.$router.go.called).to.be.true;
       done();
     });
   });

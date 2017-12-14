@@ -38,7 +38,17 @@ describe('On Edit Release', () => {
     const $router = {
       push: sandbox.stub(),
     };
-    const wrapper = shallow(EditRelease, { store, localVue, mocks: { $route, $router } });
+
+    const wrapper = shallow(EditRelease, {
+      store,
+      localVue,
+      mocks: { $route, $router }, 
+      propsData: {
+        release: [0, 1]
+      }
+    });
+    
+    wrapper.hasProp('release', [0, 1])
 
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
@@ -55,7 +65,16 @@ describe('On Edit Release', () => {
     const $router = {
       push: sandbox.stub(),
     };
-    const wrapper = shallow(EditRelease, { store, localVue, mocks: { $route, $router } });
+    const wrapper = shallow(EditRelease, {
+      store,
+      localVue,
+      mocks: { $route, $router },
+      propsData: {
+        release: [0, 1]
+      }
+    });
+
+    wrapper.hasProp('release', [0, 1])
     wrapper.vm.editRelease();
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {

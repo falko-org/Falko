@@ -31,7 +31,7 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" id="editFooterModal">
             <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editProject" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
@@ -111,4 +111,9 @@ export default{
 </script>
 
 <style scoped>
+
+#editbutton {
+  width: 120px;
+}
+
 </style>

@@ -14,11 +14,15 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <p><label>Name</label></p>
-            <p><input type = "text" v-model="name"></input><br></p>
-            <p><label>Description</label></p>
-            <input type = "text" v-model="description"></input><br>
+          <div class="row modal-body">
+            <div class="col-md-6">
+              <p><label>Name</label></p>
+              <p><input type = "text" placeholder="Project name..." v-model="name"></input><br></p>
+            </div>
+            <div class="col-md-6">
+              <p><label>Description</label></p>
+              <input type = "text" placeholder="Project description..." v-model="description"></input><br>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-info btn-md falko-button" v-on:click="addProject" data-dismiss="modal">Save</button>

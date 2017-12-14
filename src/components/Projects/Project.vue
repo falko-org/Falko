@@ -1,62 +1,75 @@
 <template>
   <div>
     <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col">
         <div class="card">
           <div class="card-body text-center">
             <div class="row">
-              <div class="col-md-4">
-                <Gpa></Gpa>
+              <div class="col">
+                <h1 class="card-title" align="left"><i class="fa fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
+                <h4 class="card-text text-muted" align="left">&nbsp;&nbsp;{{project.description}}</h4>
               </div>
-              <div class="col-md-3">
-                <h4 class="card-title">{{project.name}}</h4>
+              <!-- <div>
+                <grade v-bind:project="project.id"></grade>
+                {{project.id}}
+              </div> -->
+                <div class="row">
+                  <div align="center">
+                    <router-link v-bind:to="'/projects/'+project.id+'/issues'">
+                      <button type="button" class="btn btn-info btn-md falko-button" v-if="isFromProjectGitHub()">
+                        Backlog
+                      </button>
+                    </router-link>
+                  </div>
+                  <div align="center">
+                    <router-link v-bind:to="'/projects/'+project.id+'/releases'">
+                      <button type="button" class="btn btn-info btn-md falko-button">
+                        Releases
+                      </button>
+                    </router-link>
+                  </div>
+                  <div align="center">
+                    <addGrade></addGrade>
+                  </div>
+                  <div align="center">
+                    <edit-project v-on:edited-project="refreshProject()"></edit-project>
+                  </div>
+                  <div align="center">
+                    <div class="row">
+                      <delete-project></delete-project>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <p class="card-text text-muted">{{project.description}}</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center" id="buttons">
-      <div class="col-md-2" v-if="isFromProjectGitHub()" align="center">
-        <router-link v-bind:to="'/projects/'+project.id+'/issues'">
-          <button type="button" class="btn btn-info btn-md falko-button">
-            Backlog
-          </button>
-        </router-link>
-      </div>
-      <div v-bind:class="divClass()" align="center">
-        <edit-project v-on:edited-project="refreshProject()"></edit-project>
-      </div>
-      <div v-bind:class="divClass()" align="center">
-        <delete-project></delete-project>
-      </div>
-      <div v-bind:class="divClass()" align="center">
-        <router-link v-bind:to="'/projects/'+project.id+'/releases'">
-          <button type="button" class="btn btn-info btn-md falko-button">
-            Releases
-          </button>
-        </router-link>
+      <div class="row justify-content-center" v-if="isFromProjectGitHub()">
+        <div class="col-9" align="center">
+          <issues-graphic></issues-graphic>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
-import Gpa from '../Gpa.vue';
 import { HTTP } from '../../http-common';
+import IssuesGraphic from '../Issues/IssuesGraphic'
+import Grade from './Grade.vue'
+import AddGrades from '../Projects/AddGrades'
 
 export default {
   name: 'Project',
   components: {
     'delete-project': DeleteProject,
     'edit-project': EditProject,
-    Gpa,
+    'issues-graphic': IssuesGraphic,
+    'addGrade': AddGrades,
   },
-
   data() {
     return {
       project: {},
@@ -71,8 +84,8 @@ export default {
   },
 
   methods: {
-    setProjectId() {
-      this.$store.dispatch('setProject', this.$route.params.id);
+    setProjectId(projectId) {
+      this.$store.dispatch('setProject', projectId);
     },
 
     setProjectOrigin() {
@@ -89,33 +102,23 @@ export default {
       HTTP.get(`projects/${this.$route.params.id}`, { headers })
         .then((response) => {
           this.project = response.data;
+          this.$store.dispatch('setGithubSlug', this.project.github_slug);
+          this.setProjectId(this.project.id.toString(10));
           this.setProjectOrigin();
         })
         .catch((e) => {
           this.errors.push(e);
         });
     },
-
     refreshProject() {
       this.getProject();
     },
-
     isFromProjectGitHub() {
       return this.isProjectFromGitHub;
     },
-
-    divClass() {
-      if (this.isFromProjectGitHub()) {
-        return 'col-md-3';
-      }
-      return 'col-md-2';
-    },
   },
-
-  mounted() {
-    this.setProjectId();
-    this.getProject(this.$route.params.id);
-    this.setProjectId();
+  created() {
+    this.getProject();
   },
 };
 </script>
@@ -125,5 +128,21 @@ export default {
 #buttons {
   margin-top: 1em;
 }
+.btn {
+  width: 120px;
+  margin-right: 4px;
+}
+.card {
+  align-self: center;
+  border-style: none;
+  margin-top: 20px;
+}
+h1 {
+  color: #598392;
+}
 
+#dashBoard {
+  text-align: center;
+  align-content: center;
+}
 </style>

@@ -36,6 +36,7 @@ export default {
   computed: {
     ...mapState({
       token: state => state.auth.token,
+      projectId: state => state.clientStatus.projectId,
     }),
   },
   methods: {
@@ -44,9 +45,8 @@ export default {
 
       try {
         const response = await HTTP.get(`sprints/${this.$route.params.id}`, { headers });
-        const id = response.data.release_id;
         await HTTP.delete(`sprints/${this.$route.params.id}`, { headers });
-        this.$router.push({ path: `/releases/${id}/sprints` });
+        this.$router.push({ name: 'Releases', params: { id: this.projectId } });
       } catch (err) {
         console.log(err);
       }
@@ -56,5 +56,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
