@@ -1,3 +1,4 @@
+import { shallow, createLocalVue } from 'vue-test-utils';
 import Vuex from 'vuex';
 import Login from '../../../../src/components/Authentication/Login.vue';
 
@@ -37,7 +38,7 @@ describe('On login', () => {
   it('should loggin correctly', (done) => {
     const errors = {
       has: sandbox.stub(),
-    }
+    };
     const $router = {
       push: sandbox.stub(),
     };
@@ -55,7 +56,7 @@ describe('On login', () => {
   it('should not loggin with wrong credentials', (done) => {
     const errors = {
       has: sandbox.stub(),
-    }
+    };
     const wrapper = shallow(Login, { store, localVue, mocks: { errors } });
     stub.reset();
     stub.rejects();
@@ -63,7 +64,7 @@ describe('On login', () => {
 
     expect(actions.login.called).to.equal(true);
     wrapper.vm.$nextTick(() => {
-      //expect(wrapper.vm.errors.has('wrong-credentials')).to.be.true;
+      // expect(wrapper.vm.errors.has('wrong-credentials')).to.be.true;
       done();
     });
   });
