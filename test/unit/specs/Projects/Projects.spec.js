@@ -1,7 +1,6 @@
 import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
-import VeeValidate from 'vee-validate';
 import Projects from '../../../../src/components/Projects/Projects.vue';
 import sinon from 'sinon';
 
@@ -9,7 +8,6 @@ import sinon from 'sinon';
 describe('On projects component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
   let store;

@@ -17,10 +17,10 @@
           <div class="modal-body" data-vv-scope="modal-project">
             <p><label>Name</label></p>
             <p><input type = "text"
-                      name="na"
+                      name="name"
                       v-validate="'required'"
                       v-model="name">
-                <p class="text-danger" v-if="errors.has('na')">{{ errors.first('na') }}</p>
+                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
                 <br>
             </p>
             <p><label>Description</label></p>
