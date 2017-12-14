@@ -174,7 +174,7 @@ describe('Authorization tests', () => {
 
     cy.url().should('eq', 'http://localhost:8080/#/')
   })
-  
+
   it('should not access any page with user logged out', function(){
     cy.visit('localhost:8080/#/asdfasdf')
 
