@@ -9,7 +9,6 @@ import Projects from '../../../../src/components/Projects/Projects.vue';
 describe('On projects component', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
   let store;

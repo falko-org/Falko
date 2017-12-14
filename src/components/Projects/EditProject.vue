@@ -17,11 +17,22 @@
               <div class="row">
                 <div class="col">
                   <p><label > Name </label></p>
-                  <p><input type = "text" v-model="name"></input><br></p>
+                  <p><input type = "text"
+                            name="name"
+                            v-validate="'required'"
+                            v-model="name">
+                      <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+                      <br>
+                  </p>
                 </div>
                 <div class="col">
                   <p><label> Description </label></p>
-                  <input type = "text" v-model="description"></input><br>
+                  <input type = "text"
+                         name = "description"
+                         v-validate="'required'"
+                         v-model="description">
+                  <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
+                  <br>
                 </div>
               </div>
               <div class="row">
@@ -32,7 +43,7 @@
             </div>
           </div>
           <div class="modal-footer" id="editFooterModal">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editProject" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('description')" class="btn btn-info btn-md falko-button" v-on:click="editProject" data-dismiss="modal">Save</button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
@@ -67,6 +78,7 @@ export default{
   },
   methods: {
     editProject() {
+      const _this = this;
       const headers = { Authorization: this.token };
 
       HTTP.put(`projects/${this.$route.params.id}`, {
@@ -78,7 +90,7 @@ export default{
           this.$emit('edited-project');
         })
         .catch((e) => {
-          this.errors.push(e);
+          _this.errors.add('wrong-credentials', 'Problem with credentials');
         });
     },
     getProjectInformation() {

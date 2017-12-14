@@ -32,13 +32,14 @@ describe('On Edit Project', () => {
 
   it('should mount and get project information correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'get').resolves({ data: { name: 'ProjectName', description: 'ProjectDescription', isScoring: true } });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $route = {
       params: { id: '2' },
     };
     const $router = {
       push: sandbox.stub(),
     };
-    const wrapper = shallow(EditProject, { store, localVue, mocks: { $route, $router } });
+    const wrapper = shallow(EditProject, { store, localVue, mocks: { $route, $router, errors } });
 
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {
@@ -49,13 +50,14 @@ describe('On Edit Project', () => {
 
   it('should edit a project correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'put').resolves({ data: 200 });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $route = {
       params: { id: '2' },
     };
     const $router = {
       push: sandbox.stub(),
     };
-    const wrapper = shallow(EditProject, { store, localVue, mocks: { $route, $router } });
+    const wrapper = shallow(EditProject, { store, localVue, mocks: { $route, $router, errors } });
     wrapper.vm.editProject();
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {

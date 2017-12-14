@@ -37,7 +37,6 @@ describe('Authorization tests', () => {
         .type('123456789')
         .should('have.value', '123456789');
     });
-
     cy.get('.falko-button').eq(0).click();
 
     cy.url().should('eq', 'http://localhost:8080/#/projects');
@@ -149,7 +148,7 @@ describe('Authorization tests', () => {
         .should('have.value', '1234');
     });
 
-    cy.get('.falko-button').eq(1).click();
+    cy.get('.falko-button').eq(1).should('have.attr', 'disabled', 'disabled');
 
     cy.url().should('eq', 'http://localhost:8080/#/');
   });
@@ -175,7 +174,7 @@ describe('Authorization tests', () => {
 
     cy.url().should('eq', 'http://localhost:8080/#/')
   })
-  
+
   it('should not access any page with user logged out', function(){
     cy.visit('localhost:8080/#/asdfasdf')
 

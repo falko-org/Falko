@@ -1,14 +1,9 @@
 import Vuex from 'vuex';
-import sinon from 'sinon';
-import VeeValidate from 'vee-validate';
-import { shallow, createLocalVue } from 'vue-test-utils';
-import { HTTP } from '../../../../src/http-common';
 import Register from '../../../../src/components/Authentication/Register.vue';
 
 describe('On register', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
   let actions;
@@ -40,12 +35,14 @@ describe('On register', () => {
   });
 
   it('should register correctly', (done) => {
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
+
     const $router = {
       push: sandbox.stub(),
     };
     const httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
 
-    const wrapper = shallow(Register, { store, localVue, mocks: { $router } });
+    const wrapper = shallow(Register, { store, localVue, mocks: { $router, errors } });
 
     wrapper.vm.register();
 
@@ -57,11 +54,13 @@ describe('On register', () => {
   });
 
   it('should not register correctly', (done) => {
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
     const $router = {
       push: sandbox.stub(),
     };
     const httpStub = sandbox.stub(HTTP, 'post').rejects();
-    const wrapper = shallow(Register, { store, localVue, mocks: { $router } });
+    
+    const wrapper = shallow(Register, { store, localVue, mocks: { $router, errors } });
 
     wrapper.vm.register();
 

@@ -7,7 +7,6 @@ import AddProject from '../../../../src/components/Projects/AddProject.vue';
 describe('On Add Project', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  // localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
   let actions;
@@ -32,7 +31,9 @@ describe('On Add Project', () => {
   });
   it('should add a project correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
-    const wrapper = shallow(AddProject, { store, localVue });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
+    const wrapper = shallow(AddProject, { store, localVue, mocks: { errors } });
+    console.log(wrapper.vm.errors);
     wrapper.vm.addProject();
     expect(httpStub.called).to.be.true;
     wrapper.vm.$nextTick(() => {

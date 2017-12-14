@@ -7,7 +7,6 @@ import AddRelease from '../../../../src/components/Releases/AddRelease.vue';
 describe('On Add Release', () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
-  // localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
   let actions;
@@ -36,10 +35,12 @@ describe('On Add Release', () => {
 
   it('should add a release correctly', (done) => {
     const httpStub = sandbox.stub(HTTP, 'post').resolves({ data: 200 });
+    const errors =  { has: sandbox.stub(), any: sandbox.stub() };
+
     const $route = {
       params: { id: '2' },
     };
-    const wrapper = shallow(AddRelease, { store, localVue, mocks: { $route } });
+    const wrapper = shallow(AddRelease, { store, localVue, mocks: { $route, errors } });
 
     wrapper.vm.addRelease();
 
