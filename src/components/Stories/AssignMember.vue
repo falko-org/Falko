@@ -84,7 +84,7 @@ export default {
     },
     assignMembers() {
     	const headers = { Authorization: this.token };
-    	console.log(this.issueNumber)
+
     	HTTP.post(`projects/${this.projectId}/issues/assignees`, { assignees: this.selected, issue_number: this.issueNumber}, { headers })
     	.then((response) => {
     		console.log(response);

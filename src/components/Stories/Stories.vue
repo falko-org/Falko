@@ -289,7 +289,7 @@ export default {
 
     onUpdateToDo(evt) {
       const headers = { Authorization: this.token };
-      console.log(evt);
+
       if(evt.added){
         HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"To Do" }, { headers })
         .then((response) => console.log(response.code))
