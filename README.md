@@ -6,49 +6,72 @@
   <h3 align="center">Falko</h3>
 
   <p align="center">
-    <i>Veja além</i>
+    <i>See Beyond</i>
     <br>
-    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki"><strong>Visite nossa Wiki &raquo;</strong></a>
-    <br>
-    <br>
-    <a href="http://falko.solutions">Acesse o Falko</a>
+    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki">
+      <strong>Take a look at the Documentation &raquo</strong>
+    </a>
+    <br><br>
+    <a href="http://falko.solutions">Visit Falko</a>
     &middot;
-    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd">Repositório de BackEnd</a>
+    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd">API Repository</a>
     &middot;
-    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-FrontEnd/issues">Reporte um Problema</a>
+    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-FrontEnd/issues">Report a Problem</a>
   </p>
 </p>
 
 <p align="center">
-  <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/gpa.svg" alt="Code Climate GPA"></a>
-  <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/coverage.svg" alt="Code Climate Coverage"></a>
+  <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/gpa.svg" alt="Maintainability"></a>
+  <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/coverage.svg" alt="Test Coverage"></a>
   <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd" alt="Travis Build"><img src="https://img.shields.io/travis/fga-gpp-mds/Falko-2017.2-FrontEnd.svg"></a>
   <a href="https://cypress.io"><img src="https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square" alt="Cypress.io"></a>
   <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://img.shields.io/github/license/fga-gpp-mds/Falko-2017.2-FrontEnd.svg" alt="License"></a>
-  <a href="https://img.shields.io/badge/GPP%2FMDS-2017.2-brightgreen.svg"><img src="https://img.shields.io/badge/GPP%2FMDS-2017.2-brightgreen.svg" alt="GPP/MDS"></a>
+  
 </p>
 
 <br></br>
 
-## Introdução
+## Introduction
 
-Falko é uma aplicação web, desenvolvida com Ruby on Rails API e Vue.js. É um projeto de Software Livre, desenvolvido para a disciplina de GPP/MDS do curso de Engenharia de Software Universidade de Brasília - Campus de Engenharia do Gama (FGA). 
-O Falko tem como objetivo prover uma plataforma que facilite a gestão de projetos ágeis por meio da exibição de métricas e informações relevantes, contribuindo para tomadas de decisão mais eficientes.
+Falko is an open source web application, built on [Ruby on Rails](https://github.com/rails/rails/) (API) and [Vue.js](https://github.com/vuejs/vue). Do you want to manage your agile projects, keep all information at one single place and yet do it easily? Falko is the right choice for you.
 
-## Instalação de Ambiente
+## Installation
+Falko uses Docker and Docker Compose to make the installation process easier. :)
 
-O ambiente de desenvolvimento é implantado por meio de contêineres utilizando _Docker_. Para realizar a instalação, basta seguir o guia de [Como Usar o Docker](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki/Como-Usar-o-Docker).
+### Prerequisites
+* [Git](https://git-scm.com/)
+* [Docker](https://www.docker.com/community-edition#/download)
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
-## Documentação
+### Cloning
+Clone the repository using git.
 
-A documentação completa da aplicação está disponível em nossa [Wiki](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki).
+```bash
+$ git clone https://github.com/falko-org/Falko-2017.2-FrontEnd.git
+```
 
-## Como Contribuir
+### Docker Compose
+Let's get things running. Navigate into the directory where you cloned Falko and run Docker Compose.
 
-Para contribuir com o Falko, o colaborador deve criar seu próprio Fork e enviar um [pull request](https://github.com/fga-gpp-mds/Falko-2017.2-FrontEnd/pulls) com a contribuição para a branch 'devel' do projeto. 
-O código enviado será submetido a uma avaliação por um dos administradores do repositório e, se aprovado, incluído ao _core_ da aplicação.
+```bash
+$ cd path-to-your-clone
+$ docker compose up
+```
 
-## Licença
+This is it! Now you can start hacking on Falko, just go to `localhost:8080` on your browser!
+
+
+## Documentation
+
+The full version of our documentation can be found on our [Wiki](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki).
+
+## Contributing
+
+Thanks for join us on Falko! Make sure to read the [Contribution Guide](https://github.com/falko-org/Falko-2017.2-FrontEnd/blob/devel/CONTRIBUTING.md) before opening a pull request.
+
+You can find information about the installation [here](https://github.com/falko-org/Falko-2017.2-BackEnd/wiki/Como-Usar-o-Docker).
+
+## Licence
 
 [MIT](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/blob/devel/LICENSE)
 
