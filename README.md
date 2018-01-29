@@ -33,7 +33,7 @@
 
 ## Introduction
 
-Falko is an open source web application, built on [Ruby on Rails](https://github.com/rails/rails/) (API) and [Vue.js](https://github.com/vuejs/vue). Do you want to manage your agile projects, keep all information at one single place and yet do it easily? Falko is the right choice for you.
+Falko is an open source web application, built on [Ruby on Rails](https://github.com/rails/rails/) (API) and [Vue.js](https://github.com/vuejs/vue). Do you want to manage your agile projects, keep all information in one single place and yet do it easily? Falko is the right choice for you.
 
 ## Installation
 Falko uses Docker and Docker Compose to make the installation process easier. :)
@@ -55,7 +55,7 @@ Let's get things running. Navigate into the directory where you cloned Falko and
 
 ```bash
 $ cd path-to-your-clone
-$ docker compose up
+$ docker-compose up
 ```
 
 This is it! Now you can start hacking on Falko, just go to `localhost:8080` on your browser!
