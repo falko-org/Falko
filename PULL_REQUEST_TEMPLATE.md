@@ -1,27 +1,26 @@
-## Mudanças Propostas
+## Proposed Changes
 
-Descreva brevemente as mudanças feitas. Tenha certeza que linkou o pull request à uma issue existente.
+Briefly describe your changes. Make sure you mentioned the related issue (use a hyperlink :D).
 
-## Tipo de Mudança
+## Type of Changes
 
-Que tipo de mudanças este Pull Request introduz ao Falko?
-_Marque um `x` ao que se aplicar_
+What type of change this Pull Request brings to Falko?
+_Put an `x` in the boxes that apply_
 
-- [ ] Conserto de Bug
-- [ ] Nova Feature
+- [ ] Bugfix
+- [ ] New Feature
 
 ## Checklist
 
-_Marque um `x` ao que se aplicar. Se você não tiver certeza sobre algum dos tópicos, não hesite em perguntar. Estamos aqui para ajudar!_
+_Put an `x` in the boxes that apply. If you're confused about any of the following topics, ask us. We're here to help you!_
 
-- [ ] O nome do pull request deve ser auto-explicativo e deve estar em português.
-- [ ] Os commits seguem a [política de commits do repositório](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki/Plano-de-Gerenciamento-de-Configura%C3%A7%C3%A3o-de-Software#41---pol%C3%ADtica-de-commits).
-- [ ] Não há erros de linter.
-- [ ] A build está passando (testes, code climate e codacy).
-- [ ] O pull request está linkado à uma issue existente.
+- [ ] This Pull Request has a significant name.
+- [ ] The commits follow the [[commits policy]].
+- [ ] The build is okay (tests, code climate).
+- [ ] This Pull Request mention a related issue.
 
 ## Screenshots
-Se  possível, incluir screenshots das modificações  feitas.
+If necessary, use screenshots to show us your changes.
 
-## Outros Comentários
-Se for uma mudança relativamente grande/complexa e você tiver algum comentário/pergunta a fazer, explicação de sua escolha da sua solução ou qualquer coisa que ache relevante, não hesite em compartilhar.
+## Further Comments
+If you have something more to tell us (questions, explanations, etc) write them down here. We'll answer you as soon as we can.
