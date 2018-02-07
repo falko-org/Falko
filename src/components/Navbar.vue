@@ -26,11 +26,13 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('logout')
-        .then(() => {
-          this.$router.push({ path: '/' })
-          localStorage.clear();
-        });
+      if (confirm("Are you sure?")) {
+        this.$store.dispatch('logout')
+          .then(() => {
+            this.$router.push({ path: '/' });
+            localStorage.clear();
+          });
+      }
     },
     goToHome() {
       if (this.authenticated) {
