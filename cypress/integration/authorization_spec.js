@@ -37,7 +37,7 @@ describe('Authorization tests', () => {
         .type('123456789')
         .should('have.value', '123456789');
     });
-    cy.get('.falko-button').eq(0).click();
+    cy.get('#loginButton').click();
 
     cy.url().should('eq', 'http://localhost:8080/#/projects');
   });
@@ -78,7 +78,7 @@ describe('Authorization tests', () => {
         .should('have.value', '123456');
     });
 
-    cy.get('.falko-button').eq(0).click();
+    cy.get('#loginButton').click();
 
     cy.get('.text-danger').contains('Wrong Credentials');
 
@@ -120,7 +120,6 @@ describe('Authorization tests', () => {
   });
 
   it('should not register invalid user', () => {
-    // Stubing server response
     cy.route({
       method: 'POST',
       url: '/users',
@@ -164,12 +163,20 @@ describe('Authorization tests', () => {
         .should('have.value', '123456789');
     });
 
-    cy.get('.falko-button').eq(0).click();
+    cy.get('#loginButton').click();
 
     cy.get('#noProjects');
 
+    const stub = cy.stub();
+
     cy.get('.navbar').within(() => {
-      cy.get('#logout').click();
+      cy.on('window:confirm', stub);
+
+      cy.get('#logout').click()
+      .then(() => {
+        expect(stub.getCall(0)).to.be.calledWith('Are you sure?');
+      })
+
     });
 
     cy.url().should('eq', 'http://localhost:8080/#/')

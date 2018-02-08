@@ -17,7 +17,7 @@ describe('Users tests', () => {
         .should('have.value', '123456789');
     });
 
-    cy.get('.falko-button').eq(0).click();
+    cy.get('#loginButton').click();
   }
 
   beforeEach(() => {
