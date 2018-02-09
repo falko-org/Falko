@@ -17,7 +17,7 @@ _Put an `x` in the boxes that apply. If you're confused about any of the followi
 - [ ] This Pull Request has a significant name.
 - [ ] The commits follow the [[commits policy]].
 - [ ] The build is okay (tests, code climate).
-- [ ] This Pull Request mention a related issue.
+- [ ] This Pull Request mentions a related issue.
 
 ## Screenshots
 If necessary, use screenshots to show us your changes.
