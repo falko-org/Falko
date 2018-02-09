@@ -72,6 +72,7 @@ describe('On navbar component', () => {
 
     const wrapper = shallow(Navbar, { store, localVue, mocks: { $route, $router } });
     wrapper.setData({email:"matheus@gmail.com", password: "123456"});
+    sandbox.stub(window, 'confirm').returns(true);
     wrapper.vm.logout();
 
     wrapper.vm.$nextTick(() => {

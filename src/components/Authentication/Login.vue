@@ -25,7 +25,7 @@
         </div>
 
         <div class="text-center">
-          <button type="submit" class="btn btn-primary falko-button" >Log In</button>
+          <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
         </div>
         <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
       </form>
