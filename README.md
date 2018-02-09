@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://github.com/fga-gpp-mds/Falko-2017.2-FrontEnd/wiki">
-    <img src="https://raw.githubusercontent.com/wiki/fga-gpp-mds/Falko-2017.2-BackEnd/images/logo.png" width=150 height=150>
+  <a href="https://github.com/falko-org/Falko/wiki">
+    <img src="https://raw.githubusercontent.com/wiki/falko-org/Falko-API/images/logo.png" width=150 height=150>
   </a>
 
   <h3 align="center">Falko</h3>
@@ -8,24 +8,24 @@
   <p align="center">
     <i>See Beyond</i>
     <br>
-    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki">
+    <a href="https://github.com/falko-org/Falko-API/wiki">
       <strong>Take a look at the Documentation &raquo</strong>
     </a>
     <br><br>
     <a href="http://falko.solutions">Visit Falko</a>
     &middot;
-    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd">API Repository</a>
+    <a href="https://github.com/falko-org/Falko-API">API Repository</a>
     &middot;
-    <a href="https://github.com/fga-gpp-mds/Falko-2017.2-FrontEnd/issues">Report a Problem</a>
+    <a href="https://github.com/falko-org/Falko/issues/new">Report a Problem</a>
   </p>
 </p>
 
 <p align="center">
   <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/gpa.svg" alt="Maintainability"></a>
   <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/coverage.svg" alt="Test Coverage"></a>
-  <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd" alt="Travis Build"><img src="https://img.shields.io/travis/fga-gpp-mds/Falko-2017.2-FrontEnd.svg"></a>
+  <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd" alt="Travis Build"><img src="https://img.shields.io/travis/falko-org/Falko.svg"></a>
   <a href="https://cypress.io"><img src="https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square" alt="Cypress.io"></a>
-  <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://img.shields.io/github/license/fga-gpp-mds/Falko-2017.2-FrontEnd.svg" alt="License"></a>
+  <a href="https://github.com/falko-org/Falko"><img src="https://img.shields.io/github/license/falko-org/Falko.svg" alt="License"></a>
   
 </p>
 
@@ -63,7 +63,7 @@ This is it! Now you can start hacking on Falko, just go to `localhost:8080` on y
 
 ## Documentation
 
-The full version of our documentation can be found on our [Wiki](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/wiki).
+The full version of our documentation can be found on our [Wiki](https://github.com/falko-org/Falko-API/wiki).
 
 ## Contributing
 
@@ -73,6 +73,6 @@ You can find information about the installation [here](https://github.com/falko-
 
 ## Licence
 
-[MIT](https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd/blob/devel/LICENSE)
+[MIT](https://github.com/falko-org/Falko/blob/devel/LICENSE)
 
 Copyright (c) 2017 Falko - UnB-FGA (GPP/MDS) Grupo 8 Segundo Semestre de 2017
