@@ -46,6 +46,8 @@ input {
   border-radius: 0;
   border-bottom: solid #c0c0c0 thin;
   padding-left: 0;
+  color: #333;
+  width: 100%;  
 }
 
 input:focus {
@@ -59,14 +61,6 @@ input:focus {
   text-align: center;
   color: #2c3e50;
   margin-top: 100px;
-}
-
-input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
-  color: #333;
 }
 
 .limit-sidebar {

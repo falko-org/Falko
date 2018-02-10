@@ -14,35 +14,33 @@
             </button>
           </div>
           <div class="row modal-body">
-            <div class="col">
-              <p><label > Name </label></p>
-              <p><input type="text"
-                        v-model="name"
-                        id="sprintName"
-                        name="name"
-                        v-validate="'required'">
-                  <br>
-                  <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-              </p>
-              <p><label> Description </label></p>
-              <input type="text"
-                     v-model="description"
-                     name="description"
-                     v-validate="'required'"></input>
-              <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
-              <br>
+            <div class="col-6">
+              <label>Name</label>
+              <input type="text" placeholder="Sprint name..." v-model="name" name="name" v-validate="'required'"/>
+
+              <label>Description</label>
+              <input type="text" placeholder="Sprint description..." v-model="description"/>
             </div>
-            <div class="col">
-              <p><label>Inital Date</label></p>
-              <p></p><input type = "date" v-model="initialDate" name="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"></input><br></p>
-              <p><label>Final Date</label></p>
-              <p></p><input type = "date" v-model="finalDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+
+            <div class="col-6">
+              <label>Initial Date</label>
+              <input type="date" name="Initial Date" v-model="sprintInitialDate" 
+                     v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"
+                     v-validate="'required|date_format:YYYY-MM-DD|'"
+              />
+
+              <label>Final Date</label>
+              <input type="date" name="Final Date" v-model="sprintFinalDate" v-bind:min="this.sprintInitialDate"
+                     v-bind:max="this.releaseFinalDate" required v-validate="'date_format:YYYY-MM-DD|after:Initial Date'"
+              />
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
-            </input><br></p>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">Save</button>
+            <button type="button" :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
+                    class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">
+              Save
+            </button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
@@ -113,4 +111,7 @@ export default{
 </script>
 
 <style scoped>
+input {
+  margin-bottom: 0.5em;
+}
 </style>

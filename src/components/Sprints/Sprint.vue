@@ -18,7 +18,7 @@
           </p>
         </ul>
       </div>
-      <div class="col-md-6" align="end">
+      <div class="col-md-6">
         <li class="list-inline-item">
           <add-retrospective v-on:retrospectiveCreated="setRetrospectiveAsCreated()"
           v-if="!retrospectiveCreatedStatus()"></add-retrospective>
@@ -49,7 +49,6 @@
     </div>
     <div class="metrics">
       <metrics></metrics>
-    </div>
     </div>
   </div>
 </template>
