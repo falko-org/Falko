@@ -13,22 +13,27 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class=" row modal-body">
-            <div class="col">
-              <p><label>Name</label></p>
-              <p><input type="text" v-model="name" id="releaseName"name="name" v-validate="'required'">
-              <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p></input><br></p>
-              <p><label>Description</label></p>
-              <input type="text" v-model="description" name="description" v-validate="'required'">
-              <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p></input><br>
+          <div class="row modal-body">
+            <div class="col-6">
+              <label>Name</label>
+              <input type="text" v-model="name" id="releaseName" placeholder="Release Name" name="name" v-validate="'required'">
+                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+              </input>
+              <br>
+
+              <label>Description</label>
+              <input type="text" v-model="description" placeholder="Release description..." name="description" v-validate="'required'">
+              <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
+            </input><br>
             </div>
-            <div class="col">
-              <p><label>Initial Date</label></p>
-              <p><input type="date" v-model="initialDate" name="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"></input><br></p>
-              <p><label>Final Date</label></p>
-              <p><input type="date" v-model="finalDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+            <div class="col-6">
+              
+              <label>Initial Date</label>
+              <input type="date" v-model="initialDate" name="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"/><br>
+              <label>Final Date</label>
+              <input type="date" v-model="finalDate" v-bind:min="this.initialDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
-              </input><br></p>
+              </input><br>
             </div>
           </div>
           <div class="modal-footer">
@@ -102,4 +107,7 @@ export default {
 </script>
 
 <style scoped>
+input {
+  margin-bottom: 0.5em;
+}
 </style>

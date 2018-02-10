@@ -42,8 +42,9 @@
         <div class="row align-content-center">
           <div class="col" align="center">
             <div v-if="this.sprints.length == 0">
-              <no-content parent = "Sprint"></no-content>
+              <no-content parent="Sprint"></no-content>
             </div>
+
             <add-sprint v-bind:release="[
                 this.releases[this.releaseIndex].id,
                 dateConvert(this.releases[this.releaseIndex].initial_date),
