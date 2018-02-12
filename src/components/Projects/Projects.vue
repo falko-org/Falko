@@ -46,7 +46,11 @@
     </div>
     <div v-if="!this.isGitHubAuthenticated" class="row justify-content-center" id="importTutorial">
       <p class="text-muted">
-        To import a repository, you must have previously linked your github account
+        To import a repository, you must have previously
+
+        <router-link to="/user" id="linkAccount">
+          linked your github account
+        </router-link>
       </p>
     </div>
   </div>
@@ -139,9 +143,15 @@ div a {
   color: inherit;
 }
 
+#linkAccount {
+  color: #3085BB;
+}
+
+#linkAccount:hover {
+  color: #28639A;
+}
+
 #projectCard:hover {
-  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
-  /*border-color: #7799A5;*/
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   border-color: #5D6A6F;
 }
