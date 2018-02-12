@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="row modal-body">
-            <div v-if="userRepos.length != 0">
+            <div class="col" v-if="userRepos.length != 0">
               <h4
               data-toggle="collapse"
               class="pointer-cursor dropdown-toggle"
