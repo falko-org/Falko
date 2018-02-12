@@ -152,8 +152,6 @@ div a {
 }
 
 #projectCard:hover {
-  /* box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15); */
-  /*border-color: #7799A5;*/
   box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   border-color: #5D6A6F;
 }
