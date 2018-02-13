@@ -23,3 +23,35 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', () => {
+  const user = {
+    email: 'carla@email.com',
+    password: '123456789',
+  }
+
+  cy.visit('localhost:8080/#/');
+
+  cy.server();
+
+  cy.route({
+    method: 'POST',
+    url: '/authenticate',
+    status: 200,
+    response: 'fixture:login.json',
+  }).as('login');
+
+  cy.get('form').within(() => {
+    cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
+      .type(user.email)
+      .should('have.value', 'carla@email.com');
+
+    cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
+      .type(user.password)
+      .should('have.value', '123456789');
+  });
+
+  cy.get('#loginButton').click();
+
+  cy.wait('@login')
+})

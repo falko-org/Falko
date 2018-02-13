@@ -1,7 +1,5 @@
 describe('Authorization tests', () => {
   beforeEach(() => {
-    cy.visit('localhost:8080/#/');
-
     cy.server();
 
     // Stubing server response
@@ -14,6 +12,8 @@ describe('Authorization tests', () => {
   });
 
   it('should access homepage', () => {
+    cy.visit('localhost:8080/#/');
+
     cy.title().should('include', 'Falko');
 
     cy.get('#loginRegisterComponent').within(() => {
@@ -28,16 +28,7 @@ describe('Authorization tests', () => {
   });
 
   it('should log in user', () => {
-    cy.get('form').within(() => {
-      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
-        .type('carla@gmail.com')
-        .should('have.value', 'carla@gmail.com');
-
-      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
-        .type('123456789')
-        .should('have.value', '123456789');
-    });
-    cy.get('#loginButton').click();
+    cy.login()
 
     cy.url().should('eq', 'http://localhost:8080/#/projects');
   });
@@ -55,6 +46,8 @@ describe('Authorization tests', () => {
         },
       },
     }).as('invalidLogin');
+    
+    cy.visit('localhost:8080/#/');
 
     cy.get('form').within(() => {
       cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
@@ -94,6 +87,8 @@ describe('Authorization tests', () => {
       response: 'fixture:login.json',
     }).as('register');
 
+    cy.visit('localhost:8080/#/');
+
     cy.get('#pills-register-tab').click();
 
     cy.get('form').within(() => {
@@ -127,6 +122,8 @@ describe('Authorization tests', () => {
       response: {},
     }).as('invalidRegister');
 
+    cy.visit('localhost:8080/#/');
+
     cy.get('#pills-register-tab').click();
 
     cy.get('form').within(() => {
@@ -153,17 +150,7 @@ describe('Authorization tests', () => {
   });
 
   it('should logout user', () => {
-    cy.get('form').within(() => {
-      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
-        .type('carla@gmail.com')
-        .should('have.value', 'carla@gmail.com');
-
-      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
-        .type('123456789')
-        .should('have.value', '123456789');
-    });
-
-    cy.get('#loginButton').click();
+    cy.login();
 
     cy.get('#noProjects');
 
@@ -183,7 +170,9 @@ describe('Authorization tests', () => {
   })
 
   it('should not access any page with user logged out', function(){
-    cy.visit('localhost:8080/#/asdfasdf')
+    cy.visit('localhost:8080/#/');
+    
+    cy.visit('localhost:8080/#/invalidURL')
 
     cy.get('#loginComponent')
   })

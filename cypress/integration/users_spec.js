@@ -1,28 +1,5 @@
 describe('Users tests', () => {
-  function login() {
-    cy.route({
-      method: 'POST',
-      url: '/authenticate',
-      status: 200,
-      response: 'fixture:login.json',
-    }).as('login');
-
-    cy.get('form').within(() => {
-      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
-        .type('carla@gmail.com')
-        .should('have.value', 'carla@gmail.com');
-
-      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
-        .type('123456789')
-        .should('have.value', '123456789');
-    });
-
-    cy.get('#loginButton').click();
-  }
-
   beforeEach(() => {
-    cy.visit('localhost:8080/#/');
-
     cy.server();
 
     cy.route({
@@ -32,7 +9,7 @@ describe('Users tests', () => {
       response: 'fixture:projects.json',
     }).as('getProjects');
 
-    login();
+    cy.login();
 
     cy.route({
       method: 'GET',

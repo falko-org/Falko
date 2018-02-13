@@ -1,27 +1,5 @@
 describe('Projects tests', function(){
-
-  function login(){
-    cy.route({
-      method: 'POST',
-      url: '/authenticate',
-      status: 200,
-      response: 'fixture:login.json'
-    }).as('login')
-
-    cy.get('form').within(function () {
-      cy.get('input:first').eq(0).should('have.attr', 'placeholder', 'Email')
-        .type('carla@gmail.com').should('have.value', 'carla@gmail.com')
-
-      cy.get('input:last').eq(0).should('have.attr', 'placeholder', 'Password')
-        .type('123456789').should('have.value', '123456789')
-    })
-
-    cy.get('.falko-button').eq(0).click()
-  }
-
   beforeEach(function(){
-    cy.visit('localhost:8080/#/')
-
     cy.server()
 
     cy.route({
@@ -34,7 +12,7 @@ describe('Projects tests', function(){
 
   it('should get projects', function(){
 
-    login()
+    cy.login()
 
     cy.get('.card-header').eq(0).contains('Owla')
     cy.get('.card-body').within(function(){
@@ -74,7 +52,7 @@ describe('Projects tests', function(){
       ]
     }).as('addProject')
 
-    login()
+    cy.login()
 
     cy.get('.falko-button').eq(0).click()
 
@@ -126,7 +104,7 @@ describe('Projects tests', function(){
 
   it('should cancel add project process', function () {
 
-    login()
+    cy.login()
 
     cy.get('#addButton').contains('Add a Project').click()
 
@@ -141,7 +119,7 @@ describe('Projects tests', function(){
   })
 
   it('should edit a project', function(){
-    login()
+    cy.login()
 
     cy.route({
       method: 'GET',
@@ -219,7 +197,7 @@ describe('Projects tests', function(){
   })
 
   it('should delete project', function(){
-    login()
+    cy.login()
 
     cy.route({
       method: 'GET',
