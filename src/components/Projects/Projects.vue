@@ -5,12 +5,12 @@
     </div>
     <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
     <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
+      <div v-for="project in projects.slice((i-1)*2, i*2)" :key="project.id" class="col-5">
         <div align="center">
-          <div class="card" id="projectCard">
+          <div class="card project-card" :id="`projectCard${project.id}`">
             <router-link v-bind:to="'/projects/'+project.id">
-              <div class="card-header" id="projectHeader">
-                <div class="row align-itens-around" id="projectTitle">
+              <div class="card-header project-header" :id="`projectHeader${project.id}`">
+                <div class="row align-itens-around project-title" :id="`projectTitle${project.id}`">
                   <div class="col">
                     <h4 class="no-margin float-left"> {{project.name}}</h4>
                   </div>
@@ -26,7 +26,7 @@
                     </p>
                   </div>
                   <div class="col-md-4 justify-content-center">
-                    <grade id="grade" align="center" v-bind:project="project.id"></grade>
+                    <grade class="grade" :id="`grade${project.id}`" align="center" v-bind:project="project.id"></grade>
                   </div>
                 </div>
               </div>
@@ -151,21 +151,21 @@ div a {
   color: #28639A;
 }
 
-#projectCard:hover {
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
-  border-color: #5D6A6F;
-}
-
-#projectCard {
+.project-card {
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
   transition: 0.2s;
 }
 
-#projectHeader {
+.project-card:hover {
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+  border-color: #5D6A6F;
+}
+
+.project-header {
   background-color: #5D6A6F;
 }
 
-#projectTitle {
+.project-title {
   margin: 0;
   color: white;
 }
@@ -175,7 +175,7 @@ div a {
   font-style: italic;
 }
 
-#grade {
+.grade {
   margin-left: 1.5em;
 }
 </style>
