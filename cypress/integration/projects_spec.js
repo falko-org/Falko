@@ -125,16 +125,7 @@ describe('Projects tests', function(){
       method: 'GET',
       url: '/projects\/2',
       status: 200,
-      response:
-        {
-          "description":"Agile Projects Manager" ,
-          "github_slug": "fga-gpp-mds/owla",
-          "id":2,
-          "is_project_from_github":true,
-          "is_scoring":false,
-          "name":"Falko",
-          "user_id":1,
-        }
+      response: 'fixture:project.json'
     }).as('getProject')
 
     cy.get('.card-body').eq(1).click()
@@ -203,16 +194,7 @@ describe('Projects tests', function(){
       method: 'GET',
       url: '/projects\/1',
       status: 200,
-      response:
-        {
-          "description": "Agile Projects Manager",
-          "github_slug": "fga-gpp-mds/owla",
-          "id": 2,
-          "is_project_from_github": true,
-          "is_scoring": false,
-          "name": "Falko",
-          "user_id": 1,
-        }
+      response: 'fixture:project.json'
     }).as('getProject')
 
     cy.route({
