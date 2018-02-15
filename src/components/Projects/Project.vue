@@ -16,20 +16,20 @@
                 <div class="row">
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/issues'">
-                      <button type="button" class="btn btn-info btn-md falko-button" v-if="isFromProjectGitHub()">
+                      <button type="button" class="btn btn-info btn-md falko-button" id="backlog" v-if="isFromProjectGitHub()">
                         Backlog
                       </button>
                     </router-link>
                   </div>
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/releases'">
-                      <button type="button" class="btn btn-info btn-md falko-button">
+                      <button type="button" class="btn btn-info btn-md falko-button" id="releases">
                         Releases
                       </button>
                     </router-link>
                   </div>
                   <div align="center">
-                    <addGrade></addGrade>
+                    <addGrade id="addGrade"></addGrade>
                   </div>
                   <div align="center">
                     <edit-project v-on:edited-project="refreshProject()"></edit-project>
