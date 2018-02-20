@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addSprintModal">
+      <button type="button" class="btn btn-info btn-md falko-button" id="addSprintButton" data-toggle="modal" data-target="#addSprintModal">
         Add a Sprint
       </button>
     </div>
@@ -107,7 +107,7 @@ export default {
 </script>
 
 <style scoped>
-#addButton {
+#addSprintButton {
   margin-top: 2em;
 }
 
