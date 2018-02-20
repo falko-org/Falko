@@ -17,15 +17,15 @@
         <div class="row justify-content-between" id="releaseHeader">
           <div class="col-5 no-padding" align="center">
             <div class="row">
-              <h1>{{this.releases[this.releaseIndex].name}}</h1>
+              <h1 :id="`release${releaseIndex}Name`">{{this.releases[this.releaseIndex].name}}</h1>
             </div>
-            <div class="row text-muted">
+            <div class="row text-muted" :id="`release${releaseIndex}Description`">
               <p>{{this.releases[this.releaseIndex].description}}</p>
             </div>
           </div>
           <div class="col-5 no-padding">
             <div class="row">
-              <h5>
+              <h5 id="releasePeriod">
                 {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
                 |
                 {{dateConvert(this.releases[this.releaseIndex].final_date)}}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release[1]" v-on:click="select($event)">
+    <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="`release${amountOfReleases - release[1]}`" v-on:click="select($event)">
       <div class="col-5" align="center">
         <div class="number-circle align-self-center">
           <p>R{{this.amountOfReleases - this.release[1]}}</p>
