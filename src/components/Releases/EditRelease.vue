@@ -16,7 +16,7 @@
           <div class="row modal-body">
             <div class="col-6">
               <label>Name</label>
-              <input type="text" v-model="name" id="releaseName" placeholder="Release Name" name="name" v-validate="'required'">
+              <input type="text" v-model="name" class="grey" placeholder="Release Name" name="name" v-validate="'required'">
                 <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               </input>
               <br>

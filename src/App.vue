@@ -208,6 +208,10 @@ label {
   min-height: 7em;
 }
 
+.grey {
+  color: #777;
+}
+
 ::-webkit-scrollbar {
     width: 0.5em;
 }

@@ -25,7 +25,7 @@
           <div class="row modal-body align-content-end">
             <div class="col-6">
               <label>Name</label>
-              <input type="text" v-model="name" id="releaseName" placeholder="Release Name" name="name" v-validate="'required'">
+              <input type="text" v-model="name" class="grey" placeholder="Release Name" name="name" v-validate="'required'">
                 <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               </input>
               <br>
@@ -111,9 +111,6 @@ input {
   margin-bottom: 0.5em;
 }
 
-#releaseName {
-  color: #777;
-}
 #addReleaseButton {
   width: 100%;
   border-radius: 0;
