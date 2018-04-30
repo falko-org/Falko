@@ -1,27 +1,16 @@
-## Comportamento esperado
+## Description
+Describe here the problem or new feature (use labels to identify which one). If necessary, use the fields below to help you in your description (delete them if you don't use them).
 
-Descreva qual o comportamento que o sistema deveria possuir.
+### Expected behavior
+Describe what is the expected behavior.
 
-## *Comportamento atual
+### Current behavior
+Describe how the system behaves currently.
 
-Descreva como o sistema se comporta atualmente.
-
-## *Passos para reproduzir o comportamento
-
-Em caso de bugs, cite quais passos foram executados para chegar no problema.
-
-## **Critérios de Aceitação
-
-Diga quais os critérios o sistema deve possuir para que seja enviado o Pull Request.
-
-
+### Steps to reproduce the behavior
+Which steps have been taken to reach the problem?
 
 ## Checklist
-
-- [ ] A issue possui Labels.
-- [ ] A issue possui prints de tela quando necessário.
-- [ ] A issue possui nome significativo.
-
-**Exclua caso a issue seja um bug
-
-*Exclua caso a issue seja uma história
+- [ ] This issue has a significant name.
+- [ ] This issue has labels.
+- [ ] This issue has screenshots (if necessary).
