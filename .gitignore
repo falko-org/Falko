@@ -3,6 +3,8 @@
 .travis/*.key.pub
 .travis/*.pem
 
+*.log
+
 # Ignore bundler config.
 /.bundle
 
