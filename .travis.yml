@@ -22,7 +22,8 @@ before_install:
 
 before_script:
   - npm install coveralls
-  - docker-compose -f scripts/docker/docker-compose.test.yml up -d
+  - docker network create falko20172backend_default
+  - docker-compose up -d
 
 script:
   - docker exec -it falko-front npm run unit
