@@ -5,8 +5,6 @@ services:
     container_name: falko-front
     image: alaxalves/front:1.5
     command: /bin/bash -lc "npm install && npm run dev"
-    volumes:
-      - .:/Falko-2017.2-FrontEnd
     external_links:
       - falko20172backend_default
     ports:
