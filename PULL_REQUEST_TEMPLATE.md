@@ -15,7 +15,6 @@ _Put an `x` in the boxes that apply_
 _Put an `x` in the boxes that apply. If you're confused about any of the following topics, ask us. We're here to help you!_
 
 - [ ] This Pull Request has a significant name.
-- [ ] The commits follow the [[commits policy]].
 - [ ] The build is okay (tests, code climate).
 - [ ] This Pull Request mentions a related issue.
 
