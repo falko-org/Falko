@@ -20,8 +20,7 @@ RUN npm run build
 RUN rm -rf ./build
 RUN rm -rf ./test
 RUN rm -rf ./src
-RUN chmod +x start-homolog.sh
 
 EXPOSE 80
 
-ENTRYPOINT ["./start-homolog.sh"]
+ENTRYPOINT [".scripts/sh/start-homolog.sh"]
