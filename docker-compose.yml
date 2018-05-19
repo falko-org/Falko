@@ -1,10 +1,10 @@
 version: '2'
 services:
   
-  falko-front:
+  front:
     container_name: falko-front
     image: alaxalves/front:1.5
-    command: /bin/bash -lc "npm install && npm run dev"
+    command: ["./scripts/sh/start-dev.sh"]
     volumes:
       - .:/Falko-2017.2-FrontEnd
     external_links:
