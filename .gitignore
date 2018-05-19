@@ -3,11 +3,6 @@
 .travis/*.key.pub
 .travis/*.pem
 
-*.log
-
-# Ignore bundler config.
-/.bundle
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -38,3 +33,7 @@ karma-*/
 #Ignore Cypress screenshots
 cypress/screenshots
 .Trash-0/
+
+#Ignore log files
+*.log
+npm-debug.log

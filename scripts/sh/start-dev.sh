@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Building up environment"
+echo "Building up environment ..."
 
 npm install
 
