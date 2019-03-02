@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   
   front:
@@ -8,16 +8,14 @@ services:
     volumes:
       - .:/Falko-2017.2-FrontEnd
     external_links:
-      - falko20172backend_default
+      - falko-backend
     ports:
       - 8080:8080
     networks:
       - default
-      - falko20172backend_default
+      - falko-backend
     ipc: host
 
 networks:
-  falko20172backend_default: 
+  falko-backend:
     external: true
-     
-    

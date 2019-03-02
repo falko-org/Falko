@@ -1,5 +1,5 @@
 {
-  "name": "falko-2017.2-frontend",
+  "name": "falko",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Álax Alves <alaxallves@gmail.com>",
@@ -19,7 +19,7 @@
     "ejs": "^2.5.9",
     "es6-promise": "^4.2.4",
     "github-api": "^3.0.0",
-    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.16",
     "vee-validate": "^2.0.8",
     "vue": "^2.5.16",
     "vue-chart-js": "^1.4.1",
@@ -79,7 +79,6 @@
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^1.4.0",
     "phantomjs-polyfill-object-assign": "0.0.2",
-    "phantomjs-prebuilt": "^2.1.16",
     "rimraf": "^2.6.0",
     "selenium-server": "^3.11.0",
     "semver": "^5.5.0",
@@ -99,7 +98,8 @@
   },
   "engines": {
     "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "npm": ">= 3.0.0",
+    "yarn": ">= 1.0.0"
   },
   "browserslist": [
     "> 1%",
