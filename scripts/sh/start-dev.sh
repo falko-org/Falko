@@ -2,6 +2,6 @@
 
 echo "Building up environment ..."
 
-npm install
+yarn check || yarn install
 
-npm run dev
+yarn dev
