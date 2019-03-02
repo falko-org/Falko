@@ -67,7 +67,7 @@ The full version of our documentation can be found on our [Wiki](https://github.
 
 ## Contributing
 
-Thanks for join us on Falko! Make sure to read the [Contribution Guide](https://github.com/falko-org/Falko-2017.2-FrontEnd/blob/devel/CONTRIBUTING.md) before opening a pull request.
+Thanks for join us on Falko! Make sure to read the [Contribution Guide](https://github.com/falko-org/Falko/blob/devel/.github/CONTRIBUTING.md) before opening a pull request.
 
 You can find information about the installation [here](https://github.com/falko-org/Falko-2017.2-BackEnd/wiki/Como-Usar-o-Docker).
 
