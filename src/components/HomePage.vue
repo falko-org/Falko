@@ -53,9 +53,9 @@
       </div>
     </div>
     <div class="card-footer" id="footer">
-      <a>
-        Copyright (c) 2017 Falko - UnB-FGA (GPP/MDS) Grupo 8 Segundo Semestre de 2017
-      </a>
+      <a><h5>Copyright (c) 2017 Falko</h5></a>
+      <div>All Rights Reserved.</div>
+      <a>This product is protected by copyright and distributed under licenses restricting copying, distribution, and decompilation.</a>
     </div>
   </div>
 </template>
