@@ -28,6 +28,7 @@
           <input  type="password"
                   class="form-control"
                   placeholder="Password"
+                  ref="password"
                   v-model="password"
                   name="password"
                   v-validate="'required|min:6'">
