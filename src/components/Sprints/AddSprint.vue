@@ -26,7 +26,7 @@
 
             <div class="col-6">
               <label>Initial Date</label>
-              <input type="date" name="Initial Date" v-model="sprintInitialDate" 
+              <input type="date" name="Initial Date" ref="Initial Date" v-model="sprintInitialDate" 
                      v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"
                      v-validate="'required|date_format:YYYY-MM-DD|'"
               />
