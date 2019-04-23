@@ -68,6 +68,13 @@
         </div>
       </div>
   </div>
+  <div v-else class="empty-issues">
+    <h1>There are no issues in this project</h1>
+    <div class="error-icons">
+      <i class="fa fa-times-circle-o empty-issues-icon" aria-hidden="true"></i>
+      <i class="fa fa-list-alt issues-icon" aria-hidden="true"></i>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -421,6 +428,31 @@ h6 {
 
 .arrow-image {
   width: 0.95em;
+}
+
+.empty-issues {
+  padding: 8%;
+}
+
+.error-icons {
+  position: relative;
+  display: inline-flex;
+}
+
+.issues-icon {
+  z-index: 1;
+  padding-top: 20px;
+  font-size: 150px;
+  color: #688E9B;
+}
+
+.empty-issues-icon {
+  z-index: 2;
+  position: absolute;
+  bottom: -20px;
+  right: -30px;
+  font-size: 100px;
+  color: #3E5361;
 }
 
 </style>
