@@ -98,7 +98,7 @@ export default {
           EventBus.$emit('added-release');
         })
         .catch((e) => {
-          _this.errors.add('wrong-credentials', 'Problem with credentials');
+          this.errors.add('wrong-credentials', 'Problem with credentials');
         });
     },
   },
