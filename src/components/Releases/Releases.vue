@@ -7,7 +7,7 @@
       <div class="col-3 align-self-start no-padding" id="releases">
           <add-release></add-release>
         <div v-bind:class="this.hasNoReleasesId()">
-          <div v-for="release in releases">
+          <div v-for="release in releases" :key="release.id">
             <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
           </div>
         </div>
@@ -57,7 +57,7 @@
           <div v-if="this.sprints.length != 0" class="row align-content-center">
             <div class="col-12">
               <div class="scroll-style-sprints-cards">
-                <div v-for="sprint in sprints">
+                <div v-for="sprint in sprints" :key="sprint.id">
                   <sprint-card v-bind:sprint="sprint"></sprint-card>
                 </div>
               </div>
@@ -79,6 +79,7 @@ import ReleaseCard from './ReleaseCard.vue';
 import SprintCard from '../Sprints/SprintCard.vue';
 import AddSprint from '../Sprints/AddSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
+import { release } from 'os';
 
 export default {
   components: {
@@ -130,35 +131,45 @@ export default {
       this.$store.dispatch('setReleaseFinalDate', this.releases[this.releaseIndex].final_date);
     },
 
-    getReleases() {
+    async getReleases() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${this.projectId}/releases`, { headers })
-        .then((response) => {
+      try {
+        let response = await HTTP.get(`projects/${this.projectId}/releases`, { headers });
+        this.releases = response.data;
+        if(this.releases.length !== 0) {
           this.isLoaded = true;
-          this.releases = response.data;
-
+          this.setReleaseId();
           this.setAmountOfReleases();
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+          return;
+        }
+        
+        this.$store.dispatch('setRelease', null);
+        this.setAmountOfReleases();
+      }
+      catch(e) {
+        this.errors.push(e);
+      }
     },
 
-    getSprints() {
+    async getSprints() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`releases/${this.releaseId}/sprints`, { headers })
-        .then((response) => {
-          if (response.data !== 0) {
-            this.sprints = response.data;
-          } else {
-            this.sprint = 0;
-          }
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      if(this.isReleasesEmpty()) {
+        return;
+      }
+
+      try {
+        let response = await HTTP.get(`releases/${this.releaseId}/sprints`, { headers });
+        if(response.data.length !== 0) {
+          this.sprints = response.data;
+          return;
+        }
+        this.sprints = [];
+      }
+      catch(e) {
+        this.errors.push(e);
+      }
     },
 
     isReleasesEmpty() {
