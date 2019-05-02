@@ -18,6 +18,7 @@ import Burndown from '../components/Sprints/Burndown.vue';
 import IssuesGraphic from '../components/Issues/IssuesGraphic.vue';
 import Grade from '../components/Projects/Grade.vue';
 import Revision from '../components/Revision/Revision.vue';
+import ForgotPassword from '../components/Users/ForgotPassword.vue';
 
 Vue.use(Router);
 
@@ -39,6 +40,16 @@ const router = new Router({
       name: 'UserProfile',
       component: UserProfile,
     },
+    {
+      path:'/users/forgotPassword',
+      name:'ForgotPassword',
+      component: ForgotPassword,
+    },
+    /**{
+      path: '/users/password/edit?token=:token',
+      name: 'EditPassword',
+      Component: EditPassword,
+    },**/
     {
       path: '/githubcallback',
       name: 'GitHubCallBack',
@@ -118,6 +129,8 @@ router.beforeEach((to, from, next) => {
   const state = JSON.parse(localStorage.getItem('vuex'));
 
   if ((to.path === '/' && (state === null || state.auth === null)) || to.path === '/notFound') {
+    next();
+  } else if( to.path === '/users/forgotPassword') {
     next();
   } else if ((to.path === '/' && state.auth.token !== null)) {
     next('/projects');
