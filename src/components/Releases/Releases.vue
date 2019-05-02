@@ -140,6 +140,7 @@ export default {
         if(this.releases.length !== 0) {
           this.isLoaded = true;
           this.setReleaseId();
+          this.getSprints();
           this.setAmountOfReleases();
           return;
         }
@@ -187,7 +188,6 @@ export default {
 
   created() {
     this.getReleases();
-    this.getSprints();
 
     EventBus.$on('added-release', () => this.getReleases());
 
