@@ -2,6 +2,25 @@
   <div id="register">
     <div class="card-body">
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoRegister">
+    
+      <div v-if="this.email_alert" class="alert alert-danger fade show" role="alert">
+        <div class="row">
+          <div class="column alert-column-left">
+            Email has already been taken
+          </div>
+          <div class="column">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+              v-on:click="closeEmailAlert()"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
       <form id="registerForm" @submit.prevent="register()"  data-vv-scope="form-register">
         <div class="form-group">
@@ -10,7 +29,7 @@
                   aria-describedby="userHelp"
                   placeholder="Username"
                   name="username"
-                  v-validate="'required'"
+                  v-validate="'required|min:3'"
                   v-model="username">
           <p class="text-danger" v-if="errors.has('form-register.username')">{{ errors.first('form-register.username') }}</p>
         </div>
@@ -44,7 +63,7 @@
           <p class="text-danger" v-if="errors.has('form-register.password_confirmation')">{{ errors.first('form-register.password_confirmation') }}</p>
         </div>
         <div class="text-center">
-          <button type="submit" :disabled="errors.any('form-register')" class="btn btn-primary falko-button" id="">Register</button>
+          <button type="submit" :disabled="disableRegisterButton()" class="btn btn-primary falko-button" id="">Register</button>
           <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
         </div>
       </form>
@@ -62,6 +81,7 @@ export default {
       username: '',
       password: '',
       password_confirmation: '',
+      email_alert: false,
     };
   },
 
@@ -92,11 +112,24 @@ export default {
         .then(() => {
           this.login();
         })
-        .catch((e) => {
-          console.log(e.response)
-          _this.errors.add('wrong-credentials', 'Problem with credentials');
+        .catch((err) => {
+          if(err.response.data['email'].includes('has already been taken'))
+            this.email_alert = true;
         });
     },
+
+    closeEmailAlert() {
+      this.email_alert = false;
+    },
+
+    disableRegisterButton() {
+      if(this.errors.any('form-register'))
+        return true;
+      else if(this.email == '' || this.username == '' || this.password == '' || this.password_confirmation == '')
+        return true;
+      else
+        return false;
+    }
   },
 };
 </script>
@@ -115,8 +148,9 @@ export default {
 
 #falkoLogoRegister {
   width: 11em;
-  margin: 2.5em 0;
+  margin: 1.3em 0;
 }
+
 #registerButton {
   align-self: center;
   margin: 0.5em 0;
