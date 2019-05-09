@@ -19,6 +19,7 @@ import IssuesGraphic from '../components/Issues/IssuesGraphic.vue';
 import Grade from '../components/Projects/Grade.vue';
 import Revision from '../components/Revision/Revision.vue';
 import ForgotPassword from '../components/Users/ForgotPassword.vue';
+import ResetPassword from '../components/Users/ResetPassword.vue';
 
 Vue.use(Router);
 
@@ -41,15 +42,15 @@ const router = new Router({
       component: UserProfile,
     },
     {
-      path:'/users/forgotPassword',
+      path:'/users/forgotpassword',
       name:'ForgotPassword',
       component: ForgotPassword,
     },
-    /**{
-      path: '/users/password/edit?token=:token',
-      name: 'EditPassword',
-      Component: EditPassword,
-    },**/
+    {
+      path: '/users/resetpassword',
+      name: 'ResetPassword',
+      component: ResetPassword,
+    },
     {
       path: '/githubcallback',
       name: 'GitHubCallBack',
@@ -130,12 +131,12 @@ router.beforeEach((to, from, next) => {
 
   if ((to.path === '/' && (state === null || state.auth === null)) || to.path === '/notFound') {
     next();
-  } else if( to.path === '/users/forgotPassword') {
-    next();
   } else if ((to.path === '/' && state.auth.token !== null)) {
     next('/projects');
   } else if (!to.matched.length) {
     next('/notFound');
+  } else if(to.path === '/users/forgotpassword' || to.path === '/users/resetpassword') {
+    next();
   } else if (state.auth === null) {
     next('/');
   } else {

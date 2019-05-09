@@ -10,7 +10,7 @@
             <form v-if="!sent" @submit.prevent="sendForm()">
               <div class="form-group">
                 <label for="email"> Email </label>
-                <input type="email" class="form-control" name="email" v-model="email" v-validate="'email'">
+                <input type="email" required class="form-control" name="email" v-model="email" v-validate="'email'">
                 <span class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</span>
               </div>
               <div class="text-center">
