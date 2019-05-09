@@ -2,26 +2,6 @@
   <div id="register">
     <div class="card-body">
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoRegister">
-    
-      <div v-if="this.email_alert" class="alert alert-danger fade show" role="alert">
-        <div class="row">
-          <div class="column alert-column-left">
-            Email has already been taken
-          </div>
-          <div class="column">
-            <button
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-              v-on:click="closeEmailAlert()"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
       <form id="registerForm" @submit.prevent="register()"  data-vv-scope="form-register">
         <div class="form-group">
           <input  type="text"
@@ -42,6 +22,7 @@
                   v-model="email"
                   v-validate="'required|email'">
           <p class="text-danger" v-if="errors.has('form-register.email')">{{ errors.first('form-register.email') }}</p>
+          <p class="text-danger" v-if="errors.has('email-taken')">{{ errors.first('email-taken') }}</p>
         </div>
         <div class="form-group">
           <input  type="password"
@@ -81,7 +62,6 @@ export default {
       username: '',
       password: '',
       password_confirmation: '',
-      email_alert: false,
     };
   },
 
@@ -113,13 +93,14 @@ export default {
           this.login();
         })
         .catch((err) => {
-          if(err.response.data['email'].includes('has already been taken'))
-            this.email_alert = true;
+          const resp_error = err.response.data['email'];
+          if(resp_error.includes('has already been taken')) {
+            this.errors.add({
+              field: 'email-taken',
+              msg: 'has already been taken'
+            });
+          }
         });
-    },
-
-    closeEmailAlert() {
-      this.email_alert = false;
     },
 
     disableRegisterButton() {
