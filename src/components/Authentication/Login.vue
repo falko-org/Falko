@@ -6,7 +6,7 @@
       <div v-if="this.alert" class="alert alert-danger fade show" role="alert">
         <div class="row">
           <div class="column alert-column-left">
-            Incorrect email or password
+            {{ errors.first('invalid-credentials') }}
           </div>
           <div class="column">
             <button
@@ -72,7 +72,14 @@ export default {
         this.$router.push({ name: 'Projects' });
       })
       .catch((err) => {
-        this.alert = true;
+        const resp_error = err.response.data['error']['user_authentication'];
+        if(resp_error.includes('invalid credentials')) {
+          thisOne.errors.add({
+            field: 'invalid-credentials',
+            msg: 'Incorrect email or password'
+          });
+          thisOne.alert = true;
+        }
       });
     },
     closeAlert() {
