@@ -131,12 +131,12 @@ router.beforeEach((to, from, next) => {
 
   if ((to.path === '/' && (state === null || state.auth === null)) || to.path === '/notFound') {
     next();
+  } else if(to.path === '/users/forgotpassword' || to.path === '/users/resetpassword') {
+    next();
   } else if ((to.path === '/' && state.auth.token !== null)) {
     next('/projects');
   } else if (!to.matched.length) {
     next('/notFound');
-  } else if(to.path === '/users/forgotpassword' || to.path === '/users/resetpassword') {
-    next();
   } else if (state.auth === null) {
     next('/');
   } else {

@@ -28,7 +28,7 @@
           <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
         </div>
         <div class="text-center">
-          <button type="button" class="btn btn-primary falko-button" id="" v-on:click="forgotPassword();">Forgot Password?</button>
+          <router-link to="/users/forgotpassword"> Forgot your password?</router-link>
         </div>
         <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
       </form>
@@ -59,9 +59,6 @@ export default {
       .catch((err) => {
         thisOne.errors.add('wrong-credentials', 'Wrong Credentials');
       });
-    },
-    forgotPassword() {
-      this.$router.push({name:'ForgotPassword'});
     },
   },
 };

@@ -4,7 +4,7 @@
       <div class="col-sm-8 col-md-6 col-lg-3">
         <div class="card">
           <div class="card-header text-center">
-            Recover password
+            Reset your password
           </div>
           <div class="card-body">
             <form v-if="!sent" @submit.prevent="sendForm()">
@@ -14,11 +14,17 @@
                 <span class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</span>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary falko-button"> Recover password </button>
+                <button type="submit" class="btn btn-primary falko-button"> Reset password </button>
+              </div>
+              <div class="text-center">
+                <router-link to='/'> Log-in </router-link>
               </div>
             </form>
             <div v-else class="text-center">
               <p>  A recovery email was sent to the given address if it exists in our database. </p>
+              <div class="text-center">
+                <router-link to='/'> Return to login </router-link>
+              </div>
             </div>
           </div>
         </div>
