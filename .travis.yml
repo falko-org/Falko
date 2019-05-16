@@ -11,6 +11,9 @@ node_js:
 env:
   global:
     - CC_TEST_REPORTER_ID=f9a7cc51d41f847d9b5c91f469606222755355ec9ea001c6bd7a16d20f45941f
+  matrix:
+    # - TASK="docker exec -it falko-front yarn run test"
+    - TASK="docker exec -it falko-front npx cypress run"
   
 before_script:
   - npm install
@@ -19,8 +22,7 @@ before_script:
   - docker-compose up -d
 
 script:
-  - docker exec -it falko-front yarn run test
-  - docker exec -it falko-front npx cypress run
+  - $TASK
 
 after_script:
   - "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
