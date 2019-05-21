@@ -8,35 +8,51 @@
         <add-issue></add-issue>
       </div>
     </div>
-    <div v-for="i in Math.ceil(issues.length / 2)">
+    <div>
+    <div v-for="i in Math.ceil(issues.length / 2)" v-bind:key="i">
       <div class="row">
-        <div v-for="issue in issues.slice((i-1) * 3 , i * 3)" class="col text-center">
-        <div align="center">
-          <div class="card" id="issueCard">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <p>{{ issue.name | truncate '10' }}</p>
+        <div
+          v-for="issue in issues.slice((i-1) * 3 , i * 3)"
+          v-bind:key="issue.name"
+          class="col text-center"
+        >
+          <div align="center">
+            <div class="card" id="issueCard">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <p>{{ issue.name | truncate(31) }}</p>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-3" id="colIssue">
-                  <edit-issue v-bind:selected_issue="issue"></edit-issue>
-                  <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
-                </div>
-                <div class="col" v-if="issue.body != null" >
-                  <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
-                  <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
+                <div class="row">
+                  <div class="col-3" id="colIssue">
+                    <edit-issue v-bind:selected_issue="issue"></edit-issue>
+                    <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
+                  </div>
+                  <div class="col" v-if="issue.body != null" >
+                    <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
+                    <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
+                  </div>
                 </div>
               </div>
             </div>
+            <br>
           </div>
-          <br>
         </div>
       </div>
     </div>
-  </div>
-
+    <div v-if="this.total_pages > 1" class="text-center">
+      <v-pagination
+        v-model="page"
+        class="pagination"
+        :length="this.total_pages"
+        :total-visible="10"
+        circle
+        color="#3E5361"
+        @input="getIssues()"
+      ></v-pagination>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -59,6 +75,9 @@ export default {
       issues: [],
       contributors: [],
       selectedIssue: '',
+      page: 1,
+      total_pages: 0,
+      items_per_page: [15, 30, 45, 75, 90]
     };
   },
 
@@ -71,10 +90,12 @@ export default {
   },
 
   filters: {
-
-  truncate: function(string, value) {
-    return string.substring(0, value) + '...';
-  }
+    truncate: function(string, value) {
+      if(string.length > value)
+        return string.substring(0, value) + '...';
+      else
+        return string;
+    }
   },
 
   methods: {
@@ -85,9 +106,10 @@ export default {
     getIssues() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`projects/${this.projectId}/issues`, { headers })
+      HTTP.get(`projects/${this.projectId}/issues/${this.page}`, { headers })
         .then((response) => {
           this.issues = response.data.issues_infos;
+          this.total_pages = response.data.total_pages;
         })
         .catch((e) => {
           this.errors.push(e);
@@ -191,6 +213,10 @@ p{
   box-sizing: content-box;
   top: 50%;
   left: 50%;
+}
+
+.pagination {
+  padding-bottom: 20px;
 }
 
 #pointsFont {

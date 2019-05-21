@@ -2,7 +2,6 @@
   <div id="register">
     <div class="card-body">
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoRegister">
-
       <form id="registerForm" @submit.prevent="register()"  data-vv-scope="form-register">
         <div class="form-group">
           <input  type="text"
@@ -10,7 +9,7 @@
                   aria-describedby="userHelp"
                   placeholder="Username"
                   name="username"
-                  v-validate="'required'"
+                  v-validate="'required|min:3'"
                   v-model="username">
           <p class="text-danger" v-if="errors.has('form-register.username')">{{ errors.first('form-register.username') }}</p>
         </div>
@@ -23,6 +22,7 @@
                   v-model="email"
                   v-validate="'required|email'">
           <p class="text-danger" v-if="errors.has('form-register.email')">{{ errors.first('form-register.email') }}</p>
+          <p class="text-danger" v-if="errors.has('email-taken')">{{ errors.first('email-taken') }}</p>
         </div>
         <div class="form-group">
           <input  type="password"
@@ -44,7 +44,7 @@
           <p class="text-danger" v-if="errors.has('form-register.password_confirmation')">{{ errors.first('form-register.password_confirmation') }}</p>
         </div>
         <div class="text-center">
-          <button type="submit" :disabled="errors.any('form-register')" class="btn btn-primary falko-button" id="">Register</button>
+          <button type="submit" :disabled="disableRegisterButton()" class="btn btn-primary falko-button" id="">Register</button>
           <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
         </div>
       </form>
@@ -92,11 +92,25 @@ export default {
         .then(() => {
           this.login();
         })
-        .catch((e) => {
-          console.log(e.response)
-          _this.errors.add('wrong-credentials', 'Problem with credentials');
+        .catch((err) => {
+          const resp_error = err.response.data['email'];
+          if(resp_error.includes('has already been taken')) {
+            this.errors.add({
+              field: 'email-taken',
+              msg: 'has already been taken'
+            });
+          }
         });
     },
+
+    disableRegisterButton() {
+      if(this.errors.any('form-register'))
+        return true;
+      else if(this.email == '' || this.username == '' || this.password == '' || this.password_confirmation == '')
+        return true;
+      else
+        return false;
+    }
   },
 };
 </script>
@@ -115,8 +129,9 @@ export default {
 
 #falkoLogoRegister {
   width: 11em;
-  margin: 2.5em 0;
+  margin: 1.3em 0;
 }
+
 #registerButton {
   align-self: center;
   margin: 0.5em 0;
