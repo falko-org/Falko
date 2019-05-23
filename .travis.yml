@@ -3,18 +3,13 @@ sudo: required
 services:
   - docker
 
-language: node_js
- 
-node_js:
-  - 8.6.0
+language: generic
 
 env:
   global:
     - CC_TEST_REPORTER_ID=f9a7cc51d41f847d9b5c91f469606222755355ec9ea001c6bd7a16d20f45941f
   
 before_script:
-  - npm install
-  - npm install coveralls
   - docker network create falko-backend
   - docker-compose up -d
 
@@ -24,5 +19,4 @@ script:
   # - docker exec -it falko-front npx cypress run
 
 after_script:
-  - "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
   - docker-compose down --remove-orphans
