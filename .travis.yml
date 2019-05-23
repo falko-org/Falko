@@ -19,7 +19,9 @@ before_script:
   - docker-compose up -d
 
 script:
-  - docker exec -it falko-front npx cypress run
+  - docker exec -it falko-front yarn build
+  # - docker exec -it falko-front yarn run unit
+  # - docker exec -it falko-front npx cypress run
 
 after_script:
   - "./node_modules/coveralls/bin/coveralls.js < ./test/unit/coverage/lcov.info"
