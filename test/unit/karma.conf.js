@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Sat Sep 30 2017 17:20:10 GMT+0000 (UTC)
 const webpackConfig = require('../../build/webpack.test.conf.js');
+const puppeteer = require('puppeteer');
+process.env.CHROME_BIN = puppeteer.executablePath();
 
 delete webpackConfig.entry;
 module.exports = function (config) {
@@ -19,7 +21,7 @@ module.exports = function (config) {
     },
     plugins: [
       // Launchers
-      'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
 
       // Test Libraries
       'karma-mocha',
@@ -61,7 +63,14 @@ module.exports = function (config) {
     },
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome_without_security'], 
+    // you can define custom flags
+    customLaunchers: {
+      Chrome_without_security: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
