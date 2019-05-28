@@ -46,6 +46,10 @@
         <div class="text-center">
           <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
         </div>
+
+        <div class="text-center">
+          <router-link to="/users/forgotpassword"> Forgot your password?</router-link>
+        </div>
       </form>
     </div>
   </div>
