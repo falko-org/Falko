@@ -164,9 +164,11 @@ export default {
         let response = await HTTP.get(`releases/${this.releaseId}/sprints`, { headers });
         if(response.data.length !== 0) {
           this.sprints = response.data;
-          return;
         }
-        this.sprints = [];
+        else{
+          this.sprints = [];
+        }
+        
       }
       catch(e) {
         this.errors.push(e);
