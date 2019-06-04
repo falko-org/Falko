@@ -2,7 +2,7 @@
   <div>
     <div class="row release-card align-content-center buttons pointer-cursor" v-bind:id="release[1]" v-on:click="select($event)">
       <div class="col-5" align="center">
-        <div class="number-circle align-self-center">
+        <div class="number-circle-selected">
           <p>R{{this.amountOfReleases - this.release[1]}}</p>
         </div>
       </div>
@@ -64,14 +64,8 @@ export default {
   background-color: rgba(134, 142, 150, 0.5);
 }
 
-.number-circle {
+.number-circle-selected {
   border: 0.2em solid rgba(98, 104, 110, 0.8);
   color: rgba(98, 104, 110, 0.8);
-  vertical-align: middle;
-}
-
-.number-circle-selected {
-  border: 0.2em solid #CCC;
-  color: #CCC;
 }
 </style>
