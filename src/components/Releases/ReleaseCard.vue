@@ -67,6 +67,7 @@ export default {
 .number-circle {
   border: 0.2em solid rgba(98, 104, 110, 0.8);
   color: rgba(98, 104, 110, 0.8);
+  vertical-align: middle;
 }
 
 .number-circle-selected {
