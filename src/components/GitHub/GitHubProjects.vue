@@ -98,8 +98,23 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary falko-button" v-on:click="importGithubProjects" data-dismiss="modal">Import</button>
-            <button type="button" class="btn btn-secondary falko-button-grey" v-on:click="clean" data-dismiss="modal">Close</button>
+            <button
+              type="button"
+              class="btn btn-primary falko-button"
+              :disabled="disableImportButton()"
+              v-on:click="importGithubProjects"
+              data-dismiss="modal"
+            >
+              Import
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary falko-button-grey"
+              v-on:click="clean"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -158,6 +173,13 @@ export default {
       this.doRequisitions(this.selectedRepos, this.selectedRepos.length, this.user)
         .then(() => this.$emit('added'))
         .catch(e => console.log(e.message));
+    },
+
+    disableImportButton() {
+      if(this.selectedRepos.length == 0)
+        return true;
+      else
+        return false;
     },
 
     doRequisitions(repos, length) {

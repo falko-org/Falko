@@ -1,10 +1,10 @@
 <template>
   <div>
-    <button class="tablink" id="defaultOpen" v-on:click="openMetrics($event, 'Stories')"><h3>Kanban</h3></button>
-    <button class="tablink" v-on:click="openMetrics($event, 'Velocity')"><h3>Velocity</h3></button>
-    <button class="tablink" v-on:click="openMetrics($event, 'Burndown')"><h3>Burndown</h3></button>
+    <button class="tablink" id="stories-tab" v-on:click="openMetrics('stories-tab', 'Stories')"><h3>Kanban</h3></button>
+    <button class="tablink" id="velocity-tab" v-on:click="openMetrics('velocity-tab', 'Velocity')"><h3>Velocity</h3></button>
+    <button class="tablink" id="burndown-tab" v-on:click="openMetrics('burndown-tab', 'Burndown')"><h3>Burndown</h3></button>
 
-    <div id="Velocity" class="tabcontent active">
+    <div id="Velocity" class="tabcontent">
       <br><br><br>
       <velocity ref="velocity"></velocity>
     </div>
@@ -44,9 +44,8 @@ export default {
     'stories': Stories,
   },
   methods: {
-    openMetrics(evt, metric) {
-      console.log(evt);
-      var i, tabcontent, tablinks;
+    openMetrics(id_element, metric) {
+      var tabcontent, tablinks;
       this.metric = metric;
       tabcontent = document.getElementsByClassName("tabcontent");
       for (i = 0; i < tabcontent.length; i++) {
@@ -54,20 +53,23 @@ export default {
       }
 
       tablinks = document.getElementsByClassName("tablink");
-      for (i = 0; i < tablinks.length; i++) {
+      for (var i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
           tablinks[i].style.background = "";
           tablinks[i].style.border = "none";
       }
 
       document.getElementById(metric).style.display = "block";
-      evt.currentTarget.className += " active";
-      evt.currentTarget.style.background = "white";
-      evt.currentTarget.style.border = "3px solid #496C78";
-      evt.currentTarget.style.borderWidth = "0.4px 0.4px 0px 0.4px";
+      document.getElementById(id_element).className += " active";
+      document.getElementById(id_element).style.background = "white";
+      document.getElementById(id_element).style.border = "3px solid #496C78";
+      document.getElementById(id_element).style.borderWidth = "0.4px 0.4px 0px 0.4px";
       this.$refs.velocity.getVelocityData();
       this.$refs.burndown.getBurndownData();
     },
+  },
+  mounted() {
+    this.openMetrics('stories-tab', 'Stories');
   },
 }
 </script>
