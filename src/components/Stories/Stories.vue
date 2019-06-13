@@ -263,26 +263,9 @@ export default {
 
     onUpdateBacklog(evt) {
       const headers = { Authorization: this.token }
-
       if(evt.added){
         HTTP.delete(`stories/${evt.added.element.id}`, { headers })
         .then((response) => console.log(response.code))
-        .then(() => this.refreshIssues())
-      }
-      else {
-        HTTP.post(`sprints/${this.$route.params.id}/stories`, { name: evt.removed.element.name,
-                                                                 description: evt.removed.element.body,
-                                                                 issue_number:evt.removed.element.number,
-                                                                 issue_id:evt.removed.element.issue_id,
-                                                                 story_points: "0",
-                                                                 pipeline:"To Do",
-                                                                 initial_date:new Date().toString(),
-                                                                }, { headers })
-        .then((response) => console.log(response.code))
-        .then(() => this.$router.push({ path: `/sprints/${this.$route.params.id}`}))
-        .then(() => this.refreshToDo())
-        .then(() => this.refreshDoing())
-        .then(() => this.refreshDone())
         .then(() => this.refreshIssues())
       }
     },
@@ -291,8 +274,23 @@ export default {
       const headers = { Authorization: this.token };
 
       if(evt.added){
-        HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"To Do" }, { headers })
-        .then((response) => console.log(response.code))
+        if(evt.added.element.id) {
+          HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"To Do" }, { headers })
+            .then((response) => console.log(response.code))
+              .then(() => this.refreshToDo());
+        } else {
+          HTTP.post(`sprints/${this.$route.params.id}/stories`, { 
+            name: evt.added.element.name,
+            description: evt.added.element.body,
+            issue_number:evt.added.element.number,
+            issue_id:evt.added.element.issue_id,
+            story_points: "0",
+            pipeline:"To Do",
+            initial_date:new Date().toString(),
+          }, { headers })
+            .then((response) => console.log(response.code))
+              .then(() => this.refreshToDo());
+        }
       }
     },
 
@@ -300,18 +298,51 @@ export default {
       const headers = { Authorization: this.token };
 
       if(evt.added){
-        HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Doing" }, { headers })
-        .then((response) => console.log(response.code))
+        if(evt.added.element.id) {
+          HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Doing" }, { headers })
+          .then((response) => console.log(response.code))
+            .then(() => this.refreshDoing());
+        } else {
+          HTTP.post(`sprints/${this.$route.params.id}/stories`, { 
+            name: evt.added.element.name,
+            description: evt.added.element.body,
+            issue_number:evt.added.element.number,
+            issue_id:evt.added.element.issue_id,
+            story_points: "0",
+            pipeline:"Doing",
+            initial_date:new Date().toString(),
+          }, { headers })
+            .then((response) => console.log(response.code))
+              .then(() => this.refreshDoing());
+        }
       }
     },
 
     onUpdateDone(evt) {
       const headers = { Authorization: this.token };
       if(evt.added){
-        HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Done" }, { headers })
-        .then((response) => console.log(response.code))
+        if(evt.added.element.id) {
+          HTTP.patch(`/stories/${evt.added.element.id}`, { pipeline:"Done" }, { headers })
+            .then((response) => console.log(response.code))
+            .then(()=> this.refreshDone());
+        } else {
+          HTTP.post(`sprints/${this.$route.params.id}/stories`, { 
+            name: evt.added.element.name,
+            description: evt.added.element.body,
+            issue_number:evt.added.element.number,
+            issue_id:evt.added.element.issue_id,
+            story_points: "0",
+            pipeline:"Done",
+            initial_date:new Date().toString(),
+          }, { headers })
+            .then((response) => console.log(response.code))
+            .then(() => this.refreshDone());
+        }
 
-        const config = { data: { issue: { number: evt.added.element.issue_number } }, headers };
+
+        const issue_number = evt.added.element.id ? evt.added.element.issue_number : evt.added.element.number;
+
+        const config = { data: { issue: { number: issue_number } }, headers};
 
         HTTP.delete(`/projects/${this.projectId}/issues`, config)
           .then(() => {
@@ -322,7 +353,6 @@ export default {
           });
       }
       else{
-
         HTTP.post(`/projects/${this.projectId}/reopen_issue`, { issue: { number: evt.removed.element.issue_number } }, { headers })
         .then(() => {
           this.closed = false;
@@ -360,6 +390,8 @@ export default {
     refreshIssues() {
       this.getIssues();
     }
+
+
   },
   mounted() {
     this.getIssues();
