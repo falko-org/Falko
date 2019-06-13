@@ -38,7 +38,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
-                    class="btn btn-info btn-md falko-button" v-on:click="addSprint" data-dismiss="modal">
+                    class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">
               Save
             </button>
             <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
