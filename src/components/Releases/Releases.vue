@@ -79,7 +79,6 @@ import ReleaseCard from './ReleaseCard.vue';
 import SprintCard from '../Sprints/SprintCard.vue';
 import AddSprint from '../Sprints/AddSprint.vue';
 import dateConvert from '../../mixins/dateConvert';
-import { release } from 'os';
 
 export default {
   components: {
