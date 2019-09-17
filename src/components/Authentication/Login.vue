@@ -24,23 +24,22 @@
 
       <form id="loginForm"  @submit.prevent="() => login()" name="wrong-credentials">
         <div class="form-group">
-          <input  type="email"
-          class="form-control"
-          placeholder="Email"
-          name="email"
-          v-model="email"
-          v-validate="'email'" >
-          <p class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</p>
+          <v-text-field
+            label="Email"
+            v-model="email"
+            :rules="[rules.required, rules.validEmail], "
+            outlined
+          ></v-text-field>
         </div>
 
         <div class="form-group">
-          <input  type="password"
-          class="form-control"
-          placeholder="Password"
-          name="password"
-          v-model="password"
-          v-validate="'required|min:6'">
-          <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
+          <v-text-field
+            label="Password"
+            v-model="password"
+            :type="'password'"
+            :rules="[rules.required, rules.min]"
+            outlined
+          ></v-text-field>
         </div>
 
         <div class="text-center">
@@ -64,7 +63,13 @@ export default {
     return {
       email: '',
       password: '',
-      alert: false
+      alert: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 8 || 'Min 6 characters',
+        emailMatch: () => ('Incorrect email or password'),
+        validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+      }
     };
   },
 
