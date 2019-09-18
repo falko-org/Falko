@@ -12,7 +12,7 @@
       <strong>Take a look at the Documentation &raquo</strong>
     </a>
     <br><br>
-    <a href="http://falko.solutions">Visit Falko</a>
+    <a href="http://falko.surge.sh/#/">Visit Falko</a>
     &middot;
     <a href="https://github.com/falko-org/Falko-API">API Repository</a>
     &middot;
