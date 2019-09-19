@@ -9,9 +9,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add a Project</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body" data-vv-scope="modal-project">
             <p><label>Name</label></p>

@@ -10,9 +10,9 @@
             <div>
               <h4 class="modal-title">Delete Project?</h4>
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <p><label>Are you sure?</label></p>
