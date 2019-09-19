@@ -27,7 +27,7 @@
           <v-text-field
             label="Email"
             v-model="email"
-            :rules="[rules.required, rules.validEmail], "
+            :rules="[rules.required, rules.validEmail]"
             outlined
           ></v-text-field>
         </div>
@@ -66,7 +66,7 @@ export default {
       alert: false,
       rules: {
         required: value => !!value || 'Required.',
-        min: v => v.length >= 8 || 'Min 6 characters',
+        min: v => v.length >= 6 || 'Min 6 characters',
         emailMatch: () => ('Incorrect email or password'),
         validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
       }
