@@ -43,8 +43,8 @@
           <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
         </div>
 
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
+        <div class="text-center" left>
+          <v-btn type="submit" class="primary falko-button white--text" id="loginButton" color="#86B1B1">Log in</v-btn>
         </div>
         <div class="text-center">
           <router-link to="/users/forgotpassword"> Forgot your password?</router-link>
@@ -114,5 +114,9 @@ export default {
   width: 90%;
   font-size: 14px;
   padding-top: 1px;
+}
+
+.button-test {
+  color: #ffffff;
 }
 </style>

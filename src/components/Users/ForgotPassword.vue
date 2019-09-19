@@ -14,7 +14,7 @@
                 <span class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</span>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary falko-button"> Reset password </button>
+                <v-btn type="submit" class="primary falko-button white--text" id="" color="#86B1B1">Reset Password</v-btn>
               </div>
               <div class="text-center">
                 <router-link to='/'> Log-in </router-link>

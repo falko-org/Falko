@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="text-center">
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addGradeModal">
+      <v-btn type="button" class="info falko-button white--text" id="addButton" color="#86B1B1" data-toggle="modal" data-target="#addGradeModal">
         Grade
-      </button>
+      </v-btn>
     </div>
     <div class="modal fade" id ="addGradeModal" role="dialog">
       <div class="modal-dialog">
@@ -53,8 +53,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="addGrades" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            <v-btn type="button" class="info falko-button white--text" color="#86B1B1" v-on:click="addGrades" data-dismiss="modal">Save</v-btn>
+            <v-btn type="button" class="info falko-button white--text" color="#868e96" data-dismiss="modal">Close</v-btn>
           </div>
         </div>
       </div>

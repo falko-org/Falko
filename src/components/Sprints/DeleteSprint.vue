@@ -1,8 +1,8 @@
 <template>
   <div class="delsprint">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteSprintModal">
+    <v-btn type="button" class="info falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteSprintModal" color="#AA0000">
       Delete
-    </button>
+    </v-btn>
     <div class="modal fade" id ="deleteSprintModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
