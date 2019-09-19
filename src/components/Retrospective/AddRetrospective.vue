@@ -22,10 +22,14 @@
             <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
-            <textarea class="text-justify"
-            placeholder="Input your sprint report..."
-            v-model="sprintReport"
-            />
+            <v-textarea
+              outlined
+              name="input-7-4"
+              v-model="sprintReport"
+              label="Sprint Report"
+              rows="2"
+              row-height="20"
+            ></v-textarea>
           </div>
           <div class="modal-footer">
             <button class="btn btn-info btn-md falko-button"
@@ -53,10 +57,14 @@
                   <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
                   <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
                   <list parent="Improvements" v-on:listUpdated="updateList"></list>
-                  <textarea class="text-justify"
-                  placeholder="Input your sprint report..."
-                  v-model="sprintReport"
-                  />
+                  <v-textarea
+                    outlined
+                    name="input-7-4"
+                    v-model="sprintReport"
+                    label="Sprint Report"
+                    rows="2"
+                    row-height="20"
+                  ></v-textarea>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-info btn-md falko-button"

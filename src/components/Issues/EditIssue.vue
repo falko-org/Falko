@@ -15,22 +15,29 @@
           </div>
           <div class="modal-body row">
             <div class="col">
-              <p><label> Name </label></p>
-              <input type = "text" v-model="name" placeholder="Name" name="name" v-validate="'required'">
+              <v-text-field
+                label="Name"
+                v-model="name"
+                :rules="[rules.required]"
+                outlined
+              ></v-text-field>
               <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-            </input><br>
-              <p><label> Description </label></p>
-              <input type = "text" v-model="body" placeholder="Description" name="body" v-validate="'required'">
+              <br>
+              <v-text-field
+                label="Description"
+                v-model="body"
+                :rules="[rules.required]"
+                outlined
+              ></v-text-field>
               <p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
-            </input><br>
+              <br>
             </div>
             <div class="col">
-                <div class="row justify-content-center">
-                  <p><label> Assignees </label></p>
-                </div>
-                <div class="row">
-                  <input type="text" v-model="search" placeholder="search...">
-                </div>
+              <v-text-field
+                label="Assignees"
+                v-model="search"
+                outlined
+              ></v-text-field>
               <div class="col" v-if="search != ''">
                 <div class="row" v-for="contributor in filteredContribs">
                 <label class="custom-control custom-checkbox">
@@ -66,7 +73,10 @@ export default {
       number: "",
       contributors: [],
       selectedContribs: [],
-      search: ""
+      search: "",
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     }
   },
 
