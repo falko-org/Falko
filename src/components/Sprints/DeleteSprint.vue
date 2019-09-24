@@ -10,16 +10,16 @@
             <div>
               <h4 class="modal-title">Delete Sprint?</h4>
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <p><label> Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <button v-on:click="deleteSprint" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
+            <v-btn v-on:click="deleteSprint" type="button" class="info btn-md falko-button" data-dismiss="modal" color="#86B1B1">Yes</v-btn>
+            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">No</v-btn>
           </div>
         </div>
       </div>

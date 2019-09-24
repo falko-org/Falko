@@ -7,16 +7,16 @@
       </v-btn>
     </div>
 
-    <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
+    <div class="modal fade" id="addRetrospectiveModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">
               Add Sprint Retrospective
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
@@ -37,40 +37,6 @@
             <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
               Cancel
             </v-btn>
-          </div>
-          <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title">
-                    Add Sprint Retrospective
-                  </h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
-                  <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
-                  <list parent="Improvements" v-on:listUpdated="updateList"></list>
-                  <textarea class="text-justify"
-                  placeholder="Input your sprint report..."
-                  v-model="sprintReport"
-                  />
-                </div>
-                <div class="modal-footer">
-                  <v-btn class="info falko-button"
-                  v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-                  data-dismiss="modal" color="#86B1B1"
-                  >
-                  Save
-                  </v-btn>
-                  <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
-                    Cancel
-                  </v-btn>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

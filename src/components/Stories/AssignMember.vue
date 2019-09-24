@@ -9,9 +9,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Assign Member</h4>
-            <button type="button" class="close" @click="cleanData" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body text-center">
             <div v-if="loading">
@@ -29,8 +29,8 @@
              </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="assignMembers; cleanData" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" @click="cleanData" data-dismiss="modal" >Close</button>
+            <v-btn type="button" class="btn btn-info btn-md falko-button" v-on:click="assignMembers; cleanData" data-dismiss="modal" color="#86B1B1">Save</v-btn>
+            <v-btn type="button" class="btn btn-info btn-md falko-button-grey" @click="cleanData" data-dismiss="modal" color="#868e96">Close</v-btn>
           </div>
         </div>
       </div>

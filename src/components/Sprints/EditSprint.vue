@@ -9,9 +9,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Sprint</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="row modal-body">
             <div class="col-6">
@@ -37,11 +37,11 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
-                    class="btn btn-info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal">
+            <v-btn type="button" :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
+                    class="info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal" color="#86B1B1">
               Save
-            </button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            </v-btn>
+            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">Close</v-btn>
           </div>
         </div>
       </div>
