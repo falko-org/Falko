@@ -19,7 +19,6 @@
                 label="Name"
                 v-model="name"
                 :rules="[rules.required]"
-                outlined
               ></v-text-field>
               <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               <br>
@@ -27,7 +26,6 @@
                 label="Description"
                 v-model="body"
                 :rules="[rules.required]"
-                outlined
               ></v-text-field>
               <p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
               <br>
@@ -36,7 +34,6 @@
               <v-text-field
                 label="Assignees"
                 v-model="search"
-                outlined
               ></v-text-field>
               <div class="col" v-if="search != ''">
                 <div class="row" v-for="contributor in filteredContribs">

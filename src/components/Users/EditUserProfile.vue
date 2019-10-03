@@ -19,7 +19,6 @@
                 label="Username"
                 v-model="name"
                 :rules="[rules.required]"
-                outlined
               ></v-text-field>
             </div>
             <div class="col-md-6">
@@ -27,7 +26,6 @@
                 label="Email"
                 v-model="email"
                 :rules="[rules.required, rules.validEmail]"
-                outlined
               ></v-text-field>
             </div>
           </div>

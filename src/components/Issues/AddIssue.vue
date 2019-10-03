@@ -21,13 +21,11 @@
 					label="Name"
 					v-model="name"
 					:rules="[rules.required]"
-					outlined
 				></v-text-field>
 				<p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
 				<br>
 				
 				<v-textarea
-					outlined
 					name="input-7-4"
 					v-model="body"
 					label="Issue Body"

@@ -23,24 +23,18 @@
       </div>
 
       <form id="loginForm"  @submit.prevent="() => login()" name="wrong-credentials">
-        <div class="form-group">
           <v-text-field
             label="Email"
             v-model="email"
             :rules="[rules.required, rules.validEmail]"
-            outlined
           ></v-text-field>
-        </div>
 
-        <div class="form-group">
           <v-text-field
             label="Password"
             v-model="password"
             :type="'password'"
             :rules="[rules.required, rules.min]"
-            outlined
           ></v-text-field>
-        </div>
 
         <div class="text-center">
           <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
@@ -101,13 +95,6 @@ export default {
 <style>
 #login {
   max-width: 20em;
-}
-
-#loginForm input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
 }
 
 #falkoLogoLogin {

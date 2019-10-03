@@ -72,13 +72,13 @@ export default {
 </script>
 
 <style scoped>
-input {
+/* input {
   width: 100%;
   padding: 1em;
   background-color: #86B1B1;
   border: none;
   color: white;
-}
+} */
 
 input::placeholder {
   color: rgba(255, 255, 255, 0.7);

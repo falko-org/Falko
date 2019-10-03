@@ -23,7 +23,6 @@
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
             <v-textarea
-              outlined
               name="input-7-4"
               v-model="sprintReport"
               label="Sprint Report"
@@ -58,7 +57,6 @@
                   <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
                   <list parent="Improvements" v-on:listUpdated="updateList"></list>
                   <v-textarea
-                    outlined
                     name="input-7-4"
                     v-model="sprintReport"
                     label="Sprint Report"
@@ -163,14 +161,14 @@ export default {
 
 <style scoped>
 
-textarea {
+/* textarea {
   width: 100%;
   height: 15em;
   padding: 1em;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.25);
   color: #444;
-}
+} */
 
 input::placeholder {
   color: #777;

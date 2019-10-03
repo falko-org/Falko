@@ -28,7 +28,6 @@
                 label="Name"
                 v-model="name"
                 :rules="[rules.required]"
-                outlined
               ></v-text-field>
               <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               <br>
@@ -37,7 +36,6 @@
                 label="Release description"
                 v-model="description"
                 :rules="[rules.required]"
-                outlined
               ></v-text-field>
               <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
               <br>

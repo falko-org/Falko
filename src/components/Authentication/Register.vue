@@ -8,7 +8,6 @@
             label="Username"
             v-model="username"
             :rules="[rules.required, rules.minName]"
-            outlined
           ></v-text-field>
         </div>
         <div class="form-group">
@@ -16,7 +15,6 @@
             label="Enter Email"
             v-model="email"
             :rules="[rules.required, rules.validEmail]"
-            outlined
           ></v-text-field>
           <p class="text-danger" v-if="errors.has('email-taken')">{{ errors.first('email-taken') }}</p>
         </div>
@@ -26,7 +24,6 @@
             v-model="password"
             :type="'password'"
             :rules="[rules.required, rules.minPassword]"
-            outlined
           ></v-text-field>
         </div>
         <div class="form-group">
@@ -35,7 +32,6 @@
             v-model="password_confirmation"
             :type="'password'"
             :rules="[rules.required, rules.minPassword, rules.confirmPasswordMatch]"
-            outlined
           ></v-text-field>
         </div>
         <div class="text-center">
@@ -123,12 +119,12 @@ export default {
   max-width: 20em;
 }
 
-#registerForm input {
+/* #registerForm input {
   border: none;
   border-radius: 0;
   border-bottom: solid #c0c0c0 thin;
   padding-left: 0;
-}
+} */
 
 #falkoLogoRegister {
   width: 11em;
