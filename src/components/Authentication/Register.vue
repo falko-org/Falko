@@ -36,7 +36,7 @@
           ></v-text-field>
         </div>
         <div class="text-center">
-          <v-btn type="submit" :disabled="disableRegisterButton()" class="primary falko-button white--text" id="" color="#86B1B1">Register</v-btn>
+          <button type="submit" :disabled="disableRegisterButton()" class="btn btn-primary falko-button" id="">Register</button>
           <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
         </div>
       </form>

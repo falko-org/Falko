@@ -16,14 +16,16 @@
                 <div class="row">
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/issues'">
-                      <v-btn type="button" class="info falko-button white--text" v-if="isFromProjectGitHub()" color="#86B1B1">
+                      <button type="button" class="btn btn-info btn-md falko-button" v-if="isFromProjectGitHub()">
                         Backlog
-                      </v-btn>
+                      </button>
                     </router-link>
                   </div>
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/releases'">
-                      <v-btn type="button" class="primary falko-button white--text" color="#86B1B1">Releases</v-btn>
+                      <button type="button" class="btn btn-info btn-md falko-button">
+                        Releases
+                      </button>
                     </router-link>
                   </div>
                   <div align="center">

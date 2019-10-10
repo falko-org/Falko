@@ -1,9 +1,13 @@
 <template>
   <div>
     <div>
-      <v-btn type="button" class="info falko-button white--text" id="addButton" color="#86B1B1" data-toggle="modal" data-target="#addSprintModal">
-        Add a Sprint
-      </v-btn>
+      <button
+        type="button"
+        class="btn btn-info btn-md falko-button"
+        id="addButton"
+        data-toggle="modal"
+        data-target="#addSprintModal"
+      >Add a Sprint</button>
     </div>
 
     <div class="modal fade" id="addSprintModal" role="dialog">
@@ -11,9 +15,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add a Sprint</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row modal-body">
             <div class="col-6">
@@ -51,13 +55,18 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
-                    class="info falko-button-grey white--text" color="#86B1B1" v-on:click="addSprint" data-dismiss="modal">
-              Save
-            </v-btn>
-            <v-btn type="button" class="info falko-button-grey white--text" color="#868e96" data-dismiss="modal">
-              Close
-            </v-btn>
+            <button
+              type="button"
+              :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')"
+              class="btn btn-info btn-md falko-button"
+              v-on:click="addSprint"
+              data-dismiss="modal"
+            >Save</button>
+            <button
+              type="button"
+              class="btn btn-info btn-md falko-button-grey"
+              data-dismiss="modal"
+            >Close</button>
           </div>
         </div>
       </div>

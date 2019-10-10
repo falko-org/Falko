@@ -9,7 +9,7 @@
             {{ errors.first('invalid-credentials') }}
           </div>
           <div class="column">
-            <v-btn text icon
+            <button
               type="button"
               class="close"
               data-dismiss="alert"
@@ -17,7 +17,7 @@
               v-on:click="closeAlert()"
             >
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
         </div>
       </div>
@@ -36,8 +36,8 @@
             :rules="[rules.required, rules.min]"
           ></v-text-field>
 
-        <div class="text-center" left>
-          <v-btn type="submit" class="primary falko-button white--text" id="loginButton" color="#86B1B1">Log in</v-btn>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
         </div>
         <div class="text-center">
           <router-link to="/users/forgotpassword"> Forgot your password?</router-link>
@@ -106,9 +106,5 @@ export default {
   width: 90%;
   font-size: 14px;
   padding-top: 1px;
-}
-
-.button-test {
-  color: #ffffff;
 }
 </style>
