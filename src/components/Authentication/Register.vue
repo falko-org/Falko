@@ -12,6 +12,7 @@
                   v-validate="'required|min:3'"
                   v-model="username">
           <p class="text-danger" v-if="errors.has('form-register.username')">{{ errors.first('form-register.username') }}</p>
+          <p class="text-danger" v-if="errors.has('name-taken')">{{ errors.first('name-taken') }}</p>
         </div>
         <div class="form-group">
           <input  type="email"
@@ -93,10 +94,18 @@ export default {
           this.login();
         })
         .catch((err) => {
-          const resp_error = err.response.data['email'];
-          if(resp_error.includes('has already been taken')) {
+          const resp_error = err.response.data;
+
+          if(resp_error['email']) {
             this.errors.add({
               field: 'email-taken',
+              msg: 'has already been taken'
+            });
+          }
+
+          if(resp_error['name']) {
+            this.errors.add({
+              field: 'name-taken',
               msg: 'has already been taken'
             });
           }
