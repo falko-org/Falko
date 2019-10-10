@@ -22,9 +22,9 @@
           <div class="card-text">
             <div class="row justify-content-center">
               <div class="col-md-7">
-                <button class="falko-button btn btn-primary" v-on:click="setGitHubButtonAction()">
+                <v-btn type="button" class="primary falko-button white--text" color="#86B1B1" v-on:click="setGitHubButtonAction()">
                   {{this.gitHubButtonLabel}}
-                </button>
+                </v-btn>
               </div>
               <div class="col">
                 <edit-user-profile></edit-user-profile>

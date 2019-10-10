@@ -1,9 +1,9 @@
 <template>
 	<div class="">
 		<div class="text-center">
-			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addIssueModal">
+			<v-btn type="button" class="info falko-button white--text" id="addButton" color="#86B1B1" data-toggle="modal" data-target="#addIssueModal">
 				Add Issue
-			</button>
+			</v-btn>
 		</div>
 
 		<div class="modal fade" id ="addIssueModal" role="dialog">
@@ -38,8 +38,8 @@
               </div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" :disabled="errors.has('name') || errors.has('body')" class="btn btn-primary" v-on:click="addIssue()" data-dismiss="modal">Save</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+							<v-btn type="button" :disabled="errors.has('name') || errors.has('body')" class="primary falko-button white--text" v-on:click="addIssue()" data-dismiss="modal" color="#86B1B1">Save</v-btn>
+							<v-btn type="button" class="secondary falko-button white--text" color="#868e96" data-dismiss="modal">Close</v-btn>
 						</div>
 				</div>
 			</div>

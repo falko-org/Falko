@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
-      data-toggle="modal" data-target="#addRetrospectiveModal">
-      Add Retrospective
-      </button>
+      <v-btn type="button" class="info falko-button white--text" id="addButton"
+        data-toggle="modal" data-target="#addRetrospectiveModal" color="#86B1B1">
+        Add Retrospective
+      </v-btn>
     </div>
 
     <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
@@ -31,15 +31,15 @@
             ></v-textarea>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-info btn-md falko-button"
+            <v-btn class="info falko-button white--text"
             v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-            data-dismiss="modal"
+            data-dismiss="modal" color="#86B1B1"
             >
             Save
-            </button>
-            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+            </v-btn>
+            <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
               Cancel
-            </button>
+            </v-btn>
           </div>
           <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
             <div class="modal-dialog">
@@ -65,15 +65,15 @@
                   ></v-textarea>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-info btn-md falko-button"
+                  <v-btn class="info falko-button"
                   v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-                  data-dismiss="modal"
+                  data-dismiss="modal" color="#86B1B1"
                   >
                   Save
-                  </button>
-                  <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+                  </v-btn>
+                  <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
                     Cancel
-                  </button>
+                  </v-btn>
                 </div>
               </div>
             </div>

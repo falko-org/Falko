@@ -1,12 +1,8 @@
 <template>
-  <div class="editSprintBody">
-    <button
-      type="button"
-      class="btn btn-info btn-md falko-button"
-      id="editbutton"
-      data-toggle="modal"
-      data-target="#editSprintModal"
-    >Edit</button>
+  <div class = "editSprintBody">
+    <v-btn type="button" class="info falko-button" id="editbutton" data-toggle="modal" data-target="#editSprintModal" color="#86B1B1">
+      Edit
+    </v-btn>
 
     <div class="modal fade" id="editSprintModal" role="dialog">
       <div class="modal-dialog">

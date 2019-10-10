@@ -1,16 +1,16 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal" v-on:click="refreshScoreInformation()">
+    <v-btn type="button" class="info falko-button white--text" id="editbutton" color="#86B1B1" data-toggle="modal" data-target="#editModal" v-on:click="refreshScoreInformation()">
       Edit
-    </button>
+    </v-btn>
     <div class="modal fade" id ="editModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Project</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="row modal-body">
             <div class="col">
@@ -42,8 +42,8 @@
             </div>
           </div>
           <div class="modal-footer" id="editFooterModal">
-            <button type="button" :disabled="errors.has('name') || errors.has('description')" class="btn btn-info btn-md falko-button" v-on:click="editProject" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            <v-btn type="button"  :disabled="errors.has('name') || errors.has('description')" class="info falko-button white--text" color="#86B1B1" v-on:click="editProject" data-dismiss="modal">Save</v-btn>
+            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
           </div>
         </div>
       </div>
