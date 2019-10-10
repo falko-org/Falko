@@ -9,6 +9,7 @@
             v-model="username"
             :rules="[rules.required, rules.minName]"
           ></v-text-field>
+          <p class="text-danger" v-if="errors.has('name-taken')">{{ errors.first('name-taken') }}</p>
         </div>
         <div class="form-group">
           <v-text-field
@@ -92,10 +93,18 @@ export default {
           this.login();
         })
         .catch((err) => {
-          const resp_error = err.response.data['email'];
-          if(resp_error.includes('has already been taken')) {
+          const resp_error = err.response.data;
+
+          if(resp_error['email']) {
             this.errors.add({
               field: 'email-taken',
+              msg: 'has already been taken'
+            });
+          }
+
+          if(resp_error['name']) {
+            this.errors.add({
+              field: 'name-taken',
               msg: 'has already been taken'
             });
           }
