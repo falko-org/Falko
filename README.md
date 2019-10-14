@@ -22,11 +22,11 @@
 
 <p align="center">
   <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/gpa.svg" alt="Maintainability"></a>
+  <a href="https://deepscan.io/dashboard#view=project&tid=5721&pid=7548&bid=78603"><img src="https://deepscan.io/api/teams/5721/projects/7548/branches/78603/badge/grade.svg" alt="DeepScan grade"></a>
   <a href="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-BackEnd"><img src="https://codeclimate.com/github/fga-gpp-mds/Falko-2017.2-FrontEnd/badges/coverage.svg" alt="Test Coverage"></a>
   <a href="https://github.com/fga-gpp-mds/Falko-2017.2-BackEnd" alt="Travis Build"><img src="https://img.shields.io/travis/falko-org/Falko.svg"></a>
   <a href="https://cypress.io"><img src="https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square" alt="Cypress.io"></a>
   <a href="https://github.com/falko-org/Falko"><img src="https://img.shields.io/github/license/falko-org/Falko.svg" alt="License"></a>
-  
 </p>
 
 <br></br>
