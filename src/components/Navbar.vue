@@ -7,16 +7,16 @@
   >
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
-    <v-toolbar dense>
+    <v-toolbar dense height="80">
       <div class="col" id="logo">
         <a class="navbar-brand falko-brand" v-on:click="goToHome()">
-          <img src="logo.png" width="50"/>
+          <img src="logo.png" width="50">
           <img src="../assets/falko-text.png" height="50"/>
         </a>
       </div>
       <div class="col-4" align="center" v-if="isLogged()">
       </div>
-      <div class="col" align="end" v-if="this.$route.path != '/' && isLogged()">
+      <div class="col" align=right v-if="this.$route.path != '/' && isLogged()">
         <v-btn icon
           v-on:click="logout()"
           id="logout"
