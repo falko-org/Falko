@@ -29,8 +29,22 @@
              </ul>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" class="btn btn-info btn-md falko-button" v-on:click="assignMembers; cleanData" data-dismiss="modal" color="#86B1B1">Save</v-btn>
-            <v-btn type="button" class="btn btn-info btn-md falko-button-grey" @click="cleanData" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <v-btn  type="button" 
+                    class="btn btn-info btn-md falko-button" 
+                    v-on:click="assignMembers; cleanData" 
+                    data-dismiss="modal" 
+                    color="#86B1B1"
+            >
+              Save
+            </v-btn>
+            <v-btn  type="button" 
+                    class="btn btn-info btn-md falko-button-grey" 
+                    v-on:click="cleanData" 
+                    data-dismiss="modal" 
+                    color="#868e96"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>

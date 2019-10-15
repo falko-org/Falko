@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-btn type="button" class="info falko-button-danger" v-bind:id="`deleteButton${this.parentRelease}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentRelease}`" color="#AA0000">
+    <v-btn  type="button" 
+            class="info falko-button-danger" 
+            :id="`deleteButton${this.parentRelease}`" 
+            data-toggle="modal" 
+            :data-target="`#deleteReleaseModal${this.parentRelease}`" 
+            color="#AA0000"
+    >
       Delete
     </v-btn>
     <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentRelease}`" role="dialog">

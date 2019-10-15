@@ -1,7 +1,13 @@
 <template>
 	<div class="">
 		<div class="text-center">
-			<v-btn type="button" class="info falko-button white--text" id="addButton" color="#86B1B1" data-toggle="modal" data-target="#addIssueModal">
+			<v-btn 	type="button" 
+					class="info falko-button white--text" 
+					id="addButton" 
+					color="#86B1B1" 
+					data-toggle="modal" 
+					data-target="#addIssueModal"
+			>
 				Add Issue
 			</v-btn>
 		</div>
@@ -28,8 +34,22 @@
               </div>
 						</div>
 						<div class="modal-footer">
-							<v-btn type="button" :disabled="errors.has('name') || errors.has('body')" class="primary falko-button white--text" v-on:click="addIssue()" data-dismiss="modal" color="#86B1B1">Save</v-btn>
-							<v-btn type="button" class="secondary falko-button white--text" color="#868e96" data-dismiss="modal">Close</v-btn>
+							<v-btn 	type="button" 
+									:disabled="errors.has('name') || errors.has('body')" 
+									class="primary falko-button white--text" 
+									v-on:click="addIssue()" 
+									data-dismiss="modal" 
+									color="#86B1B1"
+							>
+								Save
+							</v-btn>
+							<v-btn	type="button" 
+									class="secondary falko-button white--text" 
+									color="#868e96" 
+									data-dismiss="modal"
+							>
+								Close
+							</v-btn>
 						</div>
 				</div>
 			</div>

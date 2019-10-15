@@ -1,6 +1,12 @@
 <template>
   <div class="delsprint">
-    <v-btn type="button" class="info falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteSprintModal" color="#AA0000">
+    <v-btn  type="button" 
+            class="info falko-button-danger" 
+            id="deletebutton" 
+            data-toggle="modal" 
+            data-target="#deleteSprintModal" 
+            color="#AA0000"
+    >
       Delete
     </v-btn>
     <div class="modal fade" id ="deleteSprintModal" role="dialog">
@@ -18,7 +24,14 @@
             <p><label> Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <v-btn v-on:click="deleteSprint" type="button" class="info btn-md falko-button" data-dismiss="modal" color="#86B1B1">Yes</v-btn>
+            <v-btn  v-on:click="deleteSprint" 
+                    type="button" 
+                    class="info btn-md falko-button" 
+                    data-dismiss="modal" 
+                    color="#86B1B1"
+            >
+              Yes
+            </v-btn>
             <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">No</v-btn>
           </div>
         </div>

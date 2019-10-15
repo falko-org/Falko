@@ -18,8 +18,21 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" class="info btn-md falko-button" v-on:click="getIssuesGraphicData" data-dismiss="modal" color="#86B1B1">Save</v-btn>
-            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <v-btn  type="button" 
+                    class="info btn-md falko-button" 
+                    v-on:click="getIssuesGraphicData" 
+                    data-dismiss="modal" 
+                    color="#86B1B1"
+            >
+              Save
+            </v-btn>
+            <v-btn  type="button" 
+                    class="info btn-md falko-button-grey" 
+                    data-dismiss="modal" 
+                    color="#868e96"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>

@@ -1,8 +1,14 @@
 <template>
   <div>
     <div align="center">
-      <v-btn type="button" class="info falko-button white--text" id="addReleaseButton" data-toggle="modal" data-target="#addReleaseModal" align="center">
-          <div class="row justify-content-center">
+      <v-btn  type="button" 
+              class="info falko-button white--text" 
+              id="addReleaseButton" 
+              data-toggle="modal" 
+              data-target="#addReleaseModal" 
+              align="center"
+      >
+        <div class="row justify-content-center">
           <div class="col-1">
             <i class="fa fa-lg fa-plus-circle"></i>
           </div>
@@ -10,7 +16,7 @@
             Add Release
           </div>
         </div>
-        </v-btn>
+      </v-btn>
     </div>
 
     <div class="modal fade" id ="addReleaseModal" role="dialog">
@@ -46,7 +52,15 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="info falko-button white--text" color="#86B1B1" v-on:click="addRelease()" data-dismiss="modal">Save</v-btn>
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" 
+                    class="info falko-button white--text" 
+                    color="#86B1B1" 
+                    v-on:click="addRelease()" 
+                    data-dismiss="modal"
+            >
+              Save
+            </v-btn>
             <v-btn type="submit" class="info falko-button white--text" id="loginButton" color="#868e96" data-dismiss="modal">Close</v-btn>
           </div>
         </div>

@@ -1,8 +1,13 @@
 <template>
   <div>
     <div>
-      <v-btn type="button" class="info falko-button white--text" id="addButton"
-        data-toggle="modal" data-target="#addRetrospectiveModal" color="#86B1B1">
+      <v-btn  type="button" 
+              class="info falko-button white--text" 
+              id="addButton"
+              data-toggle="modal" 
+              data-target="#addRetrospectiveModal" 
+              color="#86B1B1"
+      >
         Add Retrospective
       </v-btn>
     </div>
@@ -28,11 +33,13 @@
             />
           </div>
           <div class="modal-footer">
-            <v-btn class="info falko-button white--text"
-            v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-            data-dismiss="modal" color="#86B1B1"
+            <v-btn  class="info falko-button white--text"
+                    :disabled="FieldsNotFilled"
+                    v-on:click="addRetrospective"
+                    data-dismiss="modal" 
+                    color="#86B1B1"
             >
-            Save
+              Save
             </v-btn>
             <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
               Cancel

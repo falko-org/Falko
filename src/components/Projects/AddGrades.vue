@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="text-center">
-      <v-btn type="button" class="info falko-button white--text" id="addButton" color="#86B1B1" data-toggle="modal" data-target="#addGradeModal">
+      <v-btn  type="button" 
+              class="info falko-button white--text" 
+              id="addButton" 
+              color="#86B1B1" 
+              data-toggle="modal" 
+              data-target="#addGradeModal"
+      >
         Grade
       </v-btn>
     </div>
@@ -10,7 +16,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add Grades</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn  text icon 
+                    type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </v-btn>
           </div>
@@ -53,7 +64,14 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" class="info falko-button white--text" color="#86B1B1" v-on:click="addGrades" data-dismiss="modal">Save</v-btn>
+            <v-btn  type="button" 
+                    class="info falko-button white--text" 
+                    color="#86B1B1" 
+                    v-on:click="addGrades" 
+                    data-dismiss="modal"
+            >
+              Save
+            </v-btn>
             <v-btn type="button" class="info falko-button white--text" color="#868e96" data-dismiss="modal">Close</v-btn>
           </div>
         </div>

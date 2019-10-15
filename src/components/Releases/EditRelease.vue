@@ -1,6 +1,13 @@
 <template>
   <div class = "editproject">
-    <v-btn type="button" class="info falko-button white--text" color="#868e96" v-bind:id="`editButton${this.release[1]}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.release[1]}`" v-on:click="getReleaseInformation()">
+    <v-btn  type="button" 
+            class="info falko-button white--text" 
+            color="#868e96" 
+            :id="`editButton${this.release[1]}`" 
+            data-toggle="modal" 
+            :data-target="`#editReleaseModal${this.release[1]}`" 
+            v-on:click="getReleaseInformation()"
+    >
       Edit
     </v-btn>
 
@@ -37,7 +44,13 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="info falko-button white--text" v-on:click="editRelease()" data-dismiss="modal" color="#86B1B1">
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" 
+                    class="info falko-button white--text" 
+                    v-on:click="editRelease()" 
+                    data-dismiss="modal" 
+                    color="#86B1B1"
+            >
               Save
             </v-btn>
             <v-btn type="button" class="info falko-button-grey" data-dismiss="modal" color="#868e96" >Close</v-btn>

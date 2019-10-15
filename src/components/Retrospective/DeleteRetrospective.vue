@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-btn type="button" class="info falko-button-danger white--text" id="deletebutton" data-toggle="modal" data-target="#deleteRetrospectiveModal" color="#AA0000">
+    <v-btn  type="button" 
+            class="info falko-button-danger white--text" 
+            id="deletebutton" 
+            data-toggle="modal" 
+            data-target="#deleteRetrospectiveModal" 
+            color="#AA0000"
+    >
       Delete
     </v-btn>
 

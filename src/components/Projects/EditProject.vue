@@ -1,6 +1,13 @@
 <template>
   <div class = "editproject">
-    <v-btn type="button" class="info falko-button white--text" id="editbutton" color="#86B1B1" data-toggle="modal" data-target="#editModal" v-on:click="refreshScoreInformation()">
+    <v-btn  type="button" 
+            class="info falko-button white--text" 
+            id="editbutton" 
+            color="#86B1B1" 
+            data-toggle="modal" 
+            data-target="#editModal" 
+            v-on:click="refreshScoreInformation()"
+    >
       Edit
     </v-btn>
     <div class="modal fade" id ="editModal" role="dialog">
@@ -43,7 +50,15 @@
             </div>
           </div>
           <div class="modal-footer" id="editFooterModal">
-            <v-btn type="button"  :disabled="errors.has('name') || errors.has('description')" class="info falko-button white--text" color="#86B1B1" v-on:click="editProject" data-dismiss="modal">Save</v-btn>
+            <v-btn  type="button"  
+                    :disabled="errors.has('name') || errors.has('description')" 
+                    class="info falko-button white--text" 
+                    color="#86B1B1" 
+                    v-on:click="editProject" 
+                    data-dismiss="modal"
+            >
+              Save
+            </v-btn>
             <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
           </div>
         </div>

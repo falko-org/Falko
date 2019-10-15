@@ -1,6 +1,12 @@
 <template>
   <div class = "editSprintBody">
-    <v-btn type="button" class="info falko-button" id="editbutton" data-toggle="modal" data-target="#editSprintModal" color="#86B1B1">
+    <v-btn  type="button" 
+            class="info falko-button" 
+            id="editbutton" 
+            data-toggle="modal" 
+            data-target="#editSprintModal" 
+            color="#86B1B1"
+    >
       Edit
     </v-btn>
 
@@ -37,8 +43,13 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
-                    class="info btn-md falko-button" v-on:click="editSprint" data-dismiss="modal" color="#86B1B1">
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
+                    class="info btn-md falko-button" 
+                    v-on:click="editSprint" 
+                    data-dismiss="modal" 
+                    color="#86B1B1"
+            >
               Save
             </v-btn>
             <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">Close</v-btn>

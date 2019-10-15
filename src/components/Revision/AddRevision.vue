@@ -1,8 +1,13 @@
 <template>
   <div>
     <div>
-      <v-btn type="button" class="info falko-button white--text" id="addButton"
-        data-toggle="modal" data-target="#addRevisionModal" color="#86B1B1">
+      <v-btn  type="button" 
+              class="info falko-button white--text" 
+              id="addButton"
+              data-toggle="modal" 
+              data-target="#addRevisionModal" 
+              color="#86B1B1"
+      >
         Add Revision
       </v-btn>
     </div>
@@ -23,8 +28,9 @@
             <listRevision parent="UndoneReport" v-on:listUpdated="updateList"></listRevision>
           </div>
           <div class="modal-footer">
-            <v-btn class="info btn-md falko-button"
-                    v-bind:disabled="FieldsNotFilled" v-on:click="addRevision"
+            <v-btn  class="info btn-md falko-button"
+                    :disabled="FieldsNotFilled" 
+                    v-on:click="addRevision"
                     data-dismiss="modal"
             >
               Save

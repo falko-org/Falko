@@ -1,16 +1,15 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <v-btn
-        type="button"
-        class="primary falko-button white--text"
-        id="addButton"
-        color="#86B1B1"
-        v-bind:class="buttonClass()"
-        v-bind:disabled="!this.isGitHubAuthenticated"
-        v-on:click="getRepos()"
-        v-bind:data-toggle="buttonDataToggle()"
-        data-target="#githubModal"
+      <v-btn  type="button"
+              class="primary falko-button white--text"
+              id="addButton"
+              color="#86B1B1"
+              :class="buttonClass()"
+              :disabled="!this.isGitHubAuthenticated"
+              v-on:click="getRepos()"
+              :data-toggle="buttonDataToggle()"
+              data-target="#githubModal"
       >
         Import GitHub repository
       </v-btn>
@@ -103,7 +102,13 @@
             </div>
           </div>
           <div class="modal-footer">
-              <v-btn type="button" :disabled="disableImportButton()" class="primary falko-button white--text" color="#86B1B1" v-on:click="importGithubProjects" data-dismiss="modal">
+              <v-btn  type="button" 
+                      :disabled="disableImportButton()" 
+                      class="primary falko-button white--text" 
+                      color="#86B1B1" 
+                      v-on:click="importGithubProjects" 
+                      data-dismiss="modal"
+              >
                 Import
               </v-btn>
              <v-btn type="button" class="secondary falko-button white--text" color="#868e96" v-on:click="clean" data-dismiss="modal">

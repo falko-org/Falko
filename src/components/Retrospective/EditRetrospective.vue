@@ -1,9 +1,14 @@
 <template>
   <div>
     <div>
-      <v-btn type="button" class="info falko-button white--text" id="addButton"
-      data-toggle="modal" data-target="#editRetrospectiveModal" color="#86B1B1">
-      Edit Retrospective
+      <v-btn  type="button" 
+              class="info falko-button white--text" 
+              id="addButton"
+              data-toggle="modal" 
+              data-target="#editRetrospectiveModal" 
+              color="#86B1B1"
+      >
+        Edit Retrospective
       </v-btn>
     </div>
 

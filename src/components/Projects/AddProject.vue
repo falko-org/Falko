@@ -1,8 +1,15 @@
 <template>
   <div class="addproj">
     <div class="text-center">
-      <v-btn type="button" class="primary falko-button white--text" id="addButton" data-toggle="modal" data-target="#addProjectModal" color="#86B1B1">
-        Add a Project</v-btn>
+      <v-btn  type="button" 
+              class="primary falko-button white--text" 
+              id="addButton" 
+              data-toggle="modal" 
+              data-target="#addProjectModal" 
+              color="#86B1B1"
+      >
+        Add a Project
+      </v-btn>
     </div>
     <div class="modal fade" id ="addProjectModal" role="dialog">
       <div class="modal-dialog">
@@ -31,7 +38,15 @@
             <br>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('description')" class="primary falko-button white--text" v-on:click="addProject" data-dismiss="modal" color="#86B1B1">Save</v-btn>
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('description')" 
+                    class="primary falko-button white--text" 
+                    v-on:click="addProject" 
+                    data-dismiss="modal" 
+                    color="#86B1B1"
+            >
+              Save
+            </v-btn>
             <v-btn type="button" class="primary falko-button-grey white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
           </div>
         </div>

@@ -1,8 +1,26 @@
 <template>
   <div>
-    <v-btn class="tablink" id="stories-tab" v-on:click="openMetrics('stories-tab', 'Stories')" color="#E0E8EB"><h3>Kanban</h3></v-btn>
-    <v-btn class="tablink" id="velocity-tab" v-on:click="openMetrics('velocity-tab', 'Velocity')" color="#E0E8EB"><h3>Velocity</h3></v-btn>
-    <v-btn class="tablink" id="burndown-tab" v-on:click="openMetrics('burndown-tab', 'Burndown')" color="#E0E8EB"><h3>Burndown</h3></v-btn>
+    <v-btn  class="tablink" 
+            id="stories-tab" 
+            v-on:click="openMetrics('stories-tab', 'Stories')" 
+            color="#E0E8EB"
+    >
+      <h3>Kanban</h3>
+    </v-btn>
+    <v-btn  class="tablink" 
+            id="velocity-tab" 
+            v-on:click="openMetrics('velocity-tab', 'Velocity')" 
+            color="#E0E8EB"
+    >
+      <h3>Velocity</h3>
+    </v-btn>
+    <v-btn  class="tablink" 
+            id="burndown-tab" 
+            v-on:click="openMetrics('burndown-tab', 'Burndown')" 
+            color="#E0E8EB"
+    >
+      <h3>Burndown</h3>
+    </v-btn>
 
     <div id="Velocity" class="tabcontent">
       <br><br><br>

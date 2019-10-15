@@ -9,12 +9,12 @@
             {{ errors.first('invalid-credentials') }}
           </div>
           <div class="column">
-            <v-btn text icon
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-              v-on:click="closeAlert()"
+            <v-btn  text icon
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                    v-on:click="closeAlert()"
             >
               <span aria-hidden="true">&times;</span>
             </v-btn>
