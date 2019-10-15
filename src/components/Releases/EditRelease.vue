@@ -27,11 +27,44 @@
             </input><br>
             </div>
             <div class="col-6">
-              
-              <label>Initial Date</label>
-              <input type="date" v-model="initialDate" name="Initial Date" ref="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"/><br>
-              <label>Final Date</label>
-              <input type="date" v-model="finalDate" v-bind:min="this.initialDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+              <v-dialog
+                ref="initialDialog"
+                v-model="modalInitialDate"
+                :return-value.sync="date"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="initialDate"
+                    label="Initial Date"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="initialDate" scrollable @input="modalInitialDate = false">
+                </v-date-picker>
+              </v-dialog>
+              <v-dialog
+                ref="finalDialog"
+                v-model="modalFinalDate"
+                :return-value.sync="date"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="finalDate"
+                    label="Final Date"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="finalDate" :min="this.initialDate" scrollable @input="modalFinalDate = false">
+                </v-date-picker>
+              </v-dialog>
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
               </input><br>
             </div>

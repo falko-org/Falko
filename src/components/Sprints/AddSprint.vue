@@ -25,16 +25,45 @@
             </div>
 
             <div class="col-6">
-              <label>Initial Date</label>
-              <input type="date" name="Initial Date" ref="Initial Date" v-model="sprintInitialDate" 
-                     v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"
-                     v-validate="'required|date_format:YYYY-MM-DD|'"
-              />
+              <v-dialog
+                ref="initialDialog"
+                v-model="modalInitialDate"
+                :return-value.sync="date"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="sprintInitialDate"
+                    label="Initial Date"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="sprintInitialDate" :min="this.releaseInitialDate" :max="this.releaseFinalDate" scrollable @input="modalInitialDate = false">
+                </v-date-picker>
+              </v-dialog>
 
-              <label>Final Date</label>
-              <input type="date" name="Final Date" v-model="sprintFinalDate" v-bind:min="this.sprintInitialDate"
-                     v-bind:max="this.releaseFinalDate" required v-validate="'date_format:YYYY-MM-DD|after:Initial Date'"
-              />
+              <v-dialog
+                ref="finalDialog"
+                v-model="modalFinalDate"
+                :return-value.sync="date"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="sprintFinalDate"
+                    label="Final Date"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="sprintFinalDate" :min="this.sprintInitialDate" :max="this.releaseFinalDate" scrollable @input="modalFinalDate = false">
+                </v-date-picker>
+              </v-dialog>
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
             </div>
           </div>
