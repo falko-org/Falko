@@ -5,7 +5,6 @@
             id="editbutton" 
             data-toggle="modal" 
             data-target="#editSprintModal" 
-            color="#86B1B1"
     >
       Edit
     </v-btn>
@@ -15,7 +14,11 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Sprint</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn type="button" 
+                   text icon class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </v-btn>
           </div>
@@ -48,11 +51,17 @@
                     class="info btn-md falko-button" 
                     v-on:click="editSprint" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="saveButton"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <v-btn type="button" 
+                   class="info btn-md falko-button-grey" 
+                   data-dismiss="modal" 
+                   id="closeButton"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -124,5 +133,17 @@ export default{
 <style scoped>
 input {
   margin-bottom: 0.5em;
+}
+
+#editbutton {
+  background-color: #86B1B1;
+}
+
+#saveButton {
+  background-color: #86B1B1;
+}
+
+#closeButton {
+  background-color: #868e96;
 }
 </style>

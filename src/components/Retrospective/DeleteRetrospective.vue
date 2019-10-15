@@ -5,7 +5,6 @@
             id="deletebutton" 
             data-toggle="modal" 
             data-target="#deleteRetrospectiveModal" 
-            color="#AA0000"
     >
       Delete
     </v-btn>
@@ -71,5 +70,7 @@ export default {
 </script>
 
 <style scoped>
-
+#deleteButton {
+  background-color: #AA0000;
+}
 </style>

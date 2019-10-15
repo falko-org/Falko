@@ -6,7 +6,6 @@
               id="addButton"
               data-toggle="modal" 
               data-target="#addRetrospectiveModal" 
-              color="#86B1B1"
       >
         Add Retrospective
       </v-btn>
@@ -37,11 +36,15 @@
                     :disabled="FieldsNotFilled"
                     v-on:click="addRetrospective"
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="addButton"
             >
               Save
             </v-btn>
-            <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
+            <v-btn type="button" 
+                   class="info falko-button-grey" 
+                   data-dismiss="modal" 
+                   id="cancelButton"
+            >
               Cancel
             </v-btn>
           </div>
@@ -139,6 +142,14 @@ textarea {
 
 input::placeholder {
   color: #777;
+}
+
+#addButton {
+  background-color: #86B1B1;
+}
+
+#cancelButton {
+  background-color: #868e96;
 }
 
 </style>

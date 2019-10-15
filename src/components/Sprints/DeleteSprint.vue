@@ -5,7 +5,6 @@
             id="deletebutton" 
             data-toggle="modal" 
             data-target="#deleteSprintModal" 
-            color="#AA0000"
     >
       Delete
     </v-btn>
@@ -16,7 +15,11 @@
             <div>
               <h4 class="modal-title">Delete Sprint?</h4>
             </div>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn type="button" 
+                   text icon class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </v-btn>
           </div>
@@ -28,11 +31,17 @@
                     type="button" 
                     class="info btn-md falko-button" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="yesButton"
             >
               Yes
             </v-btn>
-            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">No</v-btn>
+            <v-btn type="button" 
+                   class="info btn-md falko-button-grey" 
+                   data-dismiss="modal" 
+                   id="noButton"
+            >
+              No
+            </v-btn>
           </div>
         </div>
       </div>
@@ -69,4 +78,15 @@ export default {
 </script>
 
 <style scoped>
+#yesButton {
+  background-color: #86B1B1;
+}
+
+#noButton {
+  background-color: #868e96;
+}
+
+#deletebutton {
+  background-color: #AA0000;
+}
 </style>

@@ -6,7 +6,6 @@
               id="addButton"
               data-toggle="modal" 
               data-target="#addRevisionModal" 
-              color="#86B1B1"
       >
         Add Revision
       </v-btn>
@@ -35,7 +34,11 @@
             >
               Save
             </v-btn>
-            <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
+            <v-btn type="button" 
+                   class="info falko-button-grey" 
+                   data-dismiss="modal" 
+                   id="cancelButton"
+            >
               Cancel
             </v-btn>
           </div>
@@ -111,5 +114,13 @@ export default {
 <style scoped>
 input::placeholder {
   color: #777;
+}
+
+#addButton {
+  background-color: #86B1B1;
+}
+
+#cancelButton {
+  background-color: #868e96;
 }
 </style>

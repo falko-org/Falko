@@ -1,23 +1,20 @@
 <template>
   <div>
     <v-btn  class="tablink" 
-            id="stories-tab" 
+            id="buttons" 
             v-on:click="openMetrics('stories-tab', 'Stories')" 
-            color="#E0E8EB"
     >
       <h3>Kanban</h3>
     </v-btn>
     <v-btn  class="tablink" 
-            id="velocity-tab" 
+            id="buttons" 
             v-on:click="openMetrics('velocity-tab', 'Velocity')" 
-            color="#E0E8EB"
     >
       <h3>Velocity</h3>
     </v-btn>
     <v-btn  class="tablink" 
-            id="burndown-tab" 
+            id="buttons" 
             v-on:click="openMetrics('burndown-tab', 'Burndown')" 
-            color="#E0E8EB"
     >
       <h3>Burndown</h3>
     </v-btn>
@@ -38,7 +35,6 @@
         <stories></stories>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -122,5 +118,9 @@ export default {
 }
 h3 {
   font-size: 20px;
+}
+
+#buttons {
+  background-color: #E0E8EB;
 }
 </style>

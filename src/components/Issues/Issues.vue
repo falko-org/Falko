@@ -31,7 +31,6 @@
                             v-on:click="closeIssue(issue.number), getIssues()" 
                             class="primary btn-sm falko-button falko-button-danger" 
                             id="close" 
-                            color="#AA0000"
                     >
                       Close
                     </v-btn>
@@ -172,6 +171,7 @@ p{
 #close {
   width: 83px;
   text-align: center;
+  color: #AA0000;
 }
 
 #issueCard {

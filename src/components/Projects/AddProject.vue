@@ -6,7 +6,6 @@
               id="addButton" 
               data-toggle="modal" 
               data-target="#addProjectModal" 
-              color="#86B1B1"
       >
         Add a Project
       </v-btn>
@@ -43,11 +42,11 @@
                     class="primary falko-button white--text" 
                     v-on:click="addProject" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="addButton"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="primary falko-button-grey white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <v-btn type="button" class="primary falko-button-grey white--text" data-dismiss="modal" id="closeButton">Close</v-btn>
           </div>
         </div>
       </div>
@@ -116,5 +115,13 @@ p {
 
 label {
   margin-bottom: 0em;
+}
+
+#addButton {
+  background-color: #86B1B1;
+}
+
+#closeButton {
+  background-color: #868e96;
 }
 </style>

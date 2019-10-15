@@ -47,8 +47,7 @@
           <v-btn  type="submit" 
                   :disabled="disableRegisterButton()" 
                   class="primary falko-button white--text" 
-                  id="" 
-                  color="#86B1B1"
+                  id="registerButton" 
           >
             Register
           </v-btn>

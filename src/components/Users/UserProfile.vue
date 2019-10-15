@@ -22,7 +22,11 @@
           <div class="card-text">
             <div class="row justify-content-center">
               <div class="col-md-7">
-                <v-btn type="button" class="primary falko-button white--text" color="#86B1B1" v-on:click="setGitHubButtonAction()">
+                <v-btn type="button" 
+                  class="primary falko-button white--text" 
+                  v-on:click="setGitHubButtonAction()"
+                  id="githubButton"
+                >
                   {{this.gitHubButtonLabel}}
                 </v-btn>
               </div>
@@ -166,5 +170,9 @@ export default {
 
   label {
     margin-right: .3em;
+  }
+
+  #githubButton {
+    background-color: #86B1B1;
   }
 </style>

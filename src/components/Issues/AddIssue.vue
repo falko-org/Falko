@@ -4,7 +4,6 @@
 			<v-btn 	type="button" 
 					class="info falko-button white--text" 
 					id="addButton" 
-					color="#86B1B1" 
 					data-toggle="modal" 
 					data-target="#addIssueModal"
 			>
@@ -39,13 +38,13 @@
 									class="primary falko-button white--text" 
 									v-on:click="addIssue()" 
 									data-dismiss="modal" 
-									color="#86B1B1"
+									id="saveButton"
 							>
 								Save
 							</v-btn>
 							<v-btn	type="button" 
 									class="secondary falko-button white--text" 
-									color="#868e96" 
+									id="closeButton"
 									data-dismiss="modal"
 							>
 								Close
@@ -107,8 +106,17 @@ export default {
   color: #777;
 }
 
+#saveButton{
+  background: #86B1B1;
+}
+
 #addButton {
 	margin-top: 2em;
+	background-color: #86B1B1;
+}
+
+#closeButton{
+	background-color: #868e96;
 }
 
 .modal-body{

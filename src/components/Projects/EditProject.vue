@@ -3,7 +3,6 @@
     <v-btn  type="button" 
             class="info falko-button white--text" 
             id="editbutton" 
-            color="#86B1B1" 
             data-toggle="modal" 
             data-target="#editModal" 
             v-on:click="refreshScoreInformation()"
@@ -53,13 +52,13 @@
             <v-btn  type="button"  
                     :disabled="errors.has('name') || errors.has('description')" 
                     class="info falko-button white--text" 
-                    color="#86B1B1" 
+                    id="editButton" 
                     v-on:click="editProject" 
                     data-dismiss="modal"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" id="closebutton">Close</v-btn>
           </div>
         </div>
       </div>
@@ -141,6 +140,11 @@ export default{
 
 #editbutton {
   width: 120px;
+  background-color: #86B1B1;
+}
+
+#closebutton{
+  background-color: #868e96;
 }
 
 </style>

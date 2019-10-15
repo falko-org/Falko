@@ -3,7 +3,6 @@
     <v-btn  type="button" 
             class="info falko-button-danger white--text" 
             id="deletebutton" 
-            color="#AA0000" 
             data-toggle="modal" 
             data-target="#myModal"
     >
@@ -28,11 +27,11 @@
                     v-on:click="deleteProject" 
                     class="info falko-button white--text" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="yesButton"
             >
               Yes
             </v-btn>
-            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" color="#868e96">No</v-btn>
+            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" id="noButton">No</v-btn>
           </div>
         </div>
       </div>
@@ -71,5 +70,14 @@ export default {
 #deletebutton {
   width: 120px;
   margin-left: 4px;
+  background-color: #AA0000;
+}
+
+#yesButton {
+  background-color: #86B1B1;
+}
+
+#noButton {
+  background-color: #868e96;
 }
 </style>

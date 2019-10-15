@@ -24,8 +24,21 @@
             <p><label>Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <v-btn v-on:click="deleteRelease" type="button" class="info falko-button" data-dismiss="modal" color="#86B1B1">Yes</v-btn>
-            <v-btn type="button" class="info falko-button-grey" data-dismiss="modal" color="#868e96">No</v-btn>
+            <v-btn type="button"
+                   v-on:click="deleteRelease"  
+                   class="info falko-button" 
+                   data-dismiss="modal" 
+                   id="yesButton"
+            >
+              Yes
+            </v-btn>
+            <v-btn type="button" 
+                   class="info falko-button-grey" 
+                   data-dismiss="modal" 
+                   id="noButton"
+            >
+              No
+            </v-btn>
           </div>
         </div>
       </div>
@@ -72,5 +85,13 @@ export default {
 </script>
 
 <style scoped>
+#yesButton {
+  background-color: #86B1B1;
+}
+
+#noButton {
+  background-color: #868e96;
+}
+
 
 </style>

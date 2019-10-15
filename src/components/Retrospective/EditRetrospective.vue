@@ -6,7 +6,6 @@
               id="addButton"
               data-toggle="modal" 
               data-target="#editRetrospectiveModal" 
-              color="#86B1B1"
       >
         Edit Retrospective
       </v-btn>
@@ -121,6 +120,10 @@ textarea {
 
 input::placeholder {
   color: #777;
+}
+
+#addButton {
+  background-color: #86B1B1;
 }
 
 </style>

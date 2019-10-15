@@ -49,11 +49,17 @@
                     class="info falko-button white--text" 
                     v-on:click="editRelease()" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="saveButton"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="info falko-button-grey" data-dismiss="modal" color="#868e96" >Close</v-btn>
+            <v-btn type="button" 
+                   class="info falko-button-grey" 
+                   data-dismiss="modal" 
+                   id="closeButton"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -124,5 +130,13 @@ export default {
 <style scoped>
 input {
   margin-bottom: 0.5em;
+}
+
+#saveButton {
+  background-color: #86B1B1;
+}
+
+#closeButton {
+  background-color: #868e96;
 }
 </style>

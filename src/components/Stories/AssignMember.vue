@@ -33,7 +33,7 @@
                     class="btn btn-info btn-md falko-button" 
                     v-on:click="assignMembers; cleanData" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="saveButton"
             >
               Save
             </v-btn>
@@ -41,7 +41,7 @@
                     class="btn btn-info btn-md falko-button-grey" 
                     v-on:click="cleanData" 
                     data-dismiss="modal" 
-                    color="#868e96"
+                    id="closeButton"
             >
               Close
             </v-btn>
@@ -135,5 +135,11 @@ export default {
 </script>
 
 <style scoped>
-	
+	#saveButton {
+    background-color: #86B1B1;
+  }
+
+  #closeButton {
+    background-color: #868e96;
+  }
 </style>

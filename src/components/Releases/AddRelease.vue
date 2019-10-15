@@ -55,13 +55,19 @@
             <v-btn  type="button" 
                     :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" 
                     class="info falko-button white--text" 
-                    color="#86B1B1" 
                     v-on:click="addRelease()" 
                     data-dismiss="modal"
+                    id="saveButton"
             >
               Save
             </v-btn>
-            <v-btn type="submit" class="info falko-button white--text" id="loginButton" color="#868e96" data-dismiss="modal">Close</v-btn>
+            <v-btn type="submit"
+                   class="info falko-button white--text" 
+                   id="loginButton" 
+                   data-dismiss="modal"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -147,5 +153,17 @@ input {
 
 .small-float-left {
   margin-right: .5em;
+}
+
+#saveButton {
+  background-color: #86B1B1;
+}
+
+#closeButton {
+  background-color: #868e96;
+}
+
+#loginButton {
+  background-color: #868e96;
 }
 </style>

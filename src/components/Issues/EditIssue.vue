@@ -6,7 +6,6 @@
             data-toggle="modal" 
             :data-target="`#editIssueModal${selected_issue.number}`" 
             v-on:click="getIssuesInformation()" 
-            color="#86B1B1"
     >
       Edit
     </v-btn>
@@ -55,11 +54,11 @@
                     class="info btn-md falko-button" 
                     v-on:click="editIssue(), setAssignees()" 
                     data-dismiss="modal" 
-                    color="#86B1B1"
+                    id="editIssue"
               >
                 Save
               </v-btn>
-            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" id="closeButton">Close</v-btn>
           </div>
         </div>
       </div>
@@ -162,5 +161,10 @@ export default {
 <style scoped>
 #editIssue {
   margin-right: 4px;
+  background-color: #86B1B1;
+}
+
+#closeButton {
+  background-color: #868e96;
 }
 </style>
