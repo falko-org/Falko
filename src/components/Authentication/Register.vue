@@ -128,13 +128,6 @@ export default {
   max-width: 20em;
 }
 
-/* #registerForm input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
-} */
-
 #falkoLogoRegister {
   width: 11em;
   margin: 1.3em 0;
