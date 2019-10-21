@@ -16,7 +16,6 @@ import Issues from '../components/Issues/Issues.vue';
 import Velocity from '../components/Sprints/Velocity.vue';
 import Burndown from '../components/Sprints/Burndown.vue';
 import IssuesGraphic from '../components/Issues/IssuesGraphic.vue';
-import Grade from '../components/Projects/Grade.vue';
 import Revision from '../components/Revision/Revision.vue';
 import ForgotPassword from '../components/Users/ForgotPassword.vue';
 import ResetPassword from '../components/Users/ResetPassword.vue';

@@ -1,6 +1,5 @@
 import Vuex from 'vuex';
 import sinon from 'sinon';
-import VeeValidate from 'vee-validate';
 import { shallow, createLocalVue } from 'vue-test-utils';
 import { HTTP } from '../../../../src/http-common';
 import AddRetrospective from '../../../../src/components/Retrospective/AddRetrospective.vue';
