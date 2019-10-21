@@ -23,25 +23,18 @@
       </div>
 
       <form id="loginForm"  @submit.prevent="() => login()" name="wrong-credentials">
-        <div class="form-group">
-          <input  type="email"
-          class="form-control"
-          placeholder="Email"
-          name="email"
-          v-model="email"
-          v-validate="'email'" >
-          <p class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</p>
-        </div>
+          <v-text-field
+            label="Email"
+            v-model="email"
+            :rules="[rules.required, rules.validEmail]"
+          ></v-text-field>
 
-        <div class="form-group">
-          <input  type="password"
-          class="form-control"
-          placeholder="Password"
-          name="password"
-          v-model="password"
-          v-validate="'required|min:6'">
-          <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
-        </div>
+          <v-text-field
+            label="Password"
+            v-model="password"
+            :type="'password'"
+            :rules="[rules.required, rules.min]"
+          ></v-text-field>
 
         <div class="text-center">
           <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
@@ -64,7 +57,13 @@ export default {
     return {
       email: '',
       password: '',
-      alert: false
+      alert: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 6 || 'Min 6 characters',
+        emailMatch: () => ('Incorrect email or password'),
+        validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+      }
     };
   },
 
@@ -96,13 +95,6 @@ export default {
 <style>
 #login {
   max-width: 20em;
-}
-
-#loginForm input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
 }
 
 #falkoLogoLogin {

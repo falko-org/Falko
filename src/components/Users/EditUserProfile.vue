@@ -15,12 +15,18 @@
           </div>
           <div class="row modal-body">
             <div class="col-md-6">
-              <p><label > Name </label></p>
-              <p><input type="text" placeholder="User name..." v-model="name"></input><br></p>
+              <v-text-field
+                label="Username"
+                v-model="name"
+                :rules="[rules.required]"
+              ></v-text-field>
             </div>
             <div class="col-md-6">
-              <p><label> E-mail </label></p>
-              <p><input type="text" placeholder="Email..." v-model="email"></input><br></p>
+              <v-text-field
+                label="Email"
+                v-model="email"
+                :rules="[rules.required, rules.validEmail]"
+              ></v-text-field>
             </div>
           </div>
           <div class="modal-footer">
@@ -45,6 +51,10 @@ export default {
       name: '',
       email: '',
       is_github_authenticated: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+      }
     };
   },
 
