@@ -9,7 +9,6 @@ import { Bar } from 'vue-chart-js'
 import { Line } from 'vue-chart-js'
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
-import Sprint from './Sprint.vue';
 
 export default {
   extends: Bar,

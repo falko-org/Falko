@@ -26,8 +26,6 @@
 
 
 <script>
-import { mapState } from 'vuex';
-import { HTTP } from '../../http-common';
 import Velocity from './Velocity.vue';
 import Burndown from './Burndown.vue';
 import Stories from '../Stories/Stories.vue'

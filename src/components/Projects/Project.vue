@@ -59,7 +59,6 @@ import DeleteProject from './DeleteProject.vue';
 import EditProject from './EditProject.vue';
 import { HTTP } from '../../http-common';
 import IssuesGraphic from '../Issues/IssuesGraphic'
-import Grade from './Grade.vue'
 import AddGrades from '../Projects/AddGrades'
 
 export default {
