@@ -17,14 +17,24 @@
 						</div>
 						<div class=" row modal-body">
               <div class="col">
-                <p><label>Name</label></p>
-                <p><input type="text" v-model="name" id="issueName" placeholder="Issue Title" name="name" v-validate="'required'">
-									<p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-								</input><br></p>
-                <p><label>Body</label></p>
-                <input type="text" v-model="body" placeholder="Issue Body..." name="body" v-validate="'required'">
-								<p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
-							</input><br>
+				<v-text-field
+					label="Name"
+					v-model="name"
+					:rules="[rules.required]"
+				></v-text-field>
+				<p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+				<br>
+				
+				<v-textarea
+					name="input-7-4"
+					v-model="body"
+					label="Issue Body"
+					rows="2"
+					row-height="20"
+					:rules="[rules.required]"
+				></v-textarea>
+				<p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
+				<br>
               </div>
 						</div>
 						<div class="modal-footer">
@@ -46,7 +56,10 @@ export default {
   data () {
     return {
       name: '',
-      body : ''
+	  body : '',
+	  rules: {
+        required: value => !!value || 'Required.',
+      }
     }
 	},
 

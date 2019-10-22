@@ -24,16 +24,21 @@
           </div>
           <div class="row modal-body align-content-end">
             <div class="col-6">
-              <label>Name</label>
-              <input type="text" v-model="name" id="releaseName" placeholder="Release Name" name="name" v-validate="'required'">
-                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-              </input>
+              <v-text-field
+                label="Name"
+                v-model="name"
+                :rules="[rules.required]"
+              ></v-text-field>
+              <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               <br>
 
-              <label>Description</label>
-              <input type="text" v-model="description" placeholder="Release description..." name="description" v-validate="'required'">
+              <v-text-field
+                label="Release description"
+                v-model="description"
+                :rules="[rules.required]"
+              ></v-text-field>
               <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
-            </input><br>
+              <br>
             </div>
             <div class="col-6">
               <v-dialog
@@ -101,6 +106,9 @@ export default {
       initialDate: '',
       finalDate: '',
       amount_of_sprints: 0,
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     };
   },
   computed: {
