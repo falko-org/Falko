@@ -16,9 +16,9 @@
             <div>
               <h4 class="modal-title">Delete Project?</h4>
             </div>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="modal-body">
             <p><label>Are you sure?</label></p>

@@ -16,22 +16,26 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Release</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row modal-body">
             <div class="col-6">
-              <label>Name</label>
-              <input type="text" v-model="name" id="releaseName" placeholder="Release Name" name="name" v-validate="'required'">
-                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-              </input>
+              <v-text-field
+                label="Release Name"
+                v-model="name"
+                :rules="[rules.required]"
+              ></v-text-field>
+              <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               <br>
-
-              <label>Description</label>
-              <input type="text" v-model="description" placeholder="Release description..." name="description" v-validate="'required'">
+              <v-text-field
+                label="Release Description"
+                v-model="description"
+                :rules="[rules.required]"
+              ></v-text-field>
               <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
-            </input><br>
+              <br>
             </div>
             <div class="col-6">
               
@@ -81,6 +85,9 @@ export default {
       description: '',
       initialDate: '',
       finalDate: '',
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     };
   },
   computed: {

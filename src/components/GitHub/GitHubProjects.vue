@@ -18,9 +18,9 @@
         <div class="modal-content" id="importProjectsModal">
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" v-on:click="clean" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" v-on:click="clean" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row">
             <div class="col align-self-center margin" v-if="loading" align="center">

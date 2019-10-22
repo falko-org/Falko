@@ -9,7 +9,7 @@
       Edit
     </v-btn>
 
-    <div class="modal fade" id ="editSprintModal" role="dialog">
+    <div class="modal fade" id="editSprintModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -24,25 +24,43 @@
           </div>
           <div class="row modal-body">
             <div class="col-6">
-              <label>Name</label>
-              <input type="text" placeholder="Sprint name..." v-model="name" name="name" v-validate="'required'"/>
+              <v-text-field
+                label="Name"
+                type="text"
+                v-model="name"
+                name="name"
+                :rules="[rules.required]"
+              />
 
-              <label>Description</label>
-              <input type="text" placeholder="Sprint description..." v-model="description"/>
+              <v-text-field label="Description" type="text" v-model="description" />
             </div>
 
             <div class="col-6">
               <label>Initial Date</label>
-              <input type="date" name="Initial Date" ref="Initial Date" v-model="sprintInitialDate" 
-                     v-bind:min="this.releaseInitialDate" v-bind:max="this.releaseFinalDate"
-                     v-validate="'required|date_format:YYYY-MM-DD|'"
+              <input
+                type="date"
+                name="Initial Date"
+                ref="Initial Date"
+                v-model="sprintInitialDate"
+                v-bind:min="this.releaseInitialDate"
+                v-bind:max="this.releaseFinalDate"
+                v-validate="'required|date_format:YYYY-MM-DD|'"
               />
 
               <label>Final Date</label>
-              <input type="date" name="Final Date" v-model="sprintFinalDate" v-bind:min="this.sprintInitialDate"
-                     v-bind:max="this.releaseFinalDate" required v-validate="'date_format:YYYY-MM-DD|after:Initial Date'"
+              <input
+                type="date"
+                name="Final Date"
+                v-model="sprintFinalDate"
+                v-bind:min="this.sprintInitialDate"
+                v-bind:max="this.releaseFinalDate"
+                required
+                v-validate="'date_format:YYYY-MM-DD|after:Initial Date'"
               />
-              <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
+              <p
+                class="text-danger"
+                v-if="errors.has('Final Date')"
+              >{{ errors.first('Final Date') }}</p>
             </div>
           </div>
           <div class="modal-footer">
@@ -70,42 +88,49 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { HTTP } from '../../http-common';
+import { mapState } from "vuex";
+import { HTTP } from "../../http-common";
 
-export default{
-  name: 'editSprintBody',
+export default {
+  name: "editSprintBody",
   data() {
     return {
-      name: '',
-      description: '',
-      sprintInitialDate: '',
-      sprintFinalDate: '',
+      rules: {
+        required: value => !!value || "Required."
+      },
+      name: "",
+      description: "",
+      sprintInitialDate: "",
+      sprintFinalDate: ""
     };
   },
   computed: {
     ...mapState({
       token: state => state.auth.token,
       releaseInitialDate: state => state.clientStatus.releaseInitialDate,
-      releaseFinalDate: state => state.clientStatus.releaseFinalDate,
-    }),
+      releaseFinalDate: state => state.clientStatus.releaseFinalDate
+    })
   },
   methods: {
     editSprint() {
       const _this = this;
       const headers = { Authorization: this.token };
 
-      HTTP.put(`sprints/${this.$route.params.id}`, {
-        name: this.name,
-        description: this.description,
-        initial_date: this.sprintInitialDate,
-        final_date: this.sprintFinalDate,
-      }, { headers })
+      HTTP.put(
+        `sprints/${this.$route.params.id}`,
+        {
+          name: this.name,
+          description: this.description,
+          initial_date: this.sprintInitialDate,
+          final_date: this.sprintFinalDate
+        },
+        { headers }
+      )
         .then(() => {
-          this.$emit('edited-sprint');
+          this.$emit("edited-sprint");
         })
-        .catch((e) => {
-          _this.errors.add('wrong-credentials', 'Problem with credentials');
+        .catch(e => {
+          _this.errors.add("wrong-credentials", "Problem with credentials");
         });
     },
 
@@ -113,20 +138,20 @@ export default{
       const headers = { Authorization: this.token };
 
       HTTP.get(`sprints/${this.$route.params.id}`, { headers })
-        .then((response) => {
+        .then(response => {
           this.name = response.data.name;
           this.description = response.data.description;
           this.sprintInitialDate = response.data.initial_date;
           this.sprintFinalDate = response.data.final_date;
         })
-        .catch((e) => {
+        .catch(e => {
           this.errors.push(e);
         });
-    },
+    }
   },
   created() {
     this.getSprintInformation();
-  },
+  }
 };
 </script>
 
