@@ -15,19 +15,18 @@
             </button>
           </div>
           <div class="modal-body" data-vv-scope="modal-project">
-            <p><label>Name</label></p>
-            <p><input type = "text"
-                      name="name"
-                      v-validate="'required'"
-                      v-model="name">
-                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-                <br>
-            </p>
-            <p><label>Description</label></p>
-            <input type = "text"
-                   name = "description"
-                   v-validate="'required'"
-                   v-model="description">
+            <v-text-field
+              label="Name"
+              v-model="name"
+              :rules="[rules.required]"
+            ></v-text-field>
+            <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+            <br>
+            <v-text-field
+              label="Description"
+              v-model="description"
+              :rules="[rules.required]"
+            ></v-text-field>
             <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
             <br>
           </div>
@@ -52,6 +51,9 @@ export default {
     return {
       name: '',
       description: '',
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     };
   },
 

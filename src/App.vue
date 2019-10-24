@@ -41,17 +41,10 @@ export default {
 </script>
 
 <style>
-input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
-  color: #333;
-  width: 100%;  
-}
 
-input:focus {
-  outline: 0;
+.v-label {
+  left: 0px !important;
+  right: auto !important;
 }
 
 #app {
