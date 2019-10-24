@@ -36,12 +36,11 @@
             </input><br>
             </div>
             <div class="col-6">
-              <v-dialog
-                ref="initialDialog"
-                v-model="modalInitialDate"
-                :return-value.sync="date"
-                persistent
-                width="290px"
+              <v-menu
+                v-model="menu2Initial"
+                :close-on-content-click="false"
+                attach
+                min-width="290px"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
@@ -52,15 +51,14 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="initialDate" scrollable @input="modalInitialDate = false">
-                </v-date-picker>
-              </v-dialog>
-              <v-dialog
-                ref="finalDialog"
-                v-model="modalFinalDate"
-                :return-value.sync="date"
-                persistent
-                width="290px"
+                <v-date-picker v-model="initialDate" @input="menu2Initial = false"></v-date-picker>
+              </v-menu>
+              <br>
+              <v-menu
+                v-model="menu2Final"
+                :close-on-content-click="false"
+                attach
+                min-width="290px"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
@@ -71,11 +69,10 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="finalDate" :min="this.initialDate" scrollable @input="modalFinalDate = false">
-                </v-date-picker>
-              </v-dialog>
+                <v-date-picker v-model="finalDate" :min="this.initialDate" @input="menu2Final = false"></v-date-picker>
+              </v-menu>
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
-              </input><br>
+              <br>
             </div>
           </div>
           <div class="modal-footer">
@@ -100,6 +97,7 @@ export default {
       description: '',
       initialDate: '',
       finalDate: '',
+      date: '',
       amount_of_sprints: 0,
     };
   },
