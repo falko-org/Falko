@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+
 import { HTTP } from '../../http-common';
 
 export default {

@@ -1,5 +1,4 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
-import { HTTP } from '../../../../src/http-common.js';
 import Vuex from 'vuex';
 import Revision from '../../../../src/components/Revision/ListRevision.vue';
 import sinon from 'sinon';
