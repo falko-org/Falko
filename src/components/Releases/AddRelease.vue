@@ -41,14 +41,43 @@
               <br>
             </div>
             <div class="col-6">
-              
-              <label>Initial Date</label>
-              <input type="date" v-model="initialDate" name="Initial Date" ref="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"/><br>
-
-              <label>Final Date</label>
-              <input type="date" v-model="finalDate" v-bind:min="this.initialDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
+              <v-menu
+                v-model="menu2Initial"
+                :close-on-content-click="false"
+                attach
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="initialDate"
+                    label="Initial Date"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="initialDate" @input="menu2Initial = false"></v-date-picker>
+              </v-menu>
+              <br>
+              <v-menu
+                v-model="menu2Final"
+                :close-on-content-click="false"
+                attach
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="finalDate"
+                    label="Final Date"
+                    prepend-icon="event"
+                    readonly
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="finalDate" :min="this.initialDate" @input="menu2Final = false"></v-date-picker>
+              </v-menu>
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
-              </input><br>
+              <br>
             </div>
           </div>
           <div class="modal-footer">
@@ -73,6 +102,7 @@ export default {
       description: '',
       initialDate: '',
       finalDate: '',
+      date: '',
       amount_of_sprints: 0,
       rules: {
         required: value => !!value || 'Required.',
