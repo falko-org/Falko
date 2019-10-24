@@ -9,50 +9,76 @@
       </div>
     </div>
     <div>
-    <div v-for="i in Math.ceil(issues.length / 2)" v-bind:key="i">
-      <div class="row">
-        <div
-          v-for="issue in issues.slice((i-1) * 3 , i * 3)"
-          v-bind:key="issue.name"
-          class="col text-center"
-        >
-          <div align="center">
-            <div class="card" id="issueCard">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col">
-                    <p>{{ issue.name | truncate(31) }}</p>
+      <div v-for="i in Math.ceil(issues.length / 2)" :key="i">
+        <div class="row">
+          <div
+            v-for="issue in issues.slice((i-1) * 3 , i * 3)"
+            :key="issue.name"
+            class="col text-center"
+          >
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              raised
+              shaped
+            >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <!-- <div class="overline mb-4" align="left">ISSUE</div> -->
+                  <v-list-item-title class="headline mb-1"><b>{{ issue.name}}</b></v-list-item-title>
+                </v-list-item-content>
+                <v-list-item-avatar
+                  tile
+                  size="80"
+                  color="grey"
+                > </v-list-item-avatar>
+                <v-icon class="fa fa-sticky-note"></v-icon>
+              </v-list-item>
+
+              <v-card-text v-if="issue.body != null" align="left">
+                {{issue.body}}
+                </v-card-text>
+
+              <v-card-actions>
+                  <edit-issue :selected_issue="issue"></edit-issue>
+                  <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
+              </v-card-actions>
+            </v-card>
+
+              <!-- <div class="card" id="issueCard">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <p>{{ issue.name | truncate(31) }}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="col-3" id="colIssue">
-                    <edit-issue v-bind:selected_issue="issue"></edit-issue>
-                    <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
+                  <div class="row">
+                    <div class="col-3" id="colIssue">
+                      <edit-issue v-bind:selected_issue="issue"></edit-issue>
+                      <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
+                    </div>
+                    <div class="col" v-if="issue.body != null" >
+                      <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
+                      <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
+                    </div>
                   </div>
-                  <div class="col" v-if="issue.body != null" >
-                    <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
-                    <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
-                  </div>
-                </div>
-              </div>
+                </div> -->
+              <!-- <br> -->
             </div>
-            <br>
           </div>
         </div>
       </div>
-    </div>
-    <div v-if="this.total_pages > 1" class="text-center">
-      <v-pagination
-        v-model="page"
-        class="pagination"
-        :length="this.total_pages"
-        :total-visible="10"
-        circle
-        color="#3E5361"
-        @input="getIssues()"
-      ></v-pagination>
-    </div>
-    </div>
+      <div v-if="this.total_pages > 1" class="text-center">
+        <v-pagination
+          v-model="page"
+          class="pagination"
+          :length="this.total_pages"
+          :total-visible="10"
+          circle
+          color="#3E5361"
+          @input="getIssues()"
+        ></v-pagination>
+      </div>
   </div>
 </template>
 
