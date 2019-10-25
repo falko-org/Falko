@@ -1,38 +1,38 @@
 <template>
   <div class="addproj">
     <div class="text-center">
-      <v-btn type="button" class="primary falko-button white--text" id="addButton" data-toggle="modal" data-target="#addProjectModal" color="#86B1B1">
-        Add a Project</v-btn>
+      <button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addProjectModal">
+        Add a Project
+      </button>
     </div>
     <div class="modal fade" id ="addProjectModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add a Project</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="modal-body" data-vv-scope="modal-project">
-            <p><label>Name</label></p>
-            <p><input type = "text"
-                      name="name"
-                      v-validate="'required'"
-                      v-model="name">
-                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-                <br>
-            </p>
-            <p><label>Description</label></p>
-            <input type = "text"
-                   name = "description"
-                   v-validate="'required'"
-                   v-model="description">
+            <v-text-field
+              label="Name"
+              v-model="name"
+              :rules="[rules.required]"
+            ></v-text-field>
+            <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+            <br>
+            <v-text-field
+              label="Description"
+              v-model="description"
+              :rules="[rules.required]"
+            ></v-text-field>
             <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
             <br>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('description')" class="primary falko-button white--text" v-on:click="addProject" data-dismiss="modal" color="#86B1B1">Save</v-btn>
-            <v-btn type="button" class="primary falko-button-grey white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <button type="button" :disabled="errors.has('name') || errors.has('description')" class="btn btn-info btn-md falko-button" v-on:click="addProject" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
       </div>
@@ -51,6 +51,9 @@ export default {
     return {
       name: '',
       description: '',
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     };
   },
 

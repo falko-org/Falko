@@ -1,16 +1,16 @@
 <template>
   <div>
     <div align="center">
-      <v-btn type="button" class="info falko-button white--text" id="addReleaseButton" data-toggle="modal" data-target="#addReleaseModal" align="center">
-          <div class="row justify-content-center">
-          <div class="col-1">
+      <button type="button" class="btn btn-info btn-md falko-button" id="addReleaseButton" data-toggle="modal" data-target="#addReleaseModal" align="center">
+        <div class="row justify-content-center">
+          <div class="col-">
             <i class="fa fa-lg fa-plus-circle"></i>
           </div>
           <div class="col-5">
             Add Release
           </div>
         </div>
-        </v-btn>
+      </button>
     </div>
 
     <div class="modal fade" id ="addReleaseModal" role="dialog">
@@ -18,27 +18,33 @@
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Add Release</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row modal-body align-content-end">
             <div class="col-6">
-              <label>Name</label>
-              <input type="text" v-model="name" id="releaseName" placeholder="Release Name" name="name" v-validate="'required'">
-                <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-              </input>
+              <v-text-field
+                label="Name"
+                v-model="name"
+                :rules="[rules.required]"
+              ></v-text-field>
+              <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
               <br>
 
-              <label>Description</label>
-              <input type="text" v-model="description" placeholder="Release description..." name="description" v-validate="'required'">
+              <v-text-field
+                label="Release description"
+                v-model="description"
+                :rules="[rules.required]"
+              ></v-text-field>
               <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
-            </input><br>
+              <br>
             </div>
             <div class="col-6">
               
               <label>Initial Date</label>
               <input type="date" v-model="initialDate" name="Initial Date" ref="Initial Date" min="2" v-validate="'date_format:YYYY-MM-DD'"/><br>
+
               <label>Final Date</label>
               <input type="date" v-model="finalDate" v-bind:min="this.initialDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
@@ -46,8 +52,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="info falko-button white--text" color="#86B1B1" v-on:click="addRelease()" data-dismiss="modal">Save</v-btn>
-            <v-btn type="submit" class="info falko-button white--text" id="loginButton" color="#868e96" data-dismiss="modal">Close</v-btn>
+            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="btn btn-info btn-md falko-button" v-on:click="addRelease()" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
       </div>
@@ -68,6 +74,9 @@ export default {
       initialDate: '',
       finalDate: '',
       amount_of_sprints: 0,
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     };
   },
   computed: {

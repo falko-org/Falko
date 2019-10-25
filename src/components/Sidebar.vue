@@ -6,7 +6,6 @@
     >
       <v-list-item>
         <v-btn
-          id="back"
           icon
           @click="$router.go(-1)"
         >
@@ -16,7 +15,6 @@
 
        <v-list-item>
         <v-btn
-          id="user"
           icon
           to="/user"
         >
@@ -26,7 +24,6 @@
 
       <v-list-item>
         <v-btn
-          id="projects"
           icon
           to="/projects"
         >
@@ -36,7 +33,6 @@
 
       <v-list-item>
         <v-btn
-          id="releases"
           icon
           v-bind:to="'/projects/'+this.$route.params.id+'/releases'"
           v-if="this.$route.path == '/projects/'+this.$route.params.id ||
@@ -87,10 +83,5 @@ export default {
 .sidebar-nav li a {
   color: #3E5361;
 }
-
-#back:focus::before { opacity: 0 !important; }
-#user:focus::before { opacity: 0 !important; }
-#projects:focus::before { opacity: 0 !important; }
-#releases:focus::before { opacity: 0 !important; }
 
 </style>

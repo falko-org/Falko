@@ -9,7 +9,7 @@
             {{ errors.first('invalid-credentials') }}
           </div>
           <div class="column">
-            <v-btn text icon
+            <button
               type="button"
               class="close"
               data-dismiss="alert"
@@ -17,34 +17,27 @@
               v-on:click="closeAlert()"
             >
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
         </div>
       </div>
 
       <form id="loginForm"  @submit.prevent="() => login()" name="wrong-credentials">
-        <div class="form-group">
-          <input  type="email"
-          class="form-control"
-          placeholder="Email"
-          name="email"
-          v-model="email"
-          v-validate="'email'" >
-          <p class="text-danger" v-if="errors.has('email')">{{ errors.first('email') }}</p>
-        </div>
+          <v-text-field
+            label="Email"
+            v-model="email"
+            :rules="[rules.required, rules.validEmail]"
+          ></v-text-field>
 
-        <div class="form-group">
-          <input  type="password"
-          class="form-control"
-          placeholder="Password"
-          name="password"
-          v-model="password"
-          v-validate="'required|min:6'">
-          <p class="text-danger" v-if="errors.has('password')">{{ errors.first('password') }}</p>
-        </div>
+          <v-text-field
+            label="Password"
+            v-model="password"
+            :type="'password'"
+            :rules="[rules.required, rules.min]"
+          ></v-text-field>
 
-        <div class="text-center" left>
-          <v-btn type="submit" class="primary falko-button white--text" id="loginButton" color="#86B1B1">Log in</v-btn>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary falko-button" id="loginButton" >Log In</button>
         </div>
         <div class="text-center">
           <router-link to="/users/forgotpassword"> Forgot your password?</router-link>
@@ -64,7 +57,13 @@ export default {
     return {
       email: '',
       password: '',
-      alert: false
+      alert: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 6 || 'Min 6 characters',
+        emailMatch: () => ('Incorrect email or password'),
+        validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+      }
     };
   },
 
@@ -98,13 +97,6 @@ export default {
   max-width: 20em;
 }
 
-#loginForm input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
-}
-
 #falkoLogoLogin {
   width: 11em;
   margin: 2.5em 0;
@@ -114,9 +106,5 @@ export default {
   width: 90%;
   font-size: 14px;
   padding-top: 1px;
-}
-
-.button-test {
-  color: #ffffff;
 }
 </style>

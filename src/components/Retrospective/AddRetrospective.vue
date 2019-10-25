@@ -1,42 +1,44 @@
 <template>
   <div>
     <div>
-      <v-btn type="button" class="info falko-button white--text" id="addButton"
-        data-toggle="modal" data-target="#addRetrospectiveModal" color="#86B1B1">
-        Add Retrospective
-      </v-btn>
+      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
+      data-toggle="modal" data-target="#addRetrospectiveModal">
+      Add Retrospective
+      </button>
     </div>
-
-    <div class="modal fade" id="addRetrospectiveModal" role="dialog">
+    <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">
               Add Sprint Retrospective
             </h3>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="modal-body">
             <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
-            <textarea class="text-justify"
-            placeholder="Input your sprint report..."
-            v-model="sprintReport"
-            />
+            <v-textarea
+              name="input-7-4"
+              v-model="sprintReport"
+              label="Sprint Report"
+              rows="2"
+              row-height="20"
+            ></v-textarea>
           </div>
           <div class="modal-footer">
-            <v-btn class="info falko-button white--text"
+            <button class="btn btn-info btn-md falko-button"
             v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-            data-dismiss="modal" color="#86B1B1"
+            data-dismiss="modal"
             >
             Save
-            </v-btn>
-            <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
+            </button>
+            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
               Cancel
-            </v-btn>
+            </button>
           </div>
         </div>
       </div>
@@ -120,15 +122,6 @@ export default {
 </script>
 
 <style scoped>
-
-textarea {
-  width: 100%;
-  height: 15em;
-  padding: 1em;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  color: #444;
-}
 
 input::placeholder {
   color: #777;

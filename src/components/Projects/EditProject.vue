@@ -1,36 +1,35 @@
 <template>
   <div class = "editproject">
-    <v-btn type="button" class="info falko-button white--text" id="editbutton" color="#86B1B1" data-toggle="modal" data-target="#editModal" v-on:click="refreshScoreInformation()">
+    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal" v-on:click="refreshScoreInformation()">
       Edit
-    </v-btn>
+    </button>
     <div class="modal fade" id ="editModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Project</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row modal-body">
             <div class="col">
               <div class="row">
                 <div class="col">
-                  <p><label > Name </label></p>
-                  <p><input type = "text"
-                            name="name"
-                            v-validate="'required'"
-                            v-model="name">
-                      <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-                      <br>
-                  </p>
+                    <v-text-field
+                      label="Name"
+                      v-model="name"
+                      :rules="[rules.required]"
+                    ></v-text-field>
+                    <p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+                    <br>
                 </div>
                 <div class="col">
-                  <p><label> Description </label></p>
-                  <input type = "text"
-                         name = "description"
-                         v-validate="'required'"
-                         v-model="description">
+                  <v-text-field
+                    label="Description"
+                    v-model="description"
+                    :rules="[rules.required]"
+                  ></v-text-field>
                   <p class="text-danger" v-if="errors.has('description')">{{ errors.first('description') }}</p>
                   <br>
                 </div>
@@ -43,8 +42,8 @@
             </div>
           </div>
           <div class="modal-footer" id="editFooterModal">
-            <v-btn type="button"  :disabled="errors.has('name') || errors.has('description')" class="info falko-button white--text" color="#86B1B1" v-on:click="editProject" data-dismiss="modal">Save</v-btn>
-            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" color="#868e96">Close</v-btn>
+            <button type="button" :disabled="errors.has('name') || errors.has('description')" class="btn btn-info btn-md falko-button" v-on:click="editProject" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
       </div>
@@ -69,6 +68,9 @@ export default{
       name: '',
       description: '',
       isScoring: '',
+      rules: {
+        required: value => !!value || 'Required.',
+      }
     };
   },
   computed: {

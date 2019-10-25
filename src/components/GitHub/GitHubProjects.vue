@@ -1,28 +1,23 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <v-btn
-        type="button"
-        class="primary falko-button white--text"
-        id="addButton"
-        color="#86B1B1"
-        v-bind:class="buttonClass()"
-        v-bind:disabled="!this.isGitHubAuthenticated"
-        v-on:click="getRepos()"
-        v-bind:data-toggle="buttonDataToggle()"
-        data-target="#githubModal"
+      <button type="button" id="addButton"
+              v-bind:class="buttonClass()"
+              v-bind:disabled="!this.isGitHubAuthenticated"
+              v-on:click="getRepos()"
+              v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal"
       >
         Import GitHub repository
-      </v-btn>
+      </button>
     </div>
     <div class="modal fade" id="githubModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content" id="importProjectsModal">
           <div class="modal-header">
             <h4 class="modal-title">Import GitHub Repository</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" v-on:click="clean" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" v-on:click="clean" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row">
             <div class="col align-self-center margin" v-if="loading" align="center">
@@ -103,12 +98,23 @@
             </div>
           </div>
           <div class="modal-footer">
-              <v-btn type="button" :disabled="disableImportButton()" class="primary falko-button white--text" color="#86B1B1" v-on:click="importGithubProjects" data-dismiss="modal">
-                Import
-              </v-btn>
-             <v-btn type="button" class="secondary falko-button white--text" color="#868e96" v-on:click="clean" data-dismiss="modal">
-                Close
-            </v-btn>
+            <button
+              type="button"
+              class="btn btn-primary falko-button"
+              :disabled="disableImportButton()"
+              v-on:click="importGithubProjects"
+              data-dismiss="modal"
+            >
+              Import
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary falko-button-grey"
+              v-on:click="clean"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>

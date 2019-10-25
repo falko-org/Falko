@@ -84,8 +84,6 @@ export default {
   border-radius: 50%;
 }
 
-#logout:focus::before { opacity: 0 !important; }
-
 #logout:enabled:hover {
   background-color: #3E5361;
   cursor: pointer;

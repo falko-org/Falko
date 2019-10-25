@@ -1,9 +1,9 @@
 <template>
 	<div class="">
 		<div class="text-center">
-			<v-btn type="button" class="info falko-button white--text" id="addButton" color="#86B1B1" data-toggle="modal" data-target="#addIssueModal">
+			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addIssueModal">
 				Add Issue
-			</v-btn>
+			</button>
 		</div>
 
 		<div class="modal fade" id ="addIssueModal" role="dialog">
@@ -17,19 +17,29 @@
 						</div>
 						<div class=" row modal-body">
               <div class="col">
-                <p><label>Name</label></p>
-                <p><input type="text" v-model="name" id="issueName" placeholder="Issue Title" name="name" v-validate="'required'">
-									<p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
-								</input><br></p>
-                <p><label>Body</label></p>
-                <input type="text" v-model="body" placeholder="Issue Body..." name="body" v-validate="'required'">
-								<p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
-							</input><br>
+				<v-text-field
+					label="Name"
+					v-model="name"
+					:rules="[rules.required]"
+				></v-text-field>
+				<p class="text-danger" v-if="errors.has('name')">{{ errors.first('name') }}</p>
+				<br>
+				
+				<v-textarea
+					name="input-7-4"
+					v-model="body"
+					label="Issue Body"
+					rows="2"
+					row-height="20"
+					:rules="[rules.required]"
+				></v-textarea>
+				<p class="text-danger" v-if="errors.has('body')">{{ errors.first('body') }}</p>
+				<br>
               </div>
 						</div>
 						<div class="modal-footer">
-							<v-btn type="button" :disabled="errors.has('name') || errors.has('body')" class="primary falko-button white--text" v-on:click="addIssue()" data-dismiss="modal" color="#86B1B1">Save</v-btn>
-							<v-btn type="button" class="secondary falko-button white--text" color="#868e96" data-dismiss="modal">Close</v-btn>
+							<button type="button" :disabled="errors.has('name') || errors.has('body')" class="btn btn-primary" v-on:click="addIssue()" data-dismiss="modal">Save</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
 						</div>
 				</div>
 			</div>
@@ -46,7 +56,10 @@ export default {
   data () {
     return {
       name: '',
-      body : ''
+	  body : '',
+	  rules: {
+        required: value => !!value || 'Required.',
+      }
     }
 	},
 

@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <v-btn type="button" class="info falko-button white--text" id="addButton"
-        data-toggle="modal" data-target="#addRevisionModal" color="#86B1B1">
+      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
+              data-toggle="modal" data-target="#addRevisionModal">
         Add Revision
-      </v-btn>
+      </button>
     </div>
 
     <div class = "modal fade" id="addRevisionModal" role="dialog">

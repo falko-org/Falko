@@ -1,31 +1,37 @@
 <template>
   <div class="edit-user-profile">
-    <v-btn type="button" class="info falko-button white--text" id="editbutton" color="#86B1B1" data-toggle="modal" data-target="#editModal">
+    <button type="button" class="btn btn-info btn-md falko-button" id="editbutton" data-toggle="modal" data-target="#editModal">
       Edit
-    </v-btn>
+    </button>
 
     <div class="modal fade" id ="editModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit User Profile</h4>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </v-btn>
+            </button>
           </div>
           <div class="row modal-body">
             <div class="col-md-6">
-              <p><label > Name </label></p>
-              <p><input type="text" placeholder="User name..." v-model="name"></input><br></p>
+              <v-text-field
+                label="Username"
+                v-model="name"
+                :rules="[rules.required]"
+              ></v-text-field>
             </div>
             <div class="col-md-6">
-              <p><label> E-mail </label></p>
-              <p><input type="text" placeholder="Email..." v-model="email"></input><br></p>
+              <v-text-field
+                label="Email"
+                v-model="email"
+                :rules="[rules.required, rules.validEmail]"
+              ></v-text-field>
             </div>
           </div>
           <div class="modal-footer">
-            <v-btn type="button" class="info falko-button white--text" color="#86B1B1" v-on:click="editUser" data-dismiss="modal">Save</v-btn>
-            <v-btn type="button" class="info falko-button white--text" color="#868e96" data-dismiss="modal">Close</v-btn>
+            <button type="button" class="btn btn-info btn-md falko-button" v-on:click="editUser" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
           </div>
         </div>
       </div>
@@ -45,6 +51,10 @@ export default {
       name: '',
       email: '',
       is_github_authenticated: false,
+      rules: {
+        required: value => !!value || 'Required.',
+        validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+      }
     };
   },
 

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-btn type="button" class="info falko-button-danger white--text" id="deletebutton" data-toggle="modal" data-target="#deleteRetrospectiveModal" color="#AA0000">
+    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteRetrospectiveModal">
       Delete
-    </v-btn>
+    </button>
 
     <div class="modal fade" id ="deleteRetrospectiveModal" role="dialog">
       <div class="modal-dialog">

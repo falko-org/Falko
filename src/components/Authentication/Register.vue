@@ -4,48 +4,39 @@
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoRegister">
       <form id="registerForm" @submit.prevent="register()"  data-vv-scope="form-register">
         <div class="form-group">
-          <input  type="text"
-                  class="form-control"
-                  aria-describedby="userHelp"
-                  placeholder="Username"
-                  name="username"
-                  v-validate="'required|min:3'"
-                  v-model="username">
-          <p class="text-danger" v-if="errors.has('form-register.username')">{{ errors.first('form-register.username') }}</p>
+          <v-text-field
+            label="Username"
+            v-model="username"
+            :rules="[rules.required, rules.minName]"
+          ></v-text-field>
           <p class="text-danger" v-if="errors.has('name-taken')">{{ errors.first('name-taken') }}</p>
         </div>
         <div class="form-group">
-          <input  type="email"
-                  class="form-control"
-                  aria-describedby="emailHelp"
-                  name="email"
-                  placeholder="Enter email"
-                  v-model="email"
-                  v-validate="'required|email'">
-          <p class="text-danger" v-if="errors.has('form-register.email')">{{ errors.first('form-register.email') }}</p>
+          <v-text-field
+            label="Enter Email"
+            v-model="email"
+            :rules="[rules.required, rules.validEmail]"
+          ></v-text-field>
           <p class="text-danger" v-if="errors.has('email-taken')">{{ errors.first('email-taken') }}</p>
         </div>
         <div class="form-group">
-          <input  type="password"
-                  class="form-control"
-                  placeholder="Password"
-                  ref="password"
-                  v-model="password"
-                  name="password"
-                  v-validate="'required|min:6'">
-          <p class="text-danger" v-if="errors.has('form-register.password')">{{ errors.first('form-register.password') }}</p>
+          <v-text-field
+            label="Password"
+            v-model="password"
+            :type="'password'"
+            :rules="[rules.required, rules.minPassword]"
+          ></v-text-field>
         </div>
         <div class="form-group">
-          <input  type="password"
-                  class="form-control"
-                  placeholder="Confirm Password"
-                  v-model="password_confirmation"
-                  name="password"
-                  v-validate="'confirmed:password'">
-          <p class="text-danger" v-if="errors.has('form-register.password_confirmation')">{{ errors.first('form-register.password_confirmation') }}</p>
+          <v-text-field
+            label="Confirm Password"
+            v-model="password_confirmation"
+            :type="'password'"
+            :rules="[rules.required, rules.minPassword, rules.confirmPasswordMatch]"
+          ></v-text-field>
         </div>
         <div class="text-center">
-          <v-btn type="submit" :disabled="disableRegisterButton()" class="primary falko-button white--text" id="" color="#86B1B1">Register</v-btn>
+          <button type="submit" :disabled="disableRegisterButton()" class="btn btn-primary falko-button" id="">Register</button>
           <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
         </div>
       </form>
@@ -63,6 +54,14 @@ export default {
       username: '',
       password: '',
       password_confirmation: '',
+      rules: {
+        required: value => !!value || 'Required.',
+        minPassword: v => v.length >= 6 || 'Min 6 characters',
+        minName: v => v.length >= 3 || 'Min 3 characters',
+        emailMatch: () => ('Incorrect email or password'),
+        validEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+        confirmPasswordMatch: () => (this.password === this.password_confirmation) || "Passwords doesn't match"
+      }
     };
   },
 
@@ -127,13 +126,6 @@ export default {
 <style>
 #register {
   max-width: 20em;
-}
-
-#registerForm input {
-  border: none;
-  border-radius: 0;
-  border-bottom: solid #c0c0c0 thin;
-  padding-left: 0;
 }
 
 #falkoLogoRegister {
