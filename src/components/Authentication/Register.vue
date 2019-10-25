@@ -39,7 +39,6 @@
           <v-btn  type="submit" 
                   :disabled="disableRegisterButton()" 
                   class="primary falko-button white--text" 
-                  id="registerButton" 
           >
             Register
           </v-btn>
@@ -139,14 +138,4 @@ export default {
   margin: 1.3em 0;
 }
 
-#registerButton {
-  align-self: center;
-  margin: 0.5em 0;
-  border-radius: 2em;
-  padding: 0.5em 2em;
-  cursor: pointer;
-  background-color: #86B1B1;
-  border-width: 0;
-  font-weight: bold;
-}
 </style>

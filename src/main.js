@@ -9,7 +9,17 @@ import App from './App.vue';
 import router from './router';
 import 'vuetify/dist/vuetify.min.css'; // Ensure you are using css-loader
 
-const vuetifyOptions = { }
+const vuetifyOptions = {
+  theme: {
+    themes: {
+      light: {
+        primary: '#86B1B1',
+        danger: '#AA0000',
+        grey: '#868e96'
+      },
+    },
+  },
+}
 
 Vue.use(Vuetify);
 Vue.use(ToggleButton);
