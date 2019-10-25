@@ -1,18 +1,32 @@
 <template>
-  <nav class="navbar sticky-top navbar-light bg-light row justify-content-around no-margin">
-    <div class="col" id="logo">
-      <a class="navbar-brand falko-brand" v-on:click="goToHome()">
-        <img src="logo.png" width="50"/>
-        <img src="../assets/falko-text.png" height="50"/>
-      </a>
-    </div>
-    <div class="col-4" align="center" v-if="isLogged()">
-    </div>
-    <div class="col" align="end" v-if="this.$route.path != '/' && isLogged()">
-      <button v-on:click="logout()" class="fa fa-power-off" id="logout"></button>
-    </div>
-  </nav>
-</template>
+  <v-card
+    color="grey lighten-4"
+    flat
+    height="200px"
+    tile 
+  >
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <v-toolbar dense height="80">
+      <div class="col" id="logo">
+        <a class="navbar-brand falko-brand" v-on:click="goToHome()">
+          <img src="logo.png" width="50">
+          <img src="../assets/falko-text.png" height="50"/>
+        </a>
+      </div>
+      <div class="col-4" align="center" v-if="isLogged()">
+      </div>
+      <div class="col" align=right v-if="this.$route.path != '/' && isLogged()">
+        <v-btn icon
+          v-on:click="logout()"
+          id="logout"
+        >
+          <v-icon class="fa fa-sign-out-alt"></v-icon>
+        </v-btn> 
+      </div>
+    </v-toolbar>
+  </v-card>
+</template> 
 
 <script>
 import { mapState } from 'vuex';

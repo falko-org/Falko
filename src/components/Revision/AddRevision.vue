@@ -7,31 +7,31 @@
       </button>
     </div>
 
-    <div class="row no-margin justify-content-center modal fade" id="addRevisionModal">
+    <div class = "modal fade" id="addRevisionModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">
               Add Sprint Revision
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <listRevision parent="DoneReport" v-on:listUpdated="updateList"></listRevision>
             <listRevision parent="UndoneReport" v-on:listUpdated="updateList"></listRevision>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-info btn-md falko-button"
+            <v-btn class="info btn-md falko-button"
                     v-bind:disabled="FieldsNotFilled" v-on:click="addRevision"
                     data-dismiss="modal"
             >
               Save
-            </button>
-            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+            </v-btn>
+            <v-btn class="info falko-button-grey" data-dismiss="modal" color="#868e96">
               Cancel
-            </button>
+            </v-btn>
           </div>
         </div>
       </div>

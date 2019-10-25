@@ -6,7 +6,7 @@
           <div class="card-body text-center">
             <div class="row">
               <div class="col">
-                <h1 class="card-title" align="left"><i class="fa fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
+                <h1 class="card-title" align="left"><i class="fab fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
                 <h4 class="card-text text-muted" align="left">&nbsp;&nbsp;{{project.description}}</h4>
               </div>
               <!-- <div>

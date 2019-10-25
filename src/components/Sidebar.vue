@@ -1,48 +1,51 @@
 <template>
-  <div id="wrapper">
-    <div id="sidebar-wrapper">
-      <aside id="sidebar">
-        <ul id="sidemenu" class="sidebar-nav">
-          <li align="center">
-            <router-link to="#">
-              <a onclick="window.history.go(-1); return false;"  title="Return">
-                <span class="sidebar-icon"><i class=" fa fa-arrow-left"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
-            </router-link>
-          </li>
-          <li align="center">
-            <router-link to="/user">
-              <a  title="User Profile">
-                <span class="sidebar-icon"><i class=" fa fa-user-circle-o"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
-            </router-link>
-          </li>
-          <li align="center">
-            <router-link to="/projects">
-              <a  title="Projects">
-                <span class="sidebar-icon"><i class=" fa fa-file"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
-            </router-link>
-          </li>
-          <li align="center">
-            <router-link v-bind:to="'/projects/'+this.$route.params.id+'/releases'">
-              <a  title="Releases" >
-                <span v-if="this.$route.path == '/projects/'+this.$route.params.id ||
+  <v-card class="sidebar-nav">
+    <v-navigation-drawer
+      v-model="drawer"
+      permanent
+    >
+      <v-list-item>
+        <v-btn
+          icon
+          @click="$router.go(-1)"
+        >
+          <v-icon class=" fa fa-arrow-left"></v-icon>
+        </v-btn>
+      </v-list-item>
+
+       <v-list-item>
+        <v-btn
+          icon
+          to="/user"
+        >
+          <v-icon class=" fas fa-user-circle"></v-icon>
+        </v-btn>
+      </v-list-item>
+
+      <v-list-item>
+        <v-btn
+          icon
+          to="/projects"
+        >
+          <v-icon class=" fa fa-file"></v-icon>
+        </v-btn>
+      </v-list-item>
+
+      <v-list-item>
+        <v-btn
+          icon
+          v-bind:to="'/projects/'+this.$route.params.id+'/releases'"
+          v-if="this.$route.path == '/projects/'+this.$route.params.id ||
                 this.$route.path == '/releases/'+this.$route.params.id ||
                 this.$route.path == '/projects/'+this.$route.params.id+'/releases'"
-                class="sidebar-icon"><i class=" fa fa-cube"></i></span>
-                <span class="sidebar-title"></span>
-              </a>
-            </router-link>
-          </li>
-        </ul>
-      </aside>
-    </div>
-  </div>
-</template>
+        >
+          <v-icon class=" fa fa-cube"></v-icon>
+        </v-btn>
+      </v-list-item>
+    </v-navigation-drawer>
+  </v-card>
+</template> 
+
 
 <script>
 

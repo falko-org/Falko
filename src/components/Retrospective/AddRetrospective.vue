@@ -6,7 +6,6 @@
       Add Retrospective
       </button>
     </div>
-
     <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -40,43 +39,6 @@
             <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
               Cancel
             </button>
-          </div>
-          <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title">
-                    Add Sprint Retrospective
-                  </h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
-                  <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
-                  <list parent="Improvements" v-on:listUpdated="updateList"></list>
-                  <v-textarea
-                    name="input-7-4"
-                    v-model="sprintReport"
-                    label="Sprint Report"
-                    rows="2"
-                    row-height="20"
-                  ></v-textarea>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-info btn-md falko-button"
-                  v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-                  data-dismiss="modal"
-                  >
-                  Save
-                  </button>
-                  <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
