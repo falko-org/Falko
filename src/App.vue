@@ -6,7 +6,9 @@
         <sidebar></sidebar>
       </div>
       <div class="col no-white-bar">
+        <v-app>
         <router-view></router-view>
+        </v-app>
       </div>
     </div>
   </div>

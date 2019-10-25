@@ -9,6 +9,8 @@ import App from './App.vue';
 import router from './router';
 import 'vuetify/dist/vuetify.min.css'; // Ensure you are using css-loader
 
+const vuetifyOptions = { }
+
 Vue.use(Vuetify);
 Vue.use(ToggleButton);
 Vue.use(VeeValidate);
@@ -20,6 +22,7 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  vuetify: new Vuetify(vuetifyOptions),
   template: '<App/>',
   components: { App, VueChart },
 });
