@@ -1,5 +1,6 @@
 <template>
   <div v-if="projectOrigin()">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <div v-if="isIssuesEmpty()">
       <no-content parent ="Issue"></no-content>
     </div>
@@ -10,7 +11,7 @@
     </div>
     <div>
       <div v-for="i in Math.ceil(issues.length / 2)" :key="i">
-        <div class="row">
+        <div class="row" >
           <div
             v-for="issue in issues.slice((i-1) * 3 , i * 3)"
             :key="issue.name"
@@ -31,8 +32,7 @@
                   tile
                   size="80"
                   color="grey"
-                > </v-list-item-avatar>
-                <v-icon class="fa fa-sticky-note"></v-icon>
+                ><v-icon class="fa fa-sticky-note"></v-icon> </v-list-item-avatar>
               </v-list-item>
 
               <v-card-text v-if="issue.body != null" align="left">
