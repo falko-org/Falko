@@ -25,7 +25,6 @@
             >
               <v-list-item three-line>
                 <v-list-item-content>
-                  <!-- <div class="overline mb-4" align="left">ISSUE</div> -->
                   <v-list-item-title class="headline mb-1"><b>{{ issue.name}}</b></v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-avatar
@@ -44,26 +43,6 @@
                   <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
               </v-card-actions>
             </v-card>
-
-              <!-- <div class="card" id="issueCard">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <p>{{ issue.name | truncate(31) }}</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3" id="colIssue">
-                      <edit-issue v-bind:selected_issue="issue"></edit-issue>
-                      <button type="button" v-on:click="closeIssue(issue.number), getIssues()" class="btn btn-primary btn-sm falko-button falko-button-danger" id="close">Close</button>
-                    </div>
-                    <div class="col" v-if="issue.body != null" >
-                      <div class="card-text text-muted card-description" v-if="issue.body.length > 20">{{issue.body.substr(0, 28)}}...</div>
-                      <div class="card-text text-muted card-description" v-if="issue.body.length < 20">{{issue.body}}</div>
-                    </div>
-                  </div>
-                </div> -->
-              <!-- <br> -->
             </div>
           </div>
         </div>
