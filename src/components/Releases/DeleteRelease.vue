@@ -1,8 +1,14 @@
 <template>
   <div>
-    <button type="button" class="btn btn-info btn-md falko-button-danger" v-bind:id="`deleteButton${this.parentRelease}`" data-toggle="modal" v-bind:data-target="`#deleteReleaseModal${this.parentRelease}`">
+    <v-btn  type="button" 
+            class="danger falko-button-danger white--text" 
+            :id="`deleteButton${this.parentRelease}`" 
+            data-toggle="modal" 
+            :data-target="`#deleteReleaseModal${this.parentRelease}`" 
+            color="#AA0000"
+    >
       Delete
-    </button>
+    </v-btn>
     <div class="modal fade" v-bind:id="`deleteReleaseModal${this.parentRelease}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -18,8 +24,19 @@
             <p><label>Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <button v-on:click="deleteRelease" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
+            <v-btn type="button"
+                   v-on:click="deleteRelease"  
+                   class="primary falko-button" 
+                   data-dismiss="modal" 
+            >
+              Yes
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button-grey" 
+                   data-dismiss="modal" 
+            >
+              No
+            </v-btn>
           </div>
         </div>
       </div>

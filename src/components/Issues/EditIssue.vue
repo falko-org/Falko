@@ -1,17 +1,22 @@
 <template>
   <div class="edit-sprint">
-    <button type="button" class="btn btn-info btn-sm falko-button" id="editIssue" data-toggle="modal" v-bind:data-target="`#editIssueModal${selected_issue.number}`" v-on:click="getIssuesInformation()">
+     <v-btn type="button" 
+            class="primary btn-sm falko-button" 
+            data-toggle="modal" 
+            :data-target="`#editIssueModal${selected_issue.number}`" 
+            v-on:click="getIssuesInformation()" 
+    >
       Edit
-    </button>
+    </v-btn>
 
     <div class="modal fade" v-bind:id="`editIssueModal${selected_issue.number}`" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Issue</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+              <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </v-btn>
           </div>
           <div class="modal-body row">
             <div class="col">
@@ -47,8 +52,20 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('body')" class="btn btn-info btn-md falko-button" v-on:click="editIssue(), setAssignees()" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Close</button>
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('body')" 
+                    class="primary btn-md falko-button" 
+                    v-on:click="editIssue(), setAssignees()" 
+                    data-dismiss="modal" 
+              >
+                Save
+              </v-btn>
+            <v-btn type="button"
+                   class="secondary btn-md falko-button-grey" 
+                   data-dismiss="modal" 
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -152,7 +169,4 @@ export default {
 </script>
 
 <style scoped>
-#editIssue {
-  margin-right: 4px;
-}
 </style>

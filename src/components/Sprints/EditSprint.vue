@@ -1,21 +1,25 @@
 <template>
-  <div class="editSprintBody">
-    <button
-      type="button"
-      class="btn btn-info btn-md falko-button"
-      id="editbutton"
-      data-toggle="modal"
-      data-target="#editSprintModal"
-    >Edit</button>
+  <div class = "editSprintBody">
+    <v-btn  type="button" 
+            class="primary falko-button" 
+            data-toggle="modal" 
+            data-target="#editSprintModal" 
+    >
+      Edit
+    </v-btn>
 
     <div class="modal fade" id="editSprintModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Edit Sprint</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn type="button" 
+                   text icon class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="row modal-body">
             <div class="col-6">
@@ -59,18 +63,20 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')"
-              class="btn btn-info btn-md falko-button"
-              v-on:click="editSprint"
-              data-dismiss="modal"
-            >Save</button>
-            <button
-              type="button"
-              class="btn btn-info btn-md falko-button-grey"
-              data-dismiss="modal"
-            >Close</button>
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
+                    class="primary btn-md falko-button" 
+                    v-on:click="editSprint" 
+                    data-dismiss="modal" 
+            >
+              Save
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary btn-md falko-button-grey" 
+                   data-dismiss="modal" 
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>

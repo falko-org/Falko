@@ -1,14 +1,16 @@
 <template>
   <div class="addgithubrepo">
     <div class="text-center">
-      <button type="button" id="addButton"
-              v-bind:class="buttonClass()"
-              v-bind:disabled="!this.isGitHubAuthenticated"
+      <v-btn  type="button"
+              class="primary falko-button white--text"
+              :class="buttonClass()"
+              :disabled="!this.isGitHubAuthenticated"
               v-on:click="getRepos()"
-              v-bind:data-toggle="buttonDataToggle()" data-target="#githubModal"
+              :data-toggle="buttonDataToggle()"
+              data-target="#githubModal"
       >
         Import GitHub repository
-      </button>
+      </v-btn>
     </div>
     <div class="modal fade" id="githubModal" role="dialog">
       <div class="modal-dialog">
@@ -98,23 +100,17 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-primary falko-button"
-              :disabled="disableImportButton()"
-              v-on:click="importGithubProjects"
-              data-dismiss="modal"
-            >
-              Import
-            </button>
-            <button
-              type="button"
-              class="btn btn-secondary falko-button-grey"
-              v-on:click="clean"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
+              <v-btn  type="button" 
+                      :disabled="disableImportButton()" 
+                      class="primary falko-button white--text" 
+                      v-on:click="importGithubProjects" 
+                      data-dismiss="modal"
+              >
+                Import
+              </v-btn>
+             <v-btn type="button" class="secondary falko-button white--text" v-on:click="clean" data-dismiss="modal">
+                Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -241,4 +237,5 @@ export default {
 .margin {
   margin-top: 60px;
 }
+
 </style>

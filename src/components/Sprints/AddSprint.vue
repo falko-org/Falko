@@ -1,13 +1,13 @@
 <template>
   <div>
     <div>
-      <button
-        type="button"
-        class="btn btn-info btn-md falko-button"
-        id="addButton"
-        data-toggle="modal"
-        data-target="#addSprintModal"
-      >Add a Sprint</button>
+      <v-btn  type="button" 
+              class="primary falko-button white--text" 
+              data-toggle="modal" 
+              data-target="#addSprintModal"
+      >
+        Add a Sprint
+      </v-btn>
     </div>
 
     <div class="modal fade" id="addSprintModal" role="dialog">
@@ -55,18 +55,20 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')"
-              class="btn btn-info btn-md falko-button"
-              v-on:click="addSprint"
-              data-dismiss="modal"
-            >Save</button>
-            <button
-              type="button"
-              class="btn btn-info btn-md falko-button-grey"
-              data-dismiss="modal"
-            >Close</button>
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
+                    class="primary falko-button-grey white--text" 
+                    v-on:click="addSprint" 
+                    data-dismiss="modal"
+            >
+              Save
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button-grey white--text" 
+                   data-dismiss="modal"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -137,10 +139,6 @@ export default {
 </script>
 
 <style scoped>
-#addButton {
-  margin-top: 2em;
-}
-
 .modal-body {
   position: relative;
   top: 5px;

@@ -1,22 +1,30 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
-      data-toggle="modal" data-target="#addRetrospectiveModal">
-      Add Retrospective
-      </button>
+      <v-btn  type="button" 
+              class="primary falko-button white--text" 
+              data-toggle="modal" 
+              data-target="#addRetrospectiveModal" 
+      >
+        Add Retrospective
+      </v-btn>
     </div>
 
-    <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
+    <div class="modal fade" id="addRetrospectiveModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-title">
               Add Sprint Retrospective
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon 
+                   type="button" 
+                   class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
@@ -31,15 +39,19 @@
             ></v-textarea>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-info btn-md falko-button"
-            v-bind:disabled="FieldsNotFilled" v-on:click="addRetrospective"
-            data-dismiss="modal"
+            <v-btn  class="primary falko-button white--text"
+                    :disabled="FieldsNotFilled"
+                    v-on:click="addRetrospective"
+                    data-dismiss="modal" 
             >
-            Save
-            </button>
-            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">
+              Save
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button-grey" 
+                   data-dismiss="modal" 
+            >
               Cancel
-            </button>
+            </v-btn>
           </div>
           <div class="row no-margin justify-content-center modal fade" id="addRetrospectiveModal">
             <div class="modal-dialog">
@@ -160,9 +172,7 @@ export default {
 </script>
 
 <style scoped>
-
 input::placeholder {
   color: #777;
 }
-
 </style>

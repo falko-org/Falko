@@ -36,7 +36,12 @@
           ></v-text-field>
         </div>
         <div class="text-center">
-          <button type="submit" :disabled="disableRegisterButton()" class="btn btn-primary falko-button" id="">Register</button>
+          <v-btn  type="submit" 
+                  :disabled="disableRegisterButton()" 
+                  class="primary falko-button white--text" 
+          >
+            Register
+          </v-btn>
           <p class="text-danger" v-if="errors.has('wrong-credentials')">{{ errors.first('wrong-credentials') }}</p>
         </div>
       </form>
@@ -133,14 +138,4 @@ export default {
   margin: 1.3em 0;
 }
 
-#registerButton {
-  align-self: center;
-  margin: 0.5em 0;
-  border-radius: 2em;
-  padding: 0.5em 2em;
-  cursor: pointer;
-  background-color: #86B1B1;
-  border-width: 0;
-  font-weight: bold;
-}
 </style>

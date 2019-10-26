@@ -1,8 +1,12 @@
 <template>
   <div class="delproject">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#myModal">
+    <v-btn  type="button" 
+            class="danger falko-button-danger white--text" 
+            data-toggle="modal" 
+            data-target="#myModal"
+    >
       Delete
-    </button>
+    </v-btn>
     <div class="modal fade" id ="myModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -18,8 +22,19 @@
             <p><label> Are you sure?</label></p>
           </div>
           <div class="modal-footer" id="deleteFooterModal">
-            <button v-on:click="deleteProject" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
+            <v-btn  type="button" 
+                    v-on:click="deleteProject" 
+                    class="primary falko-button white--text" 
+                    data-dismiss="modal" 
+            >
+              Yes
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button white--text" 
+                   data-dismiss="modal" 
+            >
+              No
+            </v-btn>
           </div>
         </div>
       </div>
@@ -55,8 +70,8 @@ export default {
 </script>
 
 <style scoped>
-#deletebutton {
-  width: 120px;
-  margin-left: 4px;
+
+#noButton {
+  background-color: #868e96;
 }
 </style>

@@ -1,8 +1,12 @@
 <template>
   <div>
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteRetrospectiveModal">
+    <v-btn  type="button" 
+            class="danger falko-button-danger white--text" 
+            data-toggle="modal" 
+            data-target="#deleteRetrospectiveModal" 
+    >
       Delete
-    </button>
+    </v-btn>
 
     <div class="modal fade" id ="deleteRetrospectiveModal" role="dialog">
       <div class="modal-dialog">
@@ -65,5 +69,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -6,7 +6,7 @@
           <div class="card-body text-center">
             <div class="row">
               <div class="col">
-                <h1 class="card-title" align="left"><i class="fa fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
+                <h1 class="card-title" align="left"><i class="fab fa-github" aria-hidden="true" v-if="isFromProjectGitHub()"></i>&nbsp;{{project.name}}</h1>
                 <h4 class="card-text text-muted" align="left">&nbsp;&nbsp;{{project.description}}</h4>
               </div>
               <!-- <div>
@@ -16,16 +16,21 @@
                 <div class="row">
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/issues'">
-                      <button type="button" class="btn btn-info btn-md falko-button" v-if="isFromProjectGitHub()">
+                      <v-btn type="button" 
+                             class="primary falko-button white--text" 
+                             v-if="isFromProjectGitHub()" 
+                      >
                         Backlog
-                      </button>
+                      </v-btn>
                     </router-link>
                   </div>
                   <div align="center">
                     <router-link v-bind:to="'/projects/'+project.id+'/releases'">
-                      <button type="button" class="btn btn-info btn-md falko-button">
+                      <v-btn type="button" 
+                             class="primary falko-button white--text" 
+                      >
                         Releases
-                      </button>
+                      </v-btn>
                     </router-link>
                   </div>
                   <div align="center">
@@ -125,9 +130,6 @@ export default {
 
 
 <style scoped>
-#buttons {
-  margin-top: 1em;
-}
 .btn {
   width: 120px;
   margin-right: 4px;

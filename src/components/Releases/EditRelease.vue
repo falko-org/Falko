@@ -1,8 +1,15 @@
 <template>
   <div class = "editproject">
-    <button type="button" class="btn btn-info btn-md falko-button-grey" v-bind:id="`editButton${this.release[1]}`" data-toggle="modal" v-bind:data-target="`#editReleaseModal${this.release[1]}`" v-on:click="getReleaseInformation()">
+    <v-btn  type="button" 
+            class="primary falko-button white--text" 
+            color="#868e96" 
+            :id="`editButton${this.release[1]}`" 
+            data-toggle="modal" 
+            :data-target="`#editReleaseModal${this.release[1]}`" 
+            v-on:click="getReleaseInformation()"
+    >
       Edit
-    </button>
+    </v-btn>
 
     <div class="modal fade" v-bind:id="`editReleaseModal${this.release[1]}`" role="dialog">
       <div class="modal-dialog">
@@ -41,8 +48,20 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" class="btn btn-info btn-md falko-button" v-on:click="editRelease()" data-dismiss="modal">Save</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal" >Close</button>
+            <v-btn  type="button" 
+                    :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" 
+                    class="primary falko-button white--text" 
+                    v-on:click="editRelease()" 
+                    data-dismiss="modal" 
+            >
+              Save
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button-grey" 
+                   data-dismiss="modal" 
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>

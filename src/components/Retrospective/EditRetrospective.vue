@@ -1,10 +1,13 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
-      data-toggle="modal" data-target="#editRetrospectiveModal">
-      Edit Retrospective
-      </button>
+      <v-btn  type="button" 
+              class="primary falko-button white--text" 
+              data-toggle="modal" 
+              data-target="#editRetrospectiveModal" 
+      >
+        Edit Retrospective
+      </v-btn>
     </div>
 
     <div class="row no-margin justify-content-center modal fade" id="editRetrospectiveModal">

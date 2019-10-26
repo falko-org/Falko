@@ -1,9 +1,13 @@
 <template>
 	<div class="">
 		<div class="text-center">
-			<button type="button" class="btn btn-info btn-md falko-button" id="addButton" data-toggle="modal" data-target="#addIssueModal">
+			<v-btn 	type="button" 
+					class="primary falko-button white--text" 
+					data-toggle="modal" 
+					data-target="#addIssueModal"
+			>
 				Add Issue
-			</button>
+			</v-btn>
 		</div>
 
 		<div class="modal fade" id ="addIssueModal" role="dialog">
@@ -11,9 +15,9 @@
 		    	<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Add Issue</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-									<span aria-hidden="true">&times;</span>
-								</button>
+								<v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+              						<span aria-hidden="true">&times;</span>
+            					</v-btn>
 						</div>
 						<div class=" row modal-body">
               <div class="col">
@@ -38,8 +42,21 @@
               </div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" :disabled="errors.has('name') || errors.has('body')" class="btn btn-primary" v-on:click="addIssue()" data-dismiss="modal">Save</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+							<v-btn 	type="button" 
+									:disabled="errors.has('name') || errors.has('body')" 
+									class="primary falko-button white--text" 
+									v-on:click="addIssue()" 
+									data-dismiss="modal" 
+									id="saveButton"
+							>
+								Save
+							</v-btn>
+							<v-btn	type="button" 
+									class="secondary falko-button white--text" 
+									data-dismiss="modal"
+							>
+								Close
+							</v-btn>
 						</div>
 				</div>
 			</div>
@@ -98,10 +115,6 @@ export default {
 
 #issueName {
   color: #777;
-}
-
-#addButton {
-	margin-top: 2em;
 }
 
 .modal-body{

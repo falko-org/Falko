@@ -9,6 +9,20 @@ import App from './App.vue';
 import router from './router';
 import 'vuetify/dist/vuetify.min.css'; // Ensure you are using css-loader
 
+const vuetifyOptions = {
+  theme: {
+    themes: {
+      light: {
+        primary: '#86B1B1',
+        secondary: '#868e96',
+        danger: '#AA0000',
+        grey: '#868e96',
+        release: '#326579'
+      },
+    },
+  },
+}
+
 Vue.use(Vuetify);
 Vue.use(ToggleButton);
 Vue.use(VeeValidate);
@@ -20,6 +34,8 @@ Vue.config.productionTip = false;
 new Vue({
   el: '#app',
   router,
+  vuetify: new Vuetify(vuetifyOptions),
   template: '<App/>',
   components: { App, VueChart },
 });
+

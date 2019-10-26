@@ -1,5 +1,6 @@
 <template>
   <div id="wrapper">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
     <div id="sidebar-wrapper">
       <aside id="sidebar">
         <ul id="sidemenu" class="sidebar-nav">
@@ -14,7 +15,7 @@
           <li align="center">
             <router-link to="/user">
               <a  title="User Profile">
-                <span class="sidebar-icon"><i class=" fa fa-user-circle-o"></i></span>
+                <span class="sidebar-icon"><i class=" fas fa-user-circle"></i></span>
                 <span class="sidebar-title"></span>
               </a>
             </router-link>

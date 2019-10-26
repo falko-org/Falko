@@ -1,8 +1,12 @@
 <template>
   <div class="delsprint">
-    <button type="button" class="btn btn-info btn-md falko-button-danger" id="deletebutton" data-toggle="modal" data-target="#deleteSprintModal">
+    <v-btn  type="button" 
+            class="danger falko-button-danger white--text" 
+            data-toggle="modal" 
+            data-target="#deleteSprintModal" 
+    >
       Delete
-    </button>
+    </v-btn>
     <div class="modal fade" id ="deleteSprintModal" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -10,16 +14,31 @@
             <div>
               <h4 class="modal-title">Delete Sprint?</h4>
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn type="button" 
+                   text icon class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <p><label> Are you sure?</label></p>
           </div>
           <div class="modal-footer">
-            <button v-on:click="deleteSprint" type="button" class="btn btn-info btn-md falko-button" data-dismiss="modal" >Yes</button>
-            <button type="button" class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">No</button>
+            <v-btn  v-on:click="deleteSprint" 
+                    type="button" 
+                    class="primary btn-md falko-button" 
+                    data-dismiss="modal" 
+            >
+              Yes
+            </v-btn>
+            <v-btn type="button" 
+                   class="secondary btn-md falko-button-grey" 
+                   data-dismiss="modal" 
+            >
+              No
+            </v-btn>
           </div>
         </div>
       </div>

@@ -24,9 +24,11 @@
           v-if="!retrospectiveCreatedStatus()"></add-retrospective>
 
           <router-link v-else v-bind:to="'/retrospectives/'+sprintRetrospective.id">
-            <button type="button" class="btn btn-info btn-md falko-button">
+            <v-btn type="button" 
+                   class="primary btn-md falko-button"
+            >
               Retrospective
-            </button>
+            </v-btn>
           </router-link>
         </li>
         <li class="list-inline-item">
@@ -34,9 +36,11 @@
           v-if="!revisionCreatedStatus()"></add-revision>
 
           <router-link v-else v-bind:to="'/revisions/'+sprintRevision.id">
-            <button type="button" class="btn btn-info btn-md falko-button">
+            <v-btn type="button" 
+                   class="primary btn-md falko-button"
+            >
               Revision
-            </button>
+            </v-btn>
           </router-link>
         </li>
         <li class="list-inline-item">

@@ -5,9 +5,11 @@
         {{title}}
       </div>
       <div class="col-1 align-self-center">
-        <button v-on:click="$emit('remove')" class="float-right" >
-            <h4 class="no-margin">&times;</h4>
-        </button>
+        <v-btn v-on:click="$emit('remove')" 
+               class="float-right" 
+        >
+          <h4 class="no-margin">&times;</h4>
+        </v-btn>
       </div>
     </li>
   </div>
