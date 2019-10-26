@@ -1,10 +1,14 @@
 <template>
   <div>
     <div>
-      <button type="button" class="btn btn-info btn-md falko-button" id="addButton"
-              data-toggle="modal" data-target="#editRevisionModal">
+      <v-btn type="button" 
+             class="primary falko-button" 
+             id="addButton"
+             data-toggle="modal" 
+             data-target="#editRevisionModal"
+      >
         Edit Revision
-      </button>
+      </v-btn>
     </div>
 
     <div class="row no-margin justify-content-center modal fade" id="editRevisionModal">
@@ -14,17 +18,30 @@
             <h3 class="modal-title">
               Add Sprint Revision
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+            <v-btn type="button" 
+                   class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Fechar"
+            >
               <span aria-hidden="true">&times;</span>
-            </button>
+            </v-btn>
           </div>
           <div class="modal-body">
             <list-revision parent="DoneReport" v-on:listUpdated="updateList"></list-revision>
             <list-revision parent="UndoneReport" v-on:listUpdated="updateList"></list-revision>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-info btn-md falko-button" v-on:click="editRevision()" data-dismiss="modal">Save</button>
-            <button class="btn btn-info btn-md falko-button-grey" data-dismiss="modal">Cancel</button>
+            <v-btn class="primary falko-button" 
+                   v-on:click="editRevision()" 
+                   data-dismiss="modal"
+            >
+              Save
+            </v-btn>
+            <v-btn class="secondary falko-button-grey" 
+                   data-dismiss="modal"
+            >
+              Cancel
+            </v-btn>
           </div>
         </div>
       </div>

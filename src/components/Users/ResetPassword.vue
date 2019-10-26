@@ -25,7 +25,12 @@
                   <span> Your password has been reseted. </span>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary falko-button" v-on:click="toLogin"> Login </button> 
+                  <v-btn type="button" 
+                         class="primary falko-button" 
+                         v-on:click="toLogin"
+                  > 
+                    Login 
+                  </v-btn> 
                 </div>
               </div>
             </div>
@@ -46,7 +51,11 @@
                     <small v-if="errors.has('passwordConfirmation')" class="text-danger"> {{ errors.first('passwordConfirmation') }} </small>
                   </div>
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary falko-button"> Reset </button>
+                    <v-btn type="submit" 
+                           class="primary falko-button"
+                    >
+                      Reset 
+                    </v-btn>
                   </div>
                 </form>
               </div>

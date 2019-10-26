@@ -11,16 +11,31 @@
                   <div>
                     <h4 class="modal-title">Delete Revision?</h4>
                   </div>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                  <v-btn type="button" 
+                         class="close" 
+                         data-dismiss="modal" 
+                         aria-label="Fechar"
+                  >
                     <span aria-hidden="true">&times;</span>
-                  </button>
+                  </v-btn>
               </div>
               <div class="modal-body">
                 <p><label> Are you sure?</label></p>
               </div>
               <div class="modal-footer">
-                  <button v-on:click="deleteRevision()" type="button" class="btn btn-primary" data-dismiss="modal" >Yes</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <v-btn type="button" 
+                         v-on:click="deleteRevision()"  
+                         class="primary" 
+                         data-dismiss="modal" 
+                  >
+                    Yes
+                  </v-btn>
+                <v-btn type="button" 
+                       class="secondary" 
+                       data-dismiss="modal"
+                >
+                  No
+                </v-btn>
               </div>
         </div>
       </div>

@@ -2,8 +2,7 @@
   <div>
     <div class="text-center">
       <v-btn  type="button" 
-              class="info falko-button white--text" 
-              id="addButton" 
+              class="primary falko-button white--text" 
               data-toggle="modal" 
               data-target="#addGradeModal"
       >
@@ -64,14 +63,18 @@
           </div>
           <div class="modal-footer">
             <v-btn  type="button" 
-                    class="info falko-button white--text" 
-                    id="addButton" 
+                    class="primary falko-button white--text" 
                     v-on:click="addGrades" 
                     data-dismiss="modal"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="info falko-button white--text" id="closeButton" data-dismiss="modal">Close</v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button white--text" 
+                   data-dismiss="modal"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -165,11 +168,4 @@ label {
   background-color: #565e66;
 }
 
-#addButton {
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
-}
 </style>

@@ -2,8 +2,7 @@
   <div>
     <div>
       <v-btn  type="button" 
-              class="info falko-button white--text" 
-              id="addButton"
+              class="primary falko-button white--text" 
               data-toggle="modal" 
               data-target="#addRevisionModal" 
       >
@@ -18,7 +17,12 @@
             <h3 class="modal-title">
               Add Sprint Revision
             </h3>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon 
+                   type="button" 
+                   class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </v-btn>
           </div>
@@ -27,7 +31,7 @@
             <listRevision parent="UndoneReport" v-on:listUpdated="updateList"></listRevision>
           </div>
           <div class="modal-footer">
-            <v-btn  class="info btn-md falko-button"
+            <v-btn  class="primary btn-md falko-button"
                     :disabled="FieldsNotFilled" 
                     v-on:click="addRevision"
                     data-dismiss="modal"
@@ -35,9 +39,8 @@
               Save
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button-grey" 
+                   class="secondary falko-button-grey" 
                    data-dismiss="modal" 
-                   id="cancelButton"
             >
               Cancel
             </v-btn>
@@ -114,13 +117,5 @@ export default {
 <style scoped>
 input::placeholder {
   color: #777;
-}
-
-#addButton {
-  background-color: #86B1B1;
-}
-
-#cancelButton {
-  background-color: #868e96;
 }
 </style>

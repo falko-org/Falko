@@ -1,7 +1,7 @@
 <template>
   <div class = "editproject">
     <v-btn  type="button" 
-            class="info falko-button white--text" 
+            class="primary falko-button white--text" 
             color="#868e96" 
             :id="`editButton${this.release[1]}`" 
             data-toggle="modal" 
@@ -50,17 +50,15 @@
           <div class="modal-footer">
             <v-btn  type="button" 
                     :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" 
-                    class="info falko-button white--text" 
+                    class="primary falko-button white--text" 
                     v-on:click="editRelease()" 
                     data-dismiss="modal" 
-                    id="saveButton"
             >
               Save
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button-grey" 
+                   class="secondary falko-button-grey" 
                    data-dismiss="modal" 
-                   id="closeButton"
             >
               Close
             </v-btn>
@@ -137,13 +135,5 @@ export default {
 <style scoped>
 input {
   margin-bottom: 0.5em;
-}
-
-#saveButton {
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
 }
 </style>

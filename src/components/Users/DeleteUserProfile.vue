@@ -1,8 +1,7 @@
 <template >
   <div class="delusers">
     <v-btn  type="button" 
-            class="info falko-button-danger white--text" 
-            id="deletebutton" 
+            class="danger falko-button-danger white--text" 
             data-toggle="modal" 
             data-target="#myModal"
     >
@@ -15,7 +14,11 @@
             <div>
               <h4 class="modal-title">Delete Profile?</h4>
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -25,16 +28,14 @@
           <div class="modal-footer">
             <v-btn  type="button" 
                     v-on:click="deleteUser" 
-                    class="info falko-button white--text" 
+                    class="primary falko-button white--text" 
                     data-dismiss="modal" 
-                    id="yesButton"
             >
               Yes
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button white--text" 
+                   class="secondary falko-button white--text" 
                    data-dismiss="modal" 
-                   id="noButton"
             >
               No
             </v-btn>
@@ -74,16 +75,4 @@
 </script>
 
 <style>
-#yesButton {
-  background-color: #86B1B1;
-}
-
-#noButton {
-  background-color: #868e96;
-}
-
-#deletebutton {
-  background-color: #AA0000;
-}
-
 </style>

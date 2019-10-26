@@ -1,8 +1,7 @@
 <template>
   <div class = "editproject">
     <v-btn  type="button" 
-            class="info falko-button white--text" 
-            id="editbutton" 
+            class="primary falko-button white--text" 
             data-toggle="modal" 
             data-target="#editModal" 
             v-on:click="refreshScoreInformation()"
@@ -50,14 +49,18 @@
           <div class="modal-footer" id="editFooterModal">
             <v-btn  type="button"  
                     :disabled="errors.has('name') || errors.has('description')" 
-                    class="info falko-button white--text" 
-                    id="editButton" 
+                    class="primary falko-button white--text" 
                     v-on:click="editProject" 
                     data-dismiss="modal"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="info falko-button white--text" data-dismiss="modal" id="closebutton">Close</v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button white--text" 
+                   data-dismiss="modal"
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -139,14 +142,4 @@ export default{
 </script>
 
 <style scoped>
-
-#editbutton {
-  width: 120px;
-  background-color: #86B1B1;
-}
-
-#closebutton{
-  background-color: #868e96;
-}
-
 </style>

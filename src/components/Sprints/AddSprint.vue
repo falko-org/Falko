@@ -2,8 +2,7 @@
   <div>
     <div>
       <v-btn  type="button" 
-              class="info falko-button white--text" 
-              id="addButton" 
+              class="primary falko-button white--text" 
               data-toggle="modal" 
               data-target="#addSprintModal"
       >
@@ -58,16 +57,14 @@
           <div class="modal-footer">
             <v-btn  type="button" 
                     :disabled="errors.has('name') || errors.has('Initial Date') || errors.has('Final Date')" 
-                    class="info falko-button-grey white--text" 
-                    id="saveButton" 
+                    class="primary falko-button-grey white--text" 
                     v-on:click="addSprint" 
                     data-dismiss="modal"
             >
               Save
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button-grey white--text" 
-                   id="closeButton" 
+                   class="secondary falko-button-grey white--text" 
                    data-dismiss="modal"
             >
               Close
@@ -142,11 +139,6 @@ export default {
 </script>
 
 <style scoped>
-#addButton {
-  margin-top: 2em;
-  background-color: #86B1B1;
-}
-
 .modal-body {
   position: relative;
   top: 5px;
@@ -155,13 +147,4 @@ export default {
 input {
   margin-bottom: 0.5em;
 }
-
-#saveButton {
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
-}
-
 </style>

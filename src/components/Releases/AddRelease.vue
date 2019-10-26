@@ -2,7 +2,7 @@
   <div>
     <div align="center">
       <v-btn  type="button" 
-              class="info falko-button white--text" 
+              class="release falko-button white--text" 
               id="addReleaseButton" 
               data-toggle="modal" 
               data-target="#addReleaseModal" 
@@ -60,16 +60,14 @@
           <div class="modal-footer">
             <v-btn  type="button" 
                     :disabled="errors.has('name') || errors.has('description') || errors.has('Final Date')" 
-                    class="info falko-button white--text" 
+                    class="primary falko-button white--text" 
                     v-on:click="addRelease()" 
                     data-dismiss="modal"
-                    id="saveButton"
             >
               Save
             </v-btn>
             <v-btn type="submit"
-                   class="info falko-button white--text" 
-                   id="loginButton" 
+                   class="secondary falko-button white--text" 
                    data-dismiss="modal"
             >
               Close
@@ -148,7 +146,6 @@ input {
   border-radius: 0;
   padding: 0.9em;
   margin: 0;
-  background-color: #326579;
 }
 
 #addReleaseButton:hover {
@@ -162,17 +159,5 @@ input {
 
 .small-float-left {
   margin-right: .5em;
-}
-
-#saveButton {
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
-}
-
-#loginButton {
-  background-color: #868e96;
 }
 </style>

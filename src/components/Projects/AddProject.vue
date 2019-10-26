@@ -3,7 +3,6 @@
     <div class="text-center">
       <v-btn  type="button" 
               class="primary falko-button white--text" 
-              id="addButton" 
               data-toggle="modal" 
               data-target="#addProjectModal" 
       >
@@ -41,11 +40,15 @@
                     class="primary falko-button white--text" 
                     v-on:click="addProject" 
                     data-dismiss="modal" 
-                    id="addButton"
             >
               Save
             </v-btn>
-            <v-btn type="button" class="primary falko-button-grey white--text" data-dismiss="modal" id="closeButton">Close</v-btn>
+            <v-btn type="button" 
+                   class="secondary falko-button-grey white--text" 
+                   data-dismiss="modal" 
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -119,11 +122,4 @@ label {
   margin-bottom: 0em;
 }
 
-#addButton {
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
-}
 </style>

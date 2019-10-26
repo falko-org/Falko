@@ -2,8 +2,7 @@
   <div>
     <div>
       <v-btn  type="button" 
-              class="info falko-button white--text" 
-              id="addButton"
+              class="primary falko-button white--text" 
               data-toggle="modal" 
               data-target="#editRetrospectiveModal" 
       >
@@ -123,10 +122,6 @@ export default {
 
 input::placeholder {
   color: #777;
-}
-
-#addButton {
-  background-color: #86B1B1;
 }
 
 </style>

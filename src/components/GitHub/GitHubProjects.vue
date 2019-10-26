@@ -3,7 +3,6 @@
     <div class="text-center">
       <v-btn  type="button"
               class="primary falko-button white--text"
-              id="addButton"
               :class="buttonClass()"
               :disabled="!this.isGitHubAuthenticated"
               v-on:click="getRepos()"
@@ -104,13 +103,12 @@
               <v-btn  type="button" 
                       :disabled="disableImportButton()" 
                       class="primary falko-button white--text" 
-                      id="addButton"
                       v-on:click="importGithubProjects" 
                       data-dismiss="modal"
               >
                 Import
               </v-btn>
-             <v-btn type="button" class="secondary falko-button white--text" id="closeButton" v-on:click="clean" data-dismiss="modal">
+             <v-btn type="button" class="secondary falko-button white--text" v-on:click="clean" data-dismiss="modal">
                 Close
             </v-btn>
           </div>
@@ -238,27 +236,6 @@ export default {
 
 .margin {
   margin-top: 60px;
-}
-#addButton {
-  align-self: center;
-  margin: 0.5em 0;
-  border-radius: 2em;
-  padding: 0.5em 2em;
-  cursor: pointer;
-  background-color: #86B1B1;
-  border-width: 0;
-  font-weight: bold;
-}
-
-#closeButton {
-  align-self: center;
-  margin: 0.5em 0;
-  border-radius: 2em;
-  padding: 0.5em 2em;
-  cursor: pointer;
-  background-color: #868e96;
-  border-width: 0;
-  font-weight: bold;
 }
 
 </style>

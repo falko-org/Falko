@@ -19,17 +19,15 @@
           </div>
           <div class="modal-footer">
             <v-btn  type="button" 
-                    class="info btn-md falko-button" 
+                    class="primary btn-md falko-button" 
                     v-on:click="getIssuesGraphicData" 
                     data-dismiss="modal" 
-                    id="saveButton"
             >
               Save
             </v-btn>
             <v-btn  type="button" 
-                    class="info btn-md falko-button-grey" 
+                    class="secondary btn-md falko-button-grey" 
                     data-dismiss="modal" 
-                    id="closeButton"
             >
               Close
             </v-btn>
@@ -466,14 +464,6 @@ h6 {
   right: -30px;
   font-size: 100px;
   color: #3E5361;
-}
-
-#saveButton {
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
 }
 
 </style>

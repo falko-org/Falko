@@ -1,8 +1,7 @@
 <template>
   <div class="edit-user-profile">
     <v-btn  type="button" 
-            class="info falko-button white--text" 
-            id="editbutton" 
+            class="primary falko-button white--text" 
             data-toggle="modal" 
             data-target="#editModal"
     >
@@ -36,17 +35,15 @@
           </div>
           <div class="modal-footer">
             <v-btn  type="button" 
-                    class="info falko-button white--text" 
+                    class="primary falko-button white--text" 
                     v-on:click="editUser" 
                     data-dismiss="modal"
-                    id="editbutton"
             >
               Save
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button white--text" 
+                   class="secondary falko-button white--text" 
                    data-dismiss="modal"
-                   id="closebutton"
             >
               Close
             </v-btn>
@@ -127,11 +124,4 @@ export default {
 </script>
 
 <style scoped>
-#editbutton {
-  background-color: #86B1B1;
-}
-
-#closebutton {
-  background-color: #868e96;
-}
 </style>

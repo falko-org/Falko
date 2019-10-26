@@ -16,7 +16,6 @@
               <div class="text-center">
                 <v-btn type="submit" 
                        class="primary falko-button white--text" 
-                       id="resetButton" 
                 >
                   Reset Password
                 </v-btn>
@@ -73,9 +72,6 @@ export default {
 <style scoped>
   #forgot-password {
     margin-top: 10em;
-  }
-  #resetButton {
-    background-color: #86B1B1;
   }
 </style>
 

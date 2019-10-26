@@ -29,8 +29,7 @@
                     <edit-issue v-bind:selected_issue="issue"></edit-issue>
                     <v-btn  type="button" 
                             v-on:click="closeIssue(issue.number), getIssues()" 
-                            class="primary btn-sm falko-button falko-button-danger" 
-                            id="close" 
+                            class="danger btn-sm falko-button falko-button-danger" 
                     >
                       Close
                     </v-btn>

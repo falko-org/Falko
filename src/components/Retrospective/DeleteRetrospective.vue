@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-btn  type="button" 
-            class="info falko-button-danger white--text" 
-            id="deletebutton" 
+            class="danger falko-button-danger white--text" 
             data-toggle="modal" 
             data-target="#deleteRetrospectiveModal" 
     >
@@ -70,7 +69,4 @@ export default {
 </script>
 
 <style scoped>
-#deleteButton {
-  background-color: #AA0000;
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn  type="button" 
-            class="info falko-button-danger" 
+            class="danger falko-button-danger white--text" 
             :id="`deleteButton${this.parentRelease}`" 
             data-toggle="modal" 
             :data-target="`#deleteReleaseModal${this.parentRelease}`" 
@@ -26,16 +26,14 @@
           <div class="modal-footer">
             <v-btn type="button"
                    v-on:click="deleteRelease"  
-                   class="info falko-button" 
+                   class="primary falko-button" 
                    data-dismiss="modal" 
-                   id="yesButton"
             >
               Yes
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button-grey" 
+                   class="secondary falko-button-grey" 
                    data-dismiss="modal" 
-                   id="noButton"
             >
               No
             </v-btn>
@@ -85,13 +83,5 @@ export default {
 </script>
 
 <style scoped>
-#yesButton {
-  background-color: #86B1B1;
-}
-
-#noButton {
-  background-color: #868e96;
-}
-
 
 </style>

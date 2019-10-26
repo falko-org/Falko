@@ -14,8 +14,10 @@ const vuetifyOptions = {
     themes: {
       light: {
         primary: '#86B1B1',
+        secondary: '#868e96',
         danger: '#AA0000',
-        grey: '#868e96'
+        grey: '#868e96',
+        release: '#326579'
       },
     },
   },
@@ -36,3 +38,4 @@ new Vue({
   template: '<App/>',
   components: { App, VueChart },
 });
+

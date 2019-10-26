@@ -1,8 +1,7 @@
 <template>
   <div class="delsprint">
     <v-btn  type="button" 
-            class="info falko-button-danger" 
-            id="deletebutton" 
+            class="danger falko-button-danger white--text" 
             data-toggle="modal" 
             data-target="#deleteSprintModal" 
     >
@@ -29,16 +28,14 @@
           <div class="modal-footer">
             <v-btn  v-on:click="deleteSprint" 
                     type="button" 
-                    class="info btn-md falko-button" 
+                    class="primary btn-md falko-button" 
                     data-dismiss="modal" 
-                    id="yesButton"
             >
               Yes
             </v-btn>
             <v-btn type="button" 
-                   class="info btn-md falko-button-grey" 
+                   class="secondary btn-md falko-button-grey" 
                    data-dismiss="modal" 
-                   id="noButton"
             >
               No
             </v-btn>
@@ -78,15 +75,4 @@ export default {
 </script>
 
 <style scoped>
-#yesButton {
-  background-color: #86B1B1;
-}
-
-#noButton {
-  background-color: #868e96;
-}
-
-#deletebutton {
-  background-color: #AA0000;
-}
 </style>

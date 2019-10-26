@@ -37,7 +37,10 @@
           ></v-text-field>
 
         <div class="text-center" left>
-          <v-btn type="submit" class="primary falko-button white--text" >Log in</v-btn>
+          <v-btn type="submit" 
+                 class="primary falko-button white--text">
+            Log in
+          </v-btn>
         </div>
         <div class="text-center">
           <router-link to="/users/forgotpassword"> Forgot your password?</router-link>
@@ -106,10 +109,6 @@ export default {
   width: 90%;
   font-size: 14px;
   padding-top: 1px;
-}
-
-.button-test {
-  color: #ffffff;
 }
 
 </style>

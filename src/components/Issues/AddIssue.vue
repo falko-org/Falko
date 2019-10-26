@@ -2,8 +2,7 @@
 	<div class="">
 		<div class="text-center">
 			<v-btn 	type="button" 
-					class="info falko-button white--text" 
-					id="addButton" 
+					class="primary falko-button white--text" 
 					data-toggle="modal" 
 					data-target="#addIssueModal"
 			>
@@ -54,7 +53,6 @@
 							</v-btn>
 							<v-btn	type="button" 
 									class="secondary falko-button white--text" 
-									id="closeButton"
 									data-dismiss="modal"
 							>
 								Close
@@ -117,19 +115,6 @@ export default {
 
 #issueName {
   color: #777;
-}
-
-#saveButton{
-  background: #86B1B1;
-}
-
-#addButton {
-	margin-top: 2em;
-	background-color: #86B1B1;
-}
-
-#closeButton{
-	background-color: #868e96;
 }
 
 .modal-body{

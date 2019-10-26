@@ -1,8 +1,7 @@
 <template>
   <div class="edit-sprint">
      <v-btn type="button" 
-            class="info btn-sm falko-button" 
-            id="editIssue" 
+            class="primary btn-sm falko-button" 
             data-toggle="modal" 
             :data-target="`#editIssueModal${selected_issue.number}`" 
             v-on:click="getIssuesInformation()" 
@@ -55,14 +54,18 @@
           <div class="modal-footer">
             <v-btn  type="button" 
                     :disabled="errors.has('name') || errors.has('body')" 
-                    class="info btn-md falko-button" 
+                    class="primary btn-md falko-button" 
                     v-on:click="editIssue(), setAssignees()" 
                     data-dismiss="modal" 
-                    id="editIssue"
               >
                 Save
               </v-btn>
-            <v-btn type="button" class="info btn-md falko-button-grey" data-dismiss="modal" id="closeButton">Close</v-btn>
+            <v-btn type="button"
+                   class="secondary btn-md falko-button-grey" 
+                   data-dismiss="modal" 
+            >
+              Close
+            </v-btn>
           </div>
         </div>
       </div>
@@ -166,12 +169,4 @@ export default {
 </script>
 
 <style scoped>
-#editIssue {
-  margin-right: 4px;
-  background-color: #86B1B1;
-}
-
-#closeButton {
-  background-color: #868e96;
-}
 </style>

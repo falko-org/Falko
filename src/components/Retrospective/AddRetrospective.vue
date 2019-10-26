@@ -2,8 +2,7 @@
   <div>
     <div>
       <v-btn  type="button" 
-              class="info falko-button white--text" 
-              id="addButton"
+              class="primary falko-button white--text" 
               data-toggle="modal" 
               data-target="#addRetrospectiveModal" 
       >
@@ -18,7 +17,12 @@
             <h3 class="modal-title">
               Add Sprint Retrospective
             </h3>
-            <v-btn text icon type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <v-btn text icon 
+                   type="button" 
+                   class="close" 
+                   data-dismiss="modal" 
+                   aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </v-btn>
           </div>
@@ -35,18 +39,16 @@
             ></v-textarea>
           </div>
           <div class="modal-footer">
-            <v-btn  class="info falko-button white--text"
+            <v-btn  class="primary falko-button white--text"
                     :disabled="FieldsNotFilled"
                     v-on:click="addRetrospective"
                     data-dismiss="modal" 
-                    id="addButton"
             >
               Save
             </v-btn>
             <v-btn type="button" 
-                   class="info falko-button-grey" 
+                   class="secondary falko-button-grey" 
                    data-dismiss="modal" 
-                   id="cancelButton"
             >
               Cancel
             </v-btn>
@@ -170,17 +172,7 @@ export default {
 </script>
 
 <style scoped>
-
 input::placeholder {
   color: #777;
 }
-
-#addButton {
-  background-color: #86B1B1;
-}
-
-#cancelButton {
-  background-color: #868e96;
-}
-
 </style>
