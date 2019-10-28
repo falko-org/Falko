@@ -12,23 +12,12 @@ import { mapState } from 'vuex';
 import Sprint from './Sprint.vue';
 
 export default {
-  extends: Bar,
   extends: Line,
   data () {
     return {
       datacollection: {
         options: {
           scales: {
-            yAxes: [
-              {
-                display: true,
-                ticks: {
-                  beginAtZero: true,
-                  min: 0,
-                  suggestedMin: 0
-                }
-              }
-            ],
             yAxes: [
               {
                 display: true,
