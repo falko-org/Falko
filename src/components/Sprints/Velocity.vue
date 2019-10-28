@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { Bar } from 'vue-chart-js'
 import { Line } from 'vue-chart-js'
 import { HTTP } from '../../http-common';
 import { mapState } from 'vuex';
