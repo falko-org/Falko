@@ -10,7 +10,6 @@ describe('On register', () => {
   let state;
   let actions;
   let store;
-  let router;
   const loginStub = sandbox.stub();
 
   beforeEach(() => {

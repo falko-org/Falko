@@ -12,7 +12,6 @@ describe('On projects component', () => {
   const sandbox = sinon.createSandbox();
   let state;
   let store;
-  let router;
 
   beforeEach(() => {
     state = {

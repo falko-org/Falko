@@ -9,7 +9,6 @@ describe('On login', () => {
   let state;
   let actions;
   let store;
-  let router;
   const stub = sandbox.stub();
 
   beforeEach(() => {

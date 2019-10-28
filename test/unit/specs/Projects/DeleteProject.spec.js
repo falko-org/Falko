@@ -9,7 +9,6 @@ describe('On Delete Project', () => {
   localVue.use(Vuex);
   const sandbox = sinon.createSandbox();
   let state;
-  let actions;
   let store;
 
   beforeEach(() => {

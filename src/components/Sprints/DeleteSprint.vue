@@ -44,7 +44,6 @@ export default {
       const headers = { Authorization: this.token };
 
       try {
-        const response = await HTTP.get(`sprints/${this.$route.params.id}`, { headers });
         await HTTP.delete(`sprints/${this.$route.params.id}`, { headers });
         this.$router.push({ name: 'Releases', params: { id: this.projectId } });
       } catch (err) {

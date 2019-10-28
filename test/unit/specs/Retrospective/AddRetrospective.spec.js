@@ -11,7 +11,6 @@ describe('On Add Release', () => {
   // localVue.use(VeeValidate);
   const sandbox = sinon.createSandbox();
   let state;
-  let actions;
   let store;
 
   beforeEach(() => {
