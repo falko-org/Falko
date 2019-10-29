@@ -1,64 +1,76 @@
 <template>
   <div>
-    <div v-if="isReleasesEmpty()">
-      <no-content parent ="Release"></no-content>
+    <div v-if="loading" cl>
+      <div class="spinner-container" align="center">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="#86B1B1"
+          indeterminate
+        ></v-progress-circular>
+      </div>
     </div>
-    <div class="row justify-content-center">
-      <div class="col-3 align-self-start no-padding" id="releases">
-          <add-release></add-release>
-        <div v-bind:class="this.hasNoReleasesId()">
-          <div v-for="release in releases" :key="release.id">
-            <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
+    <div v-if="!loading">
+      <div v-if="isReleasesEmpty()">
+        <no-content parent ="Release"></no-content>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-3 align-self-start no-padding" id="releases">
+            <add-release></add-release>
+          <div v-bind:class="this.hasNoReleasesId()">
+            <div v-for="release in releases" :key="release.id">
+              <release-card v-bind:release="[release.id, releases.indexOf(release)]"></release-card>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-9" v-if="isLoaded">
-        <div class="row justify-content-between" id="releaseHeader">
-          <div class="col-5 no-padding" align="center">
-            <div class="row">
-              <h1>{{this.releases[this.releaseIndex].name}}</h1>
+        <div class="col-9" v-if="isLoaded">
+          <div class="row justify-content-between" id="releaseHeader">
+            <div class="col-5 no-padding" align="center">
+              <div class="row">
+                <h1>{{this.releases[this.releaseIndex].name}}</h1>
+              </div>
+              <div class="row text-muted">
+                <p>{{this.releases[this.releaseIndex].description}}</p>
+              </div>
             </div>
-            <div class="row text-muted">
-              <p>{{this.releases[this.releaseIndex].description}}</p>
-            </div>
-          </div>
-          <div class="col-5 no-padding">
-            <div class="row">
-              <h5>
-                {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
-                |
-                {{dateConvert(this.releases[this.releaseIndex].final_date)}}
-              </h5>
-            </div>
-            <div class="row text-muted">
-              <div class="col">
-                <p>{{this.releases[this.releaseIndex].amount_of_sprints}} Sprints</p>
+            <div class="col-5 no-padding">
+              <div class="row">
+                <h5>
+                  {{dateConvert(this.releases[this.releaseIndex].initial_date)}}
+                  |
+                  {{dateConvert(this.releases[this.releaseIndex].final_date)}}
+                </h5>
+              </div>
+              <div class="row text-muted">
+                <div class="col">
+                  <p>{{this.releases[this.releaseIndex].amount_of_sprints}} Sprints</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row align-content-center">
-          <div class="col" align="center">
-            <div v-if="this.sprints.length == 0">
-              <no-content parent="Sprint"></no-content>
+          <div class="row align-content-center">
+            <div class="col" align="center">
+              <div v-if="this.sprints.length == 0">
+                <no-content parent="Sprint"></no-content>
+              </div>
+
+              <add-sprint v-bind:release="[
+                  this.releases[this.releaseIndex].id,
+                  dateConvert(this.releases[this.releaseIndex].initial_date),
+                  dateConvert(this.releases[this.releaseIndex].final_date)
+              ]">
+              </add-sprint>
             </div>
-
-            <add-sprint v-bind:release="[
-                this.releases[this.releaseIndex].id,
-                dateConvert(this.releases[this.releaseIndex].initial_date),
-                dateConvert(this.releases[this.releaseIndex].final_date)
-            ]">
-            </add-sprint>
           </div>
-        </div>
-        <div>
-          <div v-if="this.sprints.length != 0" class="row align-content-center">
-            <div class="col-12">
-              <div class="scroll-style-sprints-cards">
-                <div v-for="sprint in sprints" :key="sprint.id">
-                  <sprint-card v-bind:sprint="sprint"></sprint-card>
+          <div>
+            <div v-if="this.sprints.length != 0" class="row align-content-center">
+              <div class="col-12">
+                <div class="scroll-style-sprints-cards">
+                  <div v-for="sprint in sprints" :key="sprint.id">
+                    <sprint-card v-bind:sprint="sprint"></sprint-card>
+                  </div>
                 </div>
               </div>
             </div>
@@ -95,6 +107,7 @@ export default {
       indexOfRelease: '',
       sprints: [],
       isLoaded: false,
+      loading: true,
     };
   },
   computed: {
@@ -141,11 +154,13 @@ export default {
           this.setReleaseId();
           this.getSprints();
           this.setAmountOfReleases();
+          this.loading = false;
           return;
         }
         
         this.$store.dispatch('setRelease', null);
         this.setAmountOfReleases();
+        this.loading = false;
       }
       catch(e) {
         this.errors.push(e);

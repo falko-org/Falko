@@ -137,7 +137,7 @@ export default {
     },
 
     isProjectsEmpty() {
-      return !this.loading ? this.projects.length === 0 : false;
+      return this.projects.length === 0;
     },
   },
 
@@ -191,9 +191,5 @@ div a {
 
 #grade {
   margin-left: 1.5em;
-}
-
-.spinner-container {
-  margin-top: 20%;
 }
 </style>
