@@ -1,57 +1,69 @@
 <template>
   <div>
-    <div v-if="isProjectsEmpty()">
-      <no-content parent ="Project"></no-content>
+    <div v-if="loading" cl>
+      <div class="spinner-container" align="center">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="#86B1B1"
+          indeterminate
+        ></v-progress-circular>
+      </div>
     </div>
-    <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
-    <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
-        <div align="center">
-          <div class="card" id="projectCard">
-            <router-link v-bind:to="'/projects/'+project.id">
-              <div class="card-header" id="projectHeader">
-                <div class="row align-itens-around" id="projectTitle">
-                  <div class="col">
-                    <h4 class="no-margin float-left"> {{project.name}}</h4>
-                  </div>
-                  <div class="col">
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row align-itens-arround">
-                  <div class="col">
-                    <p class="card-text text-justify">
-                      {{project.description}}
-                    </p>
-                  </div>
-                  <div class="col-md-4 justify-content-center">
-                    <grade id="grade" align="center" v-bind:project="project.id"></grade>
+    <div v-if="!loading">
+      <div v-if="isProjectsEmpty()">
+        <no-content parent ="Project"></no-content>
+      </div>
+      <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
+      <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)">
+        <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
+          <div align="center">
+            <div class="card" id="projectCard">
+              <router-link v-bind:to="'/projects/'+project.id">
+                <div class="card-header" id="projectHeader">
+                  <div class="row align-itens-around" id="projectTitle">
+                    <div class="col">
+                      <h4 class="no-margin float-left"> {{project.name}}</h4>
+                    </div>
+                    <div class="col">
+                    </div>
                   </div>
                 </div>
-              </div>
-            </router-link>
+                <div class="card-body">
+                  <div class="row align-itens-arround">
+                    <div class="col">
+                      <p class="card-text text-justify">
+                        {{project.description}}
+                      </p>
+                    </div>
+                    <div class="col-md-4 justify-content-center">
+                      <grade id="grade" align="center" v-bind:project="project.id"></grade>
+                    </div>
+                  </div>
+                </div>
+              </router-link>
+            </div>
+            <br>
           </div>
-          <br>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-md-3">
-        <add-project v-on:added="refreshProjects()"></add-project>
+      <div class="row justify-content-center">
+        <div class="col-md-3">
+          <add-project v-on:added="refreshProjects()"></add-project>
+        </div>
+        <div class="col-md-3">
+          <github-projects v-on:added="refreshProjects()"></github-projects>
+        </div>
       </div>
-      <div class="col-md-3">
-        <github-projects v-on:added="refreshProjects()"></github-projects>
-      </div>
-    </div>
-    <div v-if="!this.isGitHubAuthenticated" class="row justify-content-center" id="importTutorial">
-      <p class="text-muted">
-        To import a repository, you must have previously
+      <div v-if="!this.isGitHubAuthenticated" class="row justify-content-center" id="importTutorial">
+        <p class="text-muted">
+          To import a repository, you must have previously
 
-        <router-link to="/user" id="linkAccount">
-          linked your github account
-        </router-link>
-      </p>
+          <router-link to="/user" id="linkAccount">
+            linked your github account
+          </router-link>
+        </p>
+      </div>
     </div>
   </div>
 
@@ -77,6 +89,7 @@ export default {
   data() {
     return {
       projects: [],
+      loading: true,
     };
   },
   computed: {
@@ -108,6 +121,7 @@ export default {
       HTTP.get(`users/${this.userId}/projects`, { headers })
         .then((response) => {
           this.projects = response.data;
+          this.loading = false;
         })
         .catch((e) => {
           this.errors.push(e);

@@ -214,5 +214,9 @@ label {
   background-color: #95B0B9;
 }
 
+.spinner-container {
+  margin-top: 20%;
+}
+
 
 </style>
