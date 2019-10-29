@@ -22,10 +22,13 @@
             <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
             <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
             <list parent="Improvements" v-on:listUpdated="updateList"></list>
-            <textarea class="text-justify"
-            placeholder="Input your sprint report..."
-            v-model="sprintReport"
-            />
+            <v-textarea
+              name="input-7-4"
+              v-model="sprintReport"
+              label="Sprint Report"
+              rows="2"
+              row-height="20"
+            ></v-textarea>
           </div>
           <div class="modal-footer">
             <button class="btn btn-info btn-md falko-button"
@@ -53,10 +56,13 @@
                   <list parent="PositivePoints" v-on:listUpdated="updateList"></list>
                   <list parent="NegativePoints" v-on:listUpdated="updateList"></list>
                   <list parent="Improvements" v-on:listUpdated="updateList"></list>
-                  <textarea class="text-justify"
-                  placeholder="Input your sprint report..."
-                  v-model="sprintReport"
-                  />
+                  <v-textarea
+                    name="input-7-4"
+                    v-model="sprintReport"
+                    label="Sprint Report"
+                    rows="2"
+                    row-height="20"
+                  ></v-textarea>
                 </div>
                 <div class="modal-footer">
                   <button class="btn btn-info btn-md falko-button"
@@ -154,15 +160,6 @@ export default {
 </script>
 
 <style scoped>
-
-textarea {
-  width: 100%;
-  height: 15em;
-  padding: 1em;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  color: #444;
-}
 
 input::placeholder {
   color: #777;
