@@ -4,8 +4,8 @@
       <no-content parent ="Project"></no-content>
     </div>
     <tr> <td colspan="2" bgcolor="#FFFFFF" height="30">&nbsp;</td> </tr>
-    <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)">
-      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5">
+    <div class="row justify-content-around" v-for="i in Math.ceil(projects.length / 2)" :key="i.id">
+      <div v-for="project in projects.slice((i-1) * 2,i*2)" class="col-5" :key="project.id">
         <div align="center">
           <div class="card" id="projectCard">
             <router-link v-bind:to="'/projects/'+project.id">

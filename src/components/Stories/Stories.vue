@@ -9,7 +9,7 @@
             <h4 style="color:#86B1B1; font-size:24px;">{{issues.length}}</h4>
           </div>
           <draggable v-model="issues" v-bind:options="{group:'issues'}"  @change="onUpdateBacklog($event)" class="dragArea">
-            <div v-for="issue in issues">
+            <div v-for="issue in issues" :key="issue.id">
               <div align="center">
               <div class="card kanbanCard">
                 <div class="card-body">
@@ -46,7 +46,7 @@
           <h4 style="color:#86B1B1; font-size:24px;">{{stories.length}}</h4>
         </div>
         <draggable v-model="stories" v-bind:options="{group:'issues'}" @change="onUpdateToDo($event)" class="dragArea">
-          <div v-for="story in stories">
+          <div v-for="story in stories" :key="story.id">
             <div align="center">
               <div class="card kanbanCard">
                 <div class="card-body">
@@ -89,7 +89,7 @@
           <h4 style="color:#86B1B1; font-size:24px;">{{doingStories.length}}</h4>
         </div>
         <draggable v-model="doingStories" v-bind:options="{group:'issues'}" @change="onUpdateDoing($event)" class="dragArea">
-          <div v-for="story in doingStories">
+          <div v-for="story in doingStories" :key="story.id">
             <div align="center">
               <div class="card kanbanCard">
                 <div class="card-body">
@@ -137,7 +137,7 @@
             </button>
             <strong>Issue Closed!</strong>
           </div> -->
-          <div v-for="story in doneStories">
+          <div v-for="story in doneStories" :key="story.id">
             <div align="center">
               <div class="card kanbanCard">
                 <div class="card-body">

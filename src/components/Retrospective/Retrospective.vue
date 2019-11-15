@@ -22,7 +22,7 @@
                 <p class="col-md-4">
                   <ul class="list-group ">
                     <li class="list-group-item active">Positive Points</li>
-                    <li v-for="(positive, index) in positivePoints" class="list-group-item">
+                    <li v-for="positive in positivePoints" class="list-group-item" :key="positive.id">
                       <h6> • {{positive}}</h6>
                     </li>
                   </ul>
@@ -31,7 +31,7 @@
                 <p class="col-md-4">
                   <ul class="list-group">
                     <li class="list-group-item active">Negative Points</li>
-                    <li v-for="(negative, index) in negativePoints" class="list-group-item">
+                    <li v-for="negative in negativePoints" class="list-group-item" :key="negative.id">
                       <h6>• {{negative}}</h6>
                     </li>
                   </ul>
@@ -40,7 +40,7 @@
                 <p class="col-md-4">
                   <ul class="list-group">
                     <li class="list-group-item active">Improvements</li>
-                    <li v-for="(improvement, index) in improvements" class="list-group-item">
+                    <li v-for="improvement in improvements" class="list-group-item" :key="improvement.id">
                       <h6>• {{improvement}}</h6>
                     </li>
                   </ul>
