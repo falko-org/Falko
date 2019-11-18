@@ -42,7 +42,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import ListRevision from './ListRevision.vue';
 import DeleteRevision from './DeleteRevision.vue';
 import EditRevision from './EditRevision.vue';
 import { HTTP } from '../../http-common';
