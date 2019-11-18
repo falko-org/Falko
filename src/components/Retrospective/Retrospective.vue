@@ -60,7 +60,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import List from './List.vue';
 import DeleteRetrospective from './DeleteRetrospective.vue';
 import EditRetrospective from './EditRetrospective.vue';
 import { HTTP } from '../../http-common';
@@ -71,7 +70,6 @@ export default {
   components: {
     'delete-retrospective': DeleteRetrospective,
     'edit-retrospective': EditRetrospective,
-    list: List,
   },
 
   data() {

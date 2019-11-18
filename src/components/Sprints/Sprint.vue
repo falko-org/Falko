@@ -61,7 +61,6 @@ import dateConvert from '../../mixins/dateConvert';
 import AddRetrospective from '../Retrospective/AddRetrospective.vue';
 import AddRevision from '../Revision/AddRevision.vue';
 import Revision from '../Revision/Revision.vue';
-import Stories from '../Stories/Stories'
 import { HTTP } from '../../http-common';
 import Velocity from './Velocity.vue';
 import Metrics from './Metrics.vue';
@@ -73,7 +72,6 @@ export default{
     'delete-sprint': DeleteSprint,
     'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
-    'stories': Stories,
     'metrics': Metrics,
   },
   data() {
