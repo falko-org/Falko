@@ -53,7 +53,6 @@ export default {
   components: {
     'delete-revision': DeleteRevision,
     'edit-revision': EditRevision,
-    'list-revision': ListRevision,
   },
 
   data() {

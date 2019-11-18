@@ -71,7 +71,6 @@ export default {
   components: {
     'delete-retrospective': DeleteRetrospective,
     'edit-retrospective': EditRetrospective,
-    list: List,
   },
 
   data() {

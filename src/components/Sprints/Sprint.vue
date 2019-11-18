@@ -73,7 +73,6 @@ export default{
     'delete-sprint': DeleteSprint,
     'add-retrospective': AddRetrospective,
     'add-revision': AddRevision,
-    'stories': Stories,
     'metrics': Metrics,
   },
   data() {
