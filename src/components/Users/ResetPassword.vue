@@ -142,7 +142,7 @@ export default {
   },
   created() {
     const token = this.$route.query.token;
-    if(token !== null || token !== undefined) {
+    if (token) {
       this.token = token;
       this.checkTokenValidity();
     } 

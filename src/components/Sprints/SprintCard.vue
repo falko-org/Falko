@@ -66,7 +66,7 @@ export default {
     status() {
       const today = new Date();
       const finalDate = this.sprint.final_date.split('-')[2];
-      let isRevisionCreated;
+      // let isRevisionCreated = false;
       // const headers = { Authorization: this.token };
 
       // HTTP.get(`retrospectives/${this.sprint.id}`, { headers })
@@ -80,7 +80,7 @@ export default {
       //   .catch(() => {
       //   });
 
-      if ((today.getDate() > finalDate) && !isRevisionCreated) {
+      if ((today.getDate() > finalDate)) {
         return 'ALERT';
       }
       return 'OK';
