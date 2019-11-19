@@ -48,7 +48,7 @@ export default {
       var tabcontent, tablinks;
       this.metric = metric;
       tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
+      for (var i = 0; i < tabcontent.length; i++) {
           tabcontent[i].style.display = "none";
       }
 
