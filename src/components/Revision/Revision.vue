@@ -13,7 +13,7 @@
                 <p class="col-md-6">
                   <ul class="list-group ">
                     <li class="list-group-item active">Done Reports</li>
-                    <li v-for="done in doneReport" class="list-group-item" :key="done.id">
+                    <li v-for="(done) in doneReport" :key="done.id" class="list-group-item">
                       <h6> • {{done}}</h6>
                     </li>
                   </ul>
@@ -22,7 +22,7 @@
                 <p class="col-md-6">
                   <ul class="list-group">
                     <li class="list-group-item active">Undone Reports</li>
-                    <li v-for="undone in undoneReport" class="list-group-item" :key="undone.id">
+                    <li v-for="(undone) in undoneReport" :key="undone.id" class="list-group-item">
                       <h6>• {{undone}}</h6>
                     </li>
                   </ul>
