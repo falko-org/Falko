@@ -120,9 +120,6 @@ input {
   margin-bottom: 0.5em;
 }
 
-#releaseName {
-  color: #777;
-}
 #addReleaseButton {
   width: 100%;
   border-radius: 0;

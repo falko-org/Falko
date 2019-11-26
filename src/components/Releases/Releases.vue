@@ -265,26 +265,6 @@ h5 {
   border-color: #7799A5;
 }
 
-.number-circle {
-  font: 32px Arial, sans-serif;
-
-  width: 2.5em;
-  height: 2.5em;
-  box-sizing: initial;
-
-  background: #fff;
-  border: 0.2em solid #7799A5;
-  border-style: solid;
-  color: #7799A5;
-  text-align: center;
-  border-radius: 50%;
-
-  line-height: 2.5em;
-  box-sizing: content-box;
-  top: 50%;
-  left: 50%;
-}
-
 .releasesBorder {
   border-right:1px solid #c3c3c3;
 }

@@ -96,10 +96,6 @@ export default {
 
 <style scoped>
 
-#issueName {
-  color: #777;
-}
-
 #addButton {
 	margin-top: 2em;
 }

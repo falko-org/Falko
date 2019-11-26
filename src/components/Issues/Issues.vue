@@ -195,26 +195,6 @@ p{
   white-space: nowrap;
 }
 
-.number-circle {
-  font: 32px Arial, sans-serif;
-
-  width: 0.5em;
-  height: 0.5em;
-  box-sizing: initial;
-
-  background: #fff;
-  border: 0.1em solid;
-  margin-right: 0.3em;
-  border-style: solid;
-  color: #7799A5;
-  border-radius: 50%;
-
-  line-height: 0.5em;
-  box-sizing: content-box;
-  top: 50%;
-  left: 50%;
-}
-
 .pagination {
   padding-bottom: 20px;
 }
