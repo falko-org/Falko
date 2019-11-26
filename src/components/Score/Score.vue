@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="float-right ">Points</div>
-    <div class="float-right number-circle">
+    <div class="float-right number-circle-score">
       <div id="pointsFont"> {{this.points}} </div>
     </div>
   </div>
@@ -14,7 +14,7 @@
 </script>
 
 <style scoped>
-  .number-circle {
+  .number-circle-score {
     font: 32px Arial, sans-serif;
 
     width: 0.5em;
