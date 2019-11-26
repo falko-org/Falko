@@ -214,5 +214,9 @@ label {
   background-color: #95B0B9;
 }
 
+.width-card-login{
+  max-width: 20em;
+}
+
 
 </style>

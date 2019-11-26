@@ -1,5 +1,5 @@
 <template>
-  <div id="register">
+  <div class="width-card-login">
     <div class="card-body">
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoRegister">
       <form id="registerForm" @submit.prevent="register()"  data-vv-scope="form-register">
@@ -124,10 +124,6 @@ export default {
 </script>
 
 <style>
-#register {
-  max-width: 20em;
-}
-
 #falkoLogoRegister {
   width: 11em;
   margin: 1.3em 0;
