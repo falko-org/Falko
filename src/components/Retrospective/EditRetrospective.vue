@@ -108,15 +108,6 @@ export default {
 
 <style scoped>
 
-/* textarea {
-  width: 100%;
-  height: 15em;
-  padding: 1em;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.25);
-  color: #444;
-} */
-
 input::placeholder {
   color: #777;
 }

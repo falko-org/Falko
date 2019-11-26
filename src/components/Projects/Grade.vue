@@ -2,7 +2,7 @@
 	<div>
 		<div class="col justify-content-center" id="grade">
 			<div class="row justify-content-center">
-		    <div class="float-right number-circle">
+		    <div class="float-right number-circle-grade">
 		     	<div id="gradeFont"> {{this.grade}} </div>
 		    </div>
 			</div>
@@ -64,7 +64,7 @@
   }
 </script>
 <style>
-  .number-circle {
+  .number-circle-grade {
     font: 32px Arial, sans-serif;
 
     width: 1.8em;

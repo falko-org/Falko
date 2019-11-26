@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div class="width-card-login">
     <div class="card-body">
       <img src="../../assets/logo.png" class="rounded mx-auto d-block img-fluid" id="falkoLogoLogin">
 
@@ -93,10 +93,6 @@ export default {
 </script>
 
 <style>
-#login {
-  max-width: 20em;
-}
-
 #falkoLogoLogin {
   width: 11em;
   margin: 2.5em 0;

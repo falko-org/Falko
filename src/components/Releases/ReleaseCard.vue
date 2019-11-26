@@ -60,12 +60,4 @@ export default {
   border-bottom: 2px solid #637074;
 }
 
-.falko-button-grey {
-  background-color: rgba(134, 142, 150, 0.5);
-}
-
-.number-circle-selected {
-  border: 0.2em solid rgba(98, 104, 110, 0.8);
-  color: rgba(98, 104, 110, 0.8);
-}
 </style>
