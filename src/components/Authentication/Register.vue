@@ -94,7 +94,12 @@ export default {
         })
         .catch((err) => {
           const resp_error = err.response.data;
+      
+          this.errorHandler(resp_error);
+        });
+    },
 
+    errorHandler(resp_error){
           if(resp_error['email']) {
             this.errors.add({
               field: 'email-taken',
@@ -108,7 +113,6 @@ export default {
               msg: 'has already been taken'
             });
           }
-        });
     },
 
     disableRegisterButton() {
