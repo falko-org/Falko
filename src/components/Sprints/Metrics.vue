@@ -45,19 +45,10 @@ export default {
   },
   methods: {
     openMetrics(id_element, metric) {
-      var tabcontent, tablinks;
       this.metric = metric;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
-      }
-
-      tablinks = document.getElementsByClassName("tablink");
-      for (var i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
-          tablinks[i].style.background = "";
-          tablinks[i].style.border = "none";
-      }
+      
+      this.deactivateTabcontent();
+      this.deactivateTablinks();
 
       document.getElementById(metric).style.display = "block";
       document.getElementById(id_element).className += " active";
@@ -67,7 +58,24 @@ export default {
       this.$refs.velocity.getVelocityData();
       this.$refs.burndown.getBurndownData();
     },
+
+    deactivateTabcontent(){
+      var tabcontent = document.getElementsByClassName("tabcontent");
+      for (let i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+      }
+    },
+
+    deactivateTablinks(){
+      var tablinks = document.getElementsByClassName("tablink");
+      for (let i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+          tablinks[i].style.background = "";
+          tablinks[i].style.border = "none";
+      }
+    },
   },
+  
   mounted() {
     this.openMetrics('stories-tab', 'Stories');
   },
