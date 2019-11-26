@@ -38,7 +38,7 @@
               <div class="collapse" id="userReposCollapse">
                 <div class="scroll-style-github-projects">
                   <ul class="list-group">
-                    <li class="list-group-item" v-for="userRepo in userRepos" >
+                    <li class="list-group-item" v-for="userRepo in userRepos" :key="userRepo.id" >
                       {{userRepo}}
                       <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(user + '/' + userRepo, $event)"
                       :value="false"
@@ -61,7 +61,7 @@
                 <div class="collapse" v-bind:id="orgs.name">
                   <div class="scroll-style-github-projects">
                     <ul class="list-group">
-                      <li class="list-group-item" v-for="repo in orgs.repos">
+                      <li class="list-group-item" v-for="repo in orgs.repos" :key="repo.id">
                         {{repo}}
                         <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(orgs.name + '/' + repo, $event)"
                         :value="false"
@@ -73,7 +73,7 @@
                 </div>
               </div>
               <div v-if="orgsRepos.length != 0">
-                <div v-for="orgs in orgsRepos">
+                <div v-for="orgs in orgsRepos" :key="orgs.id">
                   <h4
                   data-toggle="collapse"
                   class="pointer-cursor dropdown-toggle"
@@ -84,7 +84,7 @@
                   </h4>
                   <div class="collapse" v-bind:id="orgs.name">
                     <ul class="list-group">
-                      <li class="list-group-item" v-for="repo in orgsRepos.repos">
+                      <li class="list-group-item" v-for="repo in orgsRepos.repos" :key="repo.id">
                         {{repo}}
                         <toggle-button class="pointer-cursor" v-on:change="toggleButtonChanged(repo, $event)"
                         :value="false"

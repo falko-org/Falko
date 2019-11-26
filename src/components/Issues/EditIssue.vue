@@ -36,7 +36,7 @@
                 v-model="search"
               ></v-text-field>
               <div class="col" v-if="search != ''">
-                <div class="row" v-for="contributor in filteredContribs">
+                <div class="row" v-for="contributor in filteredContribs" :key="contributor.id">
                 <label class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" v-bind:value="contributor" v-model="selectedContribs">
                     <span class="custom-control-indicator"></span>

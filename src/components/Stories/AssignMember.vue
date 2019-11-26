@@ -18,7 +18,7 @@
               Loading...
             </div>
          		<ul class="list-group" v-else>
-              <li class="list-group-item" v-for="contributor in contributors" >
+              <li class="list-group-item" v-for="contributor in contributors" :key="contributor.id">
                 {{contributor}}
                 <toggle-button class="pointer-cursor" 
                 		v-on:change="toggleButtonChanged(contributor, $event)"

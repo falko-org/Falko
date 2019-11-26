@@ -17,7 +17,7 @@
           <div class="row modal-body">
             <div class="col-md-4">
               <div class="dropdown">
-                <button v-model="burndown" class="btn btn-secondary btn-color dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary btn-color dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ burndownTittle }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -32,10 +32,10 @@
                 <button class="btn btn-secondary btn-color dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ velocityTittle }}
                 </button>
-                <div v-model="velocity" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item items-click" v-on:click="setVelocityValue(0)">0</a>
                   <a class="dropdown-item items-click" v-on:click="setVelocityValue(1)">1</a>
-                  <a class="dropdown-item items-click"v-on:click="setVelocityValue(2)">2</a>
+                  <a class="dropdown-item items-click" v-on:click="setVelocityValue(2)">2</a>
                 </div>
               </div>
             </div>
@@ -44,10 +44,10 @@
                 <button class="btn btn-secondary btn-color dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   {{ debtTittle }}
                 </button>
-                <div v-model="debt" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item items-click" v-on:click="setDebtValue(0)">0</a>
                   <a class="dropdown-item items-click" v-on:click="setDebtValue(1)">1</a>
-                  <a class="dropdown-item items-click"v-on:click="setDebtValue(2)">2</a>
+                  <a class="dropdown-item items-click" v-on:click="setDebtValue(2)">2</a>
                 </div>
               </div>
             </div>

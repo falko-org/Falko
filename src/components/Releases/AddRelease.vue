@@ -48,7 +48,7 @@
               <label>Final Date</label>
               <input type="date" v-model="finalDate" v-bind:min="this.initialDate" name="Final Date" v-validate="'date_format:YYYY-MM-DD|after:Initial Date'">
               <p class="text-danger" v-if="errors.has('Final Date')">{{ errors.first('Final Date') }}</p>
-              </input><br>
+              <br>
             </div>
           </div>
           <div class="modal-footer">
