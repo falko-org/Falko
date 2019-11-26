@@ -45,7 +45,7 @@ import { mapState } from 'vuex';
 import ListRevision from './ListRevision.vue';
 import DeleteRevision from './DeleteRevision.vue';
 import EditRevision from './EditRevision.vue';
-import { HTTP } from '../../http-common';
+import { HTTP as api } from '../../http-common';
 
 export default {
   name: 'Revision',
@@ -70,17 +70,19 @@ export default {
   },
 
   methods: {
-    getRevision() {
+    async getRevision() {
       const headers = { Authorization: this.token };
 
-      HTTP.get(`revisions/${this.$route.params.id}`, { headers })
-        .then((response) => {
-          this.doneReport = response.data.done_report,
-          this.undoneReport = response.data.undone_report;
-        })
-        .catch((e) => {
-          this.errors.push(e);
-        });
+      try {
+        const response = await api.get(
+          `revisions/${this.$route.params.id}`,
+          { headers }
+        );
+        this.doneReport = response.data.done_report;
+        this.undoneReport = response.data.undone_report;
+      } catch(err) {
+        this.errors.push(err);
+      }
     },
   },
 
